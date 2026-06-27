@@ -31,6 +31,12 @@ interface UART.TTL(role)
     // Device Definition: DCE = Data Communications Equipment, DTE = Data Terminal Equipment
     // Connector: Typically 2-pin (TX/RX) or 3-pin (TX/RX/GND)
 
+    pins = [
+        1 = TX, "Transmit"     // Transmit data
+        2 = RX, "Receive"      // Receive data
+        3 = GND, "Signal Ground"  // Signal reference ground
+    ]
+
     // DCE Roles for different voltage levels
     role DCE {  
         name = "UART.TTL DCE"
