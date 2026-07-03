@@ -13,8 +13,8 @@
 # limitations under the License.
 
 // import modules
-pub use ./conn/conn.mc
 pub use ./ifs/ifs.mc
+pub use ./conn/conn.mc
 
 // import files
 pub use ./amp.mc
