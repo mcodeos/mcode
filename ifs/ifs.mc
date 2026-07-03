@@ -15,6 +15,13 @@
 // Interface definitions
 // All interfaces are defined in separate files and imported here
 
+// General Purpose Interfaces
+pub use ./gpio.mc       // GPIO interface
+pub use ./pwm.mc        // PWM interface
+pub use ./onewire.mc    // OneWire interface
+pub use ./xtal.mc       // XTAL interface for crystal oscillators
+pub use ./dc.mc         // DC power supply interface
+
 // Communication Interfaces
 pub use ./uart.mc       // UART interfaces (TTL, RS232, RS422, RS423, RS449, RS485)
 pub use ./i2c.mc        // I2C interface
@@ -33,13 +40,6 @@ pub use ./dac.mc        // DAC interface
 pub use ./flexray.mc    // FlexRay interface
 pub use ./most.mc       // MOST interface
 pub use ./lin.mc        // LIN interface
-
-// General Purpose Interfaces
-pub use ./gpio.mc       // GPIO interface
-pub use ./pwm.mc        // PWM interface
-pub use ./onewire.mc    // OneWire interface
-pub use ./xtal.mc       // XTAL interface for crystal oscillators
-pub use ./dc.mc         // DC power supply interface
 
 // Debug Interfaces
 pub use ./dbg.mc        // Debug interfaces (JTAG, SWD, SWIM, ICD, UART Bootloader)
