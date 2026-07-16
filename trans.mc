@@ -12,12 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+// ---------------------------------------------------------------------------------------------
+// TRANS — Bipolar Junction Transistors (BJT)
+// ---------------------------------------------------------------------------------------------
+
 # Bipolar Junction Transistor (BJT) Component
 component TRANS
 {
     name = "Bipolar Junction Transistor"
     description = "General bipolar junction transistor"
-    
+
     pins = [
         in B = Base     , "Base terminal"
         in C = Collector , "Collector terminal"
@@ -30,7 +34,7 @@ component TRANS.NPN
 {
     name = "NPN Transistor"
     description = "NPN bipolar junction transistor"
-    
+
     pins = [
         in B = Base     , "Base terminal"
         in C = Collector , "Collector terminal"
@@ -43,7 +47,7 @@ component TRANS.PNP
 {
     name = "PNP Transistor"
     description = "PNP bipolar junction transistor"
-    
+
     pins = [
         in B = Base     , "Base terminal"
         in E = Emitter  , "Emitter terminal"
@@ -52,11 +56,11 @@ component TRANS.PNP
 }
 
 # Darlington Transistor Component
-component TRANS.Darlington
+component TRANS.DARLINGTON
 {
     name = "Darlington Transistor"
     description = "Darlington pair transistor"
-    
+
     pins = [
         in B = Base     , "Base terminal"
         in C = Collector , "Collector terminal"
@@ -64,12 +68,16 @@ component TRANS.Darlington
     ]
 }
 
-# MOSFET Component
-component MOSFET
+// ---------------------------------------------------------------------------------------------
+// FET — Field-Effect Transistors (JFET, MOSFET)
+// ---------------------------------------------------------------------------------------------
+
+# Field-Effect Transistor (FET) Component
+component FET
 {
-    name = "MOSFET"
-    description = "Metal-Oxide-Semiconductor Field-Effect Transistor"
-    
+    name = "FET"
+    description = "General field-effect transistor"
+
     pins = [
         in G = Gate    , "Gate terminal"
         in D = Drain   , "Drain terminal"
@@ -77,12 +85,16 @@ component MOSFET
     ]
 }
 
-# NMOS Transistor Component
-component MOSFET.NMOS
+// ---------------------------------------------------------------------------------------------
+// FET.JFET — Junction Field-Effect Transistors
+// ---------------------------------------------------------------------------------------------
+
+# N-Channel JFET Component
+component FET.JFET.N
 {
-    name = "NMOS Transistor"
-    description = "N-channel MOSFET"
-    
+    name = "N-Channel JFET"
+    description = "N-channel junction field-effect transistor"
+
     pins = [
         in G = Gate    , "Gate terminal"
         in D = Drain   , "Drain terminal"
@@ -90,38 +102,59 @@ component MOSFET.NMOS
     ]
 }
 
-# PMOS Transistor Component
-component MOSFET.PMOS
+# P-Channel JFET Component
+component FET.JFET.P
 {
-    name = "PMOS Transistor"
-    description = "P-channel MOSFET"
-    
+    name = "P-Channel JFET"
+    description = "P-channel junction field-effect transistor"
+
     pins = [
         in G = Gate    , "Gate terminal"
-        in S = Source , "Source terminal"
-        out D = Drain   , "Drain terminal"
+        in S = Source  , "Source terminal"
+        out D = Drain  , "Drain terminal"
     ]
 }
 
-# JFET Transistor Component
-component TRANS.JFET
+// ---------------------------------------------------------------------------------------------
+// FET.MOSFET — Metal-Oxide-Semiconductor Field-Effect Transistors
+// ---------------------------------------------------------------------------------------------
+
+# N-Channel MOSFET Component
+component FET.MOSFET.N
 {
-    name = "JFET"
-    description = "Junction Field-Effect Transistor"
-    
+    name = "N-Channel MOSFET"
+    description = "N-channel metal-oxide-semiconductor field-effect transistor"
+
     pins = [
         in G = Gate    , "Gate terminal"
         in D = Drain   , "Drain terminal"
         out S = Source , "Source terminal"
     ]
 }
+
+# P-Channel MOSFET Component
+component FET.MOSFET.P
+{
+    name = "P-Channel MOSFET"
+    description = "P-channel metal-oxide-semiconductor field-effect transistor"
+
+    pins = [
+        in G = Gate    , "Gate terminal"
+        in S = Source  , "Source terminal"
+        out D = Drain  , "Drain terminal"
+    ]
+}
+
+// ---------------------------------------------------------------------------------------------
+// TRANS — Other Transistor-like Devices (IGBT, SCR, TRIAC)
+// ---------------------------------------------------------------------------------------------
 
 # IGBT Component
 component TRANS.IGBT
 {
     name = "IGBT"
     description = "Insulated Gate Bipolar Transistor"
-    
+
     pins = [
         in G = Gate    , "Gate terminal"
         in C = Collector , "Collector terminal"
@@ -134,7 +167,7 @@ component TRANS.SCR
 {
     name = "SCR"
     description = "Silicon Controlled Rectifier"
-    
+
     pins = [
         in G = Gate    , "Gate terminal"
         in A = Anode    , "Anode terminal"
@@ -147,11 +180,10 @@ component TRANS.TRIAC
 {
     name = "TRIAC"
     description = "Triode for Alternating Current"
-    
+
     pins = [
         in G = Gate    , "Gate terminal"
         1 = T1         , "Terminal 1"
         2 = T2         , "Terminal 2"
     ]
 }
-

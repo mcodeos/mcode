@@ -41,3 +41,37 @@ interface I2C(role)
         peer = Master
     }
 }
+
+// ---------------------------------------------------------------------------------------------
+// I2C.SMBUS — System Management Bus (I2C variant)
+// ---------------------------------------------------------------------------------------------
+
+interface I2C.SMBUS(role)
+{
+    topology = "multi-point"
+    mode = ["half duplex"]
+    maxdistance = 1m  // Typically on-board / backplane
+    maxspeed = [10kbps@1m, 100kbps@0.5m]  // 10 kHz minimum, 100 kHz max
+    voltage = [1.8V, 3.3V, 5V]
+    pullup = 1kΩ ~ 10kΩ
+
+    // SMBus (System Management Bus) — SBS Implementers Forum specification
+    // Core Rule: I2C variant with fixed voltage/timing, timeout, and protocol constraints
+    // Applications: Smart battery, thermal monitoring, power management
+    // Key differences from I2C: minimum 10 kHz clock, timeout, packet error checking
+
+    pins = [
+        1 = SCL, "Serial Clock"  // Clock signal
+        2 = SDA, "Serial Data"  // Bidirectional data
+        3 = ALERT, "SMBus Alert"  // Optional interrupt / alert line
+    ]
+
+    role Host {  // SMBus Host - Initiates communication
+        name = "SMBus Host"
+        peer = Slave
+    }
+    role Slave {  // SMBus Slave - Responds to host
+        name = "SMBus Slave"
+        peer = Host
+    }
+}

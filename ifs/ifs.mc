@@ -26,7 +26,8 @@ pub use ./dc.mc         // DC power supply interface
 pub use ./uart.mc       // UART interfaces (TTL, RS232, RS422, RS423, RS449, RS485)
 pub use ./i2c.mc        // I2C interface
 pub use ./i2s.mc        // I2S interface
-pub use ./spi.mc        // SPI interface
+pub use ./spi.mc        // SPI interface (SPI, SPI.3WIRE, SPI.QUAD)
+pub use ./sdio.mc       // SDIO interface (SDIO, SDIO.1BIT)
 pub use ./usb.mc        // USB interface
 pub use ./pcm.mc        // PCM interface
 pub use ./can.mc        // CAN interface

@@ -337,7 +337,9 @@ interface USB.C(role)
     }
 }
 
-// ---------------------------------------------------------------------------------------------// USB Data Interface// ---------------------------------------------------------------------------------------------// USB Data Interface
+// ---------------------------------------------------------------------------------------------
+// USB Data Interface
+// ---------------------------------------------------------------------------------------------
 interface USB.DATA(role)
 {
     topology = "point to point"
@@ -345,22 +347,13 @@ interface USB.DATA(role)
     maxspeed = [1.5Mbps, 12Mbps, 480Mbps]
     name = "USB Data Interface"
     description = "USB data interface with differential signaling"
-    
+
     pins = [
         1 = D\-, "Data Negative"     // Negative data line
         2 = D\+, "Data Positive"     // Positive data line
     ]
-    
-    role Host {  // USB Host - Controls the bus
-        name = "USB Data Host"
-        peer = Device
-    }
-    role Device {  // USB Device - Peripheral device
-        name = "USB Data Device"
-        peer = Host
-    }
 
-    role Host { 
+    role Host {
         name = "USB Host"
         peer = Peripheral
     }
@@ -370,7 +363,9 @@ interface USB.DATA(role)
     }
 }
 
-// ---------------------------------------------------------------------------------------------// USB 3.x SuperSpeed Transmit Interface// ---------------------------------------------------------------------------------------------// USB 3.x SuperSpeed Transmit Interface
+// ---------------------------------------------------------------------------------------------
+// USB 3.x SuperSpeed Transmit Interface
+// ---------------------------------------------------------------------------------------------
 interface USB3.TX(role)
 {
     topology = "point to point"
@@ -394,7 +389,9 @@ interface USB3.TX(role)
     }
 }
 
-// ---------------------------------------------------------------------------------------------// USB 3.x SuperSpeed Receive Interface// ---------------------------------------------------------------------------------------------// USB 3.x SuperSpeed Receive Interface
+// ---------------------------------------------------------------------------------------------
+// USB 3.x SuperSpeed Receive Interface
+// ---------------------------------------------------------------------------------------------
 interface USB3.RX(role)
 {
     topology = "point to point"
@@ -418,7 +415,9 @@ interface USB3.RX(role)
     }
 }
 
-// ---------------------------------------------------------------------------------------------// USB Power Delivery// ---------------------------------------------------------------------------------------------// USB Power Delivery
+// ---------------------------------------------------------------------------------------------
+// USB Power Delivery
+// ---------------------------------------------------------------------------------------------
 interface USB.PD(role)
 {
     topology = "point to point"

@@ -38,7 +38,8 @@ interface LOGIC.NOT
     ]
 }
 
-interface LOGIC.NAND{
+interface LOGIC.NAND
+{
     pins = [
         in A = INA, "Logic input A"
         in B = INB, "Logic input B"
@@ -46,7 +47,8 @@ interface LOGIC.NAND{
     ]
 }
 
-interface LOGIC.NOR {
+interface LOGIC.NOR
+{
     pins = [
         in A = INA, "Logic input A"
         in B = INB, "Logic input B"
@@ -54,7 +56,8 @@ interface LOGIC.NOR {
     ]
 }
 
-interface LOGIC.XOR {
+interface LOGIC.XOR
+{
     pins = [
         in A = INA, "Logic input A"
         in B = INB, "Logic input B"
@@ -62,7 +65,8 @@ interface LOGIC.XOR {
     ]
 }
 
-interface LOGIC.XNOR {
+interface LOGIC.XNOR
+{
     pins = [
         in A = INA, "Logic input A"
         in B = INB, "Logic input B"

@@ -20,7 +20,7 @@
 // Based on interface definitions in ifs/usb.mc
 
 // USB 2.0 Type A Connector
-component USB.TYPE_A()
+component USB.TYPEA()
 {
     name = "USB 2.0 Type A Connector"
     description = "USB 2.0 Type A connector"
@@ -41,7 +41,7 @@ component USB.TYPE_A()
 }
 
 // USB 2.0 Type B Connector
-component USB.TYPE_B()
+component USB.TYPEB()
 {
     name = "USB 2.0 Type B Connector"
     description = "USB 2.0 Type B connector"
@@ -62,7 +62,7 @@ component USB.TYPE_B()
 }
 
 // USB 2.0 Mini Type B Connector
-component USB.MINI_B()
+component USB.MINIB()
 {
     name = "USB 2.0 Mini Type B Connector"
     description = "USB 2.0 Mini Type B connector"
@@ -84,7 +84,7 @@ component USB.MINI_B()
 }
 
 // USB 2.0 Micro Type B Connector
-component USB.MICRO_B()
+component USB.MICROB()
 {
     name = "USB 2.0 Micro Type B Connector"
     description = "USB 2.0 Micro Type B connector"
@@ -109,7 +109,7 @@ component USB.MICRO_B()
 // USB 3.x Connectors
 // ---------------------------------------------------------------------------------------------
 // USB 3.x Type A Connector
-component USB3.TYPE_A()
+component USB3.TYPEA()
 {
     name = "USB 3.x Type A Connector"
     description = "USB 3.x Type A connector"
@@ -138,7 +138,7 @@ component USB3.TYPE_A()
 }
 
 // USB 3.x Type B Connector
-component USB3.TYPE_B()
+component USB3.TYPEB()
 {
     name = "USB 3.x Type B Connector"
     description = "USB 3.x Type B connector"
@@ -168,7 +168,7 @@ component USB3.TYPE_B()
 }
 
 // USB 3.x Micro B Connector
-component USB3.MICRO_B()
+component USB3.MICROB()
 {
     name = "USB 3.x Micro B Connector"
     description = "USB 3.x Micro B connector"
@@ -249,13 +249,13 @@ component USB.C()
 // ---------------------------------------------------------------------------------------------
 // 1. USB 2.0 Type A connector
 
-// USB.TYPE_A()
+// USB.TYPEA()
 
 // 2. USB 2.0 Micro B connector
-// USB.MICRO_B()
+// USB.MICROB()
 
 // 3. USB 3.x Type A connector
-// USB3.TYPE_A()
+// USB3.TYPEA()
 
 // 4. USB-C connector
 // USB.C()
