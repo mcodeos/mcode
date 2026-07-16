@@ -118,7 +118,7 @@ component DIO.TVS(v_br::UV.VOLT, v_clamp::UV.VOLT, p_peak::UV.WAT)
 
 # Photodiode
 # Light-sensitive diode that generates current when exposed to light
-component DIO.PHO(resp::UV.RESPONSIVITY, i_dark::UV.AMP, spec_range::UV.LEN)
+component DIO.PHOTO(resp::UV.RESPONSIVITY, i_dark::UV.AMP, spec_range::UV.LEN)
 {
     name = "Photodiode"
     spec = [
@@ -154,7 +154,7 @@ component DIO.PHO(resp::UV.RESPONSIVITY, i_dark::UV.AMP, spec_range::UV.LEN)
 # DIO.TVS(12V, 15V, 500W).SurgeProtector(sensitive_circuit, ground)
 
 # 5. Photodiode as light sensor
-# light_signal = DIO.PHO(0.5A/W, 1nA, 850nm).LightSensor(5.0V, light_output)
+# light_signal = DIO.PHOTO(0.5A/W, 1nA, 850nm).LightSensor(5.0V, light_output)
 
 # Electrostatic Discharge (ESD) Protection Diode
 # Diode for protecting against electrostatic discharge

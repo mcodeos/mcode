@@ -122,7 +122,7 @@ component REG.BOOST(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, f_sw::UV.HZ)
         5 = FB
     ]
 }
-component REG.BB(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, f_sw::UV.HZ)
+component REG.BUCK_BOOST(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, f_sw::UV.HZ)
 {
     name = "Buck-Boost Regulator"
     spec = [

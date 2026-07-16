@@ -14,7 +14,7 @@
 
 # General Purpose Operational Amplifier
 # Basic op-amp with power supply pins
-component Amplifier(volt::UV.VOLT = 5V)
+component AMP(volt::UV.VOLT = 5V)
 {
     pins = [
         1 = \+ | IN\+      # Non-inverting input
@@ -26,7 +26,7 @@ component Amplifier(volt::UV.VOLT = 5V)
 
 # Instrumentation Amplifier
 # High-precision amplifier with differential inputs and high common-mode rejection
-component Amplifier.INSTRUMENTATION(gain::UV.DB, cmrr::UV.DB, bw::UV.HZ, volt::UV.VOLT = 5V)
+component AMP.INSTRUMENTATION(gain::UV.DB, cmrr::UV.DB, bw::UV.HZ, volt::UV.VOLT = 5V)
 {
     name = "Instrumentation Amplifier"
     spec = [
@@ -55,7 +55,7 @@ component Amplifier.INSTRUMENTATION(gain::UV.DB, cmrr::UV.DB, bw::UV.HZ, volt::U
 
 # Comparator
 # Voltage comparator with open-drain or push-pull output
-component Amplifier.COMPARATOR(hyst::UV.VOLT, t_resp::UV.TIME, volt::UV.VOLT = 5V)
+component AMP.COMPARATOR(hyst::UV.VOLT, t_resp::UV.TIME, volt::UV.VOLT = 5V)
 {
     name = "Comparator"
     spec = [
@@ -81,7 +81,7 @@ component Amplifier.COMPARATOR(hyst::UV.VOLT, t_resp::UV.TIME, volt::UV.VOLT = 5
 
 # Operational Transconductance Amplifier (OTA)
 # Voltage-to-current converter
-component Amplifier.OTA(gm::UV.SIEMENS, i_out::UV.AMP, volt::UV.VOLT = 5V)
+component AMP.OTA(gm::UV.SIEMENS, i_out::UV.AMP, volt::UV.VOLT = 5V)
 {
     name = "Operational Transconductance Amplifier"
     spec = [
@@ -108,7 +108,7 @@ component Amplifier.OTA(gm::UV.SIEMENS, i_out::UV.AMP, volt::UV.VOLT = 5V)
 
 # Buffer Amplifier
 # Unity gain buffer with high input impedance
-component Amplifier.BUFFER(z_in::UV.OHM, i_out::UV.AMP, volt::UV.VOLT = 5V)
+component AMP.BUFFER(z_in::UV.OHM, i_out::UV.AMP, volt::UV.VOLT = 5V)
 {
     name = "Buffer Amplifier"
     spec = [
@@ -132,16 +132,16 @@ component Amplifier.BUFFER(z_in::UV.OHM, i_out::UV.AMP, volt::UV.VOLT = 5V)
 
 # Usage Examples:
 # 1. Basic operational amplifier
-# Amplifier(12V)
+# AMP(12V)
 
 # 2. Instrumentation amplifier as differential amplifier
-# output = Amplifier.INSTRUMENTATION(60dB, 120dB, 1MHz, 15V).DifferentialAmplifier(sensor_pos, sensor_neg, ground)
+# output = AMP.INSTRUMENTATION(60dB, 120dB, 1MHz, 15V).DifferentialAmplifier(sensor_pos, sensor_neg, ground)
 
 # 3. Comparator as voltage level detector
-# output = Amplifier.COMPARATOR(50mV, 10ns, 5V).VoltageComparator(reference_voltage, input_voltage)
+# output = AMP.COMPARATOR(50mV, 10ns, 5V).VoltageComparator(reference_voltage, input_voltage)
 
 # 4. OTA as voltage-controlled current source
-# current_output = Amplifier.OTA(1mS, 100mA, 12V).VoltageToCurrentConverter(control_voltage, bias_current)
+# current_output = AMP.OTA(1mS, 100mA, 12V).VoltageToCurrentConverter(control_voltage, bias_current)
 
 # 5. Buffer amplifier for impedance matching
-# buffered_signal = Amplifier.BUFFER(1TΩ, 50mA, 9V).UnityGainBuffer(high_impedance_input)
+# buffered_signal = AMP.BUFFER(1TΩ, 50mA, 9V).UnityGainBuffer(high_impedance_input)

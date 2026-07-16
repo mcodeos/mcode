@@ -77,7 +77,7 @@ component OSC(f::UV.HZ)
 }
 
 # Ceramic Resonator Component
-component CER_RES(f::UV.HZ)
+component XTAL.CERAMIC(f::UV.HZ)
 {
     name = "Ceramic Resonator"
     description = "Ceramic resonator for timing applications"
@@ -124,7 +124,7 @@ component XTAL.SMD(freq::UV.HZ, cload::UV.CAP)
 # OSC(10MHz)
 
 # 4. Ceramic resonator
-# CER_RES(8MHz)
+# XTAL.CERAMIC(8MHz)
 
 # 5. SMD crystal with specified load capacitance
 # XTAL.SMD(32.768kHz, 12pF).Cap(gnd)

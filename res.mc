@@ -125,9 +125,14 @@ component RES.POT(rs::UV.OHM, volt::UV.VOLT)
     }
 }
 
-# Thermistor
-# Suitable for temperature sensing applications
-component RES.THERM(rs::UV.OHM)
+// ---------------------------------------------------------------------------------------------
+// RES.THERM — Thermistors (temperature-dependent resistors)
+// RES.NTC = Negative Temperature Coefficient (resistance decreases with heat)
+// RES.PTC = Positive Temperature Coefficient (resistance increases with heat)
+// ---------------------------------------------------------------------------------------------
+
+# Thermistor (generic)
+component RES.THERM(rs::UV.OHM, volt::UV.VOLT)
 {
     name = "Thermistor"
     spec = [
@@ -137,14 +142,64 @@ component RES.THERM(rs::UV.OHM)
         temperature_coefficient = _
     ]
 
-    pins = [ 
+    pins = [
         1 = 1
-        2 = 2 
+        2 = 2
     ]
-    
+
     func TemperatureSensor(voltage_ref, output)
     {
         voltage_ref - this - output
+        return output
+    }
+}
+
+# NTC Thermistor
+# Resistance decreases as temperature rises — commonly used for temperature sensing
+component RES.NTC(rs::UV.OHM, beta::INT, volt::UV.VOLT)
+{
+    name = "NTC Thermistor"
+    spec = [
+        resistance = rs // [1kΩ, 10kΩ, 50kΩ, 100kΩ]
+        beta_coefficient = beta // B-constant (e.g. 3950, 4100)
+        voltage = volt // [5V, 12V, 24V, 50V, 100V, 250V]
+        tolerance = _ // [±1%, ±5%, ±10%]
+        temperature_coefficient = "NTC"
+    ]
+
+    pins = [
+        1 = 1
+        2 = 2
+    ]
+
+    func TemperatureSensor(voltage_ref, output)
+    {
+        voltage_ref - this - output
+        return output
+    }
+}
+
+# PTC Thermistor
+# Resistance increases as temperature rises — commonly used for overcurrent protection
+component RES.PTC(rs::UV.OHM, i_trip::UV.AMP, volt::UV.VOLT)
+{
+    name = "PTC Thermistor"
+    spec = [
+        resistance = rs // [1Ω, 10Ω, 50Ω, 100Ω, 500Ω]
+        trip_current = i_trip // Current at which resistance increases sharply
+        voltage = volt // [5V, 12V, 24V, 50V, 100V, 250V]
+        tolerance = _ // [±5%, ±10%, ±20%]
+        temperature_coefficient = "PTC"
+    ]
+
+    pins = [
+        1 = 1
+        2 = 2
+    ]
+
+    func OvercurrentProtection(input, output)
+    {
+        input - this - output
         return output
     }
 }
@@ -168,5 +223,11 @@ component RES.THERM(rs::UV.OHM)
 # 6. Potentiometer as voltage divider
 # output = RES.POT(10kΩ, 250V).VoltageDivider(vcc, output, gnd)
 
-# 7. Thermistor usage
-# temp_signal = RES.THERM(10kΩ).TemperatureSensor(vcc, temp_signal)
+# 7. Thermistor usage (generic)
+# temp_signal = RES.THERM(10kΩ, 250V).TemperatureSensor(vcc, temp_signal)
+
+# 8. NTC thermistor (temperature sensing)
+# temp_signal = RES.NTC(10kΩ, 3950, 5V).TemperatureSensor(vcc, temp_signal)
+
+# 9. PTC thermistor (overcurrent protection)
+# protected = RES.PTC(100Ω, 500mA, 12V).OvercurrentProtection(input, protected)
