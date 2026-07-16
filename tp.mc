@@ -12,18 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Test Point Component
-component TEST_POINT()
+# Test Point — industry standard "TP" (TP1, TP2 ... on schematics/PCB)
+# count::INT — number of test points (default 1)
+#   TP(4) → 4 test points: 1..4 = 1..4
+component TP(count::INT = 1)
 {
     name = "Test Point"
     description = "Electrical test point for circuit debugging"
-    
+
     pins = [
-        1 = TEST        # Test point connection
+        1:count = 1:count
     ]
-    
+
     func TestPoint()
     {
-        return this.TEST
+        return this[1]
     }
 }

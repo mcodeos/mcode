@@ -12,8 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-// 1-Wire
-interface ONEWIRE(role)
+// 1-Wire Standard Definition
+// Core Rule: Single wire communication with parasitic power
+// 1-Wire Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
+// Device Definition: Master = Initiates communication, Slave = Responds to master
+// Applications: Temperature sensors (DS18B20), EEPROM, iButton
+//
+// count::INT — number of 1-Wire buses (default 1)
+//   ONEWIRE(2, Master) → 2 buses: 1..2 = 1..2
+interface ONEWIRE(count::INT = 1, role)
 {
     topology = "multi-point"
     mode = ["half duplex"]
@@ -21,21 +28,15 @@ interface ONEWIRE(role)
     maxspeed = [16kbps]
     voltage = [1.8V,3.3V,5V]
 
-    // 1-Wire Standard Definition
-    // Core Rule: Single wire communication with parasitic power
-    // 1-Wire Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Master = Initiates communication, Slave = Responds to master
-    // Applications: Temperature sensors (DS18B20), EEPROM, iButton
-
     pins = [
-        1 = DQ, "Data"    // Bidirectional data line
+        1:count = 1:count
     ]
-    
+
     role Master {
         name = "1-Wire Master"
         peer = Slave
     }
-    
+
     role Slave {
         name = "1-Wire Slave"
         peer = Master
