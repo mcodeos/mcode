@@ -12,8 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-// PWM
-interface PWM(role)
+// PWM (Pulse Width Modulation) Standard Definition
+// Core Rule: Digital signal with adjustable duty cycle
+// PWM Level Spec: High = VCC, Low = GND
+// Device Definition: Controller = Microcontroller, Peripheral = Device controlled by PWM
+// Applications: Motor speed control, LED dimming, servo position control
+//
+// count::INT — number of PWM channels (default 1)
+//   PWM(4, Controller) → 4 channels: 1..4 = 1..4
+interface PWM(count::INT = 1, role)
 {
     topology = "point to point"
     mode = ["output"]
@@ -21,21 +28,15 @@ interface PWM(role)
     maxspeed = [1MHz]
     voltage = [1.8V,3.3V,5V]
 
-    // PWM (Pulse Width Modulation) Standard Definition
-    // Core Rule: Digital signal with adjustable duty cycle
-    // PWM Level Spec: High = VCC, Low = GND
-    // Device Definition: Controller = Microcontroller, Peripheral = Device controlled by PWM
-    // Applications: Motor speed control, LED dimming, servo position control
-
     pins = [
-        1 = PWM, "PWM Output"    // PWM signal output
+        1:count = 1:count
     ]
-    
+
     role Controller {
         name = "PWM Controller"
         peer = Peripheral
     }
-    
+
     role Peripheral {
         name = "PWM Peripheral"
         peer = Controller

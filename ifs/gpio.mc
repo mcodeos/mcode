@@ -12,8 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-// GPIO
-interface GPIO(role)
+// GPIO (General Purpose Input/Output) Standard Definition
+// Core Rule: General purpose digital input/output pins
+// GPIO Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
+// Device Definition: Controller = Microcontroller, Peripheral = Any digital device
+// Applications: LEDs, buttons, relays, digital sensors
+//
+// count::INT — number of GPIO pins (default 1)
+//   GPIO(1, Controller)   → single pin:  1 = 1
+//   GPIO(4, Peripheral)   → 4 pins:      1..4 = 1..4
+interface GPIO(count::INT = 1, role)
 {
     topology = "point to point"
     mode = ["input", "output", "bidirectional"]
@@ -21,21 +29,18 @@ interface GPIO(role)
     maxspeed = [100MHz]
     voltage = [1.8V,3.3V,5V]
 
-    // GPIO (General Purpose Input/Output) Standard Definition
-    // Core Rule: General purpose digital input/output pins
-    // GPIO Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Controller = Microcontroller, Peripheral = Any digital device
-    // Applications: LEDs, buttons, relays, digital sensors
-
+    // Dynamic pin generation: 1:count = 1:count (same pattern as HDR_SINGLE)
+    // count=1 → pin 1 = 1
+    // count=4 → pins 1..4 = 1..4
     pins = [
-        1 = IO, "Input/Output"    // General purpose I/O pin
+        1:count = 1:count
     ]
-    
+
     role Controller {
         name = "GPIO Controller"
         peer = Peripheral
     }
-    
+
     role Peripheral {
         name = "GPIO Peripheral"
         peer = Controller

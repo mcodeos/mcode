@@ -33,6 +33,7 @@ pub use ./relay.mc
 pub use ./res.mc
 pub use ./sensor.mc
 pub use ./switch.mc
+pub use ./tp.mc
 pub use ./trans.mc
 pub use ./xfr.mc
 pub use ./units.mc
