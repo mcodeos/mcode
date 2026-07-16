@@ -24,26 +24,24 @@ interface UART.TTL(role)
 
     // UART.TTL Standard Definition
     // Core Rule: Point-to-point serial communication using TTL voltage levels
-    // TTL Level Spec: 
+    // 2-wire (TX/RX), GND shared through power domain — same as I2C/SPI
+    // TTL Level Spec:
     //   1.8V TTL: High = 1.2V ~ 1.8V (Logic 1), Low = 0V ~ 0.4V (Logic 0)
     //   3.3V TTL: High = 2V ~ 3.3V (Logic 1), Low = 0V ~ 0.8V (Logic 0)
     //   5V TTL: High = 2V ~ 5V (Logic 1), Low = 0V ~ 0.8V (Logic 0)
     // Device Definition: DCE = Data Communications Equipment, DTE = Data Terminal Equipment
-    // Connector: Typically 2-pin (TX/RX) or 3-pin (TX/RX/GND)
 
     pins = [
         1 = TX, "Transmit"     // Transmit data
         2 = RX, "Receive"      // Receive data
-        3 = GND, "Signal Ground"  // Signal reference ground
     ]
 
     // DCE Roles for different voltage levels
-    role DCE {  
+    role DCE {
         name = "UART.TTL DCE"
         pins = [
             1 = TX, "Transmit"  // Cross-connect to DTE RX
             2 = RX, "Receive"   // Cross-connect to DTE TX
-            3 = GND, "Signal Ground"  // Signal reference ground
         ]
         peer = DTE
     }
@@ -54,7 +52,6 @@ interface UART.TTL(role)
         pins = [
             1 = TX, "Transmit", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DTE_1V8 RX
             2 = RX, "Receive", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DTE_1V8 TX
-            3 = GND, "Signal Ground"                               // Signal reference ground
         ]
         peer = DTE_1V8
     }
@@ -64,7 +61,6 @@ interface UART.TTL(role)
         pins = [
             1 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DTE_3V3 RX
             2 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DTE_3V3 TX
-            3 = GND, "Signal Ground"                               // Signal reference ground
         ]
         peer = DTE_3V3
     }
@@ -74,7 +70,6 @@ interface UART.TTL(role)
         pins = [
             1 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DTE_5V RX
             2 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DTE_5V TX
-            3 = GND, "Signal Ground"                               // Signal reference ground
         ]
         peer = DTE_5V
     }
@@ -85,7 +80,6 @@ interface UART.TTL(role)
         pins = [ 
             1 = RX, "Receive"           // Cross-connect to DCE TX
             2 = TX, "Transmit"          // Cross-connect to DCE RX
-            3 = GND, "Signal Ground"    // Signal reference ground
         ]
         peer = DCE
     }
@@ -96,7 +90,6 @@ interface UART.TTL(role)
         pins = [ 
             1 = RX, "Receive", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DCE_1V8 TX
             2 = TX, "Transmit", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DCE_1V8 RX
-            3 = GND, "Signal Ground"                               // Signal reference ground
         ]
         peer = DCE_1V8
     }
@@ -106,7 +99,6 @@ interface UART.TTL(role)
         pins = [ 
             1 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DCE_3V3 TX
             2 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DCE_3V3 RX
-            3 = GND, "Signal Ground"                               // Signal reference ground
         ]
         peer = DCE_3V3
     }
@@ -116,7 +108,6 @@ interface UART.TTL(role)
         pins = [ 
             1 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DCE_5V TX
             2 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DCE_5V RX
-            3 = GND, "Signal Ground"                               // Signal reference ground
         ]
         peer = DCE_5V
     }
@@ -251,6 +242,25 @@ interface UART.RS422(role)
             3 = GND, "Signal Ground"                                   // Signal reference ground
         ]
         peer = TX  // Paired with RS422 Transmitter
+    }
+
+    // -------------------------- RS422 2-Wire variants (A/B only, no GND) --------------------------
+    role TX2W {  // RS422 Transmitter - 2-wire, same-cabinet use
+        name = "RS422 Transmitter 2W"
+        pins = [
+            1 = A, "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            2 = B, "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+        ]
+        peer = RX2W
+    }
+
+    role RX2W {  // RS422 Receiver - 2-wire, same-cabinet use
+        name = "RS422 Receiver 2W"
+        pins = [
+            1 = A, "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            2 = B, "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+        ]
+        peer = TX2W
     }
 }
 
@@ -400,6 +410,25 @@ interface UART.RS485(role)
             3 = GND, "Signal Ground"                           // Signal reference ground
         ]
         peer = Master  // Paired with RS485 Master
+    }
+
+    // -------------------------- RS485 2-Wire variants (A/B only, no GND) --------------------------
+    role Master2W {  // RS485 Master - 2-wire, same-cabinet use
+        name = "RS485 Master 2W"
+        pins = [
+            1 = A, "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            2 = B, "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+        ]
+        peer = Slave2W
+    }
+
+    role Slave2W {  // RS485 Slave - 2-wire, same-cabinet use
+        name = "RS485 Slave 2W"
+        pins = [
+            1 = A, "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            2 = B, "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+        ]
+        peer = Master2W
     }
 
     // -------------------------- RS485 Repeater --------------------------
