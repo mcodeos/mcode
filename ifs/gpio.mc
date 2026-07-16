@@ -21,7 +21,7 @@
 // count::INT — number of GPIO pins (default 1)
 //   GPIO(1, Controller)   → single pin:  1 = 1
 //   GPIO(4, Peripheral)   → 4 pins:      1..4 = 1..4
-interface GPIO(count::INT = 1, role)
+interface GPIO(count::INT = 1, role = Controller)
 {
     topology = "point to point"
     mode = ["input", "output", "bidirectional"]
