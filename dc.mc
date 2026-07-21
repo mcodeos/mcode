@@ -33,14 +33,15 @@ component DC.SRC(volt::UV.VOLT, curr::UV.AMP)
 }
 
 # DC Battery Component
-component DC.BAT(volt::UV.VOLT, cap::UV.CAP)
+# MCC does not yet accept UV.CHARGE as a parameter type, so charge stays untyped.
+component DC.BAT(volt::UV.VOLT, charge)
 {
     name = "DC Battery"
     description = "DC battery"
     
     spec = [
         voltage = volt // [1.5V, 3V, 3.7V, 9V, 12V]
-        capacity = cap // [100mAh, 500mAh, 1000mAh, 2000mAh, 5000mAh]
+        capacity = charge // [100mAh, 500mAh, 1000mAh, 2000mAh, 5000mAh]
     ]
     
     pins = [ 
