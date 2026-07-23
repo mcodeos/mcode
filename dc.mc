@@ -33,8 +33,7 @@ component DC.SRC(volt::UV.VOLT, curr::UV.AMP)
 }
 
 # DC Battery Component
-# MCC does not yet accept UV.CHARGE as a parameter type, so charge stays untyped.
-component DC.BAT(volt::UV.VOLT, charge)
+component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE)
 {
     name = "DC Battery"
     description = "DC battery"
