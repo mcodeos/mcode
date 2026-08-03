@@ -12,152 +12,324 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Basic Inductor Component
-# Generic inductor with fundamental parameters
-component IND(ind::UV.IND, maxi::UV.AMP, esr::UV.OHM)
+// ---------------------------------------------------------------------------------------------
+// Inductor Component Definitions
+// Aligned with RES / CAP design convention
+// Two-terminal parts share Series(); topology-different parts have dedicated functions
+// construction uses string tag, no enum
+// Part metadata: partno / package / manufacturer moved out of spec (top-level)
+// spec only contains electrical parameters
+// Naming: rated_current = thermal rating; sat_current = saturation current (power inductor only)
+// ---------------------------------------------------------------------------------------------
+
+// =============================================================================
+// Generic two-terminal inductor (unbound package)
+// =============================================================================
+component IND(
+    ind::UV.IND,
+    rated_current::UV.AMP,
+    tol::UV.PERCENT = ±10%,
+    dcr::UV.OHM
+)
 {
     name = "Inductor"
+    description = "Generic two-terminal inductor"
+
+    partno = _
+    package = _
+    manufacturer = _
+
+    pins = [
+        1 = 1, "Term 1"
+        2 = 2, "Term 2"
+    ]
+
     spec = [
         inductance = ind
-        maximum_current = maxi
-        equivalent_series_resistance = esr
+        rated_current = rated_current
+        dcr = dcr
+        tolerance = tol
+        temp_min = _
+        temp_max = _
+        construction = _
+        rohs = _
+        derating_note = _
     ]
-    
-    pins = [
-        1 = PIN1            # First terminal
-        2 = PIN2            # Second terminal
-    ]
-    
-    func Filter(input, output)
+
+    func Series(netA, netB)
     {
-        input - this.PIN1
-        this.PIN2 - output
-        return this
-    }
-    
-    func EnergyStorage(power_supply, load)
-    {
-        power_supply - this.PIN1
-        this.PIN2 - load
-        return this
+        netA - this[1]
+        this[2] - netB
+        return netA, netB
     }
 }
 
-# Power Inductor
-# Inductor designed for power supply applications
-component IND.POWER(ind::UV.IND, maxi::UV.AMP, isat::UV.AMP, esr::UV.OHM)
+// =============================================================================
+// SMD Inductor
+// =============================================================================
+component IND.SMD(
+    ind::UV.IND,
+    rated_current::UV.AMP,
+    tol::UV.PERCENT = ±10%,
+    dcr::UV.OHM
+)
+{
+    name = "SMD Inductor"
+    description = "Surface mount two-terminal inductor"
+
+    partno = _
+    package = _
+    manufacturer = _
+
+    pins = [
+        1 = 1, "Term 1"
+        2 = 2, "Term 2"
+    ]
+
+    spec = [
+        inductance = ind
+        rated_current = rated_current
+        dcr = dcr
+        tolerance = tol
+        temp_min = _
+        temp_max = _
+        construction = "SMD"
+        rohs = _
+        derating_note = _
+    ]
+
+    func Series(netA, netB)
+    {
+        netA - this[1]
+        this[2] - netB
+        return netA, netB
+    }
+}
+
+// =============================================================================
+// THT Inductor
+// =============================================================================
+component IND.THT(
+    ind::UV.IND,
+    rated_current::UV.AMP,
+    tol::UV.PERCENT = ±10%,
+    dcr::UV.OHM
+)
+{
+    name = "Through Hole Inductor"
+    description = "Through-hole two-terminal inductor"
+
+    partno = _
+    package = _
+    manufacturer = _
+
+    pins = [
+        1 = 1, "Term 1"
+        2 = 2, "Term 2"
+    ]
+
+    spec = [
+        inductance = ind
+        rated_current = rated_current
+        dcr = dcr
+        tolerance = tol
+        temp_min = _
+        temp_max = _
+        construction = "THT"
+        rohs = _
+        derating_note = _
+    ]
+
+    func Series(netA, netB)
+    {
+        netA - this[1]
+        this[2] - netB
+        return netA, netB
+    }
+}
+
+// =============================================================================
+// Power Inductor (DC-DC, add saturation current)
+// =============================================================================
+component IND.POWER(
+    ind::UV.IND,
+    rated_current::UV.AMP,
+    sat_current::UV.AMP,
+    tol::UV.PERCENT = ±20%,
+    dcr::UV.OHM
+)
 {
     name = "Power Inductor"
+    description = "Power inductor for DC-DC converters, with saturation current"
+
+    partno = _
+    package = _
+    manufacturer = _
+
+    pins = [
+        1 = 1, "Term 1"
+        2 = 2, "Term 2"
+    ]
+
     spec = [
         inductance = ind
-        maximum_current = maxi
-        saturation_current = isat
-        equivalent_series_resistance = esr
+        rated_current = rated_current
+        sat_current = sat_current
+        dcr = dcr
+        tolerance = tol
+        temp_min = _
+        temp_max = _
+        construction = _
+        rohs = _
+        derating_note = _
     ]
-    
-    pins = [
-        1 = PIN1            # First terminal
-        2 = PIN2            # Second terminal
-    ]
-    
-    func DcToDcConverter(input, output)
+
+    func Series(netA, netB)
     {
-        input - this.PIN1
-        this.PIN2 - output
-        return this
+        netA - this[1]
+        this[2] - netB
+        return netA, netB
     }
 }
 
-# High Frequency Inductor
-# Inductor designed for high frequency applications
-component IND.HF(ind::UV.IND, maxi::UV.AMP, srf::UV.HZ, esr::UV.OHM)
+// =============================================================================
+// HF Inductor (RF, add self-resonant frequency)
+// =============================================================================
+component IND.HF(
+    ind::UV.IND,
+    rated_current::UV.AMP,
+    srf::UV.HZ,
+    tol::UV.PERCENT = ±5%,
+    dcr::UV.OHM
+)
 {
-    name = "High Frequency Inductor"
+    name = "HF Inductor"
+    description = "High-frequency / RF inductor with SRF"
+
+    partno = _
+    package = _
+    manufacturer = _
+
+    pins = [
+        1 = 1, "Term 1"
+        2 = 2, "Term 2"
+    ]
+
     spec = [
         inductance = ind
-        maximum_current = maxi
-        self_resonant_frequency = srf
-        equivalent_series_resistance = esr
+        rated_current = rated_current
+        srf = srf
+        dcr = dcr
+        tolerance = tol
+        temp_min = _
+        temp_max = _
+        construction = _
+        rohs = _
+        derating_note = _
     ]
-    
-    pins = [
-        1 = PIN1            # First terminal
-        2 = PIN2            # Second terminal
-    ]
-    
-    func RFFilter(input, output)
+
+    func Series(netA, netB)
     {
-        input - this.PIN1
-        this.PIN2 - output
-        return this
+        netA - this[1]
+        this[2] - netB
+        return netA, netB
     }
 }
 
-# Common Mode Choke
-# Inductor designed to suppress common mode noise
-component IND.CMC(ind::UV.IND, maxi::UV.AMP, imp::UV.OHM, freq::UV.HZ)
-{
-    name = "Common Mode Choke"
-    spec = [
-        inductance = ind
-        maximum_current = maxi
-        impedance = imp
-        test_frequency = freq
-    ]
-    
-    pins = [
-        1 = IN1             # Input for first winding
-        2 = OUT1            # Output for first winding
-        3 = IN2             # Input for second winding
-        4 = OUT2            # Output for second winding
-    ]
-    
-    func NoiseSuppressor(signal_in, signal_out, ground_in, ground_out)
-    {
-        signal_in - this.IN1
-        this.OUT1 - signal_out
-        ground_in - this.IN2
-        this.OUT2 - ground_out
-        return this
-    }
-}
-
-# Ferrite Bead
-# Ferrite component for high frequency noise suppression
-component IND.FB(imp::UV.OHM, maxi::UV.AMP, freq::UV.HZ)
+// =============================================================================
+// Ferrite Bead (not inductor: impedance, no inductance param)
+// =============================================================================
+component IND.FB(
+    impedance::UV.OHM,
+    rated_current::UV.AMP,
+    test_frequency::UV.HZ
+)
 {
     name = "Ferrite Bead"
-    spec = [
-        impedance = imp
-        maximum_current = maxi
-        test_frequency = freq
-    ]
-    
+    description = "Ferrite bead for high-frequency noise suppression"
+
+    partno = _
+    package = _
+    manufacturer = _
+
     pins = [
-        1 = PIN1            # First terminal
-        2 = PIN2            # Second terminal
+        1 = 1, "Term 1"
+        2 = 2, "Term 2"
     ]
-    
-    func NoiseSuppressor(signal_in, signal_out)
+
+    spec = [
+        impedance = impedance
+        rated_current = rated_current
+        test_frequency = test_frequency
+        temp_min = _
+        temp_max = _
+        construction = _
+        rohs = _
+        derating_note = _
+    ]
+
+    func Series(netA, netB)
     {
-        signal_in - this.PIN1
-        this.PIN2 - signal_out
-        return this
+        netA - this[1]
+        this[2] - netB
+        return netA, netB
     }
 }
 
-# Usage Examples:
-# 1. Basic inductor as filter
-# IND(100μH, 1.0A, 0.1Ω).Filter(input_signal, filtered_output)
+// =============================================================================
+// Common Mode Choke (4-pin, topology different → independent component)
+// =============================================================================
+component IND.CMC(
+    ind::UV.IND,
+    rated_current::UV.AMP,
+    impedance::UV.OHM,
+    tol::UV.PERCENT = ±20%,
+    test_frequency::UV.HZ
+)
+{
+    name = "Common Mode Choke"
+    description = "4-terminal common mode choke"
 
-# 2. Power inductor for DC-DC converter
-# IND.POWER(47μH, 3.0A, 4.0A, 0.05Ω).DcToDcConverter(input_voltage, output_voltage)
+    partno = _
+    package = _
+    manufacturer = _
 
-# 3. High frequency inductor for RF filter
-# IND.HF(10μH, 0.5A, 50MHz, 0.2Ω).RFFilter(rf_input, filtered_rf)
+    pins = [
+        1 = 1, "W1_IN"
+        2 = 2, "W1_OUT"
+        3 = 3, "W2_IN"
+        4 = 4, "W2_OUT"
+    ]
 
-# 4. Common mode choke for noise suppression
-# IND.CMC(100μH, 2.0A, 100Ω, 100MHz).NoiseSuppressor(data_in, data_out, gnd_in, gnd_out)
+    spec = [
+        inductance = ind
+        rated_current = rated_current
+        impedance = impedance
+        tolerance = tol
+        test_frequency = test_frequency
+        temp_min = _
+        temp_max = _
+        construction = _
+        rohs = _
+        derating_note = _
+    ]
 
-# 5. Ferrite bead for high frequency noise suppression
-# IND.FB(100Ω, 1.0A, 100MHz).NoiseSuppressor(signal_in, signal_out)
+    func CommonModeSuppress(w1_in, w1_out, w2_in, w2_out)
+    {
+        w1_in - this[1]
+        this[2] - w1_out
+        w2_in - this[3]
+        this[4] - w2_out
+        return w1_out, w2_out
+    }
+}
+
+# =============================================================================
+# Usage Examples
+# =============================================================================
+# IND(100μH, 1A, 0.1Ω).Series(nodeA, nodeB)
+# IND.SMD(47μH, 2A, 0.08Ω).Series(sw_node, ldo_in)
+# IND.POWER(47μH, 3A, 4A, 0.05Ω).Series(sw, out)
+# IND.HF(10μH, 0.5A, 50MHz, 0.2Ω).Series(rf_in, filter_out)
+# IND.FB(100Ω, 1A, 100MHz).Series(io_line, soc_pin)
+# IND.CMC(100μH, 2A, 100Ω, 100MHz).CommonModeSuppress(line_in, line_out, ret_in, ret_out)
