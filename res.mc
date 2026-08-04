@@ -26,7 +26,7 @@ component RES(
     volt::UV.VOLT,
     power::UV.WATT,
     tol::UV.PERCENT = 5%,
-    tc::UV.PPM_PER_C = 100.0ppm/℃
+    tc::UV.PPM/UV.TEMP = 100.0ppm/℃
 )
 {
     name = "Resistor"
@@ -83,7 +83,7 @@ component RES.SMD(
     volt::UV.VOLT,
     power::UV.WATT,
     tol::UV.PERCENT = 5%,
-    tc::UV.PPM_PER_C = 100.0ppm/℃
+    tc::UV.PPM/UV.TEMP = 100.0ppm/℃
 )
 {
     name = "SMD Resistor"
@@ -140,7 +140,7 @@ component RES.SMD_POWER(
     volt::UV.VOLT,
     power::UV.WATT,
     tol::UV.PERCENT = 5%,
-    tc::UV.PPM_PER_C = 100.0ppm/℃
+    tc::UV.PPM/UV.TEMP = 100.0ppm/℃
 )
 {
     name = "SMD Power Resistor"
@@ -183,7 +183,7 @@ component RES.THT(
     volt::UV.VOLT,
     power::UV.WATT,
     tol::UV.PERCENT = 5%,
-    tc::UV.PPM_PER_C = 200.0ppm/℃
+    tc::UV.PPM/UV.TEMP = 100.0ppm/℃
 )
 {
     name = "Through Hole Resistor"
@@ -378,7 +378,7 @@ component RES.ARRAY(
     volt::UV.VOLT,
     power::UV.WATT,
     tol::UV.PERCENT = 5%,
-    tc::UV.PPM_PER_C = 100.0ppm/℃,
+    tc::UV.PPM/UV.TEMP = 100.0ppm/℃,
     channel_count::INT = 4,
     mount::STRING = "ARRAY_SMD"
 )
@@ -416,12 +416,12 @@ component RES.ARRAY(
 # =============================================================================
 # Usage Examples
 # =============================================================================
-# RES(10kΩ, 50V, 0.125W, 5%, 100.0ppm/℃).Pullup(signal, vcc)
-# RES.SMD(470Ω, 50V, 0.125W, 5%, 100.0ppm/℃).Pulldown(enable, gnd)
-# RES.THT(1kΩ, 250V, 0.25W, 5%, 200.0ppm/℃).Series(vcc, load)
-# RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100.0ppm/℃).Series(vout, load)
+# RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pullup(signal, vcc)
+# RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pulldown(enable, gnd)
+# RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃).Series(vcc, load)
+# RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃).Series(vout, load)
 # RES.POT(10kΩ, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
 # RES.NTC(10kΩ, 3950, 5V, 5%).Series(ntc_node, gnd)
 # RES.PTC(100mΩ, 500mA, 24V, 20%).Series(vin, load)
-# RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100.0ppm/℃, 4, "ARRAY_SMD")
-# RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100.0ppm/℃, 4, "ARRAY_THT")
+# RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_SMD")
+# RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_THT")
