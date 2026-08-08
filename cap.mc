@@ -71,8 +71,8 @@ component CAP(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT = ±10%, 
-    diel::CAP = X7R,
-    cons::CAP = MLCC
+    diel = CAP.X7R,
+    cons = CAP.MLCC
 )
 {
     name = "Capacitor"
@@ -117,7 +117,7 @@ component CAP.ELEC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT = ±10%,
-    cons::CAP = WET_ALUMINUM
+    cons = CAP.WET_ALUMINUM
 )
 {
     name = "Electrolytic Capacitor"
@@ -163,7 +163,7 @@ component CAP.MLCC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT = ±10%,
-    diel::CAP = X7R
+    diel = CAP.X7R
 )
 {
     name = "MLCC Capacitor"
@@ -208,7 +208,7 @@ component CAP.DISC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT = ±10%,
-    diel::CAP = C0G
+    diel = CAP.C0G
 )
 {
     name = "Disc Ceramic Capacitor"
@@ -253,7 +253,7 @@ component CAP.TANT(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT = ±10%,
-    cons::CAP = WET_TANTALUM
+    cons = CAP.WET_TANTALUM
 )
 {
     name = "Tantalum Capacitor"
@@ -342,7 +342,7 @@ component CAP.FILM(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT = ±5%,
-    diel::CAP = POLYPROPYLENE
+    diel = CAP.POLYPROPYLENE
 )
 {
     name = "Film Capacitor"
@@ -432,8 +432,8 @@ component CAP.SAFETY(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT = ±10%,
-    diel::CAP = POLYPROPYLENE,
-    cls::CAP = SC_X2
+    diel = CAP.POLYPROPYLENE,
+    cls = CAP.SC_X2
 )
 {
     name = "Safety Capacitor X/Y"
