@@ -69,7 +69,7 @@ component DIO.SCH(v_fwd::UV.VOLT, v_rev::UV.VOLT, i_max::UV.AMP)
 
 # Zener Diode
 # Voltage regulating diode that operates in reverse bias
-component DIO.ZEN(v_z::UV.VOLT, p::UV.WAT, tol::UV.PERCENT)
+component DIO.ZEN(v_z::UV.VOLT, p::UV.WATT, tol::UV.PERCENT)
 {
     name = "Zener Diode"
     spec = [
@@ -94,7 +94,7 @@ component DIO.ZEN(v_z::UV.VOLT, p::UV.WAT, tol::UV.PERCENT)
 
 # Transient Voltage Suppressor (TVS)
 # Diode for protecting against voltage spikes
-component DIO.TVS(v_br::UV.VOLT, v_clamp::UV.VOLT, p_peak::UV.WAT)
+component DIO.TVS(v_br::UV.VOLT, v_clamp::UV.VOLT, p_peak::UV.WATT)
 {
     name = "Transient Voltage Suppressor"
     spec = [

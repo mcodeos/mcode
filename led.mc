@@ -91,7 +91,7 @@ component LED.IR(fv::UV.VOLT, fi::UV.AMP)
 
 # High Power LED
 # Light-emitting diode for high brightness applications
-component LED.HP(fv::UV.VOLT, fi::UV.AMP, pow::UV.WAT)
+component LED.HP(fv::UV.VOLT, fi::UV.AMP, pow::UV.WATT)
 {
     name = "High Power LED"
     spec = [
