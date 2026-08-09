@@ -31,7 +31,7 @@
 # - v_pri: Primary voltage rating
 # - v_sec: Secondary voltage rating
 # - p: Power rating
-component XFR(v_pri::UV.VOLT, v_sec::UV.VOLT, p::UV.WAT)
+component XFR(v_pri::UV.VOLT, v_sec::UV.VOLT, p::UV.WATT)
 {
     name = "Transformer"
     spec = [
@@ -48,7 +48,7 @@ component XFR(v_pri::UV.VOLT, v_sec::UV.VOLT, p::UV.WAT)
 }
 # Power Transformer Component
 # Transformer designed for power supply applications
-component XFR.POWER(v_pri::UV.VOLT, v_sec::UV.VOLT, p::UV.WAT, f::UV.HZ)
+component XFR.POWER(v_pri::UV.VOLT, v_sec::UV.VOLT, p::UV.WATT, f::UV.HZ)
 {
     name = "Power Transformer"
     spec = [
@@ -71,7 +71,7 @@ component XFR.POWER(v_pri::UV.VOLT, v_sec::UV.VOLT, p::UV.WAT, f::UV.HZ)
 # - z_sec: Secondary impedance
 # - p: Power rating
 # - freq_resp: Frequency response
-component XFR.AUDIO(z_pri::UV.OHM, z_sec::UV.OHM, p::UV.WAT)
+component XFR.AUDIO(z_pri::UV.OHM, z_sec::UV.OHM, p::UV.WATT)
 {
     name = "Audio Transformer"
     spec = [
@@ -94,7 +94,7 @@ component XFR.AUDIO(z_pri::UV.OHM, z_sec::UV.OHM, p::UV.WAT)
 # - v_sec: Secondary voltage rating
 # - v_iso: Isolation voltage rating
 # - p: Power rating
-component XFR.ISO(v_pri::UV.VOLT, v_sec::UV.VOLT, v_iso::UV.VOLT, p::UV.WAT)
+component XFR.ISO(v_pri::UV.VOLT, v_sec::UV.VOLT, v_iso::UV.VOLT, p::UV.WATT)
 {
     name = "Isolation Transformer"
     spec = [
@@ -116,7 +116,7 @@ component XFR.ISO(v_pri::UV.VOLT, v_sec::UV.VOLT, v_iso::UV.VOLT, p::UV.WAT)
 # - v_pri: Primary voltage rating
 # - v_sec: Secondary voltage rating
 # - p: Power rating
-component XFR.CT(v_pri::UV.VOLT, v_sec::UV.VOLT, p::UV.WAT)
+component XFR.CT(v_pri::UV.VOLT, v_sec::UV.VOLT, p::UV.WATT)
 {
     name = "Center Tapped Transformer"
     spec = [
