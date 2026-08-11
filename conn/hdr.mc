@@ -47,9 +47,9 @@ component HDR_MULTI(rows::INT, cols::INT)
     ]
     
     // Pin numbering: R1C1, R1C2...R2C1, R2C2...
-    //pins = [
-    //..    1 : rows*cols = R[1:rows]C[1:cols]  // pins are rows * cols, ie, R1C1, R1C2...R2C1,R2C2...
-    //]
+    pins = [
+        1 : rows*cols = R[1:rows]C[1:cols]  // pins are rows * cols, ie, R1C1, R1C2...R2C1,R2C2...
+    ]
     schpkg = "./svg/header_multi.sym"
 }
 
