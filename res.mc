@@ -55,22 +55,22 @@ component RES(
 
     func Pullup(net1, vcc)
     {
-        net1 - this[1]
-        this[2] - vcc
+        net1 - this{1}
+        this{2} - vcc
         return net1
     }
 
     func Pulldown(net1, gnd)
     {
-        net1 - this[1]
-        this[2] - gnd
+        net1 - this{1}
+        this{2} - gnd
         return net1
     }
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -112,22 +112,22 @@ component RES.SMD(
 
     func Pullup(net1, vcc)
     {
-        net1 - this[1]
-        this[2] - vcc
+        net1 - this{1}
+        this{2} - vcc
         return net1
     }
 
     func Pulldown(net1, gnd)
     {
-        net1 - this[1]
-        this[2] - gnd
+        net1 - this{1}
+        this{2} - gnd
         return net1
     }
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -169,8 +169,8 @@ component RES.SMD_POWER(
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -212,22 +212,22 @@ component RES.THT(
 
     func Pullup(net1, vcc)
     {
-        net1 - this[1]
-        this[2] - vcc
+        net1 - this{1}
+        this{2} - vcc
         return net1
     }
 
     func Pulldown(net1, gnd)
     {
-        net1 - this[1]
-        this[2] - gnd
+        net1 - this{1}
+        this{2} - gnd
         return net1
     }
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -269,16 +269,16 @@ component RES.POT(
 
     func VoltageDivider(input, output, gnd)
     {
-        input - this[1]
-        this[2] - output
-        this[3] - gnd
+        input - this{1}
+        this{2} - output
+        this{3} - gnd
         return output
     }
 
     func Rheostat(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         // Pin3 floating
         return netA, netB
     }
@@ -321,8 +321,8 @@ component RES.NTC(
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -364,8 +364,8 @@ component RES.PTC(
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }

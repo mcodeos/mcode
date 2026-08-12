@@ -26,6 +26,6 @@ component TP(count::INT = 1)
 
     func TestPoint()
     {
-        return this[1]
+        return this{1}
     }
 }

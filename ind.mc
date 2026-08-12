@@ -58,8 +58,8 @@ component IND(
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -100,8 +100,8 @@ component IND.SMD(
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -142,8 +142,8 @@ component IND.THT(
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -186,8 +186,8 @@ component IND.POWER(
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -230,8 +230,8 @@ component IND.HF(
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -270,8 +270,8 @@ component IND.FB(
 
     func Series(netA, netB)
     {
-        netA - this[1]
-        this[2] - netB
+        netA - this{1}
+        this{2} - netB
         return netA, netB
     }
 }
@@ -316,10 +316,10 @@ component IND.CMC(
 
     func CommonModeSuppress(w1_in, w1_out, w2_in, w2_out)
     {
-        w1_in - this[1]
-        this[2] - w1_out
-        w2_in - this[3]
-        this[4] - w2_out
+        w1_in - this{1}
+        this{2} - w1_out
+        w2_in - this{3}
+        this{4} - w2_out
         return w1_out, w2_out
     }
 }
