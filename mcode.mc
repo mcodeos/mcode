@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+// MCode is an industrial-grade circuit programming language aimed at precise
+// and efficient circuit programming. This file aggregates the standard
+// components and interfaces of the language as the mcode basic library.
+
 // import modules
 pub use ./ifs/ifs.mc
 pub use ./conn/conn.mc
