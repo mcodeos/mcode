@@ -76,7 +76,7 @@ component CAP(
 )
 {
     name = "Capacitor"
-    description = "General capacitor base type; use concrete subclasses CAP.MLCC / CAP.ELEC / CAP.FILM / CAP.DISC etc."
+    description = "General Capacitor"
     partno = _
     package = _
     manufacturer = _
@@ -158,7 +158,6 @@ component CAP.ELEC(
 // =============================================================================
 // MLCC Ceramic Capacitor (non-polarized)
 // =============================================================================
-// FIX: renamed from CAP.CER to CAP.MLCC for precision; CAP.CER alias optional if parser supports
 component CAP.MLCC(
     cap::UV.CAP,
     volt::UV.VOLT,
