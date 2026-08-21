@@ -25,12 +25,12 @@ component RES(
     rs::UV.OHM,
     volt::UV.VOLT,
     power::UV.WATT,
-    tol::UV.PERCENT = 5%,
-    tc::UV.PPM/UV.TEMP = 100.0ppm/℃
+    tol::UV.PERCENT,
+    tc::UV.PPM/UV.TEMP
 )
 {
     name = "Resistor"
-    description = "Generic two-terminal fixed resistor; use RES.SMD / RES.THT for explicit mount type"
+    description = "Generic resistor"
     partno = _
     package = _
     manufacturer = _
@@ -45,7 +45,7 @@ component RES(
         voltage_rated = volt
         power_rated = power
         tolerance = tol
-        temp_coeff = tc
+        temp_coeff = tc         //e.g. 100.0ppm/℃
         temp_min = _
         temp_max = _
         construction = _
@@ -82,8 +82,8 @@ component RES.SMD(
     rs::UV.OHM,
     volt::UV.VOLT,
     power::UV.WATT,
-    tol::UV.PERCENT = 5%,
-    tc::UV.PPM/UV.TEMP = 100.0ppm/℃
+    tol::UV.PERCENT,
+    tc::UV.PPM/UV.TEMP
 )
 {
     name = "SMD Resistor"
@@ -139,8 +139,8 @@ component RES.SMD_POWER(
     rs::UV.OHM,
     volt::UV.VOLT,
     power::UV.WATT,
-    tol::UV.PERCENT = 5%,
-    tc::UV.PPM/UV.TEMP = 100.0ppm/℃
+    tol::UV.PERCENT,
+    tc::UV.PPM/UV.TEMP
 )
 {
     name = "SMD Power Resistor"
@@ -182,8 +182,8 @@ component RES.THT(
     rs::UV.OHM,
     volt::UV.VOLT,
     power::UV.WATT,
-    tol::UV.PERCENT = 5%,
-    tc::UV.PPM/UV.TEMP = 100.0ppm/℃
+    tol::UV.PERCENT,
+    tc::UV.PPM/UV.TEMP
 )
 {
     name = "Through Hole Resistor"
@@ -239,7 +239,8 @@ component RES.POT(
     rs::UV.OHM,
     volt::UV.VOLT,
     power::UV.WATT,
-    tol::UV.PERCENT = 20%
+    tol::UV.PERCENT,
+    tc::UV.PPM/UV.TEMP
 )
 {
     name = "Potentiometer / Trim Pot"
@@ -259,7 +260,7 @@ component RES.POT(
         voltage_rated = volt
         power_rated = power
         tolerance = tol
-        temp_coeff = _
+        temp_coeff = tc
         temp_min = _
         temp_max = _
         construction = _
@@ -291,7 +292,8 @@ component RES.NTC(
     rs::UV.OHM,
     beta::INT,
     volt::UV.VOLT,
-    tol::UV.PERCENT = 5%
+    tol::UV.PERCENT,
+    tc::UV.PPM/UV.TEMP
 )
 {
     name = "NTC Thermistor"
@@ -311,7 +313,7 @@ component RES.NTC(
         voltage_rated = volt
         power_rated = _
         tolerance = tol
-        temp_coeff = _
+        temp_coeff = tc
         temp_min = _
         temp_max = _
         construction = _
@@ -334,7 +336,8 @@ component RES.PTC(
     rs::UV.OHM,
     i_trip::UV.AMP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = 20%
+    tol::UV.PERCENT,
+    tc::UV.PPM/UV.TEMP
 )
 {
     name = "PTC / PPTC Resettable Fuse"
@@ -354,7 +357,7 @@ component RES.PTC(
         voltage_rated = volt
         power_rated = _
         tolerance = tol
-        temp_coeff = _
+        temp_coeff = tc
         temp_min = _
         temp_max = _
         construction = _
@@ -377,10 +380,9 @@ component RES.ARRAY(
     rs::UV.OHM,
     volt::UV.VOLT,
     power::UV.WATT,
-    tol::UV.PERCENT = 5%,
-    tc::UV.PPM/UV.TEMP = 100.0ppm/℃,
-    channel_count::INT = 4,
-    mount::STRING = "ARRAY_SMD"
+    tol::UV.PERCENT,
+    tc::UV.PPM/UV.TEMP,
+    channel_count::INT = 4
 )
 {
     name = "Resistor Array"
@@ -408,6 +410,7 @@ component RES.ARRAY(
         construction = mount
         rohs = _
         derating_note = _
+        //mount::STRING = "ARRAY_SMD"
     ]
     // No single-resistor functions (Pullup / Pulldown / Series)
     // Extend with dedicated channel binding functions later if needed
