@@ -31,9 +31,6 @@ component RES(
 {
     name = "Resistor"
     description = "Generic resistor"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -88,9 +85,6 @@ component RES.SMD(
 {
     name = "SMD Resistor"
     description = "Surface mount two-terminal fixed resistor"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -145,9 +139,6 @@ component RES.SMD_POWER(
 {
     name = "SMD Power Resistor"
     description = "Surface mount high-power two-terminal resistor"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -188,9 +179,6 @@ component RES.THT(
 {
     name = "Through Hole Resistor"
     description = "Axial through-hole two-terminal fixed resistor"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -245,9 +233,6 @@ component RES.POT(
 {
     name = "Potentiometer / Trim Pot"
     description = "3-terminal adjustable resistor, support divider or rheostat mode"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "End 1"
@@ -298,9 +283,6 @@ component RES.NTC(
 {
     name = "NTC Thermistor"
     description = "Negative temperature coefficient thermistor"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -342,9 +324,6 @@ component RES.PTC(
 {
     name = "PTC / PPTC Resettable Fuse"
     description = "Positive temperature coefficient overcurrent protection device"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -387,9 +366,6 @@ component RES.ARRAY(
 {
     name = "Resistor Array"
     description = "Multi-channel integrated resistor network; separate model from discrete resistor"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1
