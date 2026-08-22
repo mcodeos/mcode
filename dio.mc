@@ -43,6 +43,29 @@ component DIO(v_fwd::UV.VOLT, v_rev::UV.VOLT, i_max::UV.AMP)
     }
 }
 
+# Electrostatic Discharge (ESD) Protection Diode
+# Diode for protecting against electrostatic discharge
+component DIO.ESD(rating::UV.VOLT, partno::STRING="")
+{
+    name = "ESD Protection Diode"
+    spec = [
+        part_number = partno
+        esd_rating = rating
+    ]
+    
+    pins = [
+        1 = INPUT        # Input terminal to protect
+        2 = GND          # Ground terminal
+    ]
+    
+    func ESDProtection(input_signal, ground)
+    {
+        input_signal - this.INPUT
+        this.GND - ground
+        return this
+    }
+}
+
 # Schottky Diode
 # Fast switching diode with low forward voltage drop
 component DIO.SCH(v_fwd::UV.VOLT, v_rev::UV.VOLT, i_max::UV.AMP)
@@ -155,27 +178,3 @@ component DIO.PHOTO(resp::UV.RESPONSIVITY, i_dark::UV.AMP, spec_range::UV.LEN)
 
 # 5. Photodiode as light sensor
 # light_signal = DIO.PHOTO(0.5A/W, 1nA, 850nm).LightSensor(5.0V, light_output)
-
-# Electrostatic Discharge (ESD) Protection Diode
-# Diode for protecting against electrostatic discharge
-component DIO.ESD(partno::STRING, rating::STRING)
-{
-    name = "ESD Protection Diode"
-    spec = [
-        part_number = partno
-        esd_rating = rating
-    ]
-    
-    pins = [
-        1 = INPUT        # Input terminal to protect
-        2 = GND          # Ground terminal
-    ]
-    
-    func ESDProtection(input_signal, ground)
-    {
-        input_signal - this.INPUT
-        this.GND - ground
-        return this
-    }
-}
-
