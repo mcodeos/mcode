@@ -77,9 +77,6 @@ component CAP(
 {
     name = "Capacitor"
     description = "General Capacitor"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1
@@ -122,9 +119,6 @@ component CAP.ELEC(
 {
     name = "Electrolytic Capacitor"
     description = "Polarized aluminum electrolytic / polymer aluminum capacitor"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = \+ , "Anode"
@@ -167,9 +161,6 @@ component CAP.MLCC(
 {
     name = "MLCC Capacitor"
     description = "Multilayer Ceramic Capacitor (MLCC), non-polarized"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -212,9 +203,6 @@ component CAP.DISC(
 {
     name = "Disc Ceramic Capacitor"
     description = "Non-MLCC disk ceramic capacitor; common high-voltage low-cost"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -257,9 +245,6 @@ component CAP.TANT(
 {
     name = "Tantalum Capacitor"
     description = "Polarized tantalum / polymer tantalum capacitor"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = \+ , "Anode"
@@ -301,9 +286,6 @@ component CAP.NIOB(
 {
     name = "Niobium Capacitor"
     description = "Polarized niobium pentoxide capacitor"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = \+ , "Anode"
@@ -346,9 +328,6 @@ component CAP.FILM(
 {
     name = "Film Capacitor"
     description = "Non-polarized film capacitor (PP/PET/PC/PS/PEN)"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -390,9 +369,6 @@ component CAP.MICA(
 {
     name = "Mica Capacitor"
     description = "Mica dielectric capacitor, high stability / high frequency"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -437,9 +413,6 @@ component CAP.SAFETY(
 {
     name = "Safety Capacitor X/Y"
     description = "EMI safety capacitor (X1/X2 / Y1/Y2); volt = AC RMS rating"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -483,9 +456,6 @@ component CAP.SC(
 {
     name = "Supercapacitor / EDLC"
     description = "Electric Double Layer Capacitor, polarized"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = \+ , "Anode"
@@ -527,9 +497,6 @@ component CAP.TRIM(
 {
     name = "Trimmer Capacitor"
     description = "Adjustable trimmer / variable capacitor; cap = nominal/max capacitance"
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"

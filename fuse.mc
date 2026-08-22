@@ -32,7 +32,6 @@ component FUSE.SMD(i_rated::UV.AMP, v::UV.VOLT)
     spec = [
         rating = i_rated // [0.1A, 0.5A, 1A, 2A, 5A]
         voltage = v // [5V, 12V, 24V, 120V]
-        package = _ // [0603, 0805, 1206, 1210]
     ]
     pins = [
         1 = 1

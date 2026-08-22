@@ -45,11 +45,10 @@ component DIO(v_fwd::UV.VOLT, v_rev::UV.VOLT, i_max::UV.AMP)
 
 # Electrostatic Discharge (ESD) Protection Diode
 # Diode for protecting against electrostatic discharge
-component DIO.ESD(rating::UV.VOLT, partno::STRING="")
+component DIO.ESD(rating::UV.VOLT)
 {
     name = "ESD Protection Diode"
     spec = [
-        part_number = partno
         esd_rating = rating
     ]
     

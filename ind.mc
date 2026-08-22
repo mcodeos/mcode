@@ -35,10 +35,6 @@ component IND(
     name = "Inductor"
     description = "Generic two-terminal inductor"
 
-    partno = _
-    package = _
-    manufacturer = _
-
     pins = [
         1 = 1, "Term 1"
         2 = 2, "Term 2"
@@ -76,10 +72,6 @@ component IND.SMD(
 {
     name = "SMD Inductor"
     description = "Surface mount two-terminal inductor"
-
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -119,10 +111,6 @@ component IND.THT(
     name = "Through Hole Inductor"
     description = "Through-hole two-terminal inductor"
 
-    partno = _
-    package = _
-    manufacturer = _
-
     pins = [
         1 = 1, "Term 1"
         2 = 2, "Term 2"
@@ -161,10 +149,6 @@ component IND.POWER(
 {
     name = "Power Inductor"
     description = "Power inductor for DC-DC converters, with saturation current"
-
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "Term 1"
@@ -206,10 +190,6 @@ component IND.HF(
     name = "HF Inductor"
     description = "High-frequency / RF inductor with SRF"
 
-    partno = _
-    package = _
-    manufacturer = _
-
     pins = [
         1 = 1, "Term 1"
         2 = 2, "Term 2"
@@ -248,10 +228,6 @@ component IND.FB(
     name = "Ferrite Bead"
     description = "Ferrite bead for high-frequency noise suppression"
 
-    partno = _
-    package = _
-    manufacturer = _
-
     pins = [
         1 = 1, "Term 1"
         2 = 2, "Term 2"
@@ -289,10 +265,6 @@ component IND.CMC(
 {
     name = "Common Mode Choke"
     description = "4-terminal common mode choke"
-
-    partno = _
-    package = _
-    manufacturer = _
 
     pins = [
         1 = 1, "W1_IN"
