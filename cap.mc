@@ -100,10 +100,10 @@ component CAP(
         derating_note = _       // ADD: derating guidance note
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
@@ -142,10 +142,10 @@ component CAP.ELEC(
         derating_note = _
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
@@ -184,10 +184,10 @@ component CAP.MLCC(
         derating_note = _
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
@@ -226,10 +226,10 @@ component CAP.DISC(
         derating_note = _
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
@@ -268,10 +268,10 @@ component CAP.TANT(
         derating_note = _
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
@@ -309,10 +309,10 @@ component CAP.NIOB(
         derating_note = _
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
@@ -351,10 +351,10 @@ component CAP.FILM(
         derating_note = _
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
@@ -392,10 +392,10 @@ component CAP.MICA(
         derating_note = _
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
@@ -437,10 +437,10 @@ component CAP.SAFETY(
         derating_note = _
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
@@ -479,10 +479,10 @@ component CAP.SC(
         derating_note = _
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
@@ -520,23 +520,23 @@ component CAP.TRIM(
         derating_note = _
     ]
 
-    func Cap(net1, net2)
+    func Cap([net1, net2])
     {
         net1 - this - net2
-        return net1, net2
+        return [net1, net2]
     }
 }
 
 # =============================================================================
 # Usage Examples
 # =============================================================================
-# CAP.MLCC(100nF, 50V, ±10%, X7R).Cap(vcc, gnd)
-# CAP.DISC(1000pF, 1kV, ±10%, C0G).Cap(line, gnd)
-# CAP.ELEC(100μF, 16V, ±10%, POLYMER_ALUMINUM).Cap(vcc, gnd)
-# CAP.TANT(10μF, 10V, ±10%, POLYMER_TANTALUM).Cap(vdd, gnd)
-# CAP.NIOB(4.7μF, 6.3V).Cap(io, gnd)
-# CAP.FILM(1μF, 63V, ±5%, POLYESTER).Cap(audio_in, audio_gnd)
-# CAP.MICA(100pF, 500V).Cap(rf_node, gnd)
-# CAP.SAFETY(22nF, 275VAC, ±10%, POLYPROPYLENE, SC_X2).Cap(line, pe)
-# CAP.SC(1F, 2.7V).Cap(backup, gnd)
-# CAP.TRIM(30pF, 50V).Cap(tank, gnd)
+# CAP.MLCC(100nF, 50V, ±10%, X7R).Cap([vcc, gnd])
+# CAP.DISC(1000pF, 1kV, ±10%, C0G).Cap([line, gnd])
+# CAP.ELEC(100μF, 16V, ±10%, POLYMER_ALUMINUM).Cap([vcc, gnd])
+# CAP.TANT(10μF, 10V, ±10%, POLYMER_TANTALUM).Cap([vdd, gnd])
+# CAP.NIOB(4.7μF, 6.3V).Cap([io, gnd])
+# CAP.FILM(1μF, 63V, ±5%, POLYESTER).Cap(a[udio_in, audio_gnd])
+# CAP.MICA(100pF, 500V).Cap([rf_node, gnd])
+# CAP.SAFETY(22nF, 275VAC, ±10%, POLYPROPYLENE, SC_X2).Cap([line, pe])
+# CAP.SC(1F, 2.7V).Cap([backup, gnd])
+# CAP.TRIM(30pF, 50V).Cap([tank, gnd])
