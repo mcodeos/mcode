@@ -27,11 +27,12 @@ interface ADC.DIFF(role)
     // Differential Input: Measures the voltage difference between P (positive) and N (negative) inputs
     // Advantage: Rejects common-mode noise, improves signal-to-noise ratio
     // Applications: Sensor measurements, audio, industrial control systems
+    // 2-wire (P/N): the ground reference is the analog ground domain, shared
+    // through the power supply (DC interface), same as UART.TTL / I2C / SPI.
 
     pins = [ 
         1 = P, "Positive Input"   // Positive differential input
         2 = N, "Negative Input"   // Negative differential input
-        3 = GND, "Ground"         // Signal reference ground
     ]
     
     role Transmitter {  // ADC.DIFF Transmitter - Sensor or signal source
