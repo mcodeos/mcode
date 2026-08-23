@@ -335,3 +335,22 @@ Rationale: a component can have many parameters; making them all constructor
 formals would produce unusable call sites. Keeping only a few core electrical
 formals and pushing the rest into `spec[]` / the BOM keeps constructors
 readable while the instance is still created when formals are omitted.
+
+### Decision Record 2: Signal Interfaces Do Not Carry GND
+
+1. Point-to-point signal interfaces (`UART.TTL`, `I2C`, `SPI`, `I2S`,
+   `ADC.DIFF`, `GPIO`, `OneWire`) declare only signal pins. Ground is shared
+   through the power domain and modeled with the `DC` interface, never as an
+   interface member.
+2. An interface member is a signal line on the physical connector or bus. A
+   power / reference pin (e.g. a dedicated analog-ground reference) is modeled
+   as a `ps` / `DC` power pin on the component, not as an interface signal pin.
+3. An interface definition only carries GND when the interface physically
+   includes a ground wire: bus / connector interfaces such as `CAN`, `LIN`,
+   `FlexRay`, `PCM`, `USB` (VBUS/GND via `DC`), debug headers (`SWIM`, `ICD`),
+   and connector-form UART variants (`RS232` / `RS422` / `RS485`).
+4. Rationale: real MCU differential ADC inputs expose only P/N pins; the ground
+   reference is the shared analog ground plane. A mandatory GND member makes
+   the pin-count checks (E3111 `PARAM_DECLARE_IFACE_PINS`, E4102
+   `IFACE_PINS_NOT_ALL_BOUND`) impossible to satisfy without fake bindings and
+   double-binds the power pin.
