@@ -23,9 +23,4 @@ component TP(count::INT = 1)
     pins = [
         1:count = 1:count
     ]
-
-    func TestPoint()
-    {
-        return this{1}
-    }
 }
