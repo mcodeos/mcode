@@ -62,24 +62,24 @@ component USB.TYPEB()
 }
 
 // USB 2.0 Mini Type B Connector
+// HUM011D-5-S Mini-USB socket: 5 wires (VBUS/D+/D-/ID/GND) + 2 ground + 2 shield
 component USB.MINIB()
 {
     name = "USB 2.0 Mini Type B Connector"
     description = "USB 2.0 Mini Type B connector"
-    
+
     spec = [
         type = "USB"
         version = "2.0"
         form_factor = "Mini Type B"
         orientation = _ // [horizontal, vertical]
     ]
-    
+
     pins = [
-        1 = 1, "Power (+5V)"
-        2 = 2, "Data Negative"
-        3 = 3, "Data Positive"
-        4 = 4, "Identification (OTG)"
-        5 = 5, "Ground"
+        [1:5] = USB::USB.MINIB(Peripheral)   // USB interface: 1=VBUS, 2=D+, 3=D-, 4=ID, 5=GND
+        [6,7] = GND                          // USB GND
+        8 = SHIELD3                          // USB shield
+        9 = SHIELD4                          // USB shield
     ]
 }
 
