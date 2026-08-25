@@ -56,7 +56,19 @@ component SWITCH.MOM
 {
     name = "Momentary Switch"
     description = "Momentary push button switch"
-    
+
+    pins = [
+        1 = COM, "Common terminal"
+        2 = NO , "Normally Open terminal"
+    ]
+}
+
+# Momentary Push Button Component
+component BUTTON
+{
+    name = "Momentary Push Button"
+    description = "Momentary push button (tact switch) with common and normally-open terminals"
+
     pins = [
         1 = COM, "Common terminal"
         2 = NO , "Normally Open terminal"
