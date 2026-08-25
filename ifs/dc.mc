@@ -25,7 +25,9 @@ interface DC(volt::UV.VOLT = 5V, role) // DC Power Supply Interface
 
     // DC Power Supply Standard Definition
     // Core Rule: Unidirectional direct current power supply
-    // Voltage Levels: Supports various standard DC voltages
+    // Voltage Levels: Standard rails (1.2/1.8/3.3/5/12/24/48 V) get canonical
+    //   net names (VCC1V2, VCC5V0N, ...). Any other voltage falls back to a
+    //   sign-aware generic name: VCC for positive rails, VEE for negative.
     // Device Definition: Source = Power supply, Sink = Powered device
     // Applications: Powering electronic circuits and devices
 
@@ -35,24 +37,9 @@ interface DC(volt::UV.VOLT = 5V, role) // DC Power Supply Interface
             1 = VCC1V2, "DC power positive", voltage:1.2V
             2 = GND, "DC power ground", voltage:0.0V
         ]
-    else if (volt == 1.5V)
-        pins = [
-            1 = VCC1V5, "DC power positive", voltage:1.5V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
     else if (volt == 1.8V)
         pins = [
             1 = VCC1V8, "DC power positive", voltage:1.8V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == 2.5V)
-        pins = [
-            1 = VCC2V5, "DC power positive", voltage:2.5V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == 3.0V)
-        pins = [
-            1 = VCC3V0, "DC power positive", voltage:3.0V
             2 = GND, "DC power ground", voltage:0.0V
         ]
     else if (volt == 3.3V)
@@ -60,39 +47,14 @@ interface DC(volt::UV.VOLT = 5V, role) // DC Power Supply Interface
             1 = VCC3V3, "DC power positive", voltage:3.3V
             2 = GND, "DC power ground", voltage:0.0V
         ]
-    else if (volt == 4.5V)
-        pins = [
-            1 = VCC4V5, "DC power positive", voltage:4.5V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
     else if (volt == 5.0V)
         pins = [
             1 = VCC5V0, "DC power positive", voltage:5.0V
             2 = GND, "DC power ground", voltage:0.0V
         ]
-    else if (volt == 6.0V)
-        pins = [
-            1 = VCC6V0, "DC power positive", voltage:6.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == 7.5V)
-        pins = [
-            1 = VCC7V5, "DC power positive", voltage:7.5V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == 9.0V)
-        pins = [
-            1 = VCC9V0, "DC power positive", voltage:9.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
     else if (volt == 12.0V)
         pins = [
             1 = VCC12V0, "DC power positive", voltage:12.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == 15.0V)
-        pins = [
-            1 = VCC15V0, "DC power positive", voltage:15.0V
             2 = GND, "DC power ground", voltage:0.0V
         ]
     else if (volt == 24.0V)
@@ -111,24 +73,9 @@ interface DC(volt::UV.VOLT = 5V, role) // DC Power Supply Interface
             1 = VCC1V2N, "DC power negative", voltage:-1.2V
             2 = GND, "DC power ground", voltage:0.0V
         ]
-    else if (volt == -1.5V)
-        pins = [
-            1 = VCC1V5N, "DC power negative", voltage:-1.5V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
     else if (volt == -1.8V)
         pins = [
             1 = VCC1V8N, "DC power negative", voltage:-1.8V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == -2.5V)
-        pins = [
-            1 = VCC2V5N, "DC power negative", voltage:-2.5V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == -3.0V)
-        pins = [
-            1 = VCC3V0N, "DC power negative", voltage:-3.0V
             2 = GND, "DC power ground", voltage:0.0V
         ]
     else if (volt == -3.3V)
@@ -146,6 +93,22 @@ interface DC(volt::UV.VOLT = 5V, role) // DC Power Supply Interface
             1 = VCC12V0N, "DC power negative", voltage:-12.0V
             2 = GND, "DC power ground", voltage:0.0V
         ]
+    else if (volt == -24.0V)
+        pins = [
+            1 = VCC24V0N, "DC power negative", voltage:-24.0V
+            2 = GND, "DC power ground", voltage:0.0V
+        ]
+    else if (volt == -48.0V)
+        pins = [
+            1 = VCC48V0N, "DC power negative", voltage:-48.0V
+            2 = GND, "DC power ground", voltage:0.0V
+        ]
+    // Non-standard voltages: sign-aware generic naming
+    else if (volt < 0)
+        pins = [
+            1 = VEE, "DC power negative", voltage:volt
+            2 = GND, "DC power ground", voltage:0.0V
+        ]
     else
         pins = [
             1 = VCC, "DC power positive", voltage:volt
@@ -158,6 +121,37 @@ interface DC(volt::UV.VOLT = 5V, role) // DC Power Supply Interface
         peer = Sink
     }
     
+    role Sink {
+        name = "DC Power Sink"
+        peer = Source
+    }
+}
+
+// ---------------------------------------------------------------------------------------------
+// DCA — Analog DC Power Supply Interface
+// ---------------------------------------------------------------------------------------------
+
+interface DCA(volt::UV.VOLT = 3.3V, role) // Analog DC Power Supply Interface
+{
+    topology = "point to point"
+    voltage = volt
+    domain = "analog"
+
+    // Analog rails use the universal [VDDA, VSSA] naming regardless of the
+    // voltage level (datasheets call the analog rail VDDA for 2.0V..3.6V
+    // alike), so — unlike DC's voltage-coded VCC1V2/VCC5V0 branches — there
+    // is no voltage enumeration here. The voltage rides in the param.
+    pins = [
+        1 = VDDA, "Analog DC power positive", voltage:volt
+        2 = VSSA, "Analog DC power ground", voltage:0.0V
+    ]
+
+    // Role definitions
+    role Source {
+        name = "DC Power Source"
+        peer = Sink
+    }
+
     role Sink {
         name = "DC Power Sink"
         peer = Source
