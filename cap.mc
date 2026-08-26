@@ -144,8 +144,7 @@ component CAP.ELEC(
 
     func Cap([net1, net2])
     {
-        //net1 - this{\+|\-} - net2
-        net1 - this{1|2} - net2
+        net1 - this{\+|\-} - net2
         return [net1, net2]
     }
 }
@@ -312,8 +311,7 @@ component CAP.NIOB(
 
     func Cap([net1, net2])
     {
-        //net1 - this{\+|\-} - net2
-        net1 - this{1|2} - net2
+        net1 - this{\+|\-} - net2
         return [net1, net2]
     }
 }
@@ -483,8 +481,7 @@ component CAP.SC(
 
     func Cap([net1, net2])
     {
-        //net1 - this{\+|\-} - net2
-        net1 - this{1|2} - net2
+        net1 - this{\+|\-} - net2
         return [net1, net2]
     }
 }
