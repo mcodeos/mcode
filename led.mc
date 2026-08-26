@@ -115,7 +115,7 @@ component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT)
 
 # Usage Examples:
 # 1. Basic LED as indicator
-# LED(2.2V, 20mA).Indicator(vcc, gnd)
+# LED(2.2V, 20mA).Indicator([vcc, gnd])
 
 # 2. RGB LED for color indication
 # LED.RGB(2.0V, 3.2V, 3.2V, 20mA).ColorIndicator(red_pwm, green_pwm, blue_pwm, gnd)

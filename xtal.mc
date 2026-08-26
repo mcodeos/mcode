@@ -24,7 +24,7 @@ use ./ifs/xtal
 #     只有注册类 (如 CAP/RES) 才被当作类构造解析; 组件自身的标量形参同名方法
 #     (如 `func Cap(gnd)`) 优先于全局内建 `.Cap` 接线 (仅 Cap 走此优先;
 #     Pullup/Pulldown 仍走内建路径以保留 D7 信号桥检测);
-#   - 必须用两行独立的 `[X, gnd] => CAP(cload).Cap(_)` 链 (ranged `cx[1:2].Cap(bus, gnd)`
+#   - 必须用两行独立的 `[X, gnd] => CAP(cload).Cap(_)` 链 (ranged `cx[1:2].Cap([bus, gnd])`
 #     只能生成一个电容);
 #   - 已知编译器缺陷:
 #     a) 若模块内没有任何其他匿名电容, 两个负载电容会撞同一自动名, 只生成一个;
@@ -151,6 +151,6 @@ component XTAL.SMD(freq::UV.HZ, cload::UV.CAP)
 #
 # 方式 C —— 手动按脚接:
 #    XTAL2(32.768kHz) Y4
-#    CAP(33pF).Cap(Y4.XTAL.X1, pwr.GND)
-#    CAP(33pF).Cap(Y4.XTAL.X2, pwr.GND)
+#    CAP(33pF).Cap([Y4.XTAL.X1, pwr.GND])
+#    CAP(33pF).Cap([Y4.XTAL.X2, pwr.GND])
 #

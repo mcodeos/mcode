@@ -344,8 +344,8 @@ component RES.ARRAY(
 # =============================================================================
 # Usage Examples
 # =============================================================================
-# RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pullup(signal, vcc)
-# RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pulldown(enable, gnd)
+# RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pullup([signal, vcc])
+# RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pulldown([enable, gnd])
 # vcc -> RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃) -> load                  // 二脚件默认 1×2 形状放置
 # vout -> RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃) -> load
 # RES.POT(10kΩ, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
