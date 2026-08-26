@@ -19,8 +19,8 @@ component AMP(volt::UV.VOLT = 5V)
     pins = [
         1 = \+ | IN\+      # Non-inverting input
         2 = \- | IN\-      # Inverting input
-        3 = Vout          # Output
-        [4,5] = DC{Vcc,Vee}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
+        3 = VOUT          # Output
+        [4,5] = DC{VCC,VEE}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
     ]
 }
 
@@ -40,8 +40,8 @@ component AMP.INSTRUMENTATION(gain::UV.DB, cmrr::UV.DB, bw::UV.HZ, volt::UV.VOLT
         1 = \+ | IN\+      # Non-inverting input
         2 = \- | IN\-      # Inverting input
         3 = REF            # Reference voltage
-        4 = Vout           # Output
-        [5,6] = DC{Vcc,Vee}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
+        4 = VOUT           # Output
+        [5,6] = DC{VCC,VEE}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
     ]
     
     func DifferentialAmplifier(input1, input2, ref)
@@ -49,44 +49,44 @@ component AMP.INSTRUMENTATION(gain::UV.DB, cmrr::UV.DB, bw::UV.HZ, volt::UV.VOLT
         input1 - this.IN\+
         input2 - this.IN\-
         ref - this.REF
-        return this.Vout
+        return this.VOUT
     }
 }
 
 # Comparator
 # Voltage comparator with open-drain or push-pull output
-component AMP.COMPARATOR(hyst::UV.VOLT, t_resp::UV.TIME, volt::UV.VOLT = 5V)
+component AMP.COMPARATOR(hyst::UV.VOLT, tresp::UV.TIME, volt::UV.VOLT = 5V)
 {
     name = "Comparator"
     spec = [
         hysteresis = hyst
-        response_time = t_resp
+        response_time = tresp
         voltage = volt
     ]
     
     pins = [
         1 = \+ | IN\+      # Non-inverting input
         2 = \- | IN\-      # Inverting input
-        3 = Vout          # Output
-        [4,5] = DC{Vcc,GND}::DC(volt), ["Positive power supply", "Ground"]
+        3 = VOUT          # Output
+        [4,5] = DC{VCC,GND}::DC(volt), ["Positive power supply", "Ground"]
     ]
     
     func VoltageComparator(reference, input)
     {
         reference - this.IN\-
         input - this.IN\+
-        return this.Vout
+        return this.VOUT
     }
 }
 
 # Operational Transconductance Amplifier (OTA)
 # Voltage-to-current converter
-component AMP.OTA(gm::UV.SIEMENS, i_out::UV.AMP, volt::UV.VOLT = 5V)
+component AMP.OTA(gm::UV.SIEMENS, iout::UV.AMP, volt::UV.VOLT = 5V)
 {
     name = "Operational Transconductance Amplifier"
     spec = [
         transconductance = gm
-        maximum_output_current = i_out
+        maximum_output_current = iout
         voltage = volt
     ]
     
@@ -94,7 +94,7 @@ component AMP.OTA(gm::UV.SIEMENS, i_out::UV.AMP, volt::UV.VOLT = 5V)
         1 = \+ | IN\+      # Non-inverting input
         2 = \- | IN\-      # Inverting input
         3 = OUT            # Output
-        [4,5] = DC{Vcc,Vee}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
+        [4,5] = DC{VCC,VEE}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
         6 = BIAS           # Bias current control
     ]
     
@@ -108,19 +108,19 @@ component AMP.OTA(gm::UV.SIEMENS, i_out::UV.AMP, volt::UV.VOLT = 5V)
 
 # Buffer Amplifier
 # Unity gain buffer with high input impedance
-component AMP.BUFFER(z_in::UV.OHM, i_out::UV.AMP, volt::UV.VOLT = 5V)
+component AMP.BUFFER(zin::UV.OHM, iout::UV.AMP, volt::UV.VOLT = 5V)
 {
     name = "Buffer Amplifier"
     spec = [
-        input_impedance = z_in
-        maximum_output_current = i_out
+        input_impedance = zin
+        maximum_output_current = iout
         voltage = volt
     ]
     
     pins = [
         1 = IN             # Input
         2 = OUT            # Output
-        [3,4] = DC{Vcc,Vee}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
+        [3,4] = DC{VCC,VEE}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
     ]
     
     func UnityGainBuffer(input)

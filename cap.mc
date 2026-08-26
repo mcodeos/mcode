@@ -121,8 +121,8 @@ component CAP.ELEC(
     description = "Polarized aluminum electrolytic / polymer aluminum capacitor"
 
     pins = [
-        1 = \+ , "Anode"
-        2 = \- , "Cathode"
+        1 = \+ | ANODE, "Anode"
+        2 = \- | CATHODE, "Cathode"
     ]
 
     spec = [
@@ -144,7 +144,8 @@ component CAP.ELEC(
 
     func Cap([net1, net2])
     {
-        net1 - this - net2
+        //net1 - this{\+|\-} - net2
+        net1 - this{1|2} - net2
         return [net1, net2]
     }
 }
@@ -311,7 +312,8 @@ component CAP.NIOB(
 
     func Cap([net1, net2])
     {
-        net1 - this - net2
+        //net1 - this{\+|\-} - net2
+        net1 - this{1|2} - net2
         return [net1, net2]
     }
 }
@@ -481,7 +483,8 @@ component CAP.SC(
 
     func Cap([net1, net2])
     {
-        net1 - this - net2
+        //net1 - this{\+|\-} - net2
+        net1 - this{1|2} - net2
         return [net1, net2]
     }
 }

@@ -24,19 +24,17 @@ component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
     
     pins = [
-        1 = Ant            # Antenna connection
+        1 = ANT            # Antenna connection
     ]
     
     func RFReceiver(radio)
     {
-        radio - this.Ant
-        return this
+        radio - this.ANT
     }
     
     func RFSender(radio)
     {
-        radio - this.Ant
-        return this
+        radio - this.ANT
     }
 }
 
@@ -52,13 +50,12 @@ component ANT.WHIP(freq::UV.HZ, gain::UV.DB)
     ]
     
     pins = [
-        1 = Ant            # Antenna connection
+        1 = ANT            # Antenna connection
     ]
     
     func HandheldRadio(radio)
     {
-        radio - this.Ant
-        return this
+        radio - this.ANT
     }
 }
 
@@ -74,14 +71,13 @@ component ANT.PATCH(freq::UV.HZ, gain::UV.DB)
     ]
     
     pins = [
-        1 = Ant            # Antenna connection
+        1 = ANT            # Antenna connection
         2 = GND            # Ground plane
     ]
     
     func WirelessDevice(transceiver)
     {
-        transceiver - this.Ant
-        return this
+        transceiver - this.ANT
     }
 }
 
@@ -97,13 +93,12 @@ component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB)
     ]
     
     pins = [
-        1 = Ant            # Antenna connection
+        1 = ANT            # Antenna connection
     ]
     
     func BaseStation(transceiver)
     {
-        transceiver - this.Ant
-        return this
+        transceiver - this.ANT
     }
 }
 
@@ -119,36 +114,34 @@ component ANT.HELICAL(freq::UV.HZ, gain::UV.DB)
     ]
     
     pins = [
-        1 = Ant            # Antenna connection
+        1 = ANT            # Antenna connection
         2 = GND            # Ground plane
     ]
     
     func SatelliteCommunication(transceiver)
     {
-        transceiver - this.Ant
-        return this
+        transceiver - this.ANT
     }
 }
 
 # Log Periodic Antenna
 # Wideband antenna with logarithmic periodic structure
-component ANT.LOGPERIODIC(freq_start::UV.HZ, freq_end::UV.HZ, gain::UV.DB)
+component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB)
 {
     name = "Log Periodic Antenna"
     spec = [
-        frequency_start = freq_start // [88MHz, 1MHz, 100MHz]
-        frequency_end = freq_end // [108MHz, 1GHz, 2GHz]
+        frequency_start = fstart // [88MHz, 1MHz, 100MHz]
+        frequency_end = fend // [108MHz, 1GHz, 2GHz]
         gain = gain // [3dBi, 5dBi, 8dBi]
     ]
     
     pins = [
-        1 = Ant            # Antenna connection
+        1 = ANT            # Antenna connection
     ]
     
     func WidebandReceiver(receiver)
     {
-        receiver - this.Ant
-        return this
+        receiver - this.ANT
     }
 }
 
