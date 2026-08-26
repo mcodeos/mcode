@@ -13,12 +13,12 @@
 # limitations under the License.
 
 # Fuse components
-component FUSE(i_rated::UV.AMP, v::UV.VOLT)
+component FUSE(irated::UV.AMP, vrated::UV.VOLT)
 {
     name = "Fuse"
     spec = [
-        rating = i_rated // [0.1A, 0.5A, 1A, 2A, 5A, 10A, 20A]
-        voltage = v // [5V, 12V, 24V, 120V, 240V]
+        rating = irated // [0.1A, 0.5A, 1A, 2A, 5A, 10A, 20A]
+        voltage = vrated // [5V, 12V, 24V, 120V, 240V]
         type = _ // [fast, slow, medium]
     ]
     pins = [
@@ -26,37 +26,37 @@ component FUSE(i_rated::UV.AMP, v::UV.VOLT)
         2 = 2
     ]
 }
-component FUSE.SMD(i_rated::UV.AMP, v::UV.VOLT)
+component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT)
 {
     name = "Surface Mount Fuse"
     spec = [
-        rating = i_rated // [0.1A, 0.5A, 1A, 2A, 5A]
-        voltage = v // [5V, 12V, 24V, 120V]
+        rating = irated // [0.1A, 0.5A, 1A, 2A, 5A]
+        voltage = vrated // [5V, 12V, 24V, 120V]
     ]
     pins = [
         1 = 1
         2 = 2
     ]
 }
-component FUSE.CERAMIC(i_rated::UV.AMP, v::UV.VOLT, i_break::UV.AMP)
+component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP)
 {
     name = "Ceramic Fuse"
     spec = [
-        rating = i_rated
-        voltage = v
-        breaking_capacity = i_break
+        rating = irated
+        voltage = vrated
+        breaking_capacity = ibreak
     ]
     pins = [
         1 = 1
         2 = 2
     ]
 }
-component FUSE.GLASS(i_rated::UV.AMP, v::UV.VOLT)
+component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT)
 {
     name = "Glass Fuse"
     spec = [
-        rating = i_rated // [0.5A, 1A, 2A, 5A, 10A]
-        voltage = v // [12V, 24V, 120V, 240V]
+        rating = irated // [0.5A, 1A, 2A, 5A, 10A]
+        voltage = vrated // [12V, 24V, 120V, 240V]
         speed = _ // [fast, slow, medium]
     ]
     pins = [
@@ -64,13 +64,13 @@ component FUSE.GLASS(i_rated::UV.AMP, v::UV.VOLT)
         2 = 2
     ]
 }
-component FUSE.PTC(i_rated::UV.AMP, v::UV.VOLT, i_trip::UV.AMP)
+component FUSE.PTC(irated::UV.AMP, vrated::UV.VOLT, itrip::UV.AMP)
 {
     name = "PTC Fuse"
     spec = [
-        rating = i_rated
-        voltage = v
-        trip_current = i_trip
+        rating = irated
+        voltage = vrated
+        trip_current = itrip
     ]
     pins = [
         1 = 1

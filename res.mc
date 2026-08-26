@@ -24,7 +24,7 @@
 component RES(
     rs::UV.OHM,
     volt::UV.VOLT,
-    power::UV.WATT,
+    prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
 )
@@ -40,7 +40,7 @@ component RES(
     spec = [
         resistance = rs
         voltage_rated = volt
-        power_rated = power
+        power_rated = prated
         tolerance = tol
         temp_coeff = tc         //e.g. 100.0ppm/℃
         temp_min = _
@@ -50,25 +50,16 @@ component RES(
         derating_note = _
     ]
 
-    func Pullup(net1, vcc)
+    func Pullup([net, vcc])
     {
-        net1 - this{1}
-        this{2} - vcc
-        return net1
+        net - this - vcc
+        return net
     }
 
-    func Pulldown(net1, gnd)
+    func Pulldown([net, gnd])
     {
-        net1 - this{1}
-        this{2} - gnd
-        return net1
-    }
-
-    func Series(netA, netB)
-    {
-        netA - this{1}
-        this{2} - netB
-        return netA, netB
+        net - this - gnd
+        return net
     }
 }
 
@@ -78,7 +69,7 @@ component RES(
 component RES.SMD(
     rs::UV.OHM,
     volt::UV.VOLT,
-    power::UV.WATT,
+    prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
 )
@@ -94,7 +85,7 @@ component RES.SMD(
     spec = [
         resistance = rs
         voltage_rated = volt
-        power_rated = power
+        power_rated = prated
         tolerance = tol
         temp_coeff = tc
         temp_min = _
@@ -104,25 +95,16 @@ component RES.SMD(
         derating_note = _
     ]
 
-    func Pullup(net1, vcc)
+    func Pullup([net, vcc])
     {
-        net1 - this{1}
-        this{2} - vcc
-        return net1
+        net - this - vcc
+        return net
     }
 
-    func Pulldown(net1, gnd)
+    func Pulldown([net, gnd])
     {
-        net1 - this{1}
-        this{2} - gnd
-        return net1
-    }
-
-    func Series(netA, netB)
-    {
-        netA - this{1}
-        this{2} - netB
-        return netA, netB
+        net - this - gnd
+        return net
     }
 }
 
@@ -132,7 +114,7 @@ component RES.SMD(
 component RES.SMD_POWER(
     rs::UV.OHM,
     volt::UV.VOLT,
-    power::UV.WATT,
+    prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
 )
@@ -148,7 +130,7 @@ component RES.SMD_POWER(
     spec = [
         resistance = rs
         voltage_rated = volt
-        power_rated = power
+        power_rated = prated
         tolerance = tol
         temp_coeff = tc
         temp_min = _
@@ -157,13 +139,6 @@ component RES.SMD_POWER(
         rohs = _
         derating_note = _
     ]
-
-    func Series(netA, netB)
-    {
-        netA - this{1}
-        this{2} - netB
-        return netA, netB
-    }
 }
 
 // =============================================================================
@@ -172,7 +147,7 @@ component RES.SMD_POWER(
 component RES.THT(
     rs::UV.OHM,
     volt::UV.VOLT,
-    power::UV.WATT,
+    prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
 )
@@ -188,7 +163,7 @@ component RES.THT(
     spec = [
         resistance = rs
         voltage_rated = volt
-        power_rated = power
+        power_rated = prated
         tolerance = tol
         temp_coeff = tc
         temp_min = _
@@ -198,25 +173,16 @@ component RES.THT(
         derating_note = _
     ]
 
-    func Pullup(net1, vcc)
+    func Pullup([net, vcc])
     {
-        net1 - this{1}
-        this{2} - vcc
-        return net1
+        net - this - vcc
+        return net
     }
 
-    func Pulldown(net1, gnd)
+    func Pulldown([net, gnd])
     {
-        net1 - this{1}
-        this{2} - gnd
-        return net1
-    }
-
-    func Series(netA, netB)
-    {
-        netA - this{1}
-        this{2} - netB
-        return netA, netB
+        net - this - gnd
+        return net
     }
 }
 
@@ -226,7 +192,7 @@ component RES.THT(
 component RES.POT(
     rs::UV.OHM,
     volt::UV.VOLT,
-    power::UV.WATT,
+    prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
 )
@@ -243,7 +209,7 @@ component RES.POT(
     spec = [
         resistance = rs
         voltage_rated = volt
-        power_rated = power
+        power_rated = prated
         tolerance = tol
         temp_coeff = tc
         temp_min = _
@@ -255,18 +221,15 @@ component RES.POT(
 
     func VoltageDivider(input, output, gnd)
     {
-        input - this{1}
-        this{2} - output
-        this{3} - gnd
+        [input, gnd] - this{1,3|2,3} - [output, gnd]
         return output
     }
 
-    func Rheostat(netA, netB)
+    func Rheostat([net_a, net_b])
     {
-        netA - this{1}
-        this{2} - netB
+        net_a - this{1|2} - net_b
         // Pin3 floating
-        return netA, netB
+        return net_b
     }
 }
 
@@ -302,13 +265,6 @@ component RES.NTC(
         rohs = _
         derating_note = _
     ]
-
-    func Series(netA, netB)
-    {
-        netA - this{1}
-        this{2} - netB
-        return netA, netB
-    }
 }
 
 // =============================================================================
@@ -316,7 +272,7 @@ component RES.NTC(
 // =============================================================================
 component RES.PTC(
     rs::UV.OHM,
-    i_trip::UV.AMP,
+    itrip::UV.AMP,
     volt::UV.VOLT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
@@ -332,7 +288,7 @@ component RES.PTC(
 
     spec = [
         resistance = rs
-        trip_current = i_trip
+        trip_current = itrip
         voltage_rated = volt
         power_rated = _
         tolerance = tol
@@ -343,22 +299,15 @@ component RES.PTC(
         rohs = _
         derating_note = _
     ]
-
-    func Series(netA, netB)
-    {
-        netA - this{1}
-        this{2} - netB
-        return netA, netB
-    }
 }
 
 // =============================================================================
-// Resistor Array — Independent component, NO Pullup/Pulldown/Series
+// Resistor Array — Independent component, NO single-resistor funcs
 // =============================================================================
 component RES.ARRAY(
     rs::UV.OHM,
     volt::UV.VOLT,
-    power::UV.WATT,
+    prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP,
     channel_count::INT = 4
@@ -377,7 +326,7 @@ component RES.ARRAY(
     spec = [
         resistance = rs
         voltage_rated = volt
-        power_rated = power
+        power_rated = prated
         tolerance = tol
         temp_coeff = tc
         temp_min = _
@@ -388,7 +337,7 @@ component RES.ARRAY(
         derating_note = _
         //mount::STRING = "ARRAY_SMD"
     ]
-    // No single-resistor functions (Pullup / Pulldown / Series)
+    // No single-resistor functions (Pullup / Pulldown); series placement uses default 1×2 shape
     // Extend with dedicated channel binding functions later if needed
 }
 
@@ -397,10 +346,10 @@ component RES.ARRAY(
 # =============================================================================
 # RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pullup(signal, vcc)
 # RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pulldown(enable, gnd)
-# RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃).Series(vcc, load)
-# RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃).Series(vout, load)
+# vcc -> RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃) -> load                  // 二脚件默认 1×2 形状放置
+# vout -> RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃) -> load
 # RES.POT(10kΩ, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
-# RES.NTC(10kΩ, 3950, 5V, 5%).Series(ntc_node, gnd)
-# RES.PTC(100mΩ, 500mA, 24V, 20%).Series(vin, load)
+# ntc_node -> RES.NTC(10kΩ, 3950, 5V, 5%) -> gnd
+# vin -> RES.PTC(100mΩ, 500mA, 24V, 20%) -> load
 # RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_SMD")
 # RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_THT")

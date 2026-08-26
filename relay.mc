@@ -13,12 +13,12 @@
 # limitations under the License.
 
 # Relay components
-component RELAY(i_cont::UV.AMP, v_coil::UV.VOLT)
+component RELAY(icont::UV.AMP, vcoil::UV.VOLT)
 {
     name = "Relay"
     spec = [
-        contact_rating = i_cont
-        coil_voltage = v_coil
+        contact_rating = icont
+        coil_voltage = vcoil
     ]
     pins = [
         [1,2] = COIL{VCC,GND}::DC()
@@ -27,12 +27,12 @@ component RELAY(i_cont::UV.AMP, v_coil::UV.VOLT)
         5 = NC
     ]
 }
-component RELAY.EM(v_coil::UV.VOLT, i_cont::UV.AMP)
+component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP)
 {
     name = "Electromagnetic Relay"
     spec = [
-        coil_voltage = v_coil
-        contact_rating = i_cont
+        coil_voltage = vcoil
+        contact_rating = icont
     ]
     pins = [
         [1,2] = COIL{VCC,GND}::DC()
@@ -41,13 +41,13 @@ component RELAY.EM(v_coil::UV.VOLT, i_cont::UV.AMP)
         5 = NC
     ]
 }
-component RELAY.SSR(v_ctrl::UV.VOLT, v_load::UV.VOLT, i_load::UV.AMP)
+component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP)
 {
     name = "Solid State Relay"
     spec = [
-        control_voltage = v_ctrl
-        load_voltage = v_load
-        load_current = i_load
+        control_voltage = vctrl
+        load_voltage = vload
+        load_current = iload
     ]
     pins = [
         1 = CTRL.VCC
@@ -56,12 +56,12 @@ component RELAY.SSR(v_ctrl::UV.VOLT, v_load::UV.VOLT, i_load::UV.AMP)
         4 = LOAD.GND
     ]
 }
-component RELAY.REED(v_coil::UV.VOLT, i_cont::UV.AMP)
+component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP)
 {
     name = "Reed Relay"
     spec = [
-        coil_voltage = v_coil
-        contact_rating = i_cont
+        coil_voltage = vcoil
+        contact_rating = icont
     ]
     pins = [
         [1,2] = COIL{VCC,GND}::DC()
@@ -69,12 +69,12 @@ component RELAY.REED(v_coil::UV.VOLT, i_cont::UV.AMP)
         4 = COM
     ]
 }
-component RELAY.LATCH(v_coil::UV.VOLT, i_cont::UV.AMP)
+component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP)
 {
     name = "Latching Relay"
     spec = [
-        coil_voltage = v_coil
-        contact_rating = i_cont
+        coil_voltage = vcoil
+        contact_rating = icont
     ]
     pins = [
         1 = SET.VCC

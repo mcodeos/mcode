@@ -13,11 +13,11 @@
 # limitations under the License.
 
 # Filter components
-component FILTER.LP(f_cut::UV.HZ, ripple::UV.DB, atten::UV.DB)
+component FILTER.LP(fcut::UV.HZ, ripple::UV.DB, atten::UV.DB)
 {
     name = "Low Pass Filter"
     spec = [
-        cutoff_frequency = f_cut
+        cutoff_frequency = fcut
         pass_band_ripple = ripple
         stop_band_attenuation = atten
     ]
@@ -27,11 +27,11 @@ component FILTER.LP(f_cut::UV.HZ, ripple::UV.DB, atten::UV.DB)
         3 = GND
     ]
 }
-component FILTER.HP(f_cut::UV.HZ, ripple::UV.DB, atten::UV.DB)
+component FILTER.HP(fcut::UV.HZ, ripple::UV.DB, atten::UV.DB)
 {
     name = "High Pass Filter"
     spec = [
-        cutoff_frequency = f_cut
+        cutoff_frequency = fcut
         pass_band_ripple = ripple
         stop_band_attenuation = atten
     ]
@@ -41,12 +41,12 @@ component FILTER.HP(f_cut::UV.HZ, ripple::UV.DB, atten::UV.DB)
         3 = GND
     ]
 }
-component FILTER.BP(f_low::UV.HZ, f_high::UV.HZ, ripple::UV.DB, atten::UV.DB)
+component FILTER.BP(flow::UV.HZ, fhigh::UV.HZ, ripple::UV.DB, atten::UV.DB)
 {
     name = "Band Pass Filter"
     spec = [
-        lower_cutoff = f_low
-        upper_cutoff = f_high
+        lower_cutoff = flow
+        upper_cutoff = fhigh
         pass_band_ripple = ripple
         stop_band_attenuation = atten
     ]
@@ -56,12 +56,12 @@ component FILTER.BP(f_low::UV.HZ, f_high::UV.HZ, ripple::UV.DB, atten::UV.DB)
         3 = GND
     ]
 }
-component FILTER.BS(f_low::UV.HZ, f_high::UV.HZ, ripple::UV.DB, atten::UV.DB)
+component FILTER.BS(flow::UV.HZ, fhigh::UV.HZ, ripple::UV.DB, atten::UV.DB)
 {
     name = "Band Stop Filter"
     spec = [
-        lower_cutoff = f_low
-        upper_cutoff = f_high
+        lower_cutoff = flow
+        upper_cutoff = fhigh
         pass_band_ripple = ripple
         stop_band_attenuation = atten
     ]
@@ -71,11 +71,11 @@ component FILTER.BS(f_low::UV.HZ, f_high::UV.HZ, ripple::UV.DB, atten::UV.DB)
         3 = GND
     ]
 }
-component FILTER.NOTCH(f_center::UV.HZ, bw::UV.HZ, atten::UV.DB)
+component FILTER.NOTCH(fcenter::UV.HZ, bw::UV.HZ, atten::UV.DB)
 {
     name = "Notch Filter"
     spec = [
-        center_frequency = f_center
+        center_frequency = fcenter
         bandwidth = bw
         stop_band_attenuation = atten
     ]
@@ -85,12 +85,12 @@ component FILTER.NOTCH(f_center::UV.HZ, bw::UV.HZ, atten::UV.DB)
         3 = GND
     ]
 }
-component FILTER.AP(phase::UV.ANGLE, freq_range::STRING)
+component FILTER.AP(phase::UV.ANGLE, frange::STRING)
 {
     name = "All Pass Filter"
     spec = [
         phase_shift = phase
-        frequency_range = freq_range
+        frequency_range = frange
     ]
     pins = [
         1 = INPUT
@@ -98,12 +98,12 @@ component FILTER.AP(phase::UV.ANGLE, freq_range::STRING)
         3 = GND
     ]
 }
-component FILTER.ACTIVE(f_low::UV.HZ, f_high::UV.HZ, gain::UV.DB, volt::UV.VOLT)
+component FILTER.ACTIVE(flow::UV.HZ, fhigh::UV.HZ, gain::UV.DB, volt::UV.VOLT)
 {
     name = "Active Filter"
     spec = [
-        low_pass = f_low
-        high_pass = f_high
+        low_pass = flow
+        high_pass = fhigh
         gain = gain
         supply_voltage = volt
     ]
@@ -114,12 +114,12 @@ component FILTER.ACTIVE(f_low::UV.HZ, f_high::UV.HZ, gain::UV.DB, volt::UV.VOLT)
         4 = GND
     ]
 }
-component FILTER.SC(f_cut::UV.HZ, f_clk::UV.HZ, volt::UV.VOLT)
+component FILTER.SC(fcut::UV.HZ, fclk::UV.HZ, volt::UV.VOLT)
 {
     name = "Switched Capacitor Filter"
     spec = [
-        cutoff_frequency = f_cut
-        clock_frequency = f_clk
+        cutoff_frequency = fcut
+        clock_frequency = fclk
         supply_voltage = volt
     ]
     pins = [

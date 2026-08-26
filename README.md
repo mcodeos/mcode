@@ -41,6 +41,71 @@ file starts with the Apache-2.0 license header, lists the generic component
 first, then its `.`-suffixed variants (`RES`, `RES.SMD`, `RES.THT`, ...), and
 ends with a `# Usage Examples` comment block showing canonical call sites.
 
+## Naming Conventions
+
+Identifiers live in four layers, each with a distinct style so its role is
+readable without context:
+
+| layer                 | style                    | examples                            |
+|-----------------------|--------------------------|-------------------------------------|
+| `spec` keys           | snake_case, full words   | `forward_voltage`, `power_rated`    |
+| constructor formals   | merged, no underscore    | `vout`, `ifwd`, `volt`, `freq`      |
+| func params (nets)    | lowercase snake_case     | `input`, `output`, `gnd`, `net1`    |
+| pin names             | ALL CAPS                 | `VOUT`, `VCC`, `GND`, `IN\+`        |
+
+### 1. `spec` keys are full words
+
+`spec` keys are snake_case and fully spelled out (`capacitance`, `voltage`,
+`forward_voltage`, `rated_current`). They are the long-form vocabulary exposed
+to tools, the BOM and the user (see [§ C](#c-spec---the-electrical-parameter-table)).
+
+### 2. Constructor formals are merged, without underscores
+
+A constructor formal is a **short alias** for the quantity it carries, written
+without underscores or type prefixes: `volt`, `freq`, `cap`, `tol`, `vout`,
+`iout`, `vin`, `vdrop`, `vfwd`, `ifwd`, `prated`, `ppeak`, `fsw`, `zpri`,
+`cload`. The quantity letter and the qualifier merge with no separator
+(`v`+`out` → `vout`, `i`+`fwd` → `ifwd`).
+
+The formal must stay **distinct from its `spec` key** - the key is the full
+word, the formal the alias (`voltage = volt`, `power_rated = prated`). Never
+write a bare single letter (`v`, `p`, `f`) or a full word that duplicates the
+key (`rated_current = rated_current`). The generic single-quantity formals keep
+their plain short form: `volt`, `freq`, `cap`, `tol`, `charge`, `phase`.
+
+### 3. Func params are net names
+
+A func param is a **net endpoint**, named lowercase with snake_case full words:
+`input`, `output`, `reference`, `bias`, `gnd`, `vcc`, `net`, `net1`, `w1_in`.
+No quantity prefixes - a wire has no voltage or current. These are
+placeholders; the caller fills them with real net names.
+
+The kind of a func param is expressed by **syntax, not by the name**:
+
+- a plain identifier is a single net: `gnd`, `input`
+- `[...]` is a bus of nets: `[net1, net2]`, `[positive, negative]`
+- `::TYPE(...)` is an interface bundle: `driver::DC()`, `[V3V3, GND]::DC(3.3V)`
+
+Interface and bus params **expand** into their member nets when the func is
+used in a circuit - e.g. a `DC` rail expands to `rail.VCC` / `rail.GND`, and
+the compiler selects the power member when the rail feeds a power pin. The name
+labels the bundle, not its wires; this expansion is the designed behaviour.
+
+A scalar value param (`func i2c(address)` where `address` is `0x36`) is **not
+a net** and follows the constructor-formal style instead.
+
+### 4. Pin names are ALL CAPS
+
+Pin names are the wiring contract used at call sites, written in ALL CAPS
+(see [§ D](#d-pins---pin-declaration-rules)): `ANODE`, `CATHODE`, `VCC`, `GND`,
+`VOUT`, `PRIMARY\+`, `SECONDARY\-`, `W1_IN`. Caps keep pins visually distinct
+from lowercase func net params and merged constructor formals.
+
+### 5. Standard engineering symbols keep their abbreviations
+
+Universally recognised datasheet symbols stay as-is: `gm`, `cmrr`, `ctr`,
+`bw`, `tol`, `esr`, `srf`. Only non-standard abbreviations are expanded.
+
 ## Component Authoring Rules
 
 These rules unify how every component in the library is written. They are the
@@ -122,6 +187,8 @@ component CAP(cap::UV.CAP, volt::UV.VOLT, tol::UV.PERCENT = 10%, diel = CAP.X7R,
    missing parameter is silent in dev mode and is reported as a warning
    (E4178 / E5352) only under `mcc check --strict`. Default values are never
    used to mean "unassigned".
+8. Formal names follow the merged constructor-formal style and stay distinct
+   from their `spec` keys ([Naming Conventions §2](#2-constructor-formals-are-merged-without-underscores)).
 
 ### C. `spec` - the electrical parameter table
 
@@ -197,8 +264,10 @@ Rules:
 1. Physical id is an integer, a range `1:n`, or a list `[7,8]`; ids are unique
    and non-overlapping (overlap is checked).
 2. Logical names are the wiring contract used at call sites
-   (`R.ANODE`, `U_SENSOR.VCC`). Prefer family conventions: `ANODE`/`CATHODE`,
-   `Term 1`/`Term 2`, `W1_IN`/`W1_OUT`, `PRIMARY+`/`SECONDARY-`, `VCC`/`GND`.
+   (`R.ANODE`, `U_SENSOR.VCC`). Pin names are written in ALL CAPS
+   ([Naming Conventions §4](#4-pin-names-are-all-caps)). Prefer family
+   conventions: `ANODE`/`CATHODE`, `Term 1`/`Term 2`, `W1_IN`/`W1_OUT`,
+   `PRIMARY+`/`SECONDARY-`, `VCC`/`GND`.
 3. Polarity / phase markers: `\+` and `\-` mark a polarized or phased terminal
    (`1 = \+ , "Anode"`, `1 = PRIMARY\+`).
 4. Direction prefixes (a bare identifier before the range) classify a pin:
@@ -231,12 +300,12 @@ func Pullup(net1, vcc)
     return net1
 }
 
-func ColorIndicator(red_control, green_control, blue_control, ground)
+func ColorIndicator(red_control, green_control, blue_control, gnd)
 {
     red_control - this.RED_ANODE
     green_control - this.GREEN_ANODE
     blue_control - this.BLUE_ANODE
-    this.COMMON_CATHODE - ground
+    this.COMMON_CATHODE - gnd
     return this
 }
 ```
@@ -252,8 +321,10 @@ Rules:
 3. Connect with `-` / `->`; return the nets you opened so callers can chain or
    reuse (`return net1, net2`). `return this` returns the instance and enables
    method chaining: `D_STATUS.ConnectAnode(A).ConnectCathode(GND)`.
-4. Parameters are net names, or interface-typed objects for complex drivers
-   (`func Illumination(driver::DC())` - binds `driver.VCC` / `driver.GND`).
+4. Parameters are net names, buses (`[net1, net2]`), or interface-typed
+   objects for complex drivers (`func Illumination(driver::DC())` - binds
+   `driver.VCC` / `driver.GND`). The kind is expressed by syntax; the name is a
+   lowercase net label ([Naming Conventions §3](#3-func-params-are-net-names)).
 5. Two-terminal passives (RES, CAP, IND) all provide `Series(netA, netB)`;
    RES adds `Pullup` / `Pulldown`, CAP and IND share the same `Series` shape.
    Parts with a different topology (RES.POT, IND.CMC, RES.ARRAY) get dedicated

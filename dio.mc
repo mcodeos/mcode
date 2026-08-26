@@ -14,13 +14,28 @@
 
 # Basic Diode Component
 # Generic diode with fundamental parameters
-component DIO(v_fwd::UV.VOLT, v_rev::UV.VOLT, i_max::UV.AMP)
+component DIO(vfwd::UV.VOLT, vrev::UV.VOLT, imax::UV.AMP)
 {
     name = "Diode"
     spec = [
-        forward_voltage = v_fwd
-        reverse_voltage = v_rev
-        maximum_current = i_max
+        forward_voltage = vfwd
+        reverse_voltage = vrev
+        maximum_current = imax
+    ]
+    
+    pins = [
+        1 = ANODE        # Positive terminal
+        2 = CATHODE      # Negative terminal
+    ]
+}
+
+# Electrostatic Discharge (ESD) Protection Diode
+# Diode for protecting against electrostatic discharge
+component DIO.ESD(rating::UV.VOLT)
+{
+    name = "ESD Diode"
+    spec = [
+        esd_rating = rating
     ]
     
     pins = [
@@ -28,52 +43,22 @@ component DIO(v_fwd::UV.VOLT, v_rev::UV.VOLT, i_max::UV.AMP)
         2 = CATHODE      # Negative terminal
     ]
     
-    func Rectifier(input, output)
+    func Protect([input, gnd])
     {
-        input - this.ANODE
-        this.CATHODE - output
-        return this
-    }
-    
-    func Freewheeling(load, supply)
-    {
-        load - this.ANODE
-        this.CATHODE - supply
-        return this
-    }
-}
-
-# Electrostatic Discharge (ESD) Protection Diode
-# Diode for protecting against electrostatic discharge
-component DIO.ESD(rating::UV.VOLT)
-{
-    name = "ESD Protection Diode"
-    spec = [
-        esd_rating = rating
-    ]
-    
-    pins = [
-        1 = INPUT        # Input terminal to protect
-        2 = GND          # Ground terminal
-    ]
-    
-    func ESDProtection(input_signal, ground)
-    {
-        input_signal - this.INPUT
-        this.GND - ground
-        return this
+        [input, gnd] - [this.CATHODE, this.ANODE]
+        return [input, gnd]
     }
 }
 
 # Schottky Diode
 # Fast switching diode with low forward voltage drop
-component DIO.SCH(v_fwd::UV.VOLT, v_rev::UV.VOLT, i_max::UV.AMP)
+component DIO.SCH(vfwd::UV.VOLT, vrev::UV.VOLT, imax::UV.AMP)
 {
     name = "Schottky Diode"
     spec = [
-        forward_voltage = v_fwd
-        reverse_voltage = v_rev
-        maximum_current = i_max
+        forward_voltage = vfwd
+        reverse_voltage = vrev
+        maximum_current = imax
     ]
     
     pins = [
@@ -91,12 +76,12 @@ component DIO.SCH(v_fwd::UV.VOLT, v_rev::UV.VOLT, i_max::UV.AMP)
 
 # Zener Diode
 # Voltage regulating diode that operates in reverse bias
-component DIO.ZEN(v_z::UV.VOLT, p::UV.WATT, tol::UV.PERCENT)
+component DIO.ZEN(vz::UV.VOLT, ppeak::UV.WATT, tol::UV.PERCENT)
 {
     name = "Zener Diode"
     spec = [
-        zener_voltage = v_z
-        power_rating = p
+        zener_voltage = vz
+        power_rating = ppeak
         tolerance = tol
     ]
     
@@ -105,24 +90,24 @@ component DIO.ZEN(v_z::UV.VOLT, p::UV.WATT, tol::UV.PERCENT)
         2 = CATHODE      # Negative terminal
     ]
     
-    func VoltageRegulator(inp, outp, gnd)
+    func VoltageRegulator(input, output, gnd)
     {
-        inp - this.CATHODE
+        input - this.CATHODE
         this.ANODE - gnd
-        outp - this.CATHODE
+        output - this.CATHODE
         return this
     }
 }
 
 # Transient Voltage Suppressor (TVS)
 # Diode for protecting against voltage spikes
-component DIO.TVS(v_br::UV.VOLT, v_clamp::UV.VOLT, p_peak::UV.WATT)
+component DIO.TVS(vbr::UV.VOLT, vclamp::UV.VOLT, ppeak::UV.WATT)
 {
     name = "Transient Voltage Suppressor"
     spec = [
-        breakdown_voltage = v_br
-        clamping_voltage = v_clamp
-        peak_power = p_peak
+        breakdown_voltage = vbr
+        clamping_voltage = vclamp
+        peak_power = ppeak
     ]
     
     pins = [
@@ -130,9 +115,9 @@ component DIO.TVS(v_br::UV.VOLT, v_clamp::UV.VOLT, p_peak::UV.WATT)
         2 = CATHODE      # Negative terminal
     ]
     
-    func SurgeProtector(circ, gnd)
+    func Protect(input, gnd)
     {
-        circ - this.CATHODE
+        input - this.CATHODE
         this.ANODE - gnd
         return this
     }
@@ -140,13 +125,13 @@ component DIO.TVS(v_br::UV.VOLT, v_clamp::UV.VOLT, p_peak::UV.WATT)
 
 # Photodiode
 # Light-sensitive diode that generates current when exposed to light
-component DIO.PHOTO(resp::UV.RESPONSIVITY, i_dark::UV.AMP, spec_range::UV.LEN)
+component DIO.PHOTO(resp::UV.RESPONSIVITY, idark::UV.AMP, srange::UV.LEN)
 {
     name = "Photodiode"
     spec = [
         responsivity = resp
-        dark_current = i_dark
-        spectral_range = spec_range
+        dark_current = idark
+        spectral_range = srange
     ]
     
     pins = [
@@ -154,11 +139,11 @@ component DIO.PHOTO(resp::UV.RESPONSIVITY, i_dark::UV.AMP, spec_range::UV.LEN)
         2 = CATHODE      # Negative terminal
     ]
     
-    func LightSensor(v_src, outp)
+    func LightSensor(vcc, output)
     {
-        v_src - this.CATHODE
-        this.ANODE - outp
-        return outp
+        vcc - this.CATHODE
+        this.ANODE - output
+        return output
     }
 }
 
@@ -170,10 +155,10 @@ component DIO.PHOTO(resp::UV.RESPONSIVITY, i_dark::UV.AMP, spec_range::UV.LEN)
 # DIO.SCH(0.3V, 40V, 5.0A).FastRectifier(high_freq_ac, dc_output)
 
 # 3. Zener diode as voltage regulator
-# DIO.ZEN(5.1V, 0.5W, 5%).VoltageRegulator(unregulated_input, regulated_output, ground)
+# DIO.ZEN(5.1V, 0.5W, 5%).VoltageRegulator(unregulated_input, regulated_output, gnd)
 
 # 4. TVS diode for surge protection
-# DIO.TVS(12V, 15V, 500W).SurgeProtector(sensitive_circuit, ground)
+# DIO.TVS(12V, 15V, 500W).SurgeProtector(sensitive_circuit, gnd)
 
 # 5. Photodiode as light sensor
 # light_signal = DIO.PHOTO(0.5A/W, 1nA, 850nm).LightSensor(5.0V, light_output)

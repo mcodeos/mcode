@@ -13,13 +13,13 @@
 # limitations under the License.
 
 # Optocoupler components
-component OPTO(i_in::UV.AMP, i_out::UV.AMP, v_iso::UV.VOLT)
+component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT)
 {
     name = "Optocoupler"
     spec = [
-        input_current = i_in
-        output_current = i_out
-        isolation_voltage = v_iso
+        input_current = iin
+        output_current = iout
+        isolation_voltage = viso
     ]
     pins = [
         1 = INPUT\+
@@ -28,13 +28,13 @@ component OPTO(i_in::UV.AMP, i_out::UV.AMP, v_iso::UV.VOLT)
         4 = OUTPUT\-
     ]
 }
-component OPTO.TRANS(i_in::UV.AMP, i_out::UV.AMP, v_iso::UV.VOLT, ctr::UV.PERCENT)
+component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT)
 {
     name = "Transistor Output Optocoupler"
     spec = [
-        input_current = i_in
-        output_current = i_out
-        isolation_voltage = v_iso
+        input_current = iin
+        output_current = iout
+        isolation_voltage = viso
         current_transfer_ratio = ctr
     ]
     pins = [
@@ -44,14 +44,14 @@ component OPTO.TRANS(i_in::UV.AMP, i_out::UV.AMP, v_iso::UV.VOLT, ctr::UV.PERCEN
         4 = EMITTER
     ]
 }
-component OPTO.TRIAC(i_in::UV.AMP, v_out::UV.VOLT, v_iso::UV.VOLT, i_hold::UV.AMP)
+component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP)
 {
     name = "Triac Output Optocoupler"
     spec = [
-        input_current = i_in
-        output_voltage = v_out
-        isolation_voltage = v_iso
-        holding_current = i_hold
+        input_current = iin
+        output_voltage = vout
+        isolation_voltage = viso
+        holding_current = ihold
     ]
     pins = [
         1 = INPUT\+
@@ -60,13 +60,13 @@ component OPTO.TRIAC(i_in::UV.AMP, v_out::UV.VOLT, v_iso::UV.VOLT, i_hold::UV.AM
         4 = MT2
     ]
 }
-component OPTO.PV(i_in::UV.AMP, v_out::UV.VOLT, v_iso::UV.VOLT)
+component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT)
 {
     name = "Photovoltaic Optocoupler"
     spec = [
-        input_current = i_in
-        output_voltage = v_out
-        isolation_voltage = v_iso
+        input_current = iin
+        output_voltage = vout
+        isolation_voltage = viso
     ]
     pins = [
         1 = INPUT\+
@@ -75,14 +75,14 @@ component OPTO.PV(i_in::UV.AMP, v_out::UV.VOLT, v_iso::UV.VOLT)
         4 = OUTPUT\-
     ]
 }
-component OPTO.LOGIC(i_in::UV.AMP, v_out::UV.VOLT, v_iso::UV.VOLT, t_delay::UV.TIME)
+component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME)
 {
     name = "Logic Output Optocoupler"
     spec = [
-        input_current = i_in
-        output_voltage = v_out
-        isolation_voltage = v_iso
-        propagation_delay = t_delay
+        input_current = iin
+        output_voltage = vout
+        isolation_voltage = viso
+        propagation_delay = tdelay
     ]
     pins = [
         1 = INPUT\+

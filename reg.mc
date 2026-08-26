@@ -13,13 +13,13 @@
 # limitations under the License.
 
 # Regulator components
-component REG(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT)
+component REG(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT)
 {
     name = "Regulator"
     spec = [
-        output_voltage = v_out
-        output_current = i_out
-        input_voltage = v_in
+        output_voltage = vout
+        output_current = iout
+        input_voltage = vin
     ]
     pins = [
         1 = INPUT
@@ -27,14 +27,14 @@ component REG(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT)
         3 = GND
     ]
 }
-component REG.LINEAR(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, v_drop::UV.VOLT)
+component REG.LINEAR(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, vdrop::UV.VOLT)
 {
     name = "Linear Regulator"
     spec = [
-        output_voltage = v_out
-        output_current = i_out
-        input_voltage = v_in
-        dropout_voltage = v_drop
+        output_voltage = vout
+        output_current = iout
+        input_voltage = vin
+        dropout_voltage = vdrop
     ]
     pins = [
         1 = INPUT
@@ -42,13 +42,13 @@ component REG.LINEAR(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, v_drop::UV.VO
         3 = GND
     ]
 }
-component REG.SW(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, eff::UV.PERCENT)
+component REG.SW(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, eff::UV.PERCENT)
 {
     name = "Switching Regulator"
     spec = [
-        output_voltage = v_out
-        output_current = i_out
-        input_voltage = v_in
+        output_voltage = vout
+        output_current = iout
+        input_voltage = vin
         efficiency = eff
     ]
     pins = [
@@ -59,14 +59,14 @@ component REG.SW(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, eff::UV.PERCENT)
         5 = FB
     ]
 }
-component REG.LDO(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, v_drop::UV.VOLT)
+component REG.LDO(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, vdrop::UV.VOLT)
 {
     name = "Low Dropout Regulator"
     spec = [
-        output_voltage = v_out
-        output_current = i_out
-        input_voltage = v_in
-        dropout_voltage = v_drop
+        output_voltage = vout
+        output_current = iout
+        input_voltage = vin
+        dropout_voltage = vdrop
     ]
     pins = [
         1 = INPUT
@@ -74,12 +74,12 @@ component REG.LDO(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, v_drop::UV.VOLT)
         3 = GND
     ]
 }
-component REG.REF(v_out::UV.VOLT, i_out::UV.AMP, acc::UV.PERCENT)
+component REG.REF(vout::UV.VOLT, iout::UV.AMP, acc::UV.PERCENT)
 {
     name = "Voltage Reference"
     spec = [
-        output_voltage = v_out
-        output_current = i_out
+        output_voltage = vout
+        output_current = iout
         accuracy = acc
     ]
     pins = [
@@ -88,14 +88,14 @@ component REG.REF(v_out::UV.VOLT, i_out::UV.AMP, acc::UV.PERCENT)
         3 = GND
     ]
 }
-component REG.BUCK(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, f_sw::UV.HZ)
+component REG.BUCK(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, fsw::UV.HZ)
 {
     name = "Buck Regulator"
     spec = [
-        output_voltage = v_out
-        output_current = i_out
-        input_voltage = v_in
-        switching_frequency = f_sw
+        output_voltage = vout
+        output_current = iout
+        input_voltage = vin
+        switching_frequency = fsw
     ]
     pins = [
         1 = INPUT
@@ -105,14 +105,14 @@ component REG.BUCK(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, f_sw::UV.HZ)
         5 = FB
     ]
 }
-component REG.BOOST(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, f_sw::UV.HZ)
+component REG.BOOST(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, fsw::UV.HZ)
 {
     name = "Boost Regulator"
     spec = [
-        output_voltage = v_out
-        output_current = i_out
-        input_voltage = v_in
-        switching_frequency = f_sw
+        output_voltage = vout
+        output_current = iout
+        input_voltage = vin
+        switching_frequency = fsw
     ]
     pins = [
         1 = INPUT
@@ -122,14 +122,14 @@ component REG.BOOST(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, f_sw::UV.HZ)
         5 = FB
     ]
 }
-component REG.BUCK_BOOST(v_out::UV.VOLT, i_out::UV.AMP, v_in::UV.VOLT, f_sw::UV.HZ)
+component REG.BUCK_BOOST(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, fsw::UV.HZ)
 {
     name = "Buck-Boost Regulator"
     spec = [
-        output_voltage = v_out
-        output_current = i_out
-        input_voltage = v_in
-        switching_frequency = f_sw
+        output_voltage = vout
+        output_current = iout
+        input_voltage = vin
+        switching_frequency = fsw
     ]
     pins = [
         1 = INPUT
