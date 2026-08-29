@@ -95,9 +95,8 @@ component OSC(freq::UV.HZ)
 
     pins = [
         1 = NC  , "No connection"
-        2 = GND , "Ground"
         3 = XTAL , "Oscillator output"
-        4 = VDD , "Power supply"
+        [4,2] = [VDD, GND]::DC(), ["Power supply", "Ground"]
     ]
 }
 

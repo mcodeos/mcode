@@ -22,9 +22,8 @@ component SENSOR.TEMP(output_type::STRING, range::STRING, accuracy::STRING)
         accuracy = accuracy // [±0.1°C, ±0.5°C, ±1.0°C]
     ]
     pins = [
-        1 = VCC
+        [1,3] = [VCC, GND]::DC()
         2 = OUTPUT
-        3 = GND
     ]
 }
 component SENSOR.HUMIDITY(output_type::STRING, range::STRING, accuracy::STRING)
@@ -36,9 +35,8 @@ component SENSOR.HUMIDITY(output_type::STRING, range::STRING, accuracy::STRING)
         accuracy = accuracy // [±2%, ±3%, ±5%]
     ]
     pins = [
-        1 = VCC
+        [1,3] = [VCC, GND]::DC()
         2 = OUTPUT
-        3 = GND
     ]
 }
 component SENSOR.PRESSURE(output_type::STRING, range::STRING, accuracy::STRING)
@@ -50,9 +48,8 @@ component SENSOR.PRESSURE(output_type::STRING, range::STRING, accuracy::STRING)
         accuracy = accuracy // [±0.5%, ±1%, ±2%]
     ]
     pins = [
-        1 = VCC
+        [1,3] = [VCC, GND]::DC()
         2 = OUTPUT
-        3 = GND
     ]
 }
 component SENSOR.LIGHT(output_type::STRING, range::STRING, sensitivity::STRING)
@@ -64,9 +61,8 @@ component SENSOR.LIGHT(output_type::STRING, range::STRING, sensitivity::STRING)
         sensitivity = sensitivity // [1000mV/lux, 500mV/lux, 100mV/lux]
     ]
     pins = [
-        1 = VCC
+        [1,3] = [VCC, GND]::DC()
         2 = OUTPUT
-        3 = GND
     ]
 }
 component SENSOR.PROX(output_type::STRING, range::STRING, response_time::UV.TIME)
@@ -78,9 +74,8 @@ component SENSOR.PROX(output_type::STRING, range::STRING, response_time::UV.TIME
         response_time = response_time // [1ms, 10ms, 50ms]
     ]
     pins = [
-        1 = VCC
+        [1,3] = [VCC, GND]::DC()
         2 = OUTPUT
-        3 = GND
     ]
 }
 component SENSOR.MOTION(output_type::STRING, range::STRING, sensitivity::STRING)
@@ -92,9 +87,8 @@ component SENSOR.MOTION(output_type::STRING, range::STRING, sensitivity::STRING)
         sensitivity = sensitivity // [low, medium, high]
     ]
     pins = [
-        1 = VCC
+        [1,3] = [VCC, GND]::DC()
         2 = OUTPUT
-        3 = GND
     ]
 }
 component SENSOR.GAS(output_type::STRING, gas::STRING, sensitivity::STRING)
@@ -106,10 +100,9 @@ component SENSOR.GAS(output_type::STRING, gas::STRING, sensitivity::STRING)
         sensitivity = sensitivity // [low, medium, high]
     ]
     pins = [
-        1 = VCC
+        [1,4] = [VCC, GND]::DC()
         2 = HEATER
         3 = OUTPUT
-        4 = GND
     ]
 }
 component SENSOR.ACCEL(output_type::STRING, range::STRING, sensitivity::STRING)
@@ -121,11 +114,10 @@ component SENSOR.ACCEL(output_type::STRING, range::STRING, sensitivity::STRING)
         sensitivity = sensitivity // [1mg/LSB, 2mg/LSB, 4mg/LSB]
     ]
     pins = [
-        1 = VCC
+        [1,5] = [VCC, GND]::DC()
         2 = X_OUT
         3 = Y_OUT
         4 = Z_OUT
-        5 = GND
     ]
 }
 component SENSOR.GYRO(output_type::STRING, range::STRING, sensitivity::STRING)
@@ -137,11 +129,10 @@ component SENSOR.GYRO(output_type::STRING, range::STRING, sensitivity::STRING)
         sensitivity = sensitivity // [1°/s/LSB, 2°/s/LSB, 4°/s/LSB]
     ]
     pins = [
-        1 = VCC
+        [1,5] = [VCC, GND]::DC()
         2 = X_OUT
         3 = Y_OUT
         4 = Z_OUT
-        5 = GND
     ]
 }
 component SENSOR.MAG(output_type::STRING, range::STRING, sensitivity::STRING)
@@ -153,10 +144,9 @@ component SENSOR.MAG(output_type::STRING, range::STRING, sensitivity::STRING)
         sensitivity = sensitivity // [0.5mT/LSB, 1mT/LSB, 2mT/LSB]
     ]
     pins = [
-        1 = VCC
+        [1,5] = [VCC, GND]::DC()
         2 = X_OUT
         3 = Y_OUT
         4 = Z_OUT
-        5 = GND
     ]
 }
