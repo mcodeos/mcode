@@ -16,7 +16,7 @@
 // DC Power Supply Interface
 // ---------------------------------------------------------------------------------------------
 
-interface DC(volt::UV.VOLT = 5V, role) // DC Power Supply Interface
+interface DC(volt::UV.VOLT, role) // DC Power Supply Interface
 {
     topology = "point to point"
     mode = ["unidirectional"]
@@ -131,7 +131,7 @@ interface DC(volt::UV.VOLT = 5V, role) // DC Power Supply Interface
 // DCA — Analog DC Power Supply Interface
 // ---------------------------------------------------------------------------------------------
 
-interface DCA(volt::UV.VOLT = 3.3V, role) // Analog DC Power Supply Interface
+interface DCA(volt::UV.VOLT, role) // Analog DC Power Supply Interface
 {
     topology = "point to point"
     voltage = volt
