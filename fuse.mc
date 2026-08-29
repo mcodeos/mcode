@@ -13,51 +13,53 @@
 # limitations under the License.
 
 # Fuse components
-component FUSE(irated::UV.AMP, vrated::UV.VOLT)
+component FUSE(irated::UV.AMP, vrated::UV.VOLT, type::STRING)
 {
     name = "Fuse"
     spec = [
         rating = irated // [0.1A, 0.5A, 1A, 2A, 5A, 10A, 20A]
         voltage = vrated // [5V, 12V, 24V, 120V, 240V]
-        type = _ // [fast, slow, medium]
+        type = type // [fast, slow, medium]
     ]
     pins = [
         1 = 1
         2 = 2
     ]
 }
-component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT)
+component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, type::STRING)
 {
     name = "Surface Mount Fuse"
     spec = [
         rating = irated // [0.1A, 0.5A, 1A, 2A, 5A]
         voltage = vrated // [5V, 12V, 24V, 120V]
+        type = type // [fast, slow, medium]
     ]
     pins = [
         1 = 1
         2 = 2
     ]
 }
-component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP)
+component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP, type::STRING)
 {
     name = "Ceramic Fuse"
     spec = [
         rating = irated
         voltage = vrated
         breaking_capacity = ibreak
+        type = type // [fast, slow, medium]
     ]
     pins = [
         1 = 1
         2 = 2
     ]
 }
-component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT)
+component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, type::STRING)
 {
     name = "Glass Fuse"
     spec = [
         rating = irated // [0.5A, 1A, 2A, 5A, 10A]
         voltage = vrated // [12V, 24V, 120V, 240V]
-        speed = _ // [fast, slow, medium]
+        type = type // [fast, slow, medium]
     ]
     pins = [
         1 = 1

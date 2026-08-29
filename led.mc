@@ -14,13 +14,13 @@
 
 # Basic LED Component
 # Generic light-emitting diode with fundamental parameters
-component LED(vfwd::UV.VOLT, ifwd::UV.AMP)
+component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
 {
     name = "LED"
     spec = [
         forward_voltage = vfwd // [1.8V, 2.0V, 2.2V, 3.2V, 3.6V]
         forward_current = ifwd // [10mA, 20mA, 30mA, 50mA, 100mA]
-        wavelength = _ // [460nm, 520nm, 620nm, 650nm, 850nm, 940nm]
+        wavelength = wavelength // [460nm, 520nm, 620nm, 650nm, 850nm, 940nm]
     ]
     
     pins = [
@@ -67,13 +67,13 @@ component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP)
 
 # Infrared LED
 # Light-emitting diode for infrared radiation
-component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP)
+component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
 {
     name = "Infrared LED"
     spec = [
         forward_voltage = vfwd
         forward_current = ifwd
-        wavelength = _
+        wavelength = wavelength
     ]
     
     pins = [
@@ -115,13 +115,13 @@ component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT)
 
 # Usage Examples:
 # 1. Basic LED as indicator
-# LED(2.2V, 20mA).Indicator([vcc, gnd])
+# LED(2.2V, 20mA, 520nm).Indicator([vcc, gnd])
 
 # 2. RGB LED for color indication
 # LED.RGB(2.0V, 3.2V, 3.2V, 20mA).ColorIndicator(red_pwm, green_pwm, blue_pwm, gnd)
 
 # 3. Infrared LED for remote control
-# LED.IR(1.2V, 100mA).IRTransmitter(ir_driver)
+# LED.IR(1.2V, 100mA, 940nm).IRTransmitter(ir_driver)
 
 # 4. High power LED for illumination
 # LED.HP(3.2V, 1.0A, 3.2W).Illumination(led_driver)

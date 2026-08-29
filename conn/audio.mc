@@ -18,7 +18,7 @@
 
 // 3.5mm TRS Connector (Headphone Jack)
 // configuration: Connector configuration (stereo, mono, headset)
-component AUDIO.TRS_35MM(configuration::STRING = "stereo")
+component AUDIO.TRS_35MM(configuration::STRING)
 {
     name = "3.5mm TRS Connector"
     description = "3.5mm TRS audio connector, " + configuration + " configuration"
@@ -92,7 +92,7 @@ component AUDIO.RCA()
 
 // XLR Connector
 // pin_count: Number of pins (3, 4, or 5)
-component AUDIO.XLR(pin_count::INT = 3)
+component AUDIO.XLR(pin_count::INT)
 {
     name = "XLR Connector"
     description = "XLR audio connector, " + string(pin_count) + " pins"
@@ -131,22 +131,19 @@ component AUDIO.XLR(pin_count::INT = 3)
 }
 
 // Speakon Connector (Professional Audio)
-component AUDIO.SPEAKON()
+component AUDIO.SPEAKON(pin_count::INT)
 {
     name = "Speakon Connector"
     description = "Speakon professional audio connector"
-    
+
     spec = [
         type = "Speakon"
-        pin_count = _ // [4, 8]
+        pin_count = pin_count // [4, 8]
         application = "Professional Audio"
     ]
-    
+
     pins = [
-        1 = 1, "Pin 1"
-        2 = 2, "Pin 2"
-        3 = 3, "Pin 3"
-        4 = 4, "Pin 4"
+        1:pin_count = 1:pin_count
     ]
 }
 
@@ -166,10 +163,15 @@ component AUDIO.BANANA_PLUG()
     ]
 }
 
-// Usage Examples:// 1. 3.5mm stereo connector// AUDIO.TRS_35MM("stereo")
+// Usage Examples:
+// 1. 3.5mm stereo connector
+// AUDIO.TRS_35MM("stereo")
 
-// 2. RCA red connector// AUDIO.RCA("red")
+// 2. RCA red connector
+// AUDIO.RCA("red")
 
-// 3. XLR 3-pin male connector// AUDIO.XLR(3, "male")
+// 3. XLR 3-pin male connector
+// AUDIO.XLR(3, "male")
 
-// 4. Speakon 4-pin connector// AUDIO.SPEAKON(4)
+// 4. Speakon 4-pin connector
+// AUDIO.SPEAKON(4)

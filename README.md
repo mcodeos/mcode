@@ -163,7 +163,7 @@ The constructor carries **only a few core electrical formals**, so call sites
 stay readable:
 
 ```mc
-component CAP(cap::UV.CAP, volt::UV.VOLT, tol::UV.PERCENT = 10%, diel = CAP.X7R, cons = CAP.MLCC)
+component CAP(cap::UV.CAP, volt::UV.VOLT, tol::UV.PERCENT, diel, cons)
 ```
 
 1. Formal list is short: the electrical parameters that define the part
@@ -172,22 +172,39 @@ component CAP(cap::UV.CAP, volt::UV.VOLT, tol::UV.PERCENT = 10%, diel = CAP.X7R,
 2. Every electrical formal is unit-typed with the `::UV.UNIT` syntax
    (`UV.VOLT`, `UV.AMP`, `UV.CAP`, `UV.OHM`, `UV.IND`, `UV.WATT`, `UV.PERCENT`,
    `UV.HZ`, `UV.PPM/UV.TEMP`, ...). The unit set is defined in `units.mc`.
-3. Optional formals get a default value (`tol::UV.PERCENT = 10%`,
-   `channel_count::INT = 4`). Required formals come first; once a default is
-   given, later formals must keep defaults.
-4. Tolerance defaults carry the plus/minus prefix (in source this is the
-   U+00B1 character, written before the magnitude, as in
-   `tol::UV.PERCENT = 10%`). The plus/minus marker is a magnitude marker, not
-   an arithmetic operator.
-5. BOM fields never appear as formals (Rule A).
-6. A same-name `func` (e.g. `func GD25Q32E(...)`) declares the actual
+3. Only natural-minimum formals get a default value (`count::INT = 1`).
+   Required formals come first; once a default is given, later formals must
+   keep defaults.
+4. **Physical vs electrical.** The split that decides what a formal is (and
+   whether it may carry a default) is physical vs electrical. An **electrical
+   characteristic** the design must pick - core values, tolerance, dielectric,
+   load capacitance, safety class, supply / rail voltage, connector impedance
+   / polarity, and **pin count** (it fixes the pinout) - is a required formal
+   written **without a default**: omitting it stays visible (`_` in `spec`)
+   until the design / BOM supplies the value.
+   A **physical / mechanical characteristic** (body size, shell diameter,
+   thread, contact material) is a BOM-stage decision: never a constructor
+   formal, kept in `spec` as `_`. The only defaulted formal is a natural
+   minimum (`count = 1`), where omitting it yields the value the part
+   genuinely carries. Construction fixed by the variant name (an MLCC is
+   `MLCC`) is written as a spec literal; construction that varies within a
+   class (wet vs polymer aluminum) is also a BOM-stage decision, deferred via
+   spec `_` - never a defaulted formal. A default must also stay overridable
+   via `spec` / the BOM, and a wrong default must cost a check-time warning
+   (E4178 / E5352) or a BOM correction, never a wiring or safety error. See
+   Decision Record 3.
+5. Tolerance values carry the plus/minus prefix (in source this is the U+00B1
+   character, written before the magnitude, as in `tol::UV.PERCENT = ±10%`).
+   The plus/minus marker is a magnitude marker, not an arithmetic operator.
+6. BOM fields never appear as formals (Rule A).
+7. A same-name `func` (e.g. `func GD25Q32E(...)`) declares the actual
    construction arity and overrides class-level params for call sites; the two
    are never mixed (COMPONENT_PARAM_FUNC_CONFLICT).
-7. Instances may omit required formals: the instance is still created - a
+8. Instances may omit required formals: the instance is still created - a
    missing parameter is silent in dev mode and is reported as a warning
    (E4178 / E5352) only under `mcc check --strict`. Default values are never
    used to mean "unassigned".
-8. Formal names follow the merged constructor-formal style and stay distinct
+9. Formal names follow the merged constructor-formal style and stay distinct
    from their `spec` keys ([Naming Conventions §2](#2-constructor-formals-are-merged-without-underscores)).
 
 ### C. `spec` - the electrical parameter table
@@ -425,3 +442,67 @@ readable while the instance is still created when formals are omitted.
    the pin-count checks (E3111 `PARAM_DECLARE_IFACE_PINS`, E4102
    `IFACE_PINS_NOT_ALL_BOUND`) impossible to satisfy without fake bindings and
    double-binds the power pin.
+
+### Decision Record 3: Constructor Parameter Defaults
+
+A constructor formal may carry a default value **only when omitting it yields
+the value the part should genuinely carry**. A default must never substitute
+for a decision the designer has to make.
+
+A default is allowed when all four tests hold:
+
+1. **Not a design decision.** The parameter's value is fixed by the class,
+   not chosen by the designer for circuit reasons. Any formal the designer
+   must choose - core values, tolerance, dielectric, load capacitance, safety
+   class, supply / rail voltage, connector impedance / polarity, pin count
+   (which fixes the pinout) - is written without a default: omitting it stays
+   visible (`_` in `spec`) until the design / BOM supplies the value.
+   A common value is not an excuse: tolerance is a real engineering choice
+   (`±1%` vs `±20%` changes cost and precision), so it is never defaulted even
+   though `±10%` is common. The same applies to dielectric and to crystal
+   load capacitance - 20 pF is common, but the oscillator design picks it,
+   and to connector impedance - 50 Ω is common, but BNC / SMA still carry it
+   as a required formal.
+2. **Natural minimum only; physical characteristics stay out of the
+   constructor.** Where a default IS allowed, it must be the minimal sane
+   option (`count = 1`). Connector impedance / polarity are electrical
+   characteristics the design must pick - required formals without a default.
+   Physical / mechanical characteristics (body size, shell diameter, thread)
+   are BOM-stage decisions: never a constructor formal, deferred via spec `_`.
+   Construction fixed by a variant name is a spec literal (`CAP.MLCC` writes
+   `construction = MLCC`); a construction that varies within a class (wet vs
+   polymer aluminum) is a BOM-stage decision, deferred via spec `_`, never a
+   defaulted formal.
+3. **Cost of being wrong is bounded.** A wrong default must surface as a
+   check-time warning (E4178 / E5352) or a BOM / selection correction, never
+   as a wiring or safety error. Safety and certification choices (e.g. the
+   `CAP.SAFETY` safety class) therefore never get defaults.
+4. **Overridable downstream.** The value remains correctable at the call site
+   and via `spec` / the BOM (Decision Record 1 §4); the default is a starting
+   point, not a permanent assignment. Defaults are never used to mean
+   "unassigned" - `_` is the only unassigned marker.
+
+What is never defaulted:
+
+- the core functional quantities (resistance, capacitance, inductance,
+  frequency, rated output voltage / current, power rating) - these define the
+  part's function and are always required at the call site;
+- tolerance, dielectric, and crystal load capacitance - real engineering
+  choices (precision / cost, temperature stability, oscillator loading) made
+  at design time; the common value is not a default, it is the value the
+  caller passes;
+- supply / rail voltage (`volt` on amplifiers and on the `DC` / `DCA`
+  interfaces) - the rail is chosen by the design, not carried by the part;
+- connector impedance / polarity (BNC / SMA impedance, DC-jack polarity) -
+  electrical characteristics the design must pick, even when a common value
+  (50 Ω, center-positive) exists;
+- safety / certification choices (the `CAP.SAFETY` safety class) - a silently
+  wrong safety claim is a safety error, not a warning.
+
+Rationale: a default is an ergonomic starting point for the common case. It is
+safe exactly when the common case is the correct case. It becomes a trap when
+it silently asserts a decision the designer must make (which rail, which
+safety class, which precision) or a value the part does not actually carry. A
+silent wrong default is worse than a missing parameter: a missing parameter is
+visible in `--strict` checks and in the BOM, while a plausible wrong default is
+not flagged anywhere.

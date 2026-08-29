@@ -27,7 +27,7 @@
 component IND(
     ind::UV.IND,
     irated::UV.AMP,
-    tol::UV.PERCENT = ±10%,
+    tol::UV.PERCENT,
     dcr::UV.OHM
 )
 {
@@ -58,7 +58,7 @@ component IND(
 component IND.SMD(
     ind::UV.IND,
     irated::UV.AMP,
-    tol::UV.PERCENT = ±10%,
+    tol::UV.PERCENT,
     dcr::UV.OHM
 )
 {
@@ -89,7 +89,7 @@ component IND.SMD(
 component IND.THT(
     ind::UV.IND,
     irated::UV.AMP,
-    tol::UV.PERCENT = ±10%,
+    tol::UV.PERCENT,
     dcr::UV.OHM
 )
 {
@@ -121,7 +121,7 @@ component IND.POWER(
     ind::UV.IND,
     irated::UV.AMP,
     isat::UV.AMP,
-    tol::UV.PERCENT = ±20%,
+    tol::UV.PERCENT,
     dcr::UV.OHM
 )
 {
@@ -154,7 +154,7 @@ component IND.HF(
     ind::UV.IND,
     irated::UV.AMP,
     srf::UV.HZ,
-    tol::UV.PERCENT = ±5%,
+    tol::UV.PERCENT,
     dcr::UV.OHM
 )
 {
@@ -216,7 +216,7 @@ component IND.CMC(
     ind::UV.IND,
     irated::UV.AMP,
     impd::UV.OHM,
-    tol::UV.PERCENT = ±20%,
+    tol::UV.PERCENT,
     ftest::UV.HZ
 )
 {
@@ -256,9 +256,9 @@ component IND.CMC(
 # =============================================================================
 # Usage Examples
 # =============================================================================
-# IND(100μH, 1A, 0.1Ω): nodeA -> IND(100μH, 1A, 0.1Ω) -> nodeB        // 二脚件默认 1×2 形状放置
-# IND.SMD(47μH, 2A, 0.08Ω): sw_node -> IND.SMD(47μH, 2A, 0.08Ω) -> ldo_in
-# IND.POWER(47μH, 3A, 4A, 0.05Ω): sw -> IND.POWER(47μH, 3A, 4A, 0.05Ω) -> out
-# IND.HF(10μH, 0.5A, 50MHz, 0.2Ω): rf_in -> IND.HF(10μH, 0.5A, 50MHz, 0.2Ω) -> filter_out
+# IND(100μH, 1A, ±10%, 0.1Ω): nodeA -> IND(100μH, 1A, ±10%, 0.1Ω) -> nodeB        // 二脚件默认 1×2 形状放置
+# IND.SMD(47μH, 2A, ±10%, 0.08Ω): sw_node -> IND.SMD(47μH, 2A, ±10%, 0.08Ω) -> ldo_in
+# IND.POWER(47μH, 3A, 4A, ±20%, 0.05Ω): sw -> IND.POWER(47μH, 3A, 4A, ±20%, 0.05Ω) -> out
+# IND.HF(10μH, 0.5A, 50MHz, ±5%, 0.2Ω): rf_in -> IND.HF(10μH, 0.5A, 50MHz, ±5%, 0.2Ω) -> filter_out
 # IND.FB(100Ω, 1A, 100MHz): io_line -> IND.FB(100Ω, 1A, 100MHz) -> soc_pin
-# IND.CMC(100μH, 2A, 100Ω, 100MHz).CommonModeSuppress(line_in, line_out, ret_in, ret_out)
+# IND.CMC(100μH, 2A, 100Ω, ±20%, 100MHz).CommonModeSuppress(line_in, line_out, ret_in, ret_out)
