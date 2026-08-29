@@ -21,16 +21,15 @@ component CIRC.BASIC(pin_count::INT)
 {
     name = "Circular Connector"
     description = "Basic circular connector with " + pin_count + " pins"
-    
+
     spec = [
         pin_count = pin_count
-        diameter = _ // [8mm, 10mm, 12mm, 16mm, 20mm] ？
-        thread = _ // [M8, M10, M12, M16, 1/4-20, 3/8-16] ？
+        diameter = _ // [8mm, 10mm, 12mm, 16mm, 20mm]
+        thread = _ // [M8, M10, M12, M16, 1/4-20, 3/8-16]
     ]
-    
-    pins = [
-        1:pin_count = 1:pin_count 
 
+    pins = [
+        1:pin_count = 1:pin_count
     ]
 }
 
@@ -70,7 +69,7 @@ component CIRC.DIN41612(pin_count::INT)
 }
 
 // BNC Connector (RF Coaxial Connector)
-component CIRC.BNC(impedance::STRING = "50Ω")
+component CIRC.BNC(impedance::STRING)
 {
     name = "BNC Connector"
     description = "BNC RF coaxial connector, " + impedance + " impedance"
@@ -88,7 +87,7 @@ component CIRC.BNC(impedance::STRING = "50Ω")
 }
 
 // SMA Connector (RF Coaxial Connector)
-component CIRC.SMA(impedance::STRING = "50Ω")
+component CIRC.SMA(impedance::STRING)
 {
     name = "SMA Connector"
     description = "SMA RF coaxial connector, " + impedance + " impedance"

@@ -310,7 +310,8 @@ component RES.ARRAY(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP,
-    channel_count::INT = 4
+    channel_count::INT,
+    mount::STRING
 )
 {
     name = "Resistor Array"
@@ -335,7 +336,6 @@ component RES.ARRAY(
         construction = mount
         rohs = _
         derating_note = _
-        //mount::STRING = "ARRAY_SMD"
     ]
     // No single-resistor functions (Pullup / Pulldown); series placement uses default 1×2 shape
     // Extend with dedicated channel binding functions later if needed

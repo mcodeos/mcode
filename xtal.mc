@@ -36,7 +36,7 @@ use ./ifs/xtal
 # ---------------------------------------------------------------------------------------------
 
 # Basic 2-Pin Crystal Component
-component XTAL2(freq::UV.HZ, cload::UV.CAP = 20pF)
+component XTAL2(freq::UV.HZ, cload::UV.CAP)
 {
     name = "2-Pin Crystal"
     description = "Basic 2-pin crystal oscillator"
@@ -59,7 +59,7 @@ component XTAL2(freq::UV.HZ, cload::UV.CAP = 20pF)
 }
 
 # 4-Pin Crystal Component
-component XTAL4(freq::UV.HZ, cload::UV.CAP = 20pF)
+component XTAL4(freq::UV.HZ, cload::UV.CAP)
 {
     name = "4-Pin Crystal"
     description = "4-pin crystal oscillator with NC pins"
@@ -147,10 +147,10 @@ component XTAL.SMD(freq::UV.HZ, cload::UV.CAP)
 #    XTAL4(12MHz, 33pF)     Y2.Setup(pwr.GND) -> MCU{XIN, XOUT}    // 生成两个 33pF 负载电容到地
 #
 # 方式 B —— 模块顶层向量电路 (可精确指定位号 C[8:9], cload 值显式写出):
-#    XTAL2(32.768kHz) Y3.XTAL -> [C[8:9]::CAP(18pF)] -> [GND, GND] // X1/X2 各接一个负载电容到地
+#    XTAL2(32.768kHz, 18pF) Y3.XTAL -> [C[8:9]::CAP(18pF)] -> [GND, GND] // X1/X2 各接一个负载电容到地
 #
 # 方式 C —— 手动按脚接:
-#    XTAL2(32.768kHz) Y4
+#    XTAL2(32.768kHz, 33pF) Y4
 #    CAP(33pF).Cap([Y4.XTAL.X1, pwr.GND])
 #    CAP(33pF).Cap([Y4.XTAL.X2, pwr.GND])
 #

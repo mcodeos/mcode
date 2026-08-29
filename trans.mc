@@ -17,10 +17,15 @@
 // ---------------------------------------------------------------------------------------------
 
 # Bipolar Junction Transistor (BJT) Component
-component TRANS
+component TRANS(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
 {
     name = "Bipolar Junction Transistor"
     description = "General bipolar junction transistor"
+    spec = [
+        collector_emitter_voltage = vce
+        collector_current = ic
+        current_gain = hfe
+    ]
 
     pins = [
         in B = Base     , "Base terminal"
@@ -30,10 +35,15 @@ component TRANS
 }
 
 # NPN Transistor Component
-component TRANS.NPN
+component TRANS.NPN(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
 {
     name = "NPN Transistor"
     description = "NPN bipolar junction transistor"
+    spec = [
+        collector_emitter_voltage = vce
+        collector_current = ic
+        current_gain = hfe
+    ]
 
     pins = [
         in B = Base     , "Base terminal"
@@ -43,10 +53,15 @@ component TRANS.NPN
 }
 
 # PNP Transistor Component
-component TRANS.PNP
+component TRANS.PNP(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
 {
     name = "PNP Transistor"
     description = "PNP bipolar junction transistor"
+    spec = [
+        collector_emitter_voltage = vce
+        collector_current = ic
+        current_gain = hfe
+    ]
 
     pins = [
         in B = Base     , "Base terminal"
@@ -56,10 +71,15 @@ component TRANS.PNP
 }
 
 # Darlington Transistor Component
-component TRANS.DARLINGTON
+component TRANS.DARLINGTON(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
 {
     name = "Darlington Transistor"
     description = "Darlington pair transistor"
+    spec = [
+        collector_emitter_voltage = vce
+        collector_current = ic
+        current_gain = hfe
+    ]
 
     pins = [
         in B = Base     , "Base terminal"
@@ -73,10 +93,15 @@ component TRANS.DARLINGTON
 // ---------------------------------------------------------------------------------------------
 
 # Field-Effect Transistor (FET) Component
-component FET
+component FET(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM)
 {
     name = "FET"
     description = "General field-effect transistor"
+    spec = [
+        drain_source_voltage = vds
+        drain_current = ids
+        drain_source_resistance = rds
+    ]
 
     pins = [
         in G = Gate    , "Gate terminal"
@@ -90,10 +115,15 @@ component FET
 // ---------------------------------------------------------------------------------------------
 
 # N-Channel JFET Component
-component FET.JFET.N
+component FET.JFET.N(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM)
 {
     name = "N-Channel JFET"
     description = "N-channel junction field-effect transistor"
+    spec = [
+        drain_source_voltage = vds
+        drain_current = ids
+        drain_source_resistance = rds
+    ]
 
     pins = [
         in G = Gate    , "Gate terminal"
@@ -103,10 +133,15 @@ component FET.JFET.N
 }
 
 # P-Channel JFET Component
-component FET.JFET.P
+component FET.JFET.P(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM)
 {
     name = "P-Channel JFET"
     description = "P-channel junction field-effect transistor"
+    spec = [
+        drain_source_voltage = vds
+        drain_current = ids
+        drain_source_resistance = rds
+    ]
 
     pins = [
         in G = Gate    , "Gate terminal"
@@ -120,10 +155,15 @@ component FET.JFET.P
 // ---------------------------------------------------------------------------------------------
 
 # N-Channel MOSFET Component
-component FET.MOSFET.N
+component FET.MOSFET.N(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM)
 {
     name = "N-Channel MOSFET"
     description = "N-channel metal-oxide-semiconductor field-effect transistor"
+    spec = [
+        drain_source_voltage = vds
+        drain_current = ids
+        drain_source_resistance = rds
+    ]
 
     pins = [
         in G = Gate    , "Gate terminal"
@@ -133,10 +173,15 @@ component FET.MOSFET.N
 }
 
 # P-Channel MOSFET Component
-component FET.MOSFET.P
+component FET.MOSFET.P(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM)
 {
     name = "P-Channel MOSFET"
     description = "P-channel metal-oxide-semiconductor field-effect transistor"
+    spec = [
+        drain_source_voltage = vds
+        drain_current = ids
+        drain_source_resistance = rds
+    ]
 
     pins = [
         in G = Gate    , "Gate terminal"
@@ -150,10 +195,14 @@ component FET.MOSFET.P
 // ---------------------------------------------------------------------------------------------
 
 # IGBT Component
-component TRANS.IGBT
+component TRANS.IGBT(vce::UV.VOLT, ic::UV.AMP)
 {
     name = "IGBT"
     description = "Insulated Gate Bipolar Transistor"
+    spec = [
+        collector_emitter_voltage = vce
+        collector_current = ic
+    ]
 
     pins = [
         in G = Gate    , "Gate terminal"
@@ -163,10 +212,14 @@ component TRANS.IGBT
 }
 
 # SCR Component
-component TRANS.SCR
+component TRANS.SCR(vrrm::UV.VOLT, it::UV.AMP)
 {
     name = "SCR"
     description = "Silicon Controlled Rectifier"
+    spec = [
+        reverse_repetitive_voltage = vrrm
+        forward_current = it
+    ]
 
     pins = [
         in G = Gate    , "Gate terminal"
@@ -176,10 +229,14 @@ component TRANS.SCR
 }
 
 # TRIAC Component
-component TRANS.TRIAC
+component TRANS.TRIAC(vdrm::UV.VOLT, it::UV.AMP)
 {
     name = "TRIAC"
     description = "Triode for Alternating Current"
+    spec = [
+        repetitive_peak_off_voltage = vdrm
+        forward_current = it
+    ]
 
     pins = [
         in G = Gate    , "Gate terminal"

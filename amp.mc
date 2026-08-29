@@ -14,7 +14,7 @@
 
 # General Purpose Operational Amplifier
 # Basic op-amp with power supply pins
-component AMP(volt::UV.VOLT = 5V)
+component AMP(volt::UV.VOLT)
 {
     pins = [
         1 = \+ | IN\+      # Non-inverting input
@@ -26,7 +26,7 @@ component AMP(volt::UV.VOLT = 5V)
 
 # Instrumentation Amplifier
 # High-precision amplifier with differential inputs and high common-mode rejection
-component AMP.INSTRUMENTATION(gain::UV.DB, cmrr::UV.DB, bw::UV.HZ, volt::UV.VOLT = 5V)
+component AMP.INSTRUMENTATION(gain::UV.DB, cmrr::UV.DB, bw::UV.HZ, volt::UV.VOLT)
 {
     name = "Instrumentation Amplifier"
     spec = [
@@ -55,7 +55,7 @@ component AMP.INSTRUMENTATION(gain::UV.DB, cmrr::UV.DB, bw::UV.HZ, volt::UV.VOLT
 
 # Comparator
 # Voltage comparator with open-drain or push-pull output
-component AMP.COMPARATOR(hyst::UV.VOLT, tresp::UV.TIME, volt::UV.VOLT = 5V)
+component AMP.COMPARATOR(hyst::UV.VOLT, tresp::UV.TIME, volt::UV.VOLT)
 {
     name = "Comparator"
     spec = [
@@ -81,7 +81,7 @@ component AMP.COMPARATOR(hyst::UV.VOLT, tresp::UV.TIME, volt::UV.VOLT = 5V)
 
 # Operational Transconductance Amplifier (OTA)
 # Voltage-to-current converter
-component AMP.OTA(gm::UV.SIEMENS, iout::UV.AMP, volt::UV.VOLT = 5V)
+component AMP.OTA(gm::UV.SIEMENS, iout::UV.AMP, volt::UV.VOLT)
 {
     name = "Operational Transconductance Amplifier"
     spec = [
@@ -108,7 +108,7 @@ component AMP.OTA(gm::UV.SIEMENS, iout::UV.AMP, volt::UV.VOLT = 5V)
 
 # Buffer Amplifier
 # Unity gain buffer with high input impedance
-component AMP.BUFFER(zin::UV.OHM, iout::UV.AMP, volt::UV.VOLT = 5V)
+component AMP.BUFFER(zin::UV.OHM, iout::UV.AMP, volt::UV.VOLT)
 {
     name = "Buffer Amplifier"
     spec = [

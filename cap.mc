@@ -70,7 +70,8 @@ enum CAP
 component CAP(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±10%, 
+    tol::UV.PERCENT,
+
     diel = CAP.X7R,
     cons = CAP.MLCC
 )
@@ -113,8 +114,7 @@ component CAP(
 component CAP.ELEC(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±10%,
-    cons = CAP.WET_ALUMINUM
+    tol::UV.PERCENT
 )
 {
     name = "Electrolytic Capacitor"
@@ -130,7 +130,7 @@ component CAP.ELEC(
         voltage = volt
         tolerance = tol
         dielectric = ALUMINUM_OXIDE
-        construction = cons
+        construction = _        // wet vs polymer: BOM-stage decision
         polarized = true        // ADD
         esr = _
         ripple_rated = _
@@ -155,7 +155,7 @@ component CAP.ELEC(
 component CAP.MLCC(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±10%,
+    tol::UV.PERCENT,
     diel = CAP.X7R
 )
 {
@@ -197,7 +197,7 @@ component CAP.MLCC(
 component CAP.DISC(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±10%,
+    tol::UV.PERCENT,
     diel = CAP.C0G
 )
 {
@@ -239,8 +239,7 @@ component CAP.DISC(
 component CAP.TANT(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±10%,
-    cons = CAP.WET_TANTALUM
+    tol::UV.PERCENT
 )
 {
     name = "Tantalum Capacitor"
@@ -256,7 +255,7 @@ component CAP.TANT(
         voltage = volt
         tolerance = tol
         dielectric = TANTALUM_PENTOXIDE
-        construction = cons
+        construction = _        // wet vs polymer: BOM-stage decision
         polarized = true        // ADD
         esr = _
         ripple_rated = _
@@ -281,7 +280,7 @@ component CAP.TANT(
 component CAP.NIOB(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±10%
+    tol::UV.PERCENT
 )
 {
     name = "Niobium Capacitor"
@@ -322,7 +321,7 @@ component CAP.NIOB(
 component CAP.FILM(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±5%,
+    tol::UV.PERCENT,
     diel = CAP.POLYPROPYLENE
 )
 {
@@ -364,7 +363,7 @@ component CAP.FILM(
 component CAP.MICA(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±5%
+    tol::UV.PERCENT
 )
 {
     name = "Mica Capacitor"
@@ -406,7 +405,7 @@ component CAP.MICA(
 component CAP.SAFETY(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±10%,
+    tol::UV.PERCENT,
     diel = CAP.POLYPROPYLENE,
     cls = CAP.SC_X2
 )
@@ -451,7 +450,7 @@ component CAP.SAFETY(
 component CAP.SC(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±10%
+    tol::UV.PERCENT
 )
 {
     name = "Supercapacitor / EDLC"
@@ -492,7 +491,7 @@ component CAP.SC(
 component CAP.TRIM(
     cap::UV.CAP,
     volt::UV.VOLT,
-    tol::UV.PERCENT = ±10%
+    tol::UV.PERCENT
 )
 {
     name = "Trimmer Capacitor"
@@ -532,11 +531,11 @@ component CAP.TRIM(
 # =============================================================================
 # CAP.MLCC(100nF, 50V, ±10%, X7R).Cap([vcc, gnd])
 # CAP.DISC(1000pF, 1kV, ±10%, C0G).Cap([line, gnd])
-# CAP.ELEC(100μF, 16V, ±10%, POLYMER_ALUMINUM).Cap([vcc, gnd])
-# CAP.TANT(10μF, 10V, ±10%, POLYMER_TANTALUM).Cap([vdd, gnd])
-# CAP.NIOB(4.7μF, 6.3V).Cap([io, gnd])
+# CAP.ELEC(100μF, 16V, ±10%).Cap([vcc, gnd])
+# CAP.TANT(10μF, 10V, ±10%).Cap([vdd, gnd])
+# CAP.NIOB(4.7μF, 6.3V, ±20%).Cap([io, gnd])
 # CAP.FILM(1μF, 63V, ±5%, POLYESTER).Cap(a[udio_in, audio_gnd])
-# CAP.MICA(100pF, 500V).Cap([rf_node, gnd])
+# CAP.MICA(100pF, 500V, ±5%).Cap([rf_node, gnd])
 # CAP.SAFETY(22nF, 275VAC, ±10%, POLYPROPYLENE, SC_X2).Cap([line, pe])
-# CAP.SC(1F, 2.7V).Cap([backup, gnd])
-# CAP.TRIM(30pF, 50V).Cap([tank, gnd])
+# CAP.SC(1F, 2.7V, ±20%).Cap([backup, gnd])
+# CAP.TRIM(30pF, 50V, ±10%).Cap([tank, gnd])

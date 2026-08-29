@@ -40,12 +40,13 @@ component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 
 # Whip Antenna
 # Common telescoping antenna for handheld devices
-component ANT.WHIP(freq::UV.HZ, gain::UV.DB)
+component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Whip Antenna"
     spec = [
         frequency = freq // [433MHz, 868MHz, 900MHz, 2.4GHz]
         gain = gain // [1dBi, 1.5dBi, 2dBi]
+        impedance = impd // [50Ω, 75Ω]
         wave_length = _ // [0.1m, 0.2m, 0.3m]
     ]
     
@@ -61,12 +62,13 @@ component ANT.WHIP(freq::UV.HZ, gain::UV.DB)
 
 # Patch Antenna
 # Flat antenna commonly used in wireless devices
-component ANT.PATCH(freq::UV.HZ, gain::UV.DB)
+component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Patch Antenna"
     spec = [
         frequency = freq // [2.4GHz, 5.8GHz, 10GHz]
         gain = gain // [2dBi, 3dBi, 5dBi]
+        impedance = impd // [50Ω, 75Ω]
         polarization = _ // [linear, circular]
     ]
     
@@ -83,12 +85,13 @@ component ANT.PATCH(freq::UV.HZ, gain::UV.DB)
 
 # Dipole Antenna
 # Balanced antenna with two conductive elements
-component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB)
+component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Dipole Antenna"
     spec = [
         frequency = freq // [433MHz, 868MHz, 900MHz, 2.4GHz]
         gain = gain // [2dBi, 3dBi]
+        impedance = impd // [50Ω, 75Ω]
         length = _ // [0.1m, 0.15m, 0.2m]
     ]
     
@@ -104,12 +107,13 @@ component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB)
 
 # Helical Antenna
 # Spiral antenna for circular polarization
-component ANT.HELICAL(freq::UV.HZ, gain::UV.DB)
+component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Helical Antenna"
     spec = [
         frequency = freq // [1GHz, 1.5GHz, 2.4GHz]
         gain = gain // [5dBi, 8dBi, 10dBi]
+        impedance = impd // [50Ω, 75Ω]
         turns = _ // [5, 10, 15, 20]
     ]
     
@@ -126,13 +130,14 @@ component ANT.HELICAL(freq::UV.HZ, gain::UV.DB)
 
 # Log Periodic Antenna
 # Wideband antenna with logarithmic periodic structure
-component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB)
+component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Log Periodic Antenna"
     spec = [
         frequency_start = fstart // [88MHz, 1MHz, 100MHz]
         frequency_end = fend // [108MHz, 1GHz, 2GHz]
         gain = gain // [3dBi, 5dBi, 8dBi]
+        impedance = impd // [50Ω, 75Ω]
     ]
     
     pins = [
@@ -150,16 +155,16 @@ component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB)
 # ANT(2.4GHz, 2.1dBi, 50Ω)
 
 # 2. Whip antenna for handheld radio
-# ANT.WHIP(433MHz, 1.5dBi).HandheldRadio(transceiver)
+# ANT.WHIP(433MHz, 1.5dBi, 50Ω).HandheldRadio(transceiver)
 
 # 3. Patch antenna for WiFi device
-# ANT.PATCH(5.8GHz, 3.2dBi).WirelessDevice(wifi_module)
+# ANT.PATCH(5.8GHz, 3.2dBi, 50Ω).WirelessDevice(wifi_module)
 
 # 4. Dipole antenna for base station
-# ANT.DIPOLE(900MHz, 2.1dBi).BaseStation(base_station)
+# ANT.DIPOLE(900MHz, 2.1dBi, 50Ω).BaseStation(base_station)
 
 # 5. Helical antenna for satellite communication
-# ANT.HELICAL(1.575GHz, 8.0dBi).SatelliteCommunication(sat_modem)
+# ANT.HELICAL(1.575GHz, 8.0dBi, 50Ω).SatelliteCommunication(sat_modem)
 
 # 6. Log periodic antenna for wideband reception
-# ANT.LOGPERIODIC(88MHz, 108MHz, 3.0dBi).WidebandReceiver(fm_receiver)
+# ANT.LOGPERIODIC(88MHz, 108MHz, 3.0dBi, 75Ω).WidebandReceiver(fm_receiver)

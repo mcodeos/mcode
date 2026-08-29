@@ -17,7 +17,7 @@
 // ---------------------------------------------------------------------------------------------
 
 // DC Power Jack (Barrel Connector)
-component POWER.DC_JACK(polarity::STRING = "center_positive")
+component POWER.DC_JACK(polarity::STRING)
 {
     name = "DC Power Jack"
     description = "DC power barrel jack, " + polarity + " polarity"
@@ -89,14 +89,14 @@ component POWER.DEANS_T()
 }
 
 // Anderson Powerpole Connector
-component POWER.ANDERSON(size::INT = 15, quantity::INT = 1)
+component POWER.ANDERSON(quantity::INT = 1)
 {
     name = "Anderson Powerpole Connector"
-    description = "Anderson Powerpole connector, " + size + "A rating, " + quantity + " pole(s)"
-    
+    description = "Anderson Powerpole connector, " + quantity + " pole(s)"
+
     spec = [
         type = "Anderson Powerpole"
-        current_rating = size + "A"
+        current_rating = _ // [15A, 30A, 45A]
         pole_count = quantity
     ]
     
@@ -106,7 +106,7 @@ component POWER.ANDERSON(size::INT = 15, quantity::INT = 1)
 }
 
 // ATX Power Connector (Computer Power Supply)
-component POWER.ATX(type::STRING = "main")
+component POWER.ATX(type::STRING)
 {
     name = "ATX Power Connector"
     description = "ATX " + type + " power connector"
@@ -184,13 +184,13 @@ component POWER.ATX(type::STRING = "main")
 
 // Usage Examples:
 // 1. DC power jack
-// POWER.DC_JACK(5.5mm, 2.1mm, "center_positive")
+// POWER.DC_JACK("center_positive")
 
 // 2. XT60 connector
 // POWER.XT60("male")
 
 // 3. Anderson Powerpole connector
-// POWER.ANDERSON(30, 2)
+// POWER.ANDERSON(2)
 
 // 4. ATX main connector
 // POWER.ATX("main")

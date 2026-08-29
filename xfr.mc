@@ -71,14 +71,14 @@ component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq::UV.HZ)
 # - zsec: Secondary impedance
 # - prated: Power rating
 # - freq_resp: Frequency response
-component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT)
+component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, freq_resp::STRING)
 {
     name = "Audio Transformer"
     spec = [
         primary_impedance = zpri // [8Ω, 50Ω, 600Ω]
         secondary_impedance = zsec // [8Ω, 50Ω, 600Ω]
         power_rating = prated // [0.1W, 0.5W, 1W, 5W]
-        frequency_response = _ // [20Hz-20kHz, 50Hz-15kHz]
+        frequency_response = freq_resp // [20Hz-20kHz, 50Hz-15kHz]
     ]
     pins = [
         1 = PRIMARY\+
