@@ -12,6 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+// ADC.DIFF (Differential ADC) Standard Definition
+// Core Rule: Differential analog-to-digital converter interface for high-precision measurements
+// Differential Input: Measures the voltage difference between P (positive) and N (negative) inputs
+// Advantage: Rejects common-mode noise, improves signal-to-noise ratio
+// Applications: Sensor measurements, audio, industrial control systems
+// 2-wire (P/N): the ground reference is the analog ground domain, shared
+// through the power supply (DC interface), same as UART.TTL / I2C / SPI.
+
 interface ADC.DIFF(role)
 {
     topology = "point to point"
@@ -21,14 +29,6 @@ interface ADC.DIFF(role)
     voltage = [3.3V,5V]
     input_range = ±10V
     resolution = [8bit,10bit,12bit,16bit]
-
-    // ADC.DIFF (Differential ADC) Standard Definition
-    // Core Rule: Differential analog-to-digital converter interface for high-precision measurements
-    // Differential Input: Measures the voltage difference between P (positive) and N (negative) inputs
-    // Advantage: Rejects common-mode noise, improves signal-to-noise ratio
-    // Applications: Sensor measurements, audio, industrial control systems
-    // 2-wire (P/N): the ground reference is the analog ground domain, shared
-    // through the power supply (DC interface), same as UART.TTL / I2C / SPI.
 
     pins = [ 
         1 = P, "Positive Input"   // Positive differential input
