@@ -28,7 +28,7 @@ component DC.SRC(volt::UV.VOLT, curr::UV.AMP)
     ]
     
     pins = [
-        [1,2] = [VCC, GND]::DC(volt, Source)
+        [1,2] = [VCC, GND]::DC(volt)   // source: direction word psrc (pending grammar)
     ]
 }
 
@@ -44,7 +44,7 @@ component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE)
     ]
     
     pins = [ 
-        [1,2] = [\+, \-]::DC(volt, Source)
+        [1,2] = [\+, \-]::DC(volt)   // battery: direction word psbi (charge=sink, discharge=source; pending grammar)
     ]
 }
 

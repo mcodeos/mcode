@@ -16,7 +16,7 @@
 // DC Power Supply Interface
 // ---------------------------------------------------------------------------------------------
 
-interface DC(volt::UV.VOLT, role) // DC Power Supply Interface
+interface DC(volt::UV.VOLT) // DC Power Supply Interface
 {
     topology = "point to point"
     mode = ["unidirectional"]
@@ -28,7 +28,9 @@ interface DC(volt::UV.VOLT, role) // DC Power Supply Interface
     // Voltage Levels: Standard rails (1.2/1.8/3.3/5/12/24/48 V) get canonical
     //   net names (VCC1V2, VCC5V0N, ...). Any other voltage falls back to a
     //   sign-aware generic name: VCC for positive rails, VEE for negative.
-    // Device Definition: Source = Power supply, Sink = Powered device
+    // Energy direction is not a DC parameter (role slot removed 2026-09-07):
+    // source/sink rides on the adopting terminal's direction word
+    // (psrc = source / psnk = sink / psbi = bidir) at the pin/port level.
     // Applications: Powering electronic circuits and devices
 
     // Positive Voltage Supplies
@@ -115,23 +117,13 @@ interface DC(volt::UV.VOLT, role) // DC Power Supply Interface
             2 = GND, "DC power ground", voltage:0.0V
         ]
 
-    // Role definitions
-    role Source {
-        name = "DC Power Source"
-        peer = Sink
-    }
-    
-    role Sink {
-        name = "DC Power Sink"
-        peer = Source
-    }
 }
 
 // ---------------------------------------------------------------------------------------------
 // DCA — Analog DC Power Supply Interface
 // ---------------------------------------------------------------------------------------------
 
-interface DCA(volt::UV.VOLT, role) // Analog DC Power Supply Interface
+interface DCA(volt::UV.VOLT) // Analog DC Power Supply Interface
 {
     topology = "point to point"
     voltage = volt
@@ -146,14 +138,4 @@ interface DCA(volt::UV.VOLT, role) // Analog DC Power Supply Interface
         2 = VSSA, "Analog DC power ground", voltage:0.0V
     ]
 
-    // Role definitions
-    role Source {
-        name = "DC Power Source"
-        peer = Sink
-    }
-
-    role Sink {
-        name = "DC Power Sink"
-        peer = Source
-    }
 }
