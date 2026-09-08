@@ -840,6 +840,9 @@ enum PKG
     PAD_CIRC_2_0MM,
     PAD_CIRC_2_5MM,
 
+    // Lithium cell solder-tab landing (rechargeable pouch/coin backup cell)
+    BAT_PAD,
+
     // =================================================================
     // Test points
     // =================================================================

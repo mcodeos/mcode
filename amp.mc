@@ -44,11 +44,11 @@ component AMP.INSTRUMENTATION(gain::UV.DB, cmrr::UV.DB, bw::UV.HZ, volt::UV.VOLT
         [5,6] = DC{VCC,VEE}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
     ]
     
-    func DifferentialAmplifier(input1, input2, ref)
+    func DifferentialAmplifier(input1, input2, vref)
     {
         input1 - this.IN\+
         input2 - this.IN\-
-        ref - this.REF
+        vref - this.REF
         return this.VOUT
     }
 }

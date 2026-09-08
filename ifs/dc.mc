@@ -118,24 +118,3 @@ interface DC(volt::UV.VOLT) // DC Power Supply Interface
         ]
 
 }
-
-// ---------------------------------------------------------------------------------------------
-// DCA — Analog DC Power Supply Interface
-// ---------------------------------------------------------------------------------------------
-
-interface DCA(volt::UV.VOLT) // Analog DC Power Supply Interface
-{
-    topology = "point to point"
-    voltage = volt
-    domain = "analog"
-
-    // Analog rails use the universal [VDDA, VSSA] naming regardless of the
-    // voltage level (datasheets call the analog rail VDDA for 2.0V..3.6V
-    // alike), so — unlike DC's voltage-coded VCC1V2/VCC5V0 branches — there
-    // is no voltage enumeration here. The voltage rides in the param.
-    pins = [
-        1 = VDDA, "Analog DC power positive", voltage:volt
-        2 = VSSA, "Analog DC power ground", voltage:0.0V
-    ]
-
-}

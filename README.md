@@ -491,8 +491,8 @@ What is never defaulted:
   choices (precision / cost, temperature stability, oscillator loading) made
   at design time; the common value is not a default, it is the value the
   caller passes;
-- supply / rail voltage (`volt` on amplifiers and on the `DC` / `DCA`
-  interfaces) - the rail is chosen by the design, not carried by the part;
+- supply / rail voltage (`volt` on amplifiers and on the `DC`
+  interface) - the rail is chosen by the design, not carried by the part;
 - connector impedance / polarity (BNC / SMA impedance, DC-jack polarity) -
   electrical characteristics the design must pick, even when a common value
   (50 Ω, center-positive) exists;
