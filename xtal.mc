@@ -71,8 +71,8 @@ component XTAL4(freq::UV.HZ, cload::UV.CAP)
 
     pins = [
         [1,3] = XTAL{X1,X2}::XTAL() , ["Crystal oscillator input","Crystal oscillator output"]
-        2 = NC      , "No connection"
-        4 = NC      , "No connection"
+        nc 2 = NC      , "No connection"
+        nc 4 = NC      , "No connection"
     ]
 
     func Setup(gnd)
@@ -94,7 +94,7 @@ component OSC(freq::UV.HZ)
     ]
 
     pins = [
-        1 = NC  , "No connection"
+        nc 1 = NC  , "No connection"
         3 = XTAL , "Oscillator output"
         [4,2] = [VDD, GND]::DC(), ["Power supply", "Ground"]
     ]
