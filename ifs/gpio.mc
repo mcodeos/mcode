@@ -18,10 +18,10 @@
 // Device Definition: Controller = Microcontroller, Peripheral = Any digital device
 // Applications: LEDs, buttons, relays, digital sensors
 //
-// count::INT — number of GPIO pins (default 1)
-//   GPIO(1, Controller)   → single pin:  1 = 1
-//   GPIO(4, Peripheral)   → 4 pins:      1..4 = 1..4
-interface GPIO(count::INT = 1, role)
+// A GPIO unit is a single pin: one instance per general-purpose line.
+//   GPIO3::GPIO(Controller)      -> one GPIO line
+//   GPIO[3, 4]::GPIO(Controller) -> members GPIO3, GPIO4, one pin each
+interface GPIO(role)
 {
     topology = "point to point"
     mode = ["input", "output", "bidirectional"]
@@ -29,17 +29,13 @@ interface GPIO(count::INT = 1, role)
     maxspeed = [100MHz]
     voltage = [1.8V,3.3V,5V]
 
-    // Dynamic pin generation: 1:count = 1:count (same pattern as HDR_SINGLE)
-    // count=1 → pin 1 = 1
-    // count=4 → pins 1..4 = 1..4
-    //
-    // @drive(pp) — the member rows' electrical nature (candidate A of
+    // @drive(pp) — the member row's electrical nature (candidate A of
     // interface-member-config-design.md §2): a general-purpose GPIO pin is
     // push-pull by default. A device that drives a GPIO line open-drain
     // states `@drive(od)` (and `@pull` where it relies on one) on its own
     // adoption row, which overrides this lib-side default per pin.
     pins = [
-        1:count = 1:count @drive(pp)
+        1 = GPIO @drive(pp)
     ]
 
     role Controller {

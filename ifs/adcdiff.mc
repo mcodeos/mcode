@@ -29,6 +29,7 @@ interface ADC.DIFF(role)
     voltage = [3.3V,5V]
     input_range = ±10V
     resolution = [8bit,10bit,12bit,16bit]
+    diff_pair = [P, N]   // P and N are the two faces of one pair; 1st = positive
 
     pins = [ 
         1 = P, "Positive Input"   // Positive differential input

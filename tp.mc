@@ -13,14 +13,15 @@
 # limitations under the License.
 
 # Test Point — industry standard "TP" (TP1, TP2 ... on schematics/PCB)
-# count::INT — number of test points (default 1)
-#   TP(4) → 4 test points: 1..4 = 1..4
-component TP(count::INT = 1)
+#
+# A test point is a single pin: one instance per net tap.
+#   TP1::TP()   -> one test point
+component TP()
 {
     name = "Test Point"
     description = "Electrical test point for circuit debugging"
 
     pins = [
-        1:count = 1:count
+        1 = TP
     ]
 }
