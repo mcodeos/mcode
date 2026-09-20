@@ -167,11 +167,11 @@ component AUDIO.BANANA_PLUG()
 // 1. 3.5mm stereo connector
 // AUDIO.TRS_35MM("stereo")
 
-// 2. RCA red connector
-// AUDIO.RCA("red")
+// 2. RCA connector (no parameters)
+// AUDIO.RCA()
 
-// 3. XLR 3-pin male connector
-// AUDIO.XLR(3, "male")
+// 3. XLR 3-pin connector
+// AUDIO.XLR(3)
 
 // 4. Speakon 4-pin connector
 // AUDIO.SPEAKON(4)

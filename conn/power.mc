@@ -186,8 +186,8 @@ component POWER.ATX(type::STRING)
 // 1. DC power jack
 // POWER.DC_JACK("center_positive")
 
-// 2. XT60 connector
-// POWER.XT60("male")
+// 2. XT60 connector (no parameters)
+// POWER.XT60()
 
 // 3. Anderson Powerpole connector
 // POWER.ANDERSON(2)
