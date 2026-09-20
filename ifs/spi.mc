@@ -56,10 +56,10 @@ interface SPI(role)
 }
 
 // ---------------------------------------------------------------------------------------------
-// SPI.3WIRE — 3-Wire SPI (half-duplex, single bidirectional data line)
+// SPI.3 — 3-Wire SPI (half-duplex, single bidirectional data line)
 // ---------------------------------------------------------------------------------------------
 
-interface SPI.3WIRE(role)
+interface SPI.3(role)
 {
     topology = "point to point"
     mode = ["half duplex"]  // Half duplex since using single data line

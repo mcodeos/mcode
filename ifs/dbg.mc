@@ -64,7 +64,7 @@ interface DBG.JTAG(role)
     }
 }
 
-interface DBG.JTAG.2WIRE(role)
+interface DBG.JTAG.2(role)
 {
     topology = "point to point"
     mode = ["half duplex"]
