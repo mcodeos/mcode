@@ -30,7 +30,7 @@ interface PWM(role)
     voltage = [1.8V,3.3V,5V]
 
     pins = [
-        1 = PWM
+        1 = _
     ]
 
     role Controller {
