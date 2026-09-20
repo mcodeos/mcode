@@ -31,9 +31,13 @@ interface UART.TTL(role)
     //   5V TTL: High = 2V ~ 5V (Logic 1), Low = 0V ~ 0.8V (Logic 0)
     // Device Definition: DCE = Data Communications Equipment, DTE = Data Terminal Equipment
 
+    // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
+    // (conductor-view-design.md R-CV1). Mediated devices and module ports bind
+    // role-less and take their shape from this table; the role tables below
+    // carry the named views: the data pair crosses by position (TX <-> RX).
     pins = [
-        1 = TX, "Transmit"     // Transmit data
-        2 = RX, "Receive"      // Receive data
+        1 = _    // TX <-> RX
+        2 = _    // RX <-> TX
     ]
 
     // DCE Roles for different voltage levels
