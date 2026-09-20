@@ -18,7 +18,8 @@
 // Device Definition: Master = Initiates communication, Slave = Responds to master
 // Applications: Temperature sensors (DS18B20), EEPROM, iButton
 //
-// A 1-Wire bus tap is a single pin (the data line, DQ): one instance per bus.
+// A 1-Wire bus tap is a single pin (the anonymous data line, DQ in the
+// datasheets): one instance per bus.
 //   OW0::ONEWIRE(Master)      -> one bus tap
 //   OW0[1:2]::ONEWIRE(Master) -> members OW0.1, OW0.2, one pin each
 interface ONEWIRE(role)
@@ -30,7 +31,7 @@ interface ONEWIRE(role)
     voltage = [1.8V,3.3V,5V]
 
     pins = [
-        1 = DQ
+        1 = _
     ]
 
     role Master {
