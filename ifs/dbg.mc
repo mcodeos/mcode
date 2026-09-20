@@ -34,13 +34,31 @@ interface DBG.JTAG(role)
         5 = TRST, "Test Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
     ]
     
+    // The interface-level table above is the role-less conductor view; it stays
+    // because role-less bindings resolve their shape from it. The roles carry
+    // their own view: the data pair crosses by position (TDI <-> TDO), and the
+    // direction words flip per side.
     role TAP {  // Test Access Port - Target device being tested/debugged
         name = "JTAG TAP"
+        pins = [
+            in 1 = TDI, "Test Data Input", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Data input to the device
+            out 2 = TDO, "Test Data Output", voltage:[low:0V ~ 0.8V, high:2V ~ 5V] // Data output from the device
+            3 = TCK, "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]           // Clock signal for synchronization
+            4 = TMS, "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]     // Controls the state machine
+            5 = TRST, "Test Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
+        ]
         peer = Controller
     }
-    
+
     role Controller {  // JTAG Controller - Debugger/programmer
         name = "JTAG Controller"
+        pins = [
+            out 1 = TDI, "Test Data Input", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as the TAP's input
+            in 2 = TDO, "Test Data Output", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as the TAP's output
+            3 = TCK, "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]           // Clock signal for synchronization
+            4 = TMS, "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]     // Controls the state machine
+            5 = TRST, "Test Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
+        ]
         peer = TAP
     }
 }
@@ -316,13 +334,26 @@ interface DBG.UARTBOOT(role)
         3 = GND, "Ground"
     ]
     
+    // The interface-level table above is the role-less conductor view; it stays
+    // because role-less bindings resolve their shape from it. The roles carry
+    // their own view: the data pair crosses by position (TXD <-> RXD).
     role Host {
         name = "UART Bootloader Host"
+        pins = [
+            1 = TXD, "Transmit Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+            2 = RXD, "Receive Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+            3 = GND, "Ground"
+        ]
         peer = Target
     }
-    
+
     role Target {
         name = "UART Bootloader Target"
+        pins = [
+            1 = RXD, "Receive Data, from the host TXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as ordinal 1
+            2 = TXD, "Transmit Data, to the host RXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]   // Same wire as ordinal 2
+            3 = GND, "Ground"
+        ]
         peer = Host
     }
 }

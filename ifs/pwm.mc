@@ -18,9 +18,10 @@
 // Device Definition: Controller = Microcontroller, Peripheral = Device controlled by PWM
 // Applications: Motor speed control, LED dimming, servo position control
 //
-// count::INT — number of PWM channels (default 1)
-//   PWM(4, Controller) → 4 channels: 1..4 = 1..4
-interface PWM(count::INT = 1, role)
+// A PWM channel is a single pin: one instance per channel.
+//   PWM0::PWM(Controller)      -> one PWM channel
+//   PWM0[1:4]::PWM(Controller) -> members PWM0.1 .. PWM0.4, one pin each
+interface PWM(role)
 {
     topology = "point to point"
     mode = ["output"]
@@ -29,7 +30,7 @@ interface PWM(count::INT = 1, role)
     voltage = [1.8V,3.3V,5V]
 
     pins = [
-        1:count = 1:count
+        1 = PWM
     ]
 
     role Controller {

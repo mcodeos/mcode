@@ -34,12 +34,30 @@ interface PCM(role)
         5 = GND, "Ground"           // Ground
      ]
     
+    // The interface-level table above is the role-less conductor view; it stays
+    // because role-less bindings (bare module ports on mediated chains) resolve
+    // their shape from it. The roles carry their own view: the data pair crosses
+    // by position, and the direction words flip per side.
     role Transmitter {  // PCM Transmitter - Sends audio data
         name = "PCM Transmitter"
+        pins = [
+            1 = CLK, "Bit Clock"        // Bit clock signal
+            2 = SYNC, "Frame Sync"      // Frame synchronization signal
+            in 3 = IN, "Audio Input"    // Audio data input (my side listens)
+            out 4 = OUT, "Audio Output" // Audio data output (my side drives)
+            5 = GND, "Ground"           // Ground
+        ]
         peer = Receiver
     }
     role Receiver {  // PCM Receiver - Receives audio data
         name = "PCM Receiver"
+        pins = [
+            1 = CLK, "Bit Clock"        // Bit clock signal
+            2 = SYNC, "Frame Sync"      // Frame synchronization signal
+            out 3 = IN, "Audio Input"   // Same wire as the transmitter's input
+            in 4 = OUT, "Audio Output"  // Same wire as the transmitter's output
+            5 = GND, "Ground"           // Ground
+        ]
         peer = Transmitter
     }
 }
