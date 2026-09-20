@@ -32,8 +32,14 @@ interface GPIO(count::INT = 1, role)
     // Dynamic pin generation: 1:count = 1:count (same pattern as HDR_SINGLE)
     // count=1 → pin 1 = 1
     // count=4 → pins 1..4 = 1..4
+    //
+    // @drive(pp) — the member rows' electrical nature (candidate A of
+    // interface-member-config-design.md §2): a general-purpose GPIO pin is
+    // push-pull by default. A device that drives a GPIO line open-drain
+    // states `@drive(od)` (and `@pull` where it relies on one) on its own
+    // adoption row, which overrides this lib-side default per pin.
     pins = [
-        1:count = 1:count
+        1:count = 1:count @drive(pp)
     ]
 
     role Controller {
