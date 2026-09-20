@@ -49,10 +49,10 @@ interface SDIO(role)
 }
 
 // ---------------------------------------------------------------------------------------------
-// SDIO.1BIT — SD Card Interface (1-bit)
+// SDIO.1 — SD Card Interface (1-bit bus)
 // ---------------------------------------------------------------------------------------------
 
-interface SDIO.1BIT(role)
+interface SDIO.1(role)
 {
     topology = "point to point"
     mode = ["half duplex"]
