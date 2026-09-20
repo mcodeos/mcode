@@ -26,18 +26,19 @@ interface DBG.JTAG(role)
     // Device Definition: TAP = Test Access Port (target device), Controller = JTAG debugger/programmer
     // Applications: Chip testing, firmware programming, embedded system debugging
 
+    // Role-less conductor view: 5 anonymous lanes, ordinal = wire identity
+    // (conductor-view-design.md R-CV1). Mediated devices and module ports bind
+    // role-less and take their shape from this table; the role tables below
+    // carry the named views: the data pair crosses by position (TDI <-> TDO),
+    // and the direction words flip per side.
     pins = [
-        in 1 = TDI, "Test Data Input", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Data input to the device
-        out 2 = TDO, "Test Data Output", voltage:[low:0V ~ 0.8V, high:2V ~ 5V] // Data output from the device
-        3 = TCK, "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]           // Clock signal for synchronization
-        4 = TMS, "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]     // Controls the state machine
-        5 = TRST, "Test Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
+        1 = _    // TDI <-> TDO
+        2 = _    // TDO <-> TDI
+        3 = _    // TCK
+        4 = _    // TMS
+        5 = _    // TRST
     ]
-    
-    // The interface-level table above is the role-less conductor view; it stays
-    // because role-less bindings resolve their shape from it. The roles carry
-    // their own view: the data pair crosses by position (TDI <-> TDO), and the
-    // direction words flip per side.
+
     role TAP {  // Test Access Port - Target device being tested/debugged
         name = "JTAG TAP"
         pins = [
@@ -328,15 +329,16 @@ interface DBG.UARTBOOT(role)
     // Device Definition: Host = Programming device, Target = Microcontroller
     // Applications: Firmware programming, bootloader updates
 
+    // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
+    // (conductor-view-design.md R-CV1). Mediated devices and module ports bind
+    // role-less and take their shape from this table; the role tables below
+    // carry the named views: the data pair crosses by position (TXD <-> RXD).
     pins = [
-        1 = TXD, "Transmit Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        2 = RXD, "Receive Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        3 = GND, "Ground"
+        1 = _    // TXD <-> RXD
+        2 = _    // RXD <-> TXD
+        3 = _    // GND
     ]
-    
-    // The interface-level table above is the role-less conductor view; it stays
-    // because role-less bindings resolve their shape from it. The roles carry
-    // their own view: the data pair crosses by position (TXD <-> RXD).
+
     role Host {
         name = "UART Bootloader Host"
         pins = [
