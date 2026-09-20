@@ -125,7 +125,7 @@ interface DBG.DAP(role)
     }
 }
 
-interface DBG.DAP3PU(role)
+interface DBG.DAP.PU(role)
 {
     topology = "point to point"
     mode = ["half duplex"]
@@ -133,31 +133,31 @@ interface DBG.DAP3PU(role)
     maxspeed = [10MHz]
     voltage = [1.8V,3.3V,5V]
 
-    // DAP3PU (3 Pin Unidirectional) Standard Definition
+    // DAP.PU (3-pin Unidirectional) Standard Definition
     // Core Rule: 3-pin unidirectional debug access port
-    // DAP3PU Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
+    // DAP.PU Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
     // Device Definition: Host = Debugger, Target = Microcontroller
     // Applications: Simplified microcontroller debugging
 
-    // 3 pin unidir 
+    // 3 pin unidir
     pins = [
         1 = DAP0, "Debug Access Port 0", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
         2 = DAP1, "Debug Access Port 1", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
         3 = DAP2, "Debug Access Port 2", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
-    
+
     role Host {
-        name = "DAP3PU Host"
+        name = "DAP.PU Host"
         peer = Target
     }
-    
+
     role Target {
-        name = "DAP3PU Target"
+        name = "DAP.PU Target"
         peer = Host
     }
 }
 
-interface DBG.DAPWM(role)
+interface DBG.DAP.WM(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
@@ -165,9 +165,9 @@ interface DBG.DAPWM(role)
     maxspeed = [10MHz]
     voltage = [1.8V,3.3V,5V]
 
-    // DAPWM (3 Pin Wide Mode) Standard Definition
+    // DAP.WM (3-pin Wide Mode) Standard Definition
     // Core Rule: 3-pin wide mode debug access port
-    // DAPWM Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
+    // DAP.WM Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
     // Device Definition: Host = Debugger, Target = Microcontroller
     // Applications: Enhanced microcontroller debugging
 
@@ -177,14 +177,14 @@ interface DBG.DAPWM(role)
         2 = DAP1, "Debug Access Port 1", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
         3 = DAP2, "Debug Access Port 2", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
-    
+
     role Host {
-        name = "DAPWM Host"
+        name = "DAP.WM Host"
         peer = Target
     }
-    
+
     role Target {
-        name = "DAPWM Target"
+        name = "DAP.WM Target"
         peer = Host
     }
 }
