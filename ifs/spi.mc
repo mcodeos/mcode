@@ -33,6 +33,18 @@ interface SPI(role)
     // Role tables declare each role's wiring order: ordinal k on the two sides is
     // the SAME wire, so the data pair crosses by position (MISO <-> SO, MOSI <-> SI).
     // Member names are each side's local view, never a matching criterion.
+
+    // Role-less conductor view: 4 anonymous lanes, ordinal = wire identity
+    // (conductor-view-design.md R-CV1). Mediated devices (buffers, level
+    // shifters) and module ports bind role-less and take their shape from
+    // this table; the role tables below carry the named views.
+    pins = [
+        1 = _    // CS
+        2 = _    // SCLK
+        3 = _    // MISO <-> SO
+        4 = _    // MOSI <-> SI
+    ]
+
     role Master {  // SPI Master - Controls the bus
         name = "SPI Master"
         pins = [
