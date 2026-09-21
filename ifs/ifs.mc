@@ -36,6 +36,7 @@ pub use ./ethernet.mc   // Ethernet interface
 // Analog Interfaces
 pub use ./adcdiff.mc    // ADC.DIFF interface
 pub use ./dac.mc        // DAC interface
+pub use ./ampbtl.mc     // AMP.BTL interface
 
 // Automotive Interfaces
 pub use ./flexray.mc    // FlexRay interface
