@@ -520,9 +520,7 @@ interface UART.RS485.3(role)
     // Bus Configuration: 1 master, multiple slaves (up to 32 nodes)
     // Variant note: the common 2-wire variant (A/B only, no GND) is the base
     // family name UART.RS485; this 3-wire member (A/B + GND) is UART.RS485.3 — the
-    // variants share a name family, not a conductor view (conductor-view-design.md R-CV3);
-    // a repeater is a dual-port component adopting the bus on each side, not a
-    // link role (R-CV4), so no Repeater role exists here.
+    // variants share a name family, not a conductor view (conductor-view-design.md R-CV3).
 
     // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
