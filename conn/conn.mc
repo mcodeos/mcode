@@ -25,3 +25,6 @@ pub use ./sd.mc
 pub use ./sim.mc
 pub use ./jumper.mc
 pub use ./bat.mc
+pub use ./term.mc
+pub use ./idc.mc
+pub use ./iec.mc
