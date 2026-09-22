@@ -104,6 +104,44 @@ component CIRC.SMA(impedance::STRING)
     ]
 }
 
+// U.FL Micro RF Coaxial Receptacle (a.k.a. IPEX / IPX MHF1 compatible)
+component CIRC.UFL()
+{
+    name = "U.FL RF Coaxial Connector"
+    description = "U.FL (IPEX MHF1 compatible) micro RF coaxial receptacle"
+
+    spec = [
+        type = "U.FL"
+        impedance = "50Ω"
+        application = "Board-level RF exit: WiFi / BT / cellular module antenna port"
+        mate = _ // [U.FL plug, IPEX MHF1 plug]
+    ]
+
+    pins = [
+        1 = RF, "Center conductor (RF signal)"
+        2 = GND @exposed(esd_contact), "Ground shell"
+    ]
+}
+
+// MHF4 Micro RF Coaxial Receptacle (smaller sibling of U.FL)
+component CIRC.MHF4()
+{
+    name = "MHF4 RF Coaxial Connector"
+    description = "MHF4 micro RF coaxial receptacle"
+
+    spec = [
+        type = "MHF4"
+        impedance = "50Ω"
+        application = "Board-level RF exit: WiFi / BT / GNSS module antenna port"
+        mate = _ // [MHF4 plug]
+    ]
+
+    pins = [
+        1 = RF, "Center conductor (RF signal)"
+        2 = GND @exposed(esd_contact), "Ground shell"
+    ]
+}
+
 // Usage Examples:
 // 1. Basic circular connector
 // CIRC.BASIC(5)
@@ -119,3 +157,9 @@ component CIRC.SMA(impedance::STRING)
 
 // 5. SMA connector
 // CIRC.SMA("50Ω")
+
+// 6. U.FL receptacle
+// CIRC.UFL()
+
+// 7. MHF4 receptacle
+// CIRC.MHF4()

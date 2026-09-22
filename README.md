@@ -29,7 +29,7 @@ xtal.mc         crystal oscillators
 units.mc        unit system reference (UV.VOLT, UV.AMP, UV.CAP, UV.OHM, ...)
 package.mc      package definitions
 ifs/            interface definitions (UART.TTL, I2C, SPI, CAN, USB, GPIO, ...)
-conn/           connector definitions (HDR_*, circular, audio, video, power)
+conn/           connector definitions (HDR_*, circular, audio, video, power, RJ45, SD, SIM)
 cp.sh           install script: copies the library to ~/.mcode/mcode
 ```
 
