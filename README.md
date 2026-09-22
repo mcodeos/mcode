@@ -17,17 +17,14 @@ dio.mc          diodes           (DIO, DIO.SCH, DIO.ZEN, DIO.TVS, DIO.ESD, DIO.P
 led.mc          LEDs             (LED, LED.RGB, LED.IR, LED.HP)
 xfr.mc          transformers     (XFR, XFR.POWER, XFR.AUDIO, XFR.ISO, XFR.CT)
 trans.mc        transistors      (bipolar / FET families)
-reg.mc          regulators       (linear / switching)
 opto.mc         opto-isolators
 relay.mc        relays
 fuse.mc         fuses
-filter.mc       filters
 sensor.mc       sensors
 switch.mc       switches
 tp.mc           test points
 ant.mc          antennas
-amp.mc          amplifiers
-dc.mc           DC supplies / converters
+dc.mc           DC supplies / batteries
 xtal.mc         crystal oscillators
 units.mc        unit system reference (UV.VOLT, UV.AMP, UV.CAP, UV.OHM, ...)
 package.mc      package definitions
@@ -134,8 +131,8 @@ component CAP.MLCC(cap::UV.CAP, volt::UV.VOLT)
 | `package`      | footprint / package name            | optional; omitted means unassigned (`_`)                              |
 | `manufacturer` | manufacturer name                   | optional; omitted means unassigned (`_`)                              |
 
-`name` and `description` are always written (each variant has a distinct
-display name); `description` may be omitted and defaults to the `name` value.
+`name` is always written (each variant has a distinct display name);
+`description` is optional and defaults to the `name` value when omitted.
 A missing `name` is a lint recommendation, not a syntax error.
 
 The three BOM metadata attributes (`partno`, `package`, `manufacturer`) are
@@ -304,17 +301,16 @@ Rules:
 A `func` is a method that wires pins of the instance:
 
 ```mc
-func Cap(net1, net2)
+func Cap([net1, net2])
 {
     net1 - this - net2
-    return net1, net2
+    return [net1, net2]
 }
 
-func Pullup(net1, vcc)
+func Pullup([net, vcc])
 {
-    net1 - this{1}
-    this{2} - vcc
-    return net1
+    net - this - vcc
+    return net
 }
 
 func ColorIndicator(red_control, green_control, blue_control, gnd)
@@ -342,8 +338,8 @@ Rules:
    objects for complex drivers (`func Illumination(driver::DC())` - binds
    `driver.VCC` / `driver.GND`). The kind is expressed by syntax; the name is a
    lowercase net label ([Naming Conventions §3](#3-func-params-are-net-names)).
-5. Two-terminal passives (RES, CAP, IND) all provide `Series(netA, netB)`;
-   RES adds `Pullup` / `Pulldown`, CAP and IND share the same `Series` shape.
+5. Two-terminal passives expose list-form helpers: CAP provides
+   `Cap([net1, net2])`; RES adds `Pullup([net, vcc])` / `Pulldown([net, gnd])`.
    Parts with a different topology (RES.POT, IND.CMC, RES.ARRAY) get dedicated
    functions and do not inherit the two-terminal helpers.
 6. func params never duplicate component params (COMPONENT_PARAM_FUNC_CONFLICT).
@@ -382,12 +378,12 @@ Every family file ends with a `# Usage Examples` block that is the contract
 for the call site:
 
 ```mc
-# CAP.MLCC(100nF, 50V, 10%).Cap(vcc, gnd)
-# RES.SMD(470R, 50V, 0.125W, 5%).Pulldown(enable, gnd)
-# IND.POWER(47uH, 3A, 4A, 0.05R).Series(sw, out)
+# CAP.MLCC(100nF, 50V, 10%).Cap([vcc, gnd])
+# RES.SMD(470Ω, 50V, 0.125W, 5%).Pulldown([enable, gnd])
+# IND.POWER(47μH, 3A, 4A, 0.05Ω) l1
 # DIO.SCH(0.3V, 40V, 5A).FastRectifier(high_freq_ac, dc_output)
-# RES.POT(10kR, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
-# R_PULLUP::RES(10000R, 50V).Pullup(BUTTON_IN, V3V3)
+# RES.POT(10kΩ, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
+# R_PULLUP::RES(10kΩ, 50V).Pullup([button_in, v3v3])
 ```
 
 Keep this block in sync with the constructor signature and the func names; it

@@ -86,3 +86,9 @@ component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP)
         7 = NC @barrier(contact)
     ]
 }
+
+# Usage Examples:
+# RELAY.EM(12V, 2A) k1        // 12V coil, 2A contacts
+# RELAY.SSR(3.3V, 24V, 4A) k2 // solid state, logic-level control
+# RELAY.LATCH(5V, 1A) k3      // two-coil latching
+# RELAY.REED(5V, 0.5A) k4

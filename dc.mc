@@ -49,24 +49,14 @@ component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE)
 }
 
 # Usage Examples:
-# 1. Basic usage with explicit voltage
-# PowerDomain(dc24v::DC(24V)) // Create a 24V power domain
-# PowerDomain(dc15v::DC(15V)) // Create a 15V power domain
-
-# 2. Usage with default 5V voltage
-# PowerDomain(dc5v::DC(5V)) // Create a 5V power domain (using default)
-
-# 3. Usage with custom pin names
-# PowerDomain(dc15v[VCC15V,GND15V]::DC(15V)) // Specify custom pin names
-
-# 4. Power supply definition with custom pins
-# DC.VCC24::DC(24V) // 24V supply with custom pins
-# DC.VCC12::DC(12V) // 12V supply with custom pins
-# DC.VCC15::DC(15V) // 15V supply with custom positive pin
-
-# 5. Negative voltage supply
-# DC.NEG5V::DC(-5V) // -5V negative supply
-
-# 6. Low voltage supply for microcontrollers
-# DC.VCC3V3::DC(3.3V) // 3.3V supply
-# DC.VCC1V8::DC(1.8V) // 1.8V supply
+# This file defines the source primitives DC.SRC and DC.BAT (the DC
+# *interface* and power domains are declared elsewhere, in mcode/ifs).
+# 1. Fixed supply source feeding a rail
+# DC.SRC(12V, 2A) vmain
+# vmain.VCC -> vcc_12v
+# 2. Logic rail source
+# DC.SRC(3.3V, 1A) v3v3
+# 3. Battery cells
+# DC.BAT(3.7V, 2000mAh) li_ion
+# DC.BAT(9V, 500mAh) pp3
+# DC.BAT(1.5V, 2500mAh) aa_cell

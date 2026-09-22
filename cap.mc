@@ -65,7 +65,7 @@ enum CAP
 
 // =============================================================================
 // Generic Capacitor (BASE)
-// Lint rule: use CAP.CER / CAP.ELEC etc preferred.
+// Lint rule: use CAP.MLCC / CAP.ELEC etc preferred.
 // =============================================================================
 component CAP(
     cap::UV.CAP,

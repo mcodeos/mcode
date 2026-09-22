@@ -79,3 +79,10 @@ component FUSE.PTC(irated::UV.AMP, vrated::UV.VOLT, itrip::UV.AMP)
         2 = 2
     ]
 }
+
+# Usage Examples:
+# FUSE.SMD(2A, 24V, "1206") f1
+# power_in -> f1.1
+# f1.2 -> protected_rail
+# FUSE.PTC(1.5A, 30V, 0.1A) selfreset
+# FUSE.CERAMIC(5A, 250V, 10A, "5x20") f2

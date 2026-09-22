@@ -848,3 +848,7 @@ enum PKG
     // =================================================================
     TEST_POINT
 }
+
+# Usage Examples:
+# package = PKG.SOT_223      // set on any component
+# package = PKG.SOT_23_5

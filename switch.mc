@@ -74,3 +74,11 @@ component BUTTON
         2 = NO , "Normally Open terminal"
     ]
 }
+
+# Usage Examples:
+# SWITCH sw1
+# vcc -> sw1.COM
+# sw1.NO -> switched_signal
+# BUTTON btn1
+# SWITCH.TOGGLE tog1
+# SWITCH.MOM mom1

@@ -25,3 +25,8 @@ component TP()
         1 = TP
     ]
 }
+
+# Usage Examples:
+# TP() probe_3v3
+# vcc_3v3 -> probe_3v3.TP
+# TP() probe_gnd
