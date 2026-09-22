@@ -88,13 +88,13 @@ component WTB.DUPONT(count::INT)
 
 // Usage Examples:
 // 1. Basic wire-to-board connector
-// WTB.BASIC()
+// WTB.BASIC(4)
 
 // 2. JST XH connector
-// WTB.JST_XH()
+// WTB.JST_XH(6)
 
 // 3. Molex KK connector
-// WTB.MOLEX_KK()
+// WTB.MOLEX_KK(3)
 
 // 4. Dupont connector
-// WTB.DUPONT()
+// WTB.DUPONT(40)

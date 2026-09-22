@@ -91,3 +91,9 @@ component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME)
         4 = GND @barrier(output)
     ]
 }
+
+# Usage Examples:
+# OPTO.TRANS(10mA, 50mA, 3750V, 50%) oc1      // transistor output
+# OPTO.LOGIC(10mA, 8mA, 2500V, 10us) ol1      // logic-gate output
+# OPTO.TRIAC(10mA, 220V, 2500V, 5mA) ot1      // triac driver
+# OPTO.PV(10mA, 5V, 2500V) opv                // photovoltaic output

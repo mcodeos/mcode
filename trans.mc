@@ -244,3 +244,10 @@ component TRANS.TRIAC(vdrm::UV.VOLT, it::UV.AMP)
         2 = T2         , "Terminal 2"
     ]
 }
+
+# Usage Examples:
+# TRANS.NPN(40V, 200mA, 100) q1
+# FET.MOSFET.N(30V, 5A, 30mΩ) q2
+# TRANS.DARLINGTON(100V, 8A, 1000) q3
+# TRANS.IGBT(600V, 20A) q4
+# TRANS.SCR(800V, 12A) scr1

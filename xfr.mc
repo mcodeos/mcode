@@ -132,3 +132,9 @@ component XFR.CT(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT)
         5 = SECONDARY\- @barrier(sec)
     ]
 }
+
+# Usage Examples:
+# XFR.POWER(230V, 12V, 10W, 50Hz) t1
+# XFR.ISO(120V, 120V, 4kV, 5W) t2
+# XFR.AUDIO(600Ω, 8Ω, 2W, "20Hz~20kHz") t3
+# XFR.CT(230V, 6V, 3W) t4

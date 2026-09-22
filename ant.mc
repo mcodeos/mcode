@@ -22,20 +22,10 @@ component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
         gain = gain // [1dBi, 2dBi, 3dBi, 5dBi, 8dBi]
         impedance = impd // [50Ω, 75Ω]
     ]
-    
+
     pins = [
         1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
     ]
-    
-    func RFReceiver(radio)
-    {
-        radio - this.ANT
-    }
-    
-    func RFSender(radio)
-    {
-        radio - this.ANT
-    }
 }
 
 # Whip Antenna
@@ -49,15 +39,10 @@ component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
         impedance = impd // [50Ω, 75Ω]
         wave_length = _ // [0.1m, 0.2m, 0.3m]
     ]
-    
+
     pins = [
         1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
     ]
-    
-    func HandheldRadio(radio)
-    {
-        radio - this.ANT
-    }
 }
 
 # Patch Antenna
@@ -71,16 +56,11 @@ component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
         impedance = impd // [50Ω, 75Ω]
         polarization = _ // [linear, circular]
     ]
-    
+
     pins = [
         1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
         2 = GND            # Ground plane
     ]
-    
-    func WirelessDevice(transceiver)
-    {
-        transceiver - this.ANT
-    }
 }
 
 # Dipole Antenna
@@ -94,15 +74,10 @@ component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
         impedance = impd // [50Ω, 75Ω]
         length = _ // [0.1m, 0.15m, 0.2m]
     ]
-    
+
     pins = [
         1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
     ]
-    
-    func BaseStation(transceiver)
-    {
-        transceiver - this.ANT
-    }
 }
 
 # Helical Antenna
@@ -116,16 +91,11 @@ component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
         impedance = impd // [50Ω, 75Ω]
         turns = _ // [5, 10, 15, 20]
     ]
-    
+
     pins = [
         1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
         2 = GND            # Ground plane
     ]
-    
-    func SatelliteCommunication(transceiver)
-    {
-        transceiver - this.ANT
-    }
 }
 
 # Log Periodic Antenna
@@ -139,32 +109,20 @@ component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB, impd::UV.OHM)
         gain = gain // [3dBi, 5dBi, 8dBi]
         impedance = impd // [50Ω, 75Ω]
     ]
-    
+
     pins = [
         1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
     ]
-    
-    func WidebandReceiver(receiver)
-    {
-        receiver - this.ANT
-    }
 }
 
 # Usage Examples:
-# 1. Basic antenna usage
-# ANT(2.4GHz, 2.1dBi, 50Ω)
-
-# 2. Whip antenna for handheld radio
-# ANT.WHIP(433MHz, 1.5dBi, 50Ω).HandheldRadio(transceiver)
-
-# 3. Patch antenna for WiFi device
-# ANT.PATCH(5.8GHz, 3.2dBi, 50Ω).WirelessDevice(wifi_module)
-
-# 4. Dipole antenna for base station
-# ANT.DIPOLE(900MHz, 2.1dBi, 50Ω).BaseStation(base_station)
-
-# 5. Helical antenna for satellite communication
-# ANT.HELICAL(1.575GHz, 8.0dBi, 50Ω).SatelliteCommunication(sat_modem)
-
-# 6. Log periodic antenna for wideband reception
-# ANT.LOGPERIODIC(88MHz, 108MHz, 3.0dBi, 75Ω).WidebandReceiver(fm_receiver)
+# The antenna port is a single RF pin; wire it straight to the radio's
+# antenna terminal. Application-specific wrappers (HandheldRadio etc.)
+# were demo call sites promoted to API shape and retired in U189.
+# ANT(2.4GHz, 2.1dBi, 50Ω) ant1
+# rf_out -> ant1.ANT
+# ANT.WHIP(433MHz, 1.5dBi, 50Ω) whp1
+# trx.ANT -> whp1.ANT
+# ANT.PATCH(5.8GHz, 3.2dBi, 50Ω) pat1
+# wifi_module.ANT -> pat1.ANT
+# pat1.GND -> board_gnd

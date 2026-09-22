@@ -273,3 +273,10 @@ component SENSOR.MAG(output_type::STRING, range::STRING, sensitivity::STRING)
             4 = AOUTZ::ADC.SINGLE(Transmitter)
         ]
 }
+
+# Usage Examples:
+# SENSOR.TEMP("I2C", "-40~125C", "±0.5C") ts
+# SENSOR.HUMIDITY("I2C", "0~100RH", "±2RH") rhs
+# SENSOR.PRESSURE("I2C", "300~1100hPa", "±1hPa") baro
+# SENSOR.ACCEL("SPI", "±2g", "0.01g") acc
+# SENSOR.MAG("I2C", "±8gauss", "5mG") mag
