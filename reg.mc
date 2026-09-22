@@ -74,7 +74,7 @@ component REG.LDO(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, vdrop::UV.VOLT)
         3 = GND @role(quiet)
     ]
 }
-component REG.REF(vout::UV.VOLT, iout::UV.AMP, acc::UV.PERCENT) @req
+component REG.REF(vout::UV.VOLT, iout::UV.AMP, acc::UV.PERCENT)
 {
     name = "Voltage Reference"
     spec = [
