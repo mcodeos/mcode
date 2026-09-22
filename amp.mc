@@ -135,13 +135,13 @@ component AMP.BUFFER(zin::UV.OHM, iout::UV.AMP, volt::UV.VOLT)
 # AMP(12V)
 
 # 2. Instrumentation amplifier as differential amplifier
-# output = AMP.INSTRUMENTATION(60dB, 120dB, 1MHz, 15V).DifferentialAmplifier(sensor_pos, sensor_neg, ground)
+# AMP.INSTRUMENTATION(60dB, 120dB, 1MHz, 15V).DifferentialAmplifier(sensor_pos, sensor_neg, ground)
 
 # 3. Comparator as voltage level detector
-# output = AMP.COMPARATOR(50mV, 10ns, 5V).VoltageComparator(reference_voltage, input_voltage)
+# AMP.COMPARATOR(50mV, 10ns, 5V).VoltageComparator(reference_voltage, input_voltage)
 
 # 4. OTA as voltage-controlled current source
-# current_output = AMP.OTA(1mS, 100mA, 12V).VoltageToCurrentConverter(control_voltage, bias_current)
+# AMP.OTA(1mS, 100mA, 12V).VoltageToCurrentConverter(control_voltage, bias_current)
 
 # 5. Buffer amplifier for impedance matching
-# buffered_signal = AMP.BUFFER(1TΩ, 50mA, 9V).UnityGainBuffer(high_impedance_input)
+# AMP.BUFFER(1TΩ, 50mA, 9V).UnityGainBuffer(high_impedance_input)
