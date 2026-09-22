@@ -22,10 +22,10 @@ component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT)
         isolation_voltage = viso
     ]
     pins = [
-        1 = INPUT\+
-        2 = INPUT\-
-        3 = OUTPUT\+
-        4 = OUTPUT\-
+        1 = INPUT\+ @barrier(input)
+        2 = INPUT\- @barrier(input)
+        3 = OUTPUT\+ @barrier(output)
+        4 = OUTPUT\- @barrier(output)
     ]
 }
 component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT)
@@ -38,10 +38,10 @@ component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT)
         current_transfer_ratio = ctr
     ]
     pins = [
-        1 = INPUT\+
-        2 = INPUT\-
-        3 = COLLECTOR
-        4 = EMITTER
+        1 = INPUT\+ @barrier(input)
+        2 = INPUT\- @barrier(input)
+        3 = COLLECTOR @barrier(output)
+        4 = EMITTER @barrier(output)
     ]
 }
 component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP)
@@ -54,10 +54,10 @@ component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP)
         holding_current = ihold
     ]
     pins = [
-        1 = INPUT\+
-        2 = INPUT\-
-        3 = MT1
-        4 = MT2
+        1 = INPUT\+ @barrier(input)
+        2 = INPUT\- @barrier(input)
+        3 = MT1 @barrier(output)
+        4 = MT2 @barrier(output)
     ]
 }
 component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT)
@@ -69,10 +69,10 @@ component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT)
         isolation_voltage = viso
     ]
     pins = [
-        1 = INPUT\+
-        2 = INPUT\-
-        3 = OUTPUT\+
-        4 = OUTPUT\-
+        1 = INPUT\+ @barrier(input)
+        2 = INPUT\- @barrier(input)
+        3 = OUTPUT\+ @barrier(output)
+        4 = OUTPUT\- @barrier(output)
     ]
 }
 component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME)
@@ -85,9 +85,9 @@ component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME)
         propagation_delay = tdelay
     ]
     pins = [
-        1 = INPUT\+
-        2 = INPUT\-
-        3 = OUTPUT
-        4 = GND
+        1 = INPUT\+ @barrier(input)
+        2 = INPUT\- @barrier(input)
+        3 = OUTPUT @barrier(output)
+        4 = GND @barrier(output)
     ]
 }
