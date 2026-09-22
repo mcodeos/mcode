@@ -24,7 +24,7 @@ component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
     
     pins = [
-        1 = ANT            # Antenna connection
+        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
     ]
     
     func RFReceiver(radio)
@@ -51,7 +51,7 @@ component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
     
     pins = [
-        1 = ANT            # Antenna connection
+        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
     ]
     
     func HandheldRadio(radio)
@@ -73,7 +73,7 @@ component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
     
     pins = [
-        1 = ANT            # Antenna connection
+        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
         2 = GND            # Ground plane
     ]
     
@@ -96,7 +96,7 @@ component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
     
     pins = [
-        1 = ANT            # Antenna connection
+        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
     ]
     
     func BaseStation(transceiver)
@@ -118,7 +118,7 @@ component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
     
     pins = [
-        1 = ANT            # Antenna connection
+        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
         2 = GND            # Ground plane
     ]
     
@@ -141,7 +141,7 @@ component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
     
     pins = [
-        1 = ANT            # Antenna connection
+        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
     ]
     
     func WidebandReceiver(receiver)
