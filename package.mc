@@ -17,16 +17,18 @@
 #      `LQFP100`. Putting an underscore between family and pin count
 #      (`QFN_8`, `DIP_16`) is a deprecated form and is not used here.
 #   2. When the same pin count ships in multiple body sizes, the body
-#      size is appended after an underscore: `QFN20_4x4`, `QFN20_5x5`,
-#      `LQFP48_7x7`, `DFN8_3x3`.
+#      size is appended after an underscore: `QFN20_4X4`, `QFN20_5X5`,
+#      `LQFP48_7X7`, `DFN8_3X3`.
 #   3. Family prefix modifiers (T/TSSOP, V/VQFN, W/WQFN, U/UQFN, HV/HVQFN,
 #      EP/exposed pad) are part of the family name and do NOT take a
-#      separator before the pin count: `VQFN16_3x3`, `UQFN8_2x2`.
+#      separator before the pin count: `VQFN16_3X3`, `UQFN8_2X2`.
 #   4. Where JEDEC uses a hyphen inside the family name (`SOT-23`,
 #      `TO-220`, `TSOP-I`, `SC-70`) the hyphen is replaced by an
 #      underscore so the identifier is parser-legal: `SOT_23_3`,
 #      `TO_220`, `TSOP_I48`, `SC_70_3`.
-#   5. All identifiers are upper-case; datasheet prose may use any case.
+#   5. All identifiers are upper-case, including the dimension
+#      separator x (written X) and unit suffixes (3X3, 10X16MM);
+#      datasheet prose may use any case.
 
 enum PKG
 {
@@ -52,31 +54,31 @@ enum PKG
     // ----------------------------------------------------------------
     // Axial-lead through-hole electrolytic capacitors (body L x D, mm)
     // ----------------------------------------------------------------
-    DIP_CAP_Axial_3x5mm,
-    DIP_CAP_Axial_5x11_5mm,
-    DIP_CAP_Axial_6_3x12_5mm,
-    DIP_CAP_Axial_8x16mm,
-    DIP_CAP_Axial_10x16mm,
-    DIP_CAP_Axial_10x20mm,
-    DIP_CAP_Axial_12_5x25mm,
+    DIP_CAP_AXIAL_3X5MM,
+    DIP_CAP_AXIAL_5X11_5MM,
+    DIP_CAP_AXIAL_6_3X12_5MM,
+    DIP_CAP_AXIAL_8X16MM,
+    DIP_CAP_AXIAL_10X16MM,
+    DIP_CAP_AXIAL_10X20MM,
+    DIP_CAP_AXIAL_12_5X25MM,
 
     // ----------------------------------------------------------------
     // Radial-lead through-hole electrolytic capacitors (body L x D, mm)
     // ----------------------------------------------------------------
-    DIP_CAP_Radial_5x5mm,
-    DIP_CAP_Radial_5x7mm,
-    DIP_CAP_Radial_6_3x5mm,
-    DIP_CAP_Radial_6_3x7_5mm,
-    DIP_CAP_Radial_6_3x11mm,
-    DIP_CAP_Radial_8x10mm,
-    DIP_CAP_Radial_8x12mm,
-    DIP_CAP_Radial_8x16mm,
-    DIP_CAP_Radial_10x12mm,
-    DIP_CAP_Radial_10x16mm,
-    DIP_CAP_Radial_10x20mm,
-    DIP_CAP_Radial_12_5x20mm,
-    DIP_CAP_Radial_12_5x25mm,
-    DIP_CAP_Radial_16x25mm,
+    DIP_CAP_RADIAL_5X5MM,
+    DIP_CAP_RADIAL_5X7MM,
+    DIP_CAP_RADIAL_6_3X5MM,
+    DIP_CAP_RADIAL_6_3X7_5MM,
+    DIP_CAP_RADIAL_6_3X11MM,
+    DIP_CAP_RADIAL_8X10MM,
+    DIP_CAP_RADIAL_8X12MM,
+    DIP_CAP_RADIAL_8X16MM,
+    DIP_CAP_RADIAL_10X12MM,
+    DIP_CAP_RADIAL_10X16MM,
+    DIP_CAP_RADIAL_10X20MM,
+    DIP_CAP_RADIAL_12_5X20MM,
+    DIP_CAP_RADIAL_12_5X25MM,
+    DIP_CAP_RADIAL_16X25MM,
 
     // ----------------------------------------------------------------
     // Tantalum chip capacitors (EIA/A case-size letter)
@@ -121,29 +123,29 @@ enum PKG
     // ----------------------------------------------------------------
     // Axial-lead through-hole resistors (rated power)
     // ----------------------------------------------------------------
-    DIP_RES_Axial_1_4W,
-    DIP_RES_Axial_1_2W,
-    DIP_RES_Axial_1W,
-    DIP_RES_Axial_2W,
-    DIP_RES_Axial_3W,
-    DIP_RES_Axial_5W,
+    DIP_RES_AXIAL_1_4W,
+    DIP_RES_AXIAL_1_2W,
+    DIP_RES_AXIAL_1W,
+    DIP_RES_AXIAL_2W,
+    DIP_RES_AXIAL_3W,
+    DIP_RES_AXIAL_5W,
 
     // ----------------------------------------------------------------
     // Potentiometers (body diameter or DIP pin spacing, mm)
     // ----------------------------------------------------------------
-    POT_3mm,
-    POT_4mm,
-    POT_5mm,
-    POT_6mm,
-    POT_8mm,
-    POT_10mm,
-    POT_12mm,
-    POT_16mm,
-    POT_20mm,
-    POT_25mm,
-    POT_DIP_6mm,
-    POT_DIP_10mm,
-    POT_DIP_15mm,
+    POT_3MM,
+    POT_4MM,
+    POT_5MM,
+    POT_6MM,
+    POT_8MM,
+    POT_10MM,
+    POT_12MM,
+    POT_16MM,
+    POT_20MM,
+    POT_25MM,
+    POT_DIP_6MM,
+    POT_DIP_10MM,
+    POT_DIP_15MM,
 
     // ----------------------------------------------------------------
     // Through-hole resistor networks (DIP/SIP, common-bussed or isolated)
@@ -187,25 +189,25 @@ enum PKG
     // ----------------------------------------------------------------
     // Power inductors (SMD, body L x W, mm)
     // ----------------------------------------------------------------
-    POWER_IND_3x3mm,
-    POWER_IND_4x4mm,
-    POWER_IND_5x5mm,
-    POWER_IND_6x6mm,
-    POWER_IND_8x8mm,
-    POWER_IND_10x10mm,
-    POWER_IND_12x12mm,
-    POWER_IND_14x14mm,
-    POWER_IND_16x16mm,
+    POWER_IND_3X3MM,
+    POWER_IND_4X4MM,
+    POWER_IND_5X5MM,
+    POWER_IND_6X6MM,
+    POWER_IND_8X8MM,
+    POWER_IND_10X10MM,
+    POWER_IND_12X12MM,
+    POWER_IND_14X14MM,
+    POWER_IND_16X16MM,
 
     // ----------------------------------------------------------------
     // Through-hole inductors (axial / radial, body L x D, mm)
     // ----------------------------------------------------------------
-    DIP_IND_Axial_5x10mm,
-    DIP_IND_Axial_6x12mm,
-    DIP_IND_Axial_8x15mm,
-    DIP_IND_Radial_5x10mm,
-    DIP_IND_Radial_6x12mm,
-    DIP_IND_Radial_8x15mm,
+    DIP_IND_AXIAL_5X10MM,
+    DIP_IND_AXIAL_6X12MM,
+    DIP_IND_AXIAL_8X15MM,
+    DIP_IND_RADIAL_5X10MM,
+    DIP_IND_RADIAL_6X12MM,
+    DIP_IND_RADIAL_8X15MM,
 
     // ----------------------------------------------------------------
     // Ferrite beads (SMD, EIA size code)
@@ -245,9 +247,9 @@ enum PKG
     LED_0603,
     LED_0805,
     LED_1206,
-    LED_3mm,   // 3 mm through-hole LED
-    LED_5mm,   // 5 mm through-hole LED
-    LED_8mm,   // 8 mm through-hole LED
+    LED_3MM,   // 3 mm through-hole LED
+    LED_5MM,   // 5 mm through-hole LED
+    LED_8MM,   // 8 mm through-hole LED
     LED_DIP,   // rectangular DIP LED
 
     // ----------------------------------------------------------------
@@ -290,8 +292,8 @@ enum PKG
     TO_220_SMD,           // SMD version of TO-220
     TO_251,               // JEDEC TO-251 (3-lead IPAK)
     TO_262,               // JEDEC TO-262 (3-lead I2PAK)
-    PowerPAK_SO8,         // Vishay PowerPAK SO-8
-    PowerPAK_8x8,         // Vishay PowerPAK 8x8
+    POWERPAK_SO8,         // Vishay PowerPAK SO-8
+    POWERPAK_8X8,         // Vishay PowerPAK 8x8
 
     // ----------------------------------------------------------------
     // Through-hole discrete transistors / MOSFETs (JEDEC TO family)
@@ -472,16 +474,19 @@ enum PKG
     // -----------------------------------------------------------------
     // DFN / SON — Dual / Small Outline No-lead, two-sided
     // -----------------------------------------------------------------
-    DFN8_2x2,
-    DFN8_3x3,
-    DFN10_3x3,
-    DFN12_3x3,
-    DFN16_3x3,
-    DFN16_4x4,
-    DFN20_4x4,
-    DFN20_5x5,
-    DFN24_5x5,
-    DFN32_6x6,
+    DFN8_2X2,
+    DFN8_3X3,
+    DFN10_3X3,
+    DFN12_3X3,
+    DFN16_3X3,
+    DFN16_4X4,
+    DFN20_4X4,
+    DFN20_5X5,
+    DFN24_5X5,
+    DFN32_6X6,
+
+    // TDFN — thin DFN (0.5 mm max thickness)
+    TDFN8_2X3,
 
     SON8,
     SON10,
@@ -490,7 +495,7 @@ enum PKG
     SON20,
 
     // uDFN — ultra-thin DFN (0.4 mm pitch, ultra-low body, hand-portable)
-    uDFN8,
+    UDFN8,
 
     // USON — ultra-thin SON (smaller than SON, typically < 0.5 mm body)
     USON8,
@@ -515,28 +520,28 @@ enum PKG
     QFN64,
 
     // Body-size-specific QFN variants
-    QFN8_3x3,
-    QFN12_3x3,
-    QFN16_3x3,
-    QFN16_4x4,
-    QFN20_4x4,
-    QFN20_5x5,
-    QFN24_4x4,
-    QFN24_5x5,
-    QFN32_5x5,
-    QFN32_6x6,
-    QFN40_6x6,
-    QFN40_8x8,
-    QFN48_7x7,
-    QFN48_9x9,
-    QFN64_10x10,
+    QFN8_3X3,
+    QFN12_3X3,
+    QFN16_3X3,
+    QFN16_4X4,
+    QFN20_4X4,
+    QFN20_5X5,
+    QFN24_4X4,
+    QFN24_5X5,
+    QFN32_5X5,
+    QFN32_6X6,
+    QFN40_6X6,
+    QFN40_8X8,
+    QFN48_7X7,
+    QFN48_9X9,
+    QFN64_10X10,
 
     // VQFN — Very-thin QFN (low-profile)
-    VQFN16_3x3,
-    VQFN20_4x4,
-    VQFN24_5x5,
-    VQFN32_6x6,
-    VQFN48_7x7,
+    VQFN16_3X3,
+    VQFN20_4X4,
+    VQFN24_5X5,
+    VQFN32_6X6,
+    VQFN48_7X7,
 
     // WQFN — Wide-body QFN
     WQFN16,
@@ -550,9 +555,9 @@ enum PKG
     UQFN12,
     UQFN16,
     // Body-size-specific UQFN variants
-    UQFN8_2x2,
-    UQFN12_2x2,
-    UQFN16_3x3,
+    UQFN8_2X2,
+    UQFN12_2X2,
+    UQFN16_3X3,
 
     // HVQFN — High-Voltage QFN (power)
     HVQFN16,
@@ -582,14 +587,14 @@ enum PKG
     LQFP144,
 
     // Body-size-specific LQFP variants
-    LQFP32_7x7,
-    LQFP48_7x7,
-    LQFP64_10x10,
-    LQFP80_12x12,
-    LQFP100_14x14,
-    LQFP128_14x14,
-    LQFP144_20x20,
-    LQFP176_24x24,
+    LQFP32_7X7,
+    LQFP48_7X7,
+    LQFP64_10X10,
+    LQFP80_12X12,
+    LQFP100_14X14,
+    LQFP128_14X14,
+    LQFP144_20X20,
+    LQFP176_24X24,
 
     // TQFP — Thin QFP
     TQFP32,
@@ -665,10 +670,10 @@ enum PKG
     FBGA256,
 
     // nFBGA — Next-generation fine-pitch BGA (smaller ball pitch than FBGA)
-    nFBGA64,
-    nFBGA100,
-    nFBGA144,
-    nFBGA256,
+    NFBGA64,
+    NFBGA100,
+    NFBGA144,
+    NFBGA256,
 
     // PBGA — standard Plastic BGA
     PBGA100,
@@ -699,7 +704,7 @@ enum PKG
     DSBGA6,     // TI die-size BGA, 6 bumps
     DSBGA8,     // TI die-size BGA, 8 bumps
     WCSP12,     // Wafer-level CSP, 12 bumps
-    uCSP16,     // Micro-CSP, 16 bumps
+    UCSP16,     // Micro-CSP, 16 bumps
     FCCSP20,    // Flip-chip CSP, 20 balls
 
     // -----------------------------------------------------------------
@@ -719,11 +724,11 @@ enum PKG
     // -----------------------------------------------------------------
     // Special / advanced packages (RF, multi-chip, system-in-package)
     // -----------------------------------------------------------------
-    SiP4,        // System-in-Package, 4-pin interface
-    SiP8,
-    SiP16,
+    SIP4,        // System-in-Package, 4-pin interface
+    SIP8,
+    SIP16,
     MCM,         // Multi-Chip Module
-    AiP,         // Antenna-in-Package (mmWave RF)
+    AIP,         // Antenna-in-Package (mmWave RF)
     COB,         // Chip-on-Board
     FLGA,        // Fine-pitch LGA
 
@@ -750,10 +755,9 @@ enum PKG
     // -----------------------------------------------------------------
     USB_A,         // USB Type-A receptacle
     USB_B,         // USB Type-B receptacle
-    USB_Mini,      // USB Mini-B receptacle
-    USB_Micro,     // USB Micro-B receptacle
+    USB_MINI,      // USB Mini-B receptacle
+    USB_MICRO,     // USB Micro-B receptacle
     USB_C,         // USB Type-C receptacle
-    USB_TypeC,     // Alias of USB_C for projects that prefer the long form
 
     // -----------------------------------------------------------------
     // Other board-level connectors
@@ -765,13 +769,13 @@ enum PKG
     // Crystals & oscillators
     // =================================================================
     // Body size L x W in 0.1 mm units (e.g. 3225 = 3.2 x 2.5 mm)
-    Xtal_3225,
-    Xtal_3215,
-    Xtal_2520,
-    Xtal_2016,
-    Xtal_1612,
-    Xtal_DIP_2PIN,    // Through-hole HC-49 2-pin
-    Xtal_DIP_4PIN,    // Through-hole 4-pin oscillator module
+    XTAL_3225,
+    XTAL_3215,
+    XTAL_2520,
+    XTAL_2016,
+    XTAL_1612,
+    XTAL_DIP_2PIN,    // Through-hole HC-49 2-pin
+    XTAL_DIP_4PIN,    // Through-hole 4-pin oscillator module
     XTAL,             // Generic crystal / oscillator package alias
 
     // =================================================================
