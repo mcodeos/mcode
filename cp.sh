@@ -38,14 +38,18 @@ fi
 # Create mcode subdirectory in target
 mkdir -p "$MCODE_DIR"
 
-# Copy only the contents of the source directory to target
-# This ensures we only copy mcode files, not other project files
-echo "Copying mcode files from $SOURCE_DIR to $MCODE_DIR..."
-cp -r "$SOURCE_DIR"/* "$MCODE_DIR"
-if [ $? -ne 0 ]; then
-    echo "Error: Cannot copy mcode files"
-    exit 1
-fi
+# Copy only library content to the target: root *.mc files plus the two
+# aggregate subdirectories. Everything else in the repo (build/, logs/,
+# baseline/, config/, docs, this script, the license) is working-tree
+# material and must not reach the installed library (U190).
+echo "Copying mcode library files from $SOURCE_DIR to $MCODE_DIR..."
+cp "$SOURCE_DIR"/*.mc "$MCODE_DIR"/ || { echo "Error: Cannot copy mcode files"; exit 1; }
+for SUBDIR in conn ifs; do
+    if [ -d "$SOURCE_DIR/$SUBDIR" ]; then
+        mkdir -p "$MCODE_DIR/$SUBDIR"
+        cp "$SOURCE_DIR/$SUBDIR"/*.mc "$MCODE_DIR/$SUBDIR"/ || { echo "Error: Cannot copy $SUBDIR files"; exit 1; }
+    fi
+done
 
 echo "Operation completed: mcode files successfully copied to $TARGET_DIR/mcode"
 
