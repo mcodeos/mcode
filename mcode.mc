@@ -37,6 +37,5 @@ pub use ./switch.mc
 pub use ./tp.mc
 pub use ./trans.mc
 pub use ./xfr.mc
-pub use ./units.mc
 pub use ./nettie.mc
 pub use ./xtal.mc

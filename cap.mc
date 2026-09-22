@@ -31,7 +31,7 @@ enum CAP
     X5R,
     Y5V,
     X8R,        // automotive high-temp MLCC
-    U2J,        // ADD: high-voltage MLCC, low drift, power supply common
+    U2J,        // high-voltage MLCC, low drift, power supply common
 
     // ── Dielectric (oxide / film / special) ──
     ALUMINUM_OXIDE,
@@ -52,7 +52,7 @@ enum CAP
     POLYMER_TANTALUM,
     NIOBIUM,
     MLCC,
-    DISC_CERAMIC,       // ADD: disk ceramic (non-MLCC)
+    DISC_CERAMIC,       // disk ceramic (non-MLCC)
     FILM,
 
     // ── Safety class (EMI X/Y) ──
@@ -90,15 +90,15 @@ component CAP(
         tolerance = tol
         dielectric = diel
         construction = cons
-        polarized = false       // ADD: unified polarity flag for DRC/BOM
+        polarized = false       // unified polarity flag for DRC/BOM
         esr = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
         safety_class = SC_NONE
-        rohs = _                // ADD: RoHS / RoHS-exempt
-        derating_note = _       // ADD: derating guidance note
+        rohs = _                // RoHS / RoHS-exempt
+        derating_note = _       // derating guidance note
     ]
 
     func Cap([net1, net2])
@@ -131,7 +131,7 @@ component CAP.ELEC(
         tolerance = tol
         dielectric = ALUMINUM_OXIDE
         construction = _        // wet vs polymer: BOM-stage decision
-        polarized = true        // ADD
+        polarized = true
         esr = _
         ripple_rated = _
         temp_min = _
@@ -173,7 +173,7 @@ component CAP.MLCC(
         tolerance = tol
         dielectric = diel
         construction = MLCC
-        polarized = false       // ADD
+        polarized = false
         esr = _
         ripple_rated = _
         temp_min = _
@@ -192,7 +192,7 @@ component CAP.MLCC(
 }
 
 // =============================================================================
-// ADD: Disc Ceramic Capacitor (non-MLCC disk ceramic)
+// Disc ceramic capacitor (non-MLCC disk ceramic)
 // =============================================================================
 component CAP.DISC(
     cap::UV.CAP,
@@ -256,7 +256,7 @@ component CAP.TANT(
         tolerance = tol
         dielectric = TANTALUM_PENTOXIDE
         construction = _        // wet vs polymer: BOM-stage decision
-        polarized = true        // ADD
+        polarized = true
         esr = _
         ripple_rated = _
         temp_min = _
@@ -297,7 +297,7 @@ component CAP.NIOB(
         tolerance = tol
         dielectric = NIOBIUM_PENTOXIDE
         construction = NIOBIUM
-        polarized = true        // ADD
+        polarized = true
         esr = _
         ripple_rated = _
         temp_min = _
@@ -339,7 +339,7 @@ component CAP.FILM(
         tolerance = tol
         dielectric = diel
         construction = FILM
-        polarized = false       // ADD
+        polarized = false
         esr = _
         ripple_rated = _
         temp_min = _
@@ -380,7 +380,7 @@ component CAP.MICA(
         tolerance = tol
         dielectric = MICA
         construction = MICA
-        polarized = false       // ADD
+        polarized = false
         esr = _
         ripple_rated = _
         temp_min = _
@@ -431,7 +431,7 @@ component CAP.SAFETY(
         temp_max = _
         life_hours = _
         safety_class = cls
-        certification = _       // ADD: UL / ENEC etc.
+        certification = _       // UL / ENEC etc.
         rohs = _
         derating_note = _
     ]
@@ -467,7 +467,7 @@ component CAP.SC(
         tolerance = tol
         dielectric = EDLC
         construction = EDLC
-        polarized = true        // ADD
+        polarized = true
         esr = _
         ripple_rated = _
         temp_min = _
@@ -508,7 +508,7 @@ component CAP.TRIM(
         tolerance = tol
         dielectric = _
         construction = _
-        polarized = false       // ADD
+        polarized = false
         esr = _
         ripple_rated = _
         temp_min = _

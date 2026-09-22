@@ -24,8 +24,8 @@ component WTB.BASIC(count::INT)
     
     spec = [
         pin_count = count // [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16]
-        pitch = _ // [1.0mm, 1.25mm, 1.5mm, 2.0mm, 2.54mm, 3.96mm] ？
-        orientation = _ // [horizontal, vertical] ？
+        pitch = _ // [1.0mm, 1.25mm, 1.5mm, 2.0mm, 2.54mm, 3.96mm]
+        orientation = _ // [horizontal, vertical]
     ]
     
     pins = [

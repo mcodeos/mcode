@@ -13,7 +13,7 @@
 # limitations under the License.
 
 // ---------------------------------------------------------------------------------------------
-// Resistor Component Definitions — Final Production Version
+// Resistor Component Definitions
 // No enum; construction uses plain string tag
 // Tolerance: integer percentage omit .0, only keep decimal when needed
 // ---------------------------------------------------------------------------------------------
@@ -342,7 +342,7 @@ component RES.LDR(
 # =============================================================================
 # RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pullup([signal, vcc])
 # RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pulldown([enable, gnd])
-# vcc -> RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃) -> load                  // 二脚件默认 1×2 形状放置
+# vcc -> RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃) -> load                  // two-terminal part, default 1x2 shape placement
 # vout -> RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃) -> load
 # RES.POT(10kΩ, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
 # ntc_node -> RES.NTC(10kΩ, 3950, 5V, 5%) -> gnd

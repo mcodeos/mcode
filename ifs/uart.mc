@@ -122,7 +122,6 @@ interface UART.RS232.3(role)
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
     maxdistance = 15m
-    //maxspeed = [20kbps@12m, 1kbps@1200m]
     receiver = ±15V
     output = ±25V
 
@@ -168,7 +167,6 @@ interface UART.RS232.5(role)
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
     maxdistance = 15m
-    //maxspeed = [20kbps@12m, 1kbps@1200m]
     receiver = ±15V
     output = ±25V
 
@@ -218,7 +216,6 @@ interface UART.RS232.9(role)
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
     maxdistance = 15m
-    //maxspeed = [20kbps@12m, 1kbps@1200m]
     receiver = ±15V
     output = ±25V
 
