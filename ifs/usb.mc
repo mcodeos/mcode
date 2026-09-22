@@ -376,9 +376,11 @@ interface USB3.TX(role)
     name = "USB 3.x SuperSpeed Transmit Interface"
     description = "USB 3.x SuperSpeed transmit interface"
     
+    // House differential law: first lane positive (same as USB3.RX and every
+    // other differential interface).
     pins = [
-        1 = SSTX\-, "SuperSpeed TX Negative"  // SuperSpeed transmit negative
-        2 = SSTX\+, "SuperSpeed TX Positive"  // SuperSpeed transmit positive
+        1 = SSTX\+, "SuperSpeed TX Positive"  // SuperSpeed transmit positive
+        2 = SSTX\-, "SuperSpeed TX Negative"  // SuperSpeed transmit negative
     ]
 
     role Host { 

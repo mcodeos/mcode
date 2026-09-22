@@ -26,10 +26,13 @@ interface I2S(role)
     // Device Definition: Transmitter = Sends audio data, Receiver = Receives audio data
     // Audio Format: Supports various sample rates and bit depths
 
-    pins = [ 
+    // Family pin-order law: control before data — clock, word select, then the
+    // data lane (same principle as PCM's CLK, SYNC, IN, OUT; matches the
+    // Philips document order SCK, WS, SD).
+    pins = [
         1 = SCK, "Bit Clock"       // Bit clock signal
-        2 = SD, "Serial Data"      // Audio data
-        3 = WS, "Word Select"      // Channel select (left/right)
+        2 = WS, "Word Select"      // Channel select (left/right)
+        3 = SD, "Serial Data"      // Audio data
     ]
     
     role Transmitter {  // I2S Transmitter - Sends audio data
