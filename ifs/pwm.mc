@@ -29,8 +29,11 @@ interface PWM(role)
     maxspeed = [1MHz]
     voltage = [1.8V,3.3V,5V]
 
+    // @drive(pp): a PWM output stage is push-pull by default, same library
+    // default as GPIO. A device that drives the line open-drain states
+    // `@drive(od)` on its own adoption row, which overrides this default.
     pins = [
-        1 = _
+        1 = _ @drive(pp)
     ]
 
     role Controller {

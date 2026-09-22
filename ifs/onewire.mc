@@ -30,8 +30,11 @@ interface ONEWIRE(role)
     maxspeed = [16kbps]
     voltage = [1.8V,3.3V,5V]
 
+    // @drive(od): the 1-Wire bus is open-drain with an external pullup — every
+    // node releases the line by driving high. A push-pull driver states
+    // `@drive(pp)` on its own adoption row, which overrides this default.
     pins = [
-        1 = _
+        1 = _ @drive(od)
     ]
 
     role Master {

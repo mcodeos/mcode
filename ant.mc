@@ -14,6 +14,9 @@
 
 # Basic Antenna Component
 # Generic antenna with fundamental parameters
+# The antenna port carries @class(radio) as the library-default signal class
+# (radio is a subtype of analog: an analog-class expectation still accepts a
+# radio-class line, and a radio expectation rejects an analog line).
 component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Antenna"
@@ -24,7 +27,7 @@ component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 
     pins = [
-        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
+        1 = ANT @class(radio)     # Antenna connection, RF continuous-wave port
     ]
 }
 
@@ -41,7 +44,7 @@ component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 
     pins = [
-        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
+        1 = ANT @class(radio)     # Antenna connection, RF continuous-wave port
     ]
 }
 
@@ -58,7 +61,7 @@ component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 
     pins = [
-        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
+        1 = ANT @class(radio)     # Antenna connection, RF continuous-wave port
         2 = GND            # Ground plane
     ]
 }
@@ -76,7 +79,7 @@ component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 
     pins = [
-        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
+        1 = ANT @class(radio)     # Antenna connection, RF continuous-wave port
     ]
 }
 
@@ -93,7 +96,7 @@ component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 
     pins = [
-        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
+        1 = ANT @class(radio)     # Antenna connection, RF continuous-wave port
         2 = GND            # Ground plane
     ]
 }
@@ -111,7 +114,7 @@ component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 
     pins = [
-        1 = ANT @class(analog)    # Antenna connection, RF continuous-wave port
+        1 = ANT @class(radio)     # Antenna connection, RF continuous-wave port
     ]
 }
 
