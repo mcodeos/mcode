@@ -32,6 +32,11 @@ pub use ./usb.mc        // USB interface
 pub use ./pcm.mc        // PCM interface
 pub use ./can.mc        // CAN interface
 pub use ./ethernet.mc   // Ethernet interface
+pub use ./dp.mc         // DisplayPort interface
+pub use ./lvds.mc       // LVDS interface (clock + 4 data pairs)
+pub use ./mipi.mc       // MIPI DSI / CSI interfaces (D-PHY)
+pub use ./spdif.mc      // S/PDIF interface
+pub use ./pmbus.mc      // PMBus interface
 
 // Analog Interfaces
 pub use ./adcdiff.mc    // ADC.DIFF interface

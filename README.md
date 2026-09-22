@@ -10,10 +10,10 @@ interface library of the language. It is loaded with `--lib mcode`.
 
 ```
 mcode.mc        library entry point; pub-use aggregates every module below
-res.mc          resistors        (RES, RES.SMD, RES.THT, RES.POT, RES.NTC, ...)
+res.mc          resistors        (RES, RES.SMD, RES.THT, RES.POT, RES.NTC, RES.LDR, ...)
 cap.mc          capacitors       (CAP, CAP.ELEC, CAP.MLCC, CAP.DISC, CAP.TANT, ...)
 ind.mc          inductors        (IND, IND.SMD, IND.POWER, IND.HF, IND.FB, IND.CMC)
-dio.mc          diodes           (DIO, DIO.SCH, DIO.ZEN, DIO.TVS, DIO.ESD, DIO.PHOTO)
+dio.mc          diodes           (DIO, DIO.SCH, DIO.ZEN, DIO.TVS, DIO.ESD, DIO.PHOTO, DIO.BR)
 led.mc          LEDs             (LED, LED.RGB, LED.IR, LED.HP)
 xfr.mc          transformers     (XFR, XFR.POWER, XFR.AUDIO, XFR.ISO, XFR.CT)
 trans.mc        transistors      (bipolar / FET families)
@@ -29,7 +29,7 @@ xtal.mc         crystal oscillators
 nettie.mc       net ties (copper bridges)
 units.mc        unit system reference (UV.VOLT, UV.AMP, UV.CAP, UV.OHM, ...)
 package.mc      package definitions
-ifs/            interface definitions (UART.TTL, I2C, SPI, CAN, USB, GPIO, ...)
+ifs/            interface definitions (UART.TTL, I2C, SPI, CAN, USB, GPIO, DP, LVDS, MIPI.DSI/CSI, SPDIF, PMBUS, ...)
 conn/           connector definitions (HDR_*, circular, audio, video, power, RJ45, SD, SIM, JUMPER, BAT)
 cp.sh           install script: copies the library to ~/.mcode/mcode
 ```
