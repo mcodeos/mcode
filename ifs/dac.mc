@@ -30,7 +30,7 @@ interface DAC(role)
     // Applications: Audio output, signal generation, motor control
 
     pins = [
-        1 = OUT, "Analog Output"    // Analog output voltage
+        1 = OUT @class(analog), "Analog Output"    // Analog output voltage
     ]
     // Ground reference is the analog ground domain, shared through the power
     // supply (DC interface) -- signal interfaces carry no ground member
