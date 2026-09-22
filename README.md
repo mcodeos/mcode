@@ -104,6 +104,22 @@ from lowercase func net params and merged constructor formals.
 Universally recognised datasheet symbols stay as-is: `gm`, `cmrr`, `ctr`,
 `bw`, `tol`, `esr`, `srf`. Only non-standard abbreviations are expanded.
 
+### 6. Gate member rows take `G` names (`G1`..`Gn`)
+
+A multi-gate package declares one adoption row per gate; the row name is
+the gate's name inside the package and addresses as `U1.G1.A`. Name the
+rows `G1`, `G2`, ... and carry the physical data-book names in the rename
+braces:
+
+    pins = [
+        [1,2,3] = G1{A1,B1,Y1}::LOGIC.NAND(), "Gate 1"
+        [4,5,6] = G2{A2,B2,Y2}::LOGIC.NAND(), "Gate 2"
+    ]
+
+The `G` number is the gate's identity namespace, distinct from the
+physical pin ordinals (which need not be monotonic within a gate's row:
+`[9,10,8] = G3{B3,A3,Y3}::LOGIC.NAND()` is legal and pairs per pin).
+
 ## Component Authoring Rules
 
 These rules unify how every component in the library is written. They are the
