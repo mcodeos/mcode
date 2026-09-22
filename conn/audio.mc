@@ -105,20 +105,20 @@ component AUDIO.XLR(pin_count::INT)
     
     if pin_count == 3
         pins = [
-            1 = GND, "Ground"
+            1 = GND @exposed(esd_contact), "Ground"
             2 = Hot, "Hot"
             3 = Cold, "Cold"
         ]
     else if pin_count == 4
         pins = [
-            1 = GND, "Ground"
+            1 = GND @exposed(esd_contact), "Ground"
             2 = Hot, "Hot"
             3 = Cold, "Cold"
             4 = Power, "Power"
         ]
     else if pin_count == 5
         pins = [
-            1 = GND, "Ground"
+            1 = GND @exposed(esd_contact), "Ground"
             2 = Hot, "Hot"
             3 = Cold, "Cold"
             4 = Power\+, "Power+"
@@ -159,7 +159,7 @@ component AUDIO.BANANA_PLUG()
     ]
     
     pins = [
-        1 = Conductor, "Conductor"
+        1 = Conductor @exposed(esd_contact), "Conductor"
     ]
 }
 
