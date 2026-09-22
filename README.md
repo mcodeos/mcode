@@ -232,7 +232,7 @@ Rules:
    table of a component; BOM metadata does not live here.
 2. Keys are snake_case, full words, unique within the table (duplicates are
    rejected). Prefer the established vocabulary:
-   `resistance`, `capacitance`, `inductance`, `voltage` / `voltage_rated`,
+   `resistance`, `capacitance`, `inductance`, `voltage`,
    `power_rated`, `tolerance`, `temp_coeff`, `temp_min`, `temp_max`,
    `forward_voltage`, `forward_current`, `zener_voltage`, `breakdown_voltage`,
    `clamping_voltage`, `rated_current`, `sat_current`, `trip_current`,
@@ -248,9 +248,15 @@ Rules:
    `construction` is a string tag (`"SMD"`, `"THT"`, `"SMD_POWER"`),
    `polarized` is the unified DRC/BOM polarity flag, `rohs` records RoHS
    status, `derating_note` holds derating guidance.
-6. Naming semantics are fixed: `rated_current` is the thermal rating,
-   `sat_current` is the saturation current (power inductors),
-   `test_frequency` is the measurement condition (ferrite beads).
+6. Naming semantics are fixed, one concept one spelling: the withstand
+   voltage is `voltage` (never `voltage_rated`), the continuous power rating
+   is `power_rated` (never `power_rating` / `power`; `peak_power` is a
+   different quantity - the pulse peak, as on a TVS - and stays its own key),
+   and the thermal current rating is `rated_current` (never `rating` /
+   `maximum_current`). `sat_current` is the saturation current (power
+   inductors), `test_frequency` is the measurement condition (ferrite beads).
+   A constructor formal never duplicates its spec key
+   (`output_type = otype`, never `output_type = output_type`).
 7. A `spec` attribute may be split into `spec.X = ...` or be made conditional
    with `if (param == ...) { spec = [ ... ] }` blocks. Duplicate spec keys are
    still rejected.

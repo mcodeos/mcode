@@ -97,7 +97,7 @@ component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT)
     spec = [
         forward_voltage = vfwd // [3.0V, 3.2V, 3.4V, 3.6V]
         forward_current = ifwd // [350mA, 500mA, 700mA, 1.0A, 2.0A]
-        power = pmax // [1W, 3W, 5W, 10W, 20W]
+        power_rated = pmax // [1W, 3W, 5W, 10W, 20W]
     ]
     
     pins = [

@@ -24,13 +24,13 @@
 # for mode-less pins (HEATER). Former "digital" output_type value retired:
 # it had no resolvable pairing identity (only the named buses do).
 
-component SENSOR.TEMP(output_type::STRING, range::STRING, accuracy::STRING)
+component SENSOR.TEMP(otype::STRING, range::STRING, acc::STRING)
 {
     name = "Temperature Sensor"
     spec = [
-        output_type = output_type // [analog, i2c, spi]
+        output_type = otype // [analog, i2c, spi]
         temperature_range = range // [-40°C to 125°C, -20°C to 85°C]
-        accuracy = accuracy // [±0.1°C, ±0.5°C, ±1.0°C]
+        accuracy = acc // [±0.1°C, ±0.5°C, ±1.0°C]
     ]
     if output_type == "i2c"
         pins = [
@@ -48,13 +48,13 @@ component SENSOR.TEMP(output_type::STRING, range::STRING, accuracy::STRING)
             2 = AOUT::ADC.SINGLE(Transmitter)
         ]
 }
-component SENSOR.HUMIDITY(output_type::STRING, range::STRING, accuracy::STRING)
+component SENSOR.HUMIDITY(otype::STRING, range::STRING, acc::STRING)
 {
     name = "Humidity Sensor"
     spec = [
-        output_type = output_type // [analog, i2c, spi]
+        output_type = otype // [analog, i2c, spi]
         humidity_range = range // [0-100% RH, 10-90% RH]
-        accuracy = accuracy // [±2%, ±3%, ±5%]
+        accuracy = acc // [±2%, ±3%, ±5%]
     ]
     if output_type == "i2c"
         pins = [
@@ -72,13 +72,13 @@ component SENSOR.HUMIDITY(output_type::STRING, range::STRING, accuracy::STRING)
             2 = AOUT::ADC.SINGLE(Transmitter)
         ]
 }
-component SENSOR.PRESSURE(output_type::STRING, range::STRING, accuracy::STRING)
+component SENSOR.PRESSURE(otype::STRING, range::STRING, acc::STRING)
 {
     name = "Pressure Sensor"
     spec = [
-        output_type = output_type // [analog, i2c, spi]
+        output_type = otype // [analog, i2c, spi]
         pressure_range = range // [0-100kPa, 0-1MPa, 0-10MPa]
-        accuracy = accuracy // [±0.5%, ±1%, ±2%]
+        accuracy = acc // [±0.5%, ±1%, ±2%]
     ]
     if output_type == "i2c"
         pins = [
@@ -96,13 +96,13 @@ component SENSOR.PRESSURE(output_type::STRING, range::STRING, accuracy::STRING)
             2 = AOUT::ADC.SINGLE(Transmitter)
         ]
 }
-component SENSOR.LIGHT(output_type::STRING, range::STRING, sensitivity::STRING)
+component SENSOR.LIGHT(otype::STRING, range::STRING, sens::STRING)
 {
     name = "Light Sensor"
     spec = [
-        output_type = output_type // [analog, i2c, spi]
+        output_type = otype // [analog, i2c, spi]
         spectral_range = range // [400-700nm, 380-850nm]
-        sensitivity = sensitivity // [1000mV/lux, 500mV/lux, 100mV/lux]
+        sensitivity = sens // [1000mV/lux, 500mV/lux, 100mV/lux]
     ]
     if output_type == "i2c"
         pins = [
@@ -120,13 +120,13 @@ component SENSOR.LIGHT(output_type::STRING, range::STRING, sensitivity::STRING)
             2 = AOUT::ADC.SINGLE(Transmitter)
         ]
 }
-component SENSOR.PROX(output_type::STRING, range::STRING, response_time::UV.TIME)
+component SENSOR.PROX(otype::STRING, range::STRING, rtime::UV.TIME)
 {
     name = "Proximity Sensor"
     spec = [
-        output_type = output_type // [analog, i2c, spi]
+        output_type = otype // [analog, i2c, spi]
         detection_range = range // [0-10cm, 0-50cm, 0-1m]
-        response_time = response_time // [1ms, 10ms, 50ms]
+        response_time = rtime // [1ms, 10ms, 50ms]
     ]
     if output_type == "i2c"
         pins = [
@@ -144,13 +144,13 @@ component SENSOR.PROX(output_type::STRING, range::STRING, response_time::UV.TIME
             2 = AOUT::ADC.SINGLE(Transmitter)
         ]
 }
-component SENSOR.MOTION(output_type::STRING, range::STRING, sensitivity::STRING)
+component SENSOR.MOTION(otype::STRING, range::STRING, sens::STRING)
 {
     name = "Motion Sensor"
     spec = [
-        output_type = output_type // [analog, i2c, spi]
+        output_type = otype // [analog, i2c, spi]
         detection_range = range // [0-5m, 0-10m, 0-15m]
-        sensitivity = sensitivity // [low, medium, high]
+        sensitivity = sens // [low, medium, high]
     ]
     if output_type == "i2c"
         pins = [
@@ -168,13 +168,13 @@ component SENSOR.MOTION(output_type::STRING, range::STRING, sensitivity::STRING)
             2 = AOUT::ADC.SINGLE(Transmitter)
         ]
 }
-component SENSOR.GAS(output_type::STRING, gas::STRING, sensitivity::STRING)
+component SENSOR.GAS(otype::STRING, gas::STRING, sens::STRING)
 {
     name = "Gas Sensor"
     spec = [
-        output_type = output_type // [analog, i2c, spi]
+        output_type = otype // [analog, i2c, spi]
         gas_type = gas // [CO, CH4, LPG, smoke, VOC]
-        sensitivity = sensitivity // [low, medium, high]
+        sensitivity = sens // [low, medium, high]
     ]
     if output_type == "i2c"
         pins = [
@@ -195,13 +195,13 @@ component SENSOR.GAS(output_type::STRING, gas::STRING, sensitivity::STRING)
             3 = AOUT::ADC.SINGLE(Transmitter)
         ]
 }
-component SENSOR.ACCEL(output_type::STRING, range::STRING, sensitivity::STRING)
+component SENSOR.ACCEL(otype::STRING, range::STRING, sens::STRING)
 {
     name = "Accelerometer"
     spec = [
-        output_type = output_type // [analog, i2c, spi]
+        output_type = otype // [analog, i2c, spi]
         measurement_range = range // [±2g, ±4g, ±8g, ±16g]
-        sensitivity = sensitivity // [1mg/LSB, 2mg/LSB, 4mg/LSB]
+        sensitivity = sens // [1mg/LSB, 2mg/LSB, 4mg/LSB]
     ]
     if output_type == "i2c"
         pins = [
@@ -221,13 +221,13 @@ component SENSOR.ACCEL(output_type::STRING, range::STRING, sensitivity::STRING)
             4 = AOUTZ::ADC.SINGLE(Transmitter)
         ]
 }
-component SENSOR.GYRO(output_type::STRING, range::STRING, sensitivity::STRING)
+component SENSOR.GYRO(otype::STRING, range::STRING, sens::STRING)
 {
     name = "Gyroscope"
     spec = [
-        output_type = output_type // [analog, i2c, spi]
+        output_type = otype // [analog, i2c, spi]
         measurement_range = range // [±250°/s, ±500°/s, ±1000°/s, ±2000°/s]
-        sensitivity = sensitivity // [1°/s/LSB, 2°/s/LSB, 4°/s/LSB]
+        sensitivity = sens // [1°/s/LSB, 2°/s/LSB, 4°/s/LSB]
     ]
     if output_type == "i2c"
         pins = [
@@ -247,13 +247,13 @@ component SENSOR.GYRO(output_type::STRING, range::STRING, sensitivity::STRING)
             4 = AOUTZ::ADC.SINGLE(Transmitter)
         ]
 }
-component SENSOR.MAG(output_type::STRING, range::STRING, sensitivity::STRING)
+component SENSOR.MAG(otype::STRING, range::STRING, sens::STRING)
 {
     name = "Magnetometer"
     spec = [
-        output_type = output_type // [analog, i2c, spi]
+        output_type = otype // [analog, i2c, spi]
         measurement_range = range // [±1.3mT, ±2.5mT, ±4.7mT, ±9.5mT]
-        sensitivity = sensitivity // [0.5mT/LSB, 1mT/LSB, 2mT/LSB]
+        sensitivity = sens // [0.5mT/LSB, 1mT/LSB, 2mT/LSB]
     ]
     if output_type == "i2c"
         pins = [
