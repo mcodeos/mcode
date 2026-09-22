@@ -40,10 +40,10 @@ component XFR(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT)
         power_rating = prated // [1W, 5W, 10W, 50W, 100W]
     ]
     pins = [
-        1 = PRIMARY\+
-        2 = PRIMARY\-
-        3 = SECONDARY\+
-        4 = SECONDARY\-
+        1 = PRIMARY\+ @barrier(pri)
+        2 = PRIMARY\- @barrier(pri)
+        3 = SECONDARY\+ @barrier(sec)
+        4 = SECONDARY\- @barrier(sec)
     ]
 }
 # Power Transformer Component
@@ -58,10 +58,10 @@ component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq::UV.HZ)
         frequency = freq // [50Hz, 60Hz]
     ]
     pins = [
-        1 = PRIMARY\+
-        2 = PRIMARY\-
-        3 = SECONDARY\+
-        4 = SECONDARY\-
+        1 = PRIMARY\+ @barrier(pri)
+        2 = PRIMARY\- @barrier(pri)
+        3 = SECONDARY\+ @barrier(sec)
+        4 = SECONDARY\- @barrier(sec)
     ]
 }
 # Audio Transformer Component
@@ -81,10 +81,10 @@ component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, freq_resp::STRI
         frequency_response = freq_resp // [20Hz-20kHz, 50Hz-15kHz]
     ]
     pins = [
-        1 = PRIMARY\+
-        2 = PRIMARY\-
-        3 = SECONDARY\+
-        4 = SECONDARY\-
+        1 = PRIMARY\+ @barrier(pri)
+        2 = PRIMARY\- @barrier(pri)
+        3 = SECONDARY\+ @barrier(sec)
+        4 = SECONDARY\- @barrier(sec)
     ]
 }
 # Isolation Transformer Component
@@ -104,10 +104,10 @@ component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::UV.WATT)
         power_rating = prated // [1W, 5W, 10W, 50W]
     ]
     pins = [
-        1 = PRIMARY\+
-        2 = PRIMARY\-
-        3 = SECONDARY\+
-        4 = SECONDARY\-
+        1 = PRIMARY\+ @barrier(pri)
+        2 = PRIMARY\- @barrier(pri)
+        3 = SECONDARY\+ @barrier(sec)
+        4 = SECONDARY\- @barrier(sec)
     ]
 }
 # Center-Tapped Transformer Component
@@ -125,10 +125,10 @@ component XFR.CT(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT)
         power_rating = prated // [1W, 5W, 10W, 50W]
     ]
     pins = [
-        1 = PRIMARY\+
-        2 = PRIMARY\-
-        3 = SECONDARY\+
-        4 = SECONDARY.CT
-        5 = SECONDARY\-
+        1 = PRIMARY\+ @barrier(pri)
+        2 = PRIMARY\- @barrier(pri)
+        3 = SECONDARY\+ @barrier(sec)
+        4 = SECONDARY.CT @barrier(sec)
+        5 = SECONDARY\- @barrier(sec)
     ]
 }
