@@ -25,6 +25,7 @@ pub use ./ant.mc
 pub use ./cap.mc
 pub use ./dc.mc
 pub use ./dio.mc
+pub use ./fet.mc
 pub use ./fuse.mc
 pub use ./ind.mc
 pub use ./led.mc
