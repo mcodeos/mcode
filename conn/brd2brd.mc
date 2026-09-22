@@ -50,9 +50,30 @@ component CONN.MEZZANINE(pin_count::INT)
     ]
 }
 
+// DIN 41612 Connector (rectangular board-to-board standard, common in
+// industrial equipment; form factor C = 96-pin, B = 64-pin, A = 32-pin)
+component CONN.DIN41612(pin_count::INT)
+{
+    name = "DIN 41612 Connector"
+    description = "DIN 41612 board-to-board connector, " + pin_count + " pins"
+    
+    spec = [
+        standard = "DIN 41612"
+        size = _ // [1, 2, 3]
+        pin_count = pin_count
+    ]
+    
+    pins = [
+        1:pin_count = 1:pin_count
+    ]
+}
+
 // Usage Examples:
 // 1. Basic board-to-board connector
 // CONN.B2B(16)
 
 // 2. High-density mezzanine connector
 // CONN.MEZZANINE(40)
+
+// 3. DIN 41612 connector
+// CONN.DIN41612(96)

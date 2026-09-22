@@ -28,9 +28,9 @@ component TRANS(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
     ]
 
     pins = [
-        in B = Base     , "Base terminal"
-        in C = Collector , "Collector terminal"
-        out E = Emitter  , "Emitter terminal"
+        in 1 = BASE     , "Base terminal"
+        in 2 = COLLECTOR, "Collector terminal"
+        out 3 = EMITTER , "Emitter terminal"
     ]
 }
 
@@ -46,9 +46,9 @@ component TRANS.NPN(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
     ]
 
     pins = [
-        in B = Base     , "Base terminal"
-        in C = Collector , "Collector terminal"
-        out E = Emitter  , "Emitter terminal"
+        in 1 = BASE     , "Base terminal"
+        in 2 = COLLECTOR, "Collector terminal"
+        out 3 = EMITTER , "Emitter terminal"
     ]
 }
 
@@ -64,9 +64,9 @@ component TRANS.PNP(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
     ]
 
     pins = [
-        in B = Base     , "Base terminal"
-        in E = Emitter  , "Emitter terminal"
-        out C = Collector , "Collector terminal"
+        in 1 = BASE     , "Base terminal"
+        in 2 = EMITTER  , "Emitter terminal"
+        out 3 = COLLECTOR, "Collector terminal"
     ]
 }
 
@@ -82,111 +82,9 @@ component TRANS.DARLINGTON(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
     ]
 
     pins = [
-        in B = Base     , "Base terminal"
-        in C = Collector , "Collector terminal"
-        out E = Emitter  , "Emitter terminal"
-    ]
-}
-
-// ---------------------------------------------------------------------------------------------
-// FET — Field-Effect Transistors (JFET, MOSFET)
-// ---------------------------------------------------------------------------------------------
-
-# Field-Effect Transistor (FET) Component
-component FET(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM)
-{
-    name = "FET"
-    description = "General field-effect transistor"
-    spec = [
-        drain_source_voltage = vds
-        drain_current = ids
-        drain_source_resistance = rds
-    ]
-
-    pins = [
-        in G = Gate    , "Gate terminal"
-        in D = Drain   , "Drain terminal"
-        out S = Source , "Source terminal"
-    ]
-}
-
-// ---------------------------------------------------------------------------------------------
-// FET.JFET — Junction Field-Effect Transistors
-// ---------------------------------------------------------------------------------------------
-
-# N-Channel JFET Component
-component FET.JFET.N(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM)
-{
-    name = "N-Channel JFET"
-    description = "N-channel junction field-effect transistor"
-    spec = [
-        drain_source_voltage = vds
-        drain_current = ids
-        drain_source_resistance = rds
-    ]
-
-    pins = [
-        in G = Gate    , "Gate terminal"
-        in D = Drain   , "Drain terminal"
-        out S = Source , "Source terminal"
-    ]
-}
-
-# P-Channel JFET Component
-component FET.JFET.P(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM)
-{
-    name = "P-Channel JFET"
-    description = "P-channel junction field-effect transistor"
-    spec = [
-        drain_source_voltage = vds
-        drain_current = ids
-        drain_source_resistance = rds
-    ]
-
-    pins = [
-        in G = Gate    , "Gate terminal"
-        in S = Source  , "Source terminal"
-        out D = Drain  , "Drain terminal"
-    ]
-}
-
-// ---------------------------------------------------------------------------------------------
-// FET.MOSFET — Metal-Oxide-Semiconductor Field-Effect Transistors
-// ---------------------------------------------------------------------------------------------
-
-# N-Channel MOSFET Component
-component FET.MOSFET.N(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM)
-{
-    name = "N-Channel MOSFET"
-    description = "N-channel metal-oxide-semiconductor field-effect transistor"
-    spec = [
-        drain_source_voltage = vds
-        drain_current = ids
-        drain_source_resistance = rds
-    ]
-
-    pins = [
-        in G = Gate    , "Gate terminal"
-        in D = Drain   , "Drain terminal"
-        out S = Source , "Source terminal"
-    ]
-}
-
-# P-Channel MOSFET Component
-component FET.MOSFET.P(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM)
-{
-    name = "P-Channel MOSFET"
-    description = "P-channel metal-oxide-semiconductor field-effect transistor"
-    spec = [
-        drain_source_voltage = vds
-        drain_current = ids
-        drain_source_resistance = rds
-    ]
-
-    pins = [
-        in G = Gate    , "Gate terminal"
-        in S = Source  , "Source terminal"
-        out D = Drain  , "Drain terminal"
+        in 1 = BASE     , "Base terminal"
+        in 2 = COLLECTOR, "Collector terminal"
+        out 3 = EMITTER , "Emitter terminal"
     ]
 }
 
@@ -205,9 +103,9 @@ component TRANS.IGBT(vce::UV.VOLT, ic::UV.AMP)
     ]
 
     pins = [
-        in G = Gate    , "Gate terminal"
-        in C = Collector , "Collector terminal"
-        out E = Emitter  , "Emitter terminal"
+        in 1 = GATE     , "Gate terminal"
+        in 2 = COLLECTOR, "Collector terminal"
+        out 3 = EMITTER , "Emitter terminal"
     ]
 }
 
@@ -222,9 +120,9 @@ component TRANS.SCR(vrrm::UV.VOLT, it::UV.AMP)
     ]
 
     pins = [
-        in G = Gate    , "Gate terminal"
-        in A = Anode    , "Anode terminal"
-        out K = Cathode , "Cathode terminal"
+        in 1 = GATE     , "Gate terminal"
+        in 2 = ANODE    , "Anode terminal"
+        out 3 = CATHODE , "Cathode terminal"
     ]
 }
 
@@ -239,15 +137,14 @@ component TRANS.TRIAC(vdrm::UV.VOLT, it::UV.AMP)
     ]
 
     pins = [
-        in G = Gate    , "Gate terminal"
-        1 = T1         , "Terminal 1"
-        2 = T2         , "Terminal 2"
+        in 1 = GATE     , "Gate terminal"
+        2 = T1          , "Main terminal 1"
+        3 = T2          , "Main terminal 2"
     ]
 }
 
 # Usage Examples:
 # TRANS.NPN(40V, 200mA, 100) q1
-# FET.MOSFET.N(30V, 5A, 30mΩ) q2
 # TRANS.DARLINGTON(100V, 8A, 1000) q3
 # TRANS.IGBT(600V, 20A) q4
 # TRANS.SCR(800V, 12A) scr1

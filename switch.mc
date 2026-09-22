@@ -64,7 +64,7 @@ component SWITCH.MOM
 }
 
 # Momentary Push Button Component
-component BUTTON
+component SWITCH.BUTTON
 {
     name = "Momentary Push Button"
     description = "Momentary push button (tact switch) with common and normally-open terminals"
@@ -99,7 +99,7 @@ component SWITCH.DIP(pin_count::INT)
 # SWITCH sw1
 # vcc -> sw1.COM
 # sw1.NO -> switched_signal
-# BUTTON btn1
+# SWITCH.BUTTON btn1
 # SWITCH.TOGGLE tog1
 # SWITCH.MOM mom1
 # SWITCH.DIP(8) addr_sel1          // 8 pins = 4 positions

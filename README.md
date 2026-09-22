@@ -16,7 +16,8 @@ ind.mc          inductors        (IND, IND.SMD, IND.POWER, IND.HF, IND.FB, IND.C
 dio.mc          diodes           (DIO, DIO.SCH, DIO.ZEN, DIO.TVS, DIO.ESD, DIO.PHOTO, DIO.BR)
 led.mc          LEDs             (LED, LED.RGB, LED.IR, LED.HP)
 xfr.mc          transformers     (XFR, XFR.POWER, XFR.AUDIO, XFR.ISO, XFR.CT)
-trans.mc        transistors      (bipolar / FET families)
+trans.mc        transistors      (bipolar: TRANS, TRANS.NPN, TRANS.PNP, TRANS.DARLINGTON; power: TRANS.IGBT, TRANS.SCR, TRANS.TRIAC)
+fet.mc          field-effect transistors (FET, FET.JFET.N, FET.JFET.P, FET.MOSFET.N, FET.MOSFET.P)
 opto.mc         opto-isolators
 relay.mc        relays
 fuse.mc         fuses

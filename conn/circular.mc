@@ -51,23 +51,6 @@ component CIRC.MIL_SPEC(pin_count::INT)
     ]
 }
 
-// DIN 41612 Connector (Commonly used in industrial equipment)
-component CIRC.DIN41612(pin_count::INT)
-{
-    name = "DIN 41612 Connector"
-    description = "DIN 41612 circular connector, " + pin_count + " pins"
-    
-    spec = [
-        standard = "DIN 41612"
-        size = _ // [1, 2, 3, 4, 5]
-        pin_count = pin_count
-    ]
-    
-    pins = [
-        1:pin_count = 1:pin_count
-    ]
-}
-
 // BNC Connector (RF Coaxial Connector)
 component CIRC.BNC(impedance::STRING)
 {
@@ -150,7 +133,6 @@ component CIRC.MHF4()
 // CIRC.MIL_SPEC(10)
 
 // 3. DIN 41612 connector
-// CIRC.DIN41612(16)
 
 // 4. BNC connector
 // CIRC.BNC("50Ω")
