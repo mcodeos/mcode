@@ -37,7 +37,6 @@ pub use ./ethernet.mc   // Ethernet interface
 pub use ./adcdiff.mc    // ADC.DIFF interface
 pub use ./adcsingle.mc  // ADC.SINGLE interface (single-ended analog input)
 pub use ./dac.mc        // DAC interface
-pub use ./dacsingle.mc  // DAC.SINGLE interface (single-ended analog output)
 pub use ./ampbtl.mc     // AMP.BTL interface
 
 // Clock Interfaces
