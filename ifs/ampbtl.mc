@@ -30,14 +30,15 @@ interface AMP.BTL(role)
     voltage = [3.3V,5V]
     output_power = [1W,3W]
     load = [4Ohm,8Ohm]
-    diff_pair = [P, N]   // P and N are the two faces of one bridge drive; 1st = positive phase
 
+    // The two rows tagged @pair(p) are the two legs of one bridge drive; the
+    // P/N spellings are the naming convention, and the first member is leg A.
     // The @class(analog) row attribute is the library-default signal class
     // (same as ADC.SINGLE / ADC.DIFF): a bridge drive is an analog power
     // output face even when the amplifier stage is class D.
     pins = [
-        1 = P @class(analog), "Positive BTL Output"   // Positive-phase bridge leg
-        2 = N @class(analog), "Negative BTL Output"   // Anti-phase bridge leg
+        1 = P @class(analog) @pair(p), "Positive BTL Output"   // Positive-phase bridge leg
+        2 = N @class(analog) @pair(p), "Negative BTL Output"   // Anti-phase bridge leg
     ]
 
     role Transmitter {  // AMP.BTL Transmitter - Amplifier BTL output stage

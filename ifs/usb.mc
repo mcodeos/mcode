@@ -350,12 +350,12 @@ interface USB.DATA(role)
     name = "USB Data Interface"
     description = "USB data interface with differential signaling"
 
-    // House differential law: first lane positive (same as USB3.TX / USB3.RX).
-    diff_pair = [D\+, D\-]
-
+    // The two rows tagged @pair(d) are the two legs of one differential
+    // signal; the +/- spellings are the naming convention (same as
+    // USB3.TX / USB3.RX).
     pins = [
-        1 = D\+, "Data Positive"     // Positive data line
-        2 = D\-, "Data Negative"     // Negative data line
+        1 = D\+ @pair(d), "Data Positive"     // Positive data line
+        2 = D\- @pair(d), "Data Negative"     // Negative data line
     ]
 
     role Host {
@@ -379,13 +379,12 @@ interface USB3.TX(role)
     name = "USB 3.x SuperSpeed Transmit Interface"
     description = "USB 3.x SuperSpeed transmit interface"
     
-    // House differential law: first lane positive (same as USB3.RX and every
-    // other differential interface).
-    diff_pair = [SSTX\+, SSTX\-]
-
+    // The two rows tagged @pair(sstx) are the two legs of one differential
+    // signal; the +/- spellings are the naming convention (same as USB3.RX
+    // and every other differential interface).
     pins = [
-        1 = SSTX\+, "SuperSpeed TX Positive"  // SuperSpeed transmit positive
-        2 = SSTX\-, "SuperSpeed TX Negative"  // SuperSpeed transmit negative
+        1 = SSTX\+ @pair(sstx), "SuperSpeed TX Positive"  // SuperSpeed transmit positive
+        2 = SSTX\- @pair(sstx), "SuperSpeed TX Negative"  // SuperSpeed transmit negative
     ]
 
     role Host { 
@@ -409,12 +408,11 @@ interface USB3.RX(role)
     name = "USB 3.x SuperSpeed Receive Interface"
     description = "USB 3.x SuperSpeed receive interface"
 
-    // House differential law: first lane positive (same as USB3.TX).
-    diff_pair = [SSRX\+, SSRX\-]
-
+    // The two rows tagged @pair(ssrx) are the two legs of one differential
+    // signal; the +/- spellings are the naming convention (same as USB3.TX).
     pins = [
-        1 = SSRX\+, "SuperSpeed RX Positive"  // SuperSpeed receive positive
-        2 = SSRX\-, "SuperSpeed RX Negative"  // SuperSpeed receive negative
+        1 = SSRX\+ @pair(ssrx), "SuperSpeed RX Positive"  // SuperSpeed receive positive
+        2 = SSRX\- @pair(ssrx), "SuperSpeed RX Negative"  // SuperSpeed receive negative
     ]
 
     role Host { 
