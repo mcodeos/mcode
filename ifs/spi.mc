@@ -52,20 +52,20 @@ interface SPI(role)
     role Master {  // SPI Master - Controls the bus
         name = "SPI Master"
         pins = [
-            1 = SCLK, "Serial Clock"         // Clock, driven by master
-            2 = MOSI, "Master Out Slave In"  // Data from master to slave (my output)
-            3 = MISO, "Master In Slave Out"  // Data from slave to master (my input)
-            4 = CS, "Chip Select"            // Slave select
+            out 1 = SCLK, "Serial Clock"         // Clock, driven by master
+            out 2 = MOSI, "Master Out Slave In"  // Data from master to slave (my output)
+            in 3 = MISO, "Master In Slave Out"  // Data from slave to master (my input)
+            out 4 = CS, "Chip Select"            // Slave select
         ]
         peer = Slave
     }
     role Slave {  // SPI Slave - Responds to master
         name = "SPI Slave"
         pins = [
-            1 = SCLK, "Serial Clock"          // Clock, from master
-            2 = SI, "Slave In (from Master)"  // Data from master to slave (my input)
-            3 = SO, "Slave Out (to Master)"   // Data from slave to master (my output)
-            4 = CS, "Chip Select"             // Slave select
+            in 1 = SCLK, "Serial Clock"          // Clock, from master
+            in 2 = SI, "Slave In (from Master)"  // Data from master to slave (my input)
+            out 3 = SO, "Slave Out (to Master)"   // Data from slave to master (my output)
+            in 4 = CS, "Chip Select"             // Slave select
         ]
         peer = Master
     }

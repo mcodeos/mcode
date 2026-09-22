@@ -345,8 +345,8 @@ interface DBG.UARTBOOT(role)
     role Host {
         name = "UART Bootloader Host"
         pins = [
-            1 = TXD, "Transmit Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-            2 = RXD, "Receive Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+            out 1 = TXD, "Transmit Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+            in 2 = RXD, "Receive Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
             3 = GND, "Ground"
         ]
         peer = Target
@@ -355,8 +355,8 @@ interface DBG.UARTBOOT(role)
     role Target {
         name = "UART Bootloader Target"
         pins = [
-            1 = RXD, "Receive Data, from the host TXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as ordinal 1
-            2 = TXD, "Transmit Data, to the host RXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]   // Same wire as ordinal 2
+            in 1 = RXD, "Receive Data, from the host TXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as ordinal 1
+            out 2 = TXD, "Transmit Data, to the host RXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]   // Same wire as ordinal 2
             3 = GND, "Ground"
         ]
         peer = Host
