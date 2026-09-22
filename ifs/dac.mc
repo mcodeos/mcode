@@ -31,8 +31,10 @@ interface DAC(role)
 
     pins = [
         1 = OUT, "Analog Output"    // Analog output voltage
-        2 = GND, "Ground"           // Signal reference ground
     ]
+    // Ground reference is the analog ground domain, shared through the power
+    // supply (DC interface) -- signal interfaces carry no ground member
+    // (Decision Record 2, spec/19 §9).
     
     role Controller {
         name = "DAC Controller"

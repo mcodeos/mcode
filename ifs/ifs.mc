@@ -35,8 +35,13 @@ pub use ./ethernet.mc   // Ethernet interface
 
 // Analog Interfaces
 pub use ./adcdiff.mc    // ADC.DIFF interface
+pub use ./adcsingle.mc  // ADC.SINGLE interface (single-ended analog input)
 pub use ./dac.mc        // DAC interface
+pub use ./dacsingle.mc  // DAC.SINGLE interface (single-ended analog output)
 pub use ./ampbtl.mc     // AMP.BTL interface
+
+// Clock Interfaces
+pub use ./clkdiff.mc    // CLK.DIFF interface (differential clock pair)
 
 // Automotive Interfaces
 pub use ./flexray.mc    // FlexRay interface
