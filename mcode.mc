@@ -21,18 +21,15 @@ pub use ./ifs/ifs.mc
 pub use ./conn/conn.mc
 
 // import files
-pub use ./amp.mc
 pub use ./ant.mc
 pub use ./cap.mc
 pub use ./dc.mc
 pub use ./dio.mc
-pub use ./filter.mc
 pub use ./fuse.mc
 pub use ./ind.mc
 pub use ./led.mc
 pub use ./opto.mc
 pub use ./package.mc
-pub use ./reg.mc
 pub use ./relay.mc
 pub use ./res.mc
 pub use ./sensor.mc
