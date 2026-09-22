@@ -24,7 +24,7 @@ component FILTER.LP(fcut::UV.HZ, ripple::UV.DB, atten::UV.DB)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
     ]
 }
 component FILTER.HP(fcut::UV.HZ, ripple::UV.DB, atten::UV.DB)
@@ -38,7 +38,7 @@ component FILTER.HP(fcut::UV.HZ, ripple::UV.DB, atten::UV.DB)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
     ]
 }
 component FILTER.BP(flow::UV.HZ, fhigh::UV.HZ, ripple::UV.DB, atten::UV.DB)
@@ -53,7 +53,7 @@ component FILTER.BP(flow::UV.HZ, fhigh::UV.HZ, ripple::UV.DB, atten::UV.DB)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
     ]
 }
 component FILTER.BS(flow::UV.HZ, fhigh::UV.HZ, ripple::UV.DB, atten::UV.DB)
@@ -68,7 +68,7 @@ component FILTER.BS(flow::UV.HZ, fhigh::UV.HZ, ripple::UV.DB, atten::UV.DB)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
     ]
 }
 component FILTER.NOTCH(fcenter::UV.HZ, bw::UV.HZ, atten::UV.DB)
@@ -82,7 +82,7 @@ component FILTER.NOTCH(fcenter::UV.HZ, bw::UV.HZ, atten::UV.DB)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
     ]
 }
 component FILTER.AP(phase::UV.ANGLE, frange::STRING)
@@ -95,7 +95,7 @@ component FILTER.AP(phase::UV.ANGLE, frange::STRING)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
     ]
 }
 component FILTER.ACTIVE(flow::UV.HZ, fhigh::UV.HZ, gain::UV.DB, volt::UV.VOLT)
@@ -111,7 +111,7 @@ component FILTER.ACTIVE(flow::UV.HZ, fhigh::UV.HZ, gain::UV.DB, volt::UV.VOLT)
         1 = INPUT
         2 = OUTPUT
         3 = VCC
-        4 = GND
+        4 = GND @role(quiet)
     ]
 }
 component FILTER.SC(fcut::UV.HZ, fclk::UV.HZ, volt::UV.VOLT)
@@ -127,6 +127,6 @@ component FILTER.SC(fcut::UV.HZ, fclk::UV.HZ, volt::UV.VOLT)
         2 = OUTPUT
         3 = CLOCK
         4 = VCC
-        5 = GND
+        5 = GND @role(quiet)
     ]
 }

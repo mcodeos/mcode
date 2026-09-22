@@ -94,7 +94,7 @@ component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, freq_resp::STRI
 # - vsec: Secondary voltage rating
 # - viso: Isolation voltage rating
 # - prated: Power rating
-component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::UV.WATT)
+component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::UV.WATT) @req
 {
     name = "Isolation Transformer"
     spec = [

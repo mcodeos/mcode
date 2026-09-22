@@ -39,7 +39,7 @@ component AMP.INSTRUMENTATION(gain::UV.DB, cmrr::UV.DB, bw::UV.HZ, volt::UV.VOLT
     pins = [
         1 = \+ | IN\+      # Non-inverting input
         2 = \- | IN\-      # Inverting input
-        3 = REF            # Reference voltage
+        3 = REF @role(quiet)   # Reference voltage (analog reference pin)
         4 = VOUT           # Output
         [5,6] = DC{VCC,VEE}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
     ]
@@ -95,7 +95,7 @@ component AMP.OTA(gm::UV.SIEMENS, iout::UV.AMP, volt::UV.VOLT)
         2 = \- | IN\-      # Inverting input
         3 = OUT            # Output
         [4,5] = DC{VCC,VEE}::DC(volt), ["Positive power supply", "Negative power supply (or ground)"]
-        6 = BIAS           # Bias current control
+        6 = BIAS @role(quiet)  # Bias current control (analog bias pin)
     ]
     
     func VoltageToCurrentConverter(input, bias)
