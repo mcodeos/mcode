@@ -31,9 +31,12 @@ interface ADC.DIFF(role)
     resolution = [8bit,10bit,12bit,16bit]
     diff_pair = [P, N]   // P and N are the two faces of one pair; 1st = positive
 
-    pins = [ 
-        1 = P, "Positive Input"   // Positive differential input
-        2 = N, "Negative Input"   // Negative differential input
+    // The @class(analog) row attribute is the library-default signal class,
+    // same as ADC.SINGLE: adopting components inherit it and may override by
+    // ordinal.
+    pins = [
+        1 = P @class(analog), "Positive Input"   // Positive differential input
+        2 = N @class(analog), "Negative Input"   // Negative differential input
     ]
     
     role Transmitter {  // ADC.DIFF Transmitter - Sensor or signal source
