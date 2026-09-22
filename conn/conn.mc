@@ -20,3 +20,6 @@ pub use ./power.mc
 pub use ./audio.mc
 pub use ./video.mc
 pub use ./usb.mc
+pub use ./rj45.mc
+pub use ./sd.mc
+pub use ./sim.mc
