@@ -13,66 +13,73 @@
 # limitations under the License.
 
 # Fuse components
-component FUSE(irated::UV.AMP, vrated::UV.VOLT, type::STRING)
+component FUSE(irated::UV.AMP, vrated::UV.VOLT, spd::STRING)
 {
     name = "Fuse"
     spec = [
-        rating = irated // [0.1A, 0.5A, 1A, 2A, 5A, 10A, 20A]
+        rated_current = irated // [0.1A, 0.5A, 1A, 2A, 5A, 10A, 20A]
         voltage = vrated // [5V, 12V, 24V, 120V, 240V]
-        type = type // [fast, slow, medium]
+        type = spd // [fast, slow, medium]
     ]
     pins = [
         1 = 1
         2 = 2
     ]
 }
-component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, type::STRING)
+component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, spd::STRING)
 {
     name = "Surface Mount Fuse"
     spec = [
-        rating = irated // [0.1A, 0.5A, 1A, 2A, 5A]
+        rated_current = irated // [0.1A, 0.5A, 1A, 2A, 5A]
         voltage = vrated // [5V, 12V, 24V, 120V]
-        type = type // [fast, slow, medium]
+        type = spd // [fast, slow, medium]
     ]
     pins = [
         1 = 1
         2 = 2
     ]
 }
-component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP, type::STRING)
+component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP, spd::STRING)
 {
     name = "Ceramic Fuse"
     spec = [
-        rating = irated
+        rated_current = irated
         voltage = vrated
         breaking_capacity = ibreak
-        type = type // [fast, slow, medium]
+        type = spd // [fast, slow, medium]
     ]
     pins = [
         1 = 1
         2 = 2
     ]
 }
-component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, type::STRING)
+component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, spd::STRING)
 {
     name = "Glass Fuse"
     spec = [
-        rating = irated // [0.5A, 1A, 2A, 5A, 10A]
+        rated_current = irated // [0.5A, 1A, 2A, 5A, 10A]
         voltage = vrated // [12V, 24V, 120V, 240V]
-        type = type // [fast, slow, medium]
+        type = spd // [fast, slow, medium]
     ]
     pins = [
         1 = 1
         2 = 2
     ]
 }
+// Canonical PTC face (U185 B3 ruling): the resettable overcurrent protector
+// belongs to the FUSE family (function decides the family, U178 S3); the
+// former RES.PTC resistor-family face is deleted. `resistance` stays as an
+// unassigned BOM slot for the cold resistance.
 component FUSE.PTC(irated::UV.AMP, vrated::UV.VOLT, itrip::UV.AMP)
 {
     name = "PTC Fuse"
+    description = "Resettable PPTC overcurrent protection device"
     spec = [
-        rating = irated
+        rated_current = irated
         voltage = vrated
         trip_current = itrip
+        resistance = _
+        rohs = _
     ]
     pins = [
         1 = 1

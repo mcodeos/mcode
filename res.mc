@@ -39,7 +39,7 @@ component RES(
 
     spec = [
         resistance = rs
-        voltage_rated = volt
+        voltage = volt
         power_rated = prated
         tolerance = tol
         temp_coeff = tc         //e.g. 100.0ppm/℃
@@ -84,7 +84,7 @@ component RES.SMD(
 
     spec = [
         resistance = rs
-        voltage_rated = volt
+        voltage = volt
         power_rated = prated
         tolerance = tol
         temp_coeff = tc
@@ -129,7 +129,7 @@ component RES.SMD_POWER(
 
     spec = [
         resistance = rs
-        voltage_rated = volt
+        voltage = volt
         power_rated = prated
         tolerance = tol
         temp_coeff = tc
@@ -162,7 +162,7 @@ component RES.THT(
 
     spec = [
         resistance = rs
-        voltage_rated = volt
+        voltage = volt
         power_rated = prated
         tolerance = tol
         temp_coeff = tc
@@ -208,7 +208,7 @@ component RES.POT(
 
     spec = [
         resistance = rs
-        voltage_rated = volt
+        voltage = volt
         power_rated = prated
         tolerance = tol
         temp_coeff = tc
@@ -255,41 +255,7 @@ component RES.NTC(
     spec = [
         resistance = rs
         beta_coefficient = beta
-        voltage_rated = volt
-        power_rated = _
-        tolerance = tol
-        temp_coeff = tc
-        temp_min = _
-        temp_max = _
-        construction = _
-        rohs = _
-        derating_note = _
-    ]
-}
-
-// =============================================================================
-// PTC / PPTC Self-resetting Fuse
-// =============================================================================
-component RES.PTC(
-    rs::UV.OHM,
-    itrip::UV.AMP,
-    volt::UV.VOLT,
-    tol::UV.PERCENT,
-    tc::UV.PPM/UV.TEMP
-)
-{
-    name = "PTC / PPTC Resettable Fuse"
-    description = "Positive temperature coefficient overcurrent protection device"
-
-    pins = [
-        1 = 1, "Term 1"
-        2 = 2, "Term 2"
-    ]
-
-    spec = [
-        resistance = rs
-        trip_current = itrip
-        voltage_rated = volt
+        voltage = volt
         power_rated = _
         tolerance = tol
         temp_coeff = tc
@@ -310,7 +276,7 @@ component RES.ARRAY(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP,
-    channel_count::INT,
+    chcount::INT,
     mount::STRING
 )
 {
@@ -326,13 +292,13 @@ component RES.ARRAY(
 
     spec = [
         resistance = rs
-        voltage_rated = volt
+        voltage = volt
         power_rated = prated
         tolerance = tol
         temp_coeff = tc
         temp_min = _
         temp_max = _
-        channel_count = channel_count
+        channel_count = chcount
         construction = mount
         rohs = _
         derating_note = _
@@ -362,7 +328,7 @@ component RES.LDR(
     spec = [
         resistance_light = rlight
         resistance_dark = rdark
-        voltage_rated = volt
+        voltage = volt
         tolerance = tol
         peak_wavelength = _
         response_rise = _
@@ -380,6 +346,6 @@ component RES.LDR(
 # vout -> RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃) -> load
 # RES.POT(10kΩ, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
 # ntc_node -> RES.NTC(10kΩ, 3950, 5V, 5%) -> gnd
-# vin -> RES.PTC(100mΩ, 500mA, 24V, 20%) -> load
+# vin -> FUSE.PTC(500mA, 24V, 100mA) -> load
 # RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_SMD")
 # RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_THT")

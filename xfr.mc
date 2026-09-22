@@ -37,7 +37,7 @@ component XFR(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT)
     spec = [
         primary_voltage = vpri // [12V, 24V, 120V, 240V]
         secondary_voltage = vsec // [5V, 9V, 12V, 24V]
-        power_rating = prated // [1W, 5W, 10W, 50W, 100W]
+        power_rated = prated // [1W, 5W, 10W, 50W, 100W]
     ]
     pins = [
         1 = PRIMARY\+ @barrier(pri)
@@ -54,7 +54,7 @@ component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq::UV.HZ)
     spec = [
         primary_voltage = vpri // [12V, 24V, 120V, 240V]
         secondary_voltage = vsec // [5V, 9V, 12V, 24V]
-        power_rating = prated // [1W, 5W, 10W, 50W, 100W]
+        power_rated = prated // [1W, 5W, 10W, 50W, 100W]
         frequency = freq // [50Hz, 60Hz]
     ]
     pins = [
@@ -77,7 +77,7 @@ component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, freq_resp::STRI
     spec = [
         primary_impedance = zpri // [8Ω, 50Ω, 600Ω]
         secondary_impedance = zsec // [8Ω, 50Ω, 600Ω]
-        power_rating = prated // [0.1W, 0.5W, 1W, 5W]
+        power_rated = prated // [0.1W, 0.5W, 1W, 5W]
         frequency_response = freq_resp // [20Hz-20kHz, 50Hz-15kHz]
     ]
     pins = [
@@ -101,7 +101,7 @@ component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::UV.WATT)
         primary_voltage = vpri // [12V, 24V, 120V, 240V]
         secondary_voltage = vsec // [12V, 24V, 120V, 240V]
         isolation_voltage = viso // [500V, 1000V, 2000V, 5000V]
-        power_rating = prated // [1W, 5W, 10W, 50W]
+        power_rated = prated // [1W, 5W, 10W, 50W]
     ]
     pins = [
         1 = PRIMARY\+ @barrier(pri)
@@ -122,7 +122,7 @@ component XFR.CT(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT)
     spec = [
         primary_voltage = vpri // [12V, 24V, 120V, 240V]
         secondary_voltage = vsec // [9V, 12V, 24V, 36V]
-        power_rating = prated // [1W, 5W, 10W, 50W]
+        power_rated = prated // [1W, 5W, 10W, 50W]
     ]
     pins = [
         1 = PRIMARY\+ @barrier(pri)

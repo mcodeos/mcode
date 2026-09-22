@@ -20,7 +20,7 @@ component DIO(vfwd::UV.VOLT, vrev::UV.VOLT, imax::UV.AMP)
     spec = [
         forward_voltage = vfwd
         reverse_voltage = vrev
-        maximum_current = imax
+        rated_current = imax
     ]
     
     pins = [
@@ -58,7 +58,7 @@ component DIO.SCH(vfwd::UV.VOLT, vrev::UV.VOLT, imax::UV.AMP)
     spec = [
         forward_voltage = vfwd
         reverse_voltage = vrev
-        maximum_current = imax
+        rated_current = imax
     ]
     
     pins = [
@@ -81,7 +81,7 @@ component DIO.ZEN(vz::UV.VOLT, ppeak::UV.WATT, tol::UV.PERCENT)
     name = "Zener Diode"
     spec = [
         zener_voltage = vz
-        power_rating = ppeak
+        power_rated = ppeak
         tolerance = tol
     ]
     
