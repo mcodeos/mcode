@@ -24,7 +24,7 @@ component REG(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
     ]
 }
 component REG.LINEAR(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, vdrop::UV.VOLT)
@@ -39,7 +39,7 @@ component REG.LINEAR(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, vdrop::UV.VOLT)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
     ]
 }
 component REG.SW(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, eff::UV.PERCENT)
@@ -54,9 +54,9 @@ component REG.SW(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, eff::UV.PERCENT)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
         4 = SW
-        5 = FB
+        5 = FB @role(quiet)
     ]
 }
 component REG.LDO(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, vdrop::UV.VOLT)
@@ -71,10 +71,10 @@ component REG.LDO(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, vdrop::UV.VOLT)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
     ]
 }
-component REG.REF(vout::UV.VOLT, iout::UV.AMP, acc::UV.PERCENT)
+component REG.REF(vout::UV.VOLT, iout::UV.AMP, acc::UV.PERCENT) @req
 {
     name = "Voltage Reference"
     spec = [
@@ -84,8 +84,8 @@ component REG.REF(vout::UV.VOLT, iout::UV.AMP, acc::UV.PERCENT)
     ]
     pins = [
         1 = INPUT
-        2 = OUTPUT
-        3 = GND
+        2 = OUTPUT @role(quiet)
+        3 = GND @role(quiet)
     ]
 }
 component REG.BUCK(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, fsw::UV.HZ)
@@ -100,9 +100,9 @@ component REG.BUCK(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, fsw::UV.HZ)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
         4 = SW
-        5 = FB
+        5 = FB @role(quiet)
     ]
 }
 component REG.BOOST(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, fsw::UV.HZ)
@@ -117,9 +117,9 @@ component REG.BOOST(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, fsw::UV.HZ)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
         4 = SW
-        5 = FB
+        5 = FB @role(quiet)
     ]
 }
 component REG.BUCK_BOOST(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, fsw::UV.HZ)
@@ -134,8 +134,8 @@ component REG.BUCK_BOOST(vout::UV.VOLT, iout::UV.AMP, vin::UV.VOLT, fsw::UV.HZ)
     pins = [
         1 = INPUT
         2 = OUTPUT
-        3 = GND
+        3 = GND @role(quiet)
         4 = SW
-        5 = FB
+        5 = FB @role(quiet)
     ]
 }

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Optocoupler components
-component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT)
+component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) @req
 {
     name = "Optocoupler"
     spec = [
@@ -28,7 +28,7 @@ component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT)
         4 = OUTPUT\-
     ]
 }
-component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT)
+component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT) @req
 {
     name = "Transistor Output Optocoupler"
     spec = [
@@ -44,7 +44,7 @@ component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT)
         4 = EMITTER
     ]
 }
-component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP)
+component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP) @req
 {
     name = "Triac Output Optocoupler"
     spec = [
@@ -60,7 +60,7 @@ component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP)
         4 = MT2
     ]
 }
-component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT)
+component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) @req
 {
     name = "Photovoltaic Optocoupler"
     spec = [
@@ -75,7 +75,7 @@ component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT)
         4 = OUTPUT\-
     ]
 }
-component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME)
+component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME) @req
 {
     name = "Logic Output Optocoupler"
     spec = [
