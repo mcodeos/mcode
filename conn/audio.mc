@@ -33,25 +33,25 @@ component AUDIO.TRS_35MM(configuration::STRING)
         pins = [
             1 = Tip, "Tip (Left)"
             2 = Ring, "Ring (Right)"
-            3 = Sleeve, "Sleeve (Ground)"
+            3 = Sleeve @exposed(esd_contact), "Sleeve (Ground)"
         ] 
     else if configuration == "mono" 
         pins = [
             1 = Tip, "Tip (Signal)"
-            2 = Sleeve, "Sleeve (Ground)"
+            2 = Sleeve @exposed(esd_contact), "Sleeve (Ground)"
         ] 
     else if configuration == "headset" 
         pins = [
             1 = Tip, "Tip (Left)"
             2 = Ring1, "Ring 1 (Right)"
             3 = Ring2, "Ring 2 (Microphone)"
-            4 = Sleeve, "Sleeve (Ground)"
+            4 = Sleeve @exposed(esd_contact), "Sleeve (Ground)"
         ]
     else 
         pins = [
             1 = Tip, "Tip"
             2 = Ring, "Ring"
-            3 = Sleeve, "Sleeve"
+            3 = Sleeve @exposed(esd_contact), "Sleeve"
         ]
 }
 
@@ -70,7 +70,7 @@ component AUDIO.TRS_25MM()
     pins = [
         1 = Tip, "Tip"
         2 = Ring, "Ring"
-        3 = Sleeve, "Sleeve"
+        3 = Sleeve @exposed(esd_contact), "Sleeve"
     ]
 }
 
@@ -86,7 +86,7 @@ component AUDIO.RCA()
     
     pins = [
         1 = Center, "Center Pin"
-        2 = Shield, "Outer Shield"
+        2 = Shield @exposed(esd_contact), "Outer Shield"
     ]
 }
 
