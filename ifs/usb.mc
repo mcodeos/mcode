@@ -34,8 +34,8 @@ interface USB(role)
     // Versions: USB 1.1 (Low/Full Speed), USB 2.0 (High Speed), USB 3.0 (SuperSpeed)
 
     pins = [
-        [1,2] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [3,4] = [D\+,D\-], ["Data Positive", "Data Negative"]
+        [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+        [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]
     ]
     
     role Host {  // USB Host - Controls the bus
@@ -66,10 +66,10 @@ interface USB.TYPEA(role)
     
     pins = [
         [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\+,D\-], ["Data Negative", "Data Positive"]
+        [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]
     ]
 
-    role Host { 
+    role Host {
         name = "USB Host"
         peer = Peripheral
     }
@@ -93,7 +93,7 @@ interface USB.TYPEB(role)
     
     pins = [
         [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\+,D\-], ["Data Negative", "Data Positive"]
+        [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]
     ]
 
     role Host { 
@@ -120,7 +120,7 @@ interface USB.MINIB(role)
     
     pins = [
         [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\+,D\-], ["Data Negative", "Data Positive"]
+        [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]
         4 = ID, "ID"                // Identification pin (for OTG)
     ]
 
@@ -148,7 +148,7 @@ interface USB.MICROB(role)
     
     pins = [
         [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\+,D\-], ["Data Negative", "Data Positive"]
+        [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]
         4 = ID, "ID"                // Identification pin (for OTG)
     ]
 
@@ -181,14 +181,15 @@ interface USB3.TYPEA(role)
     pins = [
         // USB 2.0 pins (backward compatibility)
         [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\+,D\-], ["Data Negative", "Data Positive"]
-        
-        // USB 3.x additional pins
-        5 = SSTX\-, "SuperSpeed TX Negative"  // SuperSpeed transmit negative
-        6 = SSTX\+, "SuperSpeed TX Positive"  // SuperSpeed transmit positive
+        [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]
+
+        // USB 3.x additional pins (Standard-A receptacle is the host side:
+        // the host receives on SSRX 5/6 and transmits on SSTX 8/9)
+        5 = SSRX\-, "SuperSpeed RX Negative"  // SuperSpeed receive negative
+        6 = SSRX\+, "SuperSpeed RX Positive"  // SuperSpeed receive positive
         7 = GND_DRAIN, "Ground Drain"        // Ground drain
-        8 = SSRX\+, "SuperSpeed RX Positive"  // SuperSpeed receive positive
-        9 = SSRX\-, "SuperSpeed RX Negative"  // SuperSpeed receive negative
+        8 = SSTX\-, "SuperSpeed TX Negative"  // SuperSpeed transmit negative
+        9 = SSTX\+, "SuperSpeed TX Positive"  // SuperSpeed transmit positive
     ]
 
     role Host { 
@@ -215,19 +216,19 @@ interface USB3.TYPEB(role)
     
     pins = [
         // USB 2.0 pins (backward compatibility)
-        [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\+,D\-], ["Data Negative", "Data Positive"]
-        4 = ID, "ID"                // Identification pin
-        
-        // USB 3.x additional pins
-        6 = SSTX\-, "SuperSpeed TX Negative"  // SuperSpeed transmit negative
-        7 = SSTX\+, "SuperSpeed TX Positive"  // SuperSpeed transmit positive
-        8 = GND_DRAIN, "Ground Drain"        // Ground drain
+        [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+        [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]
+
+        // USB 3.x additional pins (Standard-B receptacle is the device side:
+        // the device transmits on SSTX 5/6 and receives on SSRX 8/9)
+        5 = SSTX\-, "SuperSpeed TX Negative"  // SuperSpeed transmit negative
+        6 = SSTX\+, "SuperSpeed TX Positive"  // SuperSpeed transmit positive
+        7 = GND_DRAIN, "Ground Drain"        // Ground drain
+        8 = SSRX\-, "SuperSpeed RX Negative"  // SuperSpeed receive negative
         9 = SSRX\+, "SuperSpeed RX Positive"  // SuperSpeed receive positive
-        10 = SSRX\-, "SuperSpeed RX Negative" // SuperSpeed receive negative
     ]
 
-    role Host { 
+    role Host {
         name = "USB Host"
         peer = Peripheral
     }
@@ -252,15 +253,16 @@ interface USB3.MICROB(role)
     pins = [
         // USB 2.0 pins (backward compatibility)
         [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\+,D\-], ["Data Negative", "Data Positive"]
+        [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]
         4 = ID, "ID"                // Identification pin (for OTG)
         
-        // USB 3.x additional pins
+        // USB 3.x additional pins (Micro-B receptacle is the device side:
+        // the device transmits on SSTX 6/7 and receives on SSRX 9/10)
         6 = SSTX\-, "SuperSpeed TX Negative"  // SuperSpeed transmit negative
         7 = SSTX\+, "SuperSpeed TX Positive"  // SuperSpeed transmit positive
         8 = GND_DRAIN, "Ground Drain"        // Ground drain
-        9 = SSRX\+, "SuperSpeed RX Positive"  // SuperSpeed receive positive
-        10 = SSRX\-, "SuperSpeed RX Negative" // SuperSpeed receive negative
+        9 = SSRX\-, "SuperSpeed RX Negative"  // SuperSpeed receive negative
+        10 = SSRX\+, "SuperSpeed RX Positive" // SuperSpeed receive positive
     ]
     
     role Host { 
@@ -292,30 +294,30 @@ interface USB.C(role)
     pins = [
         // Top row (A side)
         A1 = GND, "Ground"           // Ground
-        A2 = SSRX2\-, "SuperSpeed RX2 Negative"  // SuperSpeed receive pair 2 negative
-        A3 = SSRX2\+, "SuperSpeed RX2 Positive"  // SuperSpeed receive pair 2 positive
+        A2 = SSTX1\+, "SuperSpeed TX1 Positive"  // SuperSpeed transmit pair 1 positive
+        A3 = SSTX1\-, "SuperSpeed TX1 Negative"  // SuperSpeed transmit pair 1 negative
         A4 = VBUS, "Power"           // +5V power (Power Delivery capable)
         A5 = CC1, "Configuration Channel 1"  // Configuration channel
         A6 = USB2_D\+, "USB 2.0 Data Positive"  // USB 2.0 positive data line
         A7 = USB2_D\-, "USB 2.0 Data Negative"  // USB 2.0 negative data line
         A8 = SBU1, "Sideband Use 1"  // Sideband use pin
         A9 = VBUS, "Power"           // +5V power (Power Delivery capable)
-        A10 = SSTX2\+, "SuperSpeed TX2 Positive"  // SuperSpeed transmit pair 2 positive
-        A11 = SSTX2\-, "SuperSpeed TX2 Negative"  // SuperSpeed transmit pair 2 negative
+        A10 = SSRX2\+, "SuperSpeed RX2 Positive"  // SuperSpeed receive pair 2 positive
+        A11 = SSRX2\-, "SuperSpeed RX2 Negative"  // SuperSpeed receive pair 2 negative
         A12 = GND, "Ground"           // Ground
-        
+
         // Bottom row (B side)
         B1 = GND, "Ground"           // Ground
-        B2 = SSTX1\-, "SuperSpeed TX1 Negative"  // SuperSpeed transmit pair 1 negative
-        B3 = SSTX1\+, "SuperSpeed TX1 Positive"  // SuperSpeed transmit pair 1 positive
+        B2 = SSRX1\+, "SuperSpeed RX1 Positive"  // SuperSpeed receive pair 1 positive
+        B3 = SSRX1\-, "SuperSpeed RX1 Negative"  // SuperSpeed receive pair 1 negative
         B4 = VBUS, "Power"           // +5V power (Power Delivery capable)
         B5 = CC2, "Configuration Channel 2"  // Configuration channel
         B6 = USB2_D\+, "USB 2.0 Data Positive"  // USB 2.0 positive data line
         B7 = USB2_D\-, "USB 2.0 Data Negative"  // USB 2.0 negative data line
         B8 = SBU2, "Sideband Use 2"  // Sideband use pin
         B9 = VBUS, "Power"           // +5V power (Power Delivery capable)
-        B10 = SSRX1\+, "SuperSpeed RX1 Positive"  // SuperSpeed receive pair 1 positive
-        B11 = SSRX1\-, "SuperSpeed RX1 Negative"  // SuperSpeed receive pair 1 negative
+        B10 = SSTX2\+, "SuperSpeed TX2 Positive"  // SuperSpeed transmit pair 2 positive
+        B11 = SSTX2\-, "SuperSpeed TX2 Negative"  // SuperSpeed transmit pair 2 negative
         B12 = GND, "Ground"           // Ground
     ]
     
