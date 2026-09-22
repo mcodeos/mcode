@@ -66,7 +66,7 @@ component USB.SOCK_TYPEB()
 }
 
 // USB 2.0 Mini Type B Connector (abstract base for real-part variants)
-// HUM011D-5-S Mini-USB socket: 5 wires (VBUS/D-/D+/ID/GND) + 2 ground + 2 shield
+// Mini-USB socket pin book: 5 wires (VBUS/D-/D+/ID/GND) + 2 ground + 2 shield
 abstract component USB.SOCK_MINIB()
 {
     name = "USB 2.0 Mini Type B Connector"

@@ -31,7 +31,6 @@ component HDR_SINGLE(cols::INT)
     pins = [
         1:cols = 1:cols
     ]
-    schpkg = "./svg/header_single.sym"
 }
 
 // Multi-row Header
@@ -43,14 +42,13 @@ component HDR_MULTI(rows::INT, cols::INT)
     spec = [
         rows = rows
         cols = cols
-        pitch = _ // 100mil, 50mil, 2.54mm, 1.27mm //q
+        pitch = _ // 100mil, 50mil, 2.54mm, 1.27mm
     ]
     
     // Pin numbering: R1C1, R1C2...R2C1, R2C2...
     pins = [
         1 : rows*cols = R[1:rows]C[1:cols]  // pins are rows * cols, ie, R1C1, R1C2...R2C1,R2C2...
     ]
-    schpkg = "./svg/header_multi.sym"
 }
 
 // Common Standard Headers
@@ -65,7 +63,6 @@ component HDR_1x1()
     pins = [
         1:1 = 1:1
     ]
-    schpkg = "./svg/header_1x1.sym"
 }
 
 // 1x2 Header
@@ -77,7 +74,6 @@ component HDR_1x2()
     pins = [
         1:2 = 1:2
     ]
-    schpkg = "./svg/header_1x2.sym"
 }
 
 // 1x3 Header
@@ -89,7 +85,6 @@ component HDR_1x3()
     pins = [
         1:3 = 1:3
     ]
-    schpkg = "./svg/header_1x3.sym"
 }
 
 // 1x4 Header
@@ -101,7 +96,6 @@ component HDR_1x4()
     pins = [
         1:4 = 1:4
     ]
-    schpkg = "./svg/header_1x4.sym"
 }
 
 // 1x5 Header
@@ -113,7 +107,6 @@ component HDR_1x5()
     pins = [
         1:5 = 1:5
     ]
-    schpkg = "./svg/header_1x5.sym"
 }
 
 // 1x6 Header
@@ -125,7 +118,6 @@ component HDR_1x6()
     pins = [
         1:6 = 1:6
     ]
-    schpkg = "./svg/header_1x6.sym"
 }
 
 // 1x7 Header
@@ -137,7 +129,6 @@ component HDR_1x7()
     pins = [
         1:7 = 1:7
     ]
-    schpkg = "./svg/header_1x7.sym"
 }
 
 // 1x8 Header
@@ -149,7 +140,6 @@ component HDR_1x8()
     pins = [
         1:8 = 1:8
     ]
-    schpkg = "./svg/header_1x8.sym"
 }
 
 // 1x9 Header
@@ -161,7 +151,6 @@ component HDR_1x9()
     pins = [
         1:9 = 1:9
     ]
-    schpkg = "./svg/header_1x9.sym"
 }
 
 // 1x10 Header
@@ -173,7 +162,6 @@ component HDR_1x10()
     pins = [
         1:10 = 1:10
     ]
-    schpkg = "./svg/header_1x10.sym"
 }
 
 // 1x12 Header
@@ -185,7 +173,6 @@ component HDR_1x12()
     pins = [
         1:12 = 1:12
     ]
-    schpkg = "./svg/header_1x12.sym"
 }
 
 // 1x14 Header
@@ -197,7 +184,6 @@ component HDR_1x14()
     pins = [
         1:14 = 1:14
     ]
-    schpkg = "./svg/header_1x14.sym"
 }
 
 // 1x16 Header
@@ -209,7 +195,6 @@ component HDR_1x16()
     pins = [
         1:16 = 1:16
     ]
-    schpkg = "./svg/header_1x16.sym"
 }
 
 // 1x20 Header
@@ -221,7 +206,6 @@ component HDR_1x20()
     pins = [
         1:20 = 1:20
     ]
-    schpkg = "./svg/header_1x20.sym"
 }
 
 // Dual-row Headers (2x2 to 2x10)
@@ -235,7 +219,6 @@ component HDR_2x2()
     pins = [
         1:4 = R[1:2]C[1:2]
     ]
-    schpkg = "./svg/header_2x2.sym"
 }
 
 // 2x3 Header
@@ -247,7 +230,6 @@ component HDR_2x3()
     pins = [
         1:6 = R[1:2]C[1:3]
     ]
-    schpkg = "./svg/header_2x3.sym"
 }
 
 // 2x4 Header
@@ -259,7 +241,6 @@ component HDR_2x4()
     pins = [
         1:8 = R[1:2]C[1:4]
     ]
-    schpkg = "./svg/header_2x4.sym"
 }
 
 // 2x5 Header
@@ -271,7 +252,6 @@ component HDR_2x5()
     pins = [
         1:10 = R[1:2]C[1:5]
     ]
-    schpkg = "./svg/header_2x5.sym"
 }
 
 // 2x6 Header
@@ -283,7 +263,6 @@ component HDR_2x6()
     pins = [
         1:12 = R[1:2]C[1:6]
     ]
-    schpkg = "./svg/header_2x6.sym"
 }
 
 // 2x7 Header
@@ -295,7 +274,6 @@ component HDR_2x7()
     pins = [
         1:14 = R[1:2]C[1:7]
     ]
-    schpkg = "./svg/header_2x7.sym"
 }
 
 // 2x8 Header
@@ -307,7 +285,6 @@ component HDR_2x8()
     pins = [
         1:16 = R[1:2]C[1:8]
     ]
-    schpkg = "./svg/header_2x8.sym"
 }
 
 // 2x9 Header
@@ -319,7 +296,6 @@ component HDR_2x9()
     pins = [
         1:18 = R[1:2]C[1:9]
     ]
-    schpkg = "./svg/header_2x9.sym"
 }
 
 // 2x10 Header
@@ -331,6 +307,5 @@ component HDR_2x10()
     pins = [
         1:20 = R[1:2]C[1:10]
     ]
-    schpkg = "./svg/header_2x10.sym"
     
 }

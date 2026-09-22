@@ -416,36 +416,3 @@ interface USB3.RX(role)
         peer = Host
     }
 }
-
-// ---------------------------------------------------------------------------------------------
-// USB Power Delivery
-// ---------------------------------------------------------------------------------------------
-interface USB.PD(role)
-{
-    topology = "point to point"
-    mode = ["full duplex"]
-    maxdistance = [3m, 2m]  // Depending on speed
-    maxspeed = [5Gbps@3m, 10Gbps@2m]  // SuperSpeed and SuperSpeed+ (USB 3.1/3.2)
-    voltage = [5V, 9V, 12V, 15V, 20V]
-    current = [3A, 5A]
-    power = [15W, 27W, 36W, 45W, 60W, 100W]
-    name = "USB Power Delivery"
-    description = "USB Power Delivery specification for higher power and voltage"
-    
-    features = [
-        "Variable voltage and current",
-        "Bidirectional power flow",
-        "Power role swap",
-        "Data role swap"
-    ]
-
-    role Host { 
-        name = "USB Host"
-        peer = Peripheral
-    }
-    role Peripheral {
-        name = "USB Peripheral"
-        peer = Host
-    }
-}
-
