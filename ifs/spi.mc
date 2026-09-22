@@ -31,39 +31,37 @@ interface SPI(role)
     // Modes: Supports 4 different clock polarity and phase combinations (Mode 0-3)
 
     // Role tables declare each role's wiring order: ordinal k on the two sides is
-    // the SAME wire, so the data pair crosses by position (MOSI <-> SI, MISO <-> SO).
+    // the SAME wire, so the data pair crosses by position (MISO <-> SO, MOSI <-> SI).
     // Member names are each side's local view, never a matching criterion.
-    // Canonical pin order (project ruling): the documentation order
-    // SCLK, MOSI, MISO, CS — CS last, clock first, then the data pair.
 
     // Role-less conductor view: 4 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1). Mediated devices (buffers, level
     // shifters) and module ports bind role-less and take their shape from
     // this table; the role tables below carry the named views.
     pins = [
-        1 = _    // SCLK
-        2 = _    // MOSI <-> SI
+        1 = _    // CS
+        2 = _    // SCLK
         3 = _    // MISO <-> SO
-        4 = _    // CS
+        4 = _    // MOSI <-> SI
     ]
 
     role Master {  // SPI Master - Controls the bus
         name = "SPI Master"
         pins = [
-            1 = SCLK, "Serial Clock"         // Clock, driven by master
-            2 = MOSI, "Master Out Slave In"  // Data from master to slave (my output)
+            1 = CS, "Chip Select"            // Slave select
+            2 = SCLK, "Serial Clock"         // Clock, driven by master
             3 = MISO, "Master In Slave Out"  // Data from slave to master (my input)
-            4 = CS, "Chip Select"            // Slave select
+            4 = MOSI, "Master Out Slave In"  // Data from master to slave (my output)
         ]
         peer = Slave
     }
     role Slave {  // SPI Slave - Responds to master
         name = "SPI Slave"
         pins = [
-            1 = SCLK, "Serial Clock"          // Clock, from master
-            2 = SI, "Slave In (from Master)"  // Data from master to slave (my input)
+            1 = CS, "Chip Select"             // Slave select
+            2 = SCLK, "Serial Clock"          // Clock, from master
             3 = SO, "Slave Out (to Master)"   // Data from slave to master (my output)
-            4 = CS, "Chip Select"             // Slave select
+            4 = SI, "Slave In (from Master)"  // Data from master to slave (my input)
         ]
         peer = Master
     }
