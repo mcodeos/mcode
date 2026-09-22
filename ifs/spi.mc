@@ -33,8 +33,10 @@ interface SPI(role)
     // Role tables declare each role's wiring order: ordinal k on the two sides is
     // the SAME wire, so the data pair crosses by position (MOSI <-> SI, MISO <-> SO).
     // Member names are each side's local view, never a matching criterion.
-    // Canonical pin order (project ruling): the documentation order
-    // SCLK, MOSI, MISO, CS — CS last, clock first, then the data pair.
+    // Canonical pin order (project ruling, scoped to this 4-wire table): the
+    // documentation order SCLK, MOSI, MISO, CS — clock first, data pair, CS last.
+    // SPI.3 and SPI.QUAD keep CS first: they have no data pair to cross, and
+    // QUAD mirrors the JEDEC flash layout; the ruling above does not extend to them.
 
     // Role-less conductor view: 4 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1). Mediated devices (buffers, level

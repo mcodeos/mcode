@@ -204,9 +204,12 @@ interface DBG.CMSISDAP(role)
     // Applications: Cortex-M microcontroller debugging, firmware programming
 
     //ARM CMSIS DAP standard, for Cortext-M
+    // Debug family pin-order law: data first, then clock, then control/reset
+    // (DBG.JTAG TDI,TDO,TCK,TMS,TRST; DBG.SWD SWDIO,SWCLK; DBG.ICD PGED,PGEC).
+    // With no data lane here, the clock precedes the mode select to match.
     pins = [
-        1 = TMS, "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        2 = TCK, "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        1 = TCK, "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        2 = TMS, "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
         3 = RST, "Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
     

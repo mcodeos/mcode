@@ -424,6 +424,10 @@ interface UART.RS449(role)
     // RS449 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
     // Device Definition: DCE = Data Communications Equipment, DTE = Data Terminal Equipment
     // Connector: 37-pin (primary) or 9-pin (secondary)
+    // Pin-order law: an interface that models a specific physical connector
+    // mirrors that connector's numbering (RS232.9 = DE-9; USB; SDIO). RS449
+    // models the functional standard, not the ISO 4902 connector, so this
+    // table is functional order by design - the 37-pin numbering is not mirrored.
 
     // Role-less conductor view: 16 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
