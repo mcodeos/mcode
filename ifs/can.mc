@@ -28,13 +28,13 @@ interface CAN(role)
     // Device Definition: Node = Any device on the CAN bus
     // Versions: CAN 2.0 (Standard/Extended), CAN FD (Flexible Data Rate)
 
-    // House differential law: first lane positive — CAN_H is the positive leg
-    // (the dominant state drives CAN_H above CAN_L).
-    diff_pair = [CAN_H, CAN_L]
-
+    // The two rows tagged @pair(can) are the two legs of one differential
+    // signal; the H/L spellings are the naming convention. The dominant state
+    // drives CAN_H above CAN_L — an electrical fact of the family, not a
+    // polarity the declaration carries.
     pins = [
-        1 = CAN_H, "CAN High"    // High side of differential signal
-        2 = CAN_L, "CAN Low"    // Low side of differential signal
+        1 = CAN_H @pair(can), "CAN High"    // High side of differential signal
+        2 = CAN_L @pair(can), "CAN Low"    // Low side of differential signal
         3 = GND, "Ground"        // Signal reference ground
     ]
     

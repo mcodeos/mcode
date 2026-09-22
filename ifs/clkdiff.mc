@@ -14,8 +14,8 @@
 
 // CLK.DIFF (Differential Clock Pair) Standard Definition
 // Core Rule: Two-wire differential clock for reference/system clocking
-// Differential Pair: CLK_P (positive) and CLK_N (negative) are the two faces
-// of one pair; 1st = positive, same as ADC.DIFF's P/N convention.
+// Differential Pair: the two rows tagged @pair(clk) are the two legs of one
+// clock pair; the P/N spellings are the naming convention, same as ADC.DIFF.
 // 2-wire: the ground reference is shared through the power supply (DC
 // interface), same as ADC.DIFF / UART.TTL / I2C / SPI (Decision Record 2,
 // spec/19 §9 -- no ground member here).
@@ -28,11 +28,10 @@ interface CLK.DIFF(role)
     maxdistance = 0.5m
     maxspeed = [200MHz@0.5m, 800MHz@0.1m]
     voltage = [1.8V, 2.5V, 3.3V]
-    diff_pair = [CLK_P, CLK_N]   // P and N are the two faces of one pair; 1st = positive
 
     pins = [
-        1 = CLK_P   // Positive differential clock
-        2 = CLK_N   // Negative differential clock
+        1 = CLK_P @pair(clk)   // Positive differential clock
+        2 = CLK_N @pair(clk)   // Negative differential clock
     ]
 
     role Transmitter {  // CLK.DIFF Transmitter - Clock generator or oscillator
