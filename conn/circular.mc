@@ -82,7 +82,7 @@ component CIRC.BNC(impedance::STRING)
     
     pins = [
         1 = Center, "Center Conductor"
-        2 = GND, "Ground Shield"
+        2 = GND @exposed(esd_contact), "Ground Shield"
     ]
 }
 
@@ -100,7 +100,7 @@ component CIRC.SMA(impedance::STRING)
     
     pins = [
         1 = Center, "Center Conductor"
-        2 = GND, "Ground Shield"
+        2 = GND @exposed(esd_contact), "Ground Shield"
     ]
 }
 
