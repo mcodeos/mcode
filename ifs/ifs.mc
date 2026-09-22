@@ -46,6 +46,7 @@ pub use ./ampbtl.mc     // AMP.BTL interface
 
 // Clock Interfaces
 pub use ./clkdiff.mc    // CLK.DIFF interface (differential clock pair)
+pub use ./clk.mc        // CLK interface (single-ended clock)
 
 // Automotive Interfaces
 pub use ./flexray.mc    // FlexRay interface
