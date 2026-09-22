@@ -15,12 +15,13 @@
 // GPIO (General Purpose Input/Output) Standard Definition
 // Core Rule: General purpose digital input/output pins
 // GPIO Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-// Device Definition: Controller = Microcontroller, Peripheral = Any digital device
+// Device Definition: Provider = the side that offers the line (MCU/SoC),
+//                    Consumer = the side that uses it (any digital device)
 // Applications: LEDs, buttons, relays, digital sensors
 //
 // A GPIO unit is a single pin: one instance per general-purpose line.
-//   GPIO3::GPIO(Controller)      -> one GPIO line
-//   GPIO[3, 4]::GPIO(Controller) -> members GPIO3, GPIO4, one pin each
+//   GPIO3::GPIO(Provider)      -> one GPIO line
+//   GPIO[3, 4]::GPIO(Provider) -> members GPIO3, GPIO4, one pin each
 interface GPIO(role)
 {
     topology = "point to point"
@@ -38,13 +39,13 @@ interface GPIO(role)
         1 = _ @drive(pp)
     ]
 
-    role Controller {
-        name = "GPIO Controller"
-        peer = Peripheral
+    role Provider {  // offers the line: MCU/SoC GPIO block
+        name = "GPIO Provider"
+        peer = Consumer
     }
 
-    role Peripheral {
-        name = "GPIO Peripheral"
-        peer = Controller
+    role Consumer {  // uses the line: any digital device
+        name = "GPIO Consumer"
+        peer = Provider
     }
 }
