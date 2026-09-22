@@ -80,7 +80,7 @@ abstract component USB.SOCK_MINIB()
     ]
 
     pins = [
-        [1:5] = USB::USB.MINIB(Peripheral)   // USB interface: 1=VBUS, 2=D-, 3=D+, 4=ID, 5=GND
+        [1:5] = USB::USB.MINIB(Device)   // USB interface: 1=VBUS, 2=D-, 3=D+, 4=ID, 5=GND
         [6,7] = GND                          // USB GND
         8 = SHIELD3 @exposed(esd_contact)    // USB shield: exposed boundary electrode
         9 = SHIELD4 @exposed(esd_contact)    // USB shield: exposed boundary electrode

@@ -23,7 +23,7 @@ interface DBG.JTAG(role)
     // JTAG (Joint Test Action Group) Standard Definition
     // Core Rule: Standard interface for boundary scan testing and debugging of integrated circuits
     // JTAG Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: TAP = Test Access Port (target device), Controller = JTAG debugger/programmer
+    // Device Definition: TAP = Test Access Port (target device), Host = JTAG debugger/programmer
     // Applications: Chip testing, firmware programming, embedded system debugging
 
     // Role-less conductor view: 5 anonymous lanes, ordinal = wire identity
@@ -48,11 +48,11 @@ interface DBG.JTAG(role)
             4 = TMS, "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]     // Controls the state machine
             5 = TRST, "Test Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
         ]
-        peer = Controller
+        peer = Host
     }
 
-    role Controller {  // JTAG Controller - Debugger/programmer
-        name = "JTAG Controller"
+    role Host {  // JTAG Host - Debugger/programmer (the TAP controller lives in the target, IEEE 1149.1)
+        name = "JTAG Host"
         pins = [
             out 1 = TDI, "Test Data Input", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as the TAP's input
             in 2 = TDO, "Test Data Output", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as the TAP's output
@@ -76,7 +76,7 @@ interface DBG.JTAG.2(role)
     // Core Rule: Reduced pin count JTAG using bidirectional SWDIO/SWMS line
     // Principle: TDI and TDO are multiplexed on a single bidirectional pin (TMS)
     // 2-Wire JTAG Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: TAP = Test Access Port (target device), Controller = JTAG debugger/programmer
+    // Device Definition: TAP = Test Access Port (target device), Host = JTAG debugger/programmer
     // Protocol: Timing transitions on TMS determine whether data is sent or received
 
     pins = [
@@ -86,11 +86,11 @@ interface DBG.JTAG.2(role)
 
     role TAP {  // Test Access Port - Target device being tested/debugged
         name = "2-Wire JTAG TAP"
-        peer = Controller
+        peer = Host
     }
 
-    role Controller {  // JTAG Controller - Debugger/programmer
-        name = "2-Wire JTAG Controller"
+    role Host {  // JTAG Host - Debugger/programmer (the TAP controller lives in the target, IEEE 1149.1)
+        name = "2-Wire JTAG Host"
         peer = TAP
     }
 }

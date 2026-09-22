@@ -284,7 +284,7 @@ interface UART.RS422(role)
     // EIA-RS-422 Standard Definition
     // Core Rule: Balanced differential signaling for noise immunity, multi-point capability (1 transmitter, multiple receivers)
     // RS422 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: TX = Transmitter, RX = Receiver
+    // Device Definition: Transmitter = drives the A/B pair, Receiver = receives it
     // Variant note: the 2-wire variant (A/B only, no GND) is UART.RS422.2 — the
     // variants share a name family, not a conductor view (conductor-view-design.md R-CV3)
 
@@ -297,25 +297,25 @@ interface UART.RS422(role)
     ]
 
     // -------------------------- RS422 Transmitter --------------------------
-    role TX {  // RS422 Transmitter - Sends balanced differential signals
+    role Transmitter {  // Sends balanced differential signals
         name = "RS422 Transmitter"
         pins = [
             out 1 = A, "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
             out 2 = B, "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                                    // Signal reference ground
         ]
-        peer = RX  // Paired with RS422 Receiver
+        peer = Receiver  // Paired with RS422 Receiver
     }
 
     // -------------------------- RS422 Receiver --------------------------
-    role RX {  // RS422 Receiver - Receives balanced differential signals
+    role Receiver {  // Receives balanced differential signals
         name = "RS422 Receiver"
         pins = [
             in 1 = A, "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
             in 2 = B, "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                                   // Signal reference ground
         ]
-        peer = TX  // Paired with RS422 Transmitter
+        peer = Transmitter  // Paired with RS422 Transmitter
     }
 }
 
@@ -331,7 +331,7 @@ interface UART.RS422.2(role)
     // EIA-RS-422 Standard Definition - 2-Wire variant (A/B only, no GND), same-cabinet use
     // Core Rule: Balanced differential signaling for noise immunity, multi-point capability (1 transmitter, multiple receivers)
     // RS422 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: TX = Transmitter, RX = Receiver
+    // Device Definition: Transmitter = drives the A/B pair, Receiver = receives it
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
@@ -340,22 +340,22 @@ interface UART.RS422.2(role)
         2 = _    // B
     ]
 
-    role TX {  // RS422.2 Transmitter - Sends balanced differential signals
+    role Transmitter {  // Sends balanced differential signals
         name = "RS422.2 Transmitter"
         pins = [
             out 1 = A, "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
             out 2 = B, "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
-        peer = RX
+        peer = Receiver
     }
 
-    role RX {  // RS422.2 Receiver - Receives balanced differential signals
+    role Receiver {  // Receives balanced differential signals
         name = "RS422.2 Receiver"
         pins = [
             in 1 = A, "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
             in 2 = B, "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
-        peer = TX
+        peer = Transmitter
     }
 }
 

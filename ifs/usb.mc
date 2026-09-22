@@ -40,9 +40,9 @@ interface USB(role)
     
     role Host {  // USB Host - Controls the bus
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {  // USB Device - Peripheral device
+    role Device {  // USB Device - the spec word (USB 2.0 §2.1)
         name = "USB Device"
         peer = Host
     }
@@ -71,10 +71,10 @@ interface USB.TYPEA(role)
 
     role Host {
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
@@ -98,10 +98,10 @@ interface USB.TYPEB(role)
 
     role Host { 
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
@@ -126,10 +126,10 @@ interface USB.MINIB(role)
 
     role Host { 
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
@@ -154,10 +154,10 @@ interface USB.MICROB(role)
 
     role Host { 
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
@@ -194,10 +194,10 @@ interface USB3.TYPEA(role)
 
     role Host { 
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
@@ -230,10 +230,10 @@ interface USB3.TYPEB(role)
 
     role Host {
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
@@ -267,10 +267,10 @@ interface USB3.MICROB(role)
     
     role Host { 
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
@@ -331,10 +331,10 @@ interface USB.C(role)
 
     role Host { 
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
@@ -360,10 +360,10 @@ interface USB.DATA(role)
 
     role Host {
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
@@ -390,10 +390,10 @@ interface USB3.TX(role)
 
     role Host { 
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
@@ -419,10 +419,10 @@ interface USB3.RX(role)
 
     role Host { 
         name = "USB Host"
-        peer = Peripheral
+        peer = Device
     }
-    role Peripheral {
-        name = "USB Peripheral"
+    role Device {
+        name = "USB Device"
         peer = Host
     }
 }
