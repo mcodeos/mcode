@@ -23,3 +23,5 @@ pub use ./usb.mc
 pub use ./rj45.mc
 pub use ./sd.mc
 pub use ./sim.mc
+pub use ./jumper.mc
+pub use ./bat.mc

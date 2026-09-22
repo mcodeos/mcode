@@ -75,6 +75,26 @@ component BUTTON
     ]
 }
 
+# DIP Switch Component (independent SPST slides; formal = total pin count)
+component SWITCH.DIP(pin_count::INT)
+{
+    name = "DIP Switch"
+    description = "DIP switch with " + pins + " pins, independent SPST slides"
+
+    spec = [
+        pin_count = pin_count
+        pitch = _ // [2.54mm]
+        style = _ // [slide, rotary]
+        mount = _ // [through-hole, surface-mount]
+    ]
+
+    pins = [
+        1:pin_count = 1:pin_count
+    ]
+    // Physical DIP contact map: switch k joins pin k with pin (pin_count+1-k),
+    // i.e. an 8-pin part shorts 1-8, 2-7, 3-6, 4-5 when closed.
+}
+
 # Usage Examples:
 # SWITCH sw1
 # vcc -> sw1.COM
@@ -82,3 +102,6 @@ component BUTTON
 # BUTTON btn1
 # SWITCH.TOGGLE tog1
 # SWITCH.MOM mom1
+# SWITCH.DIP(8) addr_sel1          // 8 pins = 4 positions
+# addr_sel1.1 -> gnd
+# addr_sel1.8 -> i2c_addr0
