@@ -350,9 +350,12 @@ interface USB.DATA(role)
     name = "USB Data Interface"
     description = "USB data interface with differential signaling"
 
+    // House differential law: first lane positive (same as USB3.TX / USB3.RX).
+    diff_pair = [D\+, D\-]
+
     pins = [
-        1 = D\-, "Data Negative"     // Negative data line
-        2 = D\+, "Data Positive"     // Positive data line
+        1 = D\+, "Data Positive"     // Positive data line
+        2 = D\-, "Data Negative"     // Negative data line
     ]
 
     role Host {
@@ -378,6 +381,8 @@ interface USB3.TX(role)
     
     // House differential law: first lane positive (same as USB3.RX and every
     // other differential interface).
+    diff_pair = [SSTX\+, SSTX\-]
+
     pins = [
         1 = SSTX\+, "SuperSpeed TX Positive"  // SuperSpeed transmit positive
         2 = SSTX\-, "SuperSpeed TX Negative"  // SuperSpeed transmit negative
@@ -403,7 +408,10 @@ interface USB3.RX(role)
     maxspeed = [5Gbps]
     name = "USB 3.x SuperSpeed Receive Interface"
     description = "USB 3.x SuperSpeed receive interface"
-    
+
+    // House differential law: first lane positive (same as USB3.TX).
+    diff_pair = [SSRX\+, SSRX\-]
+
     pins = [
         1 = SSRX\+, "SuperSpeed RX Positive"  // SuperSpeed receive positive
         2 = SSRX\-, "SuperSpeed RX Negative"  // SuperSpeed receive negative
