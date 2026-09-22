@@ -147,6 +147,32 @@ component DIO.PHOTO(resp::UV.RESPONSIVITY, idark::UV.AMP, srange::UV.LEN)
     }
 }
 
+// =============================================================================
+// Bridge Rectifier (four diodes in one package: AC in, DC out)
+// =============================================================================
+component DIO.BR(iavg::UV.AMP, vrrm::UV.VOLT, vfwd::UV.VOLT)
+{
+    name = "Bridge Rectifier"
+    description = "Single-phase bridge rectifier, two AC inputs and two DC outputs"
+
+    pins = [
+        1 = AC1         # AC input 1 (tilde terminal)
+        2 = DC\+        # Rectified positive output
+        3 = AC2         # AC input 2 (tilde terminal)
+        4 = DC\-        # Rectified negative output
+    ]
+    // Contact order follows the common DIP-4 bridge (W04M/W10M style):
+    // ~ + ~ - around the package.
+
+    spec = [
+        current_average = iavg
+        voltage_reverse = vrrm
+        forward_voltage = vfwd
+        package_style = _
+        rohs = _
+    ]
+}
+
 # Usage Examples:
 # 1. Basic diode as rectifier
 # DIO(0.7V, 1000V, 1.0A).Rectifier(ac_signal, dc_output)

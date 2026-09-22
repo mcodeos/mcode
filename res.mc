@@ -341,6 +341,36 @@ component RES.ARRAY(
     // Extend with dedicated channel binding functions later if needed
 }
 
+// =============================================================================
+// LDR — Light Dependent Resistor (photoresistor)
+// =============================================================================
+component RES.LDR(
+    rlight::UV.OHM,
+    rdark::UV.OHM,
+    volt::UV.VOLT,
+    tol::UV.PERCENT
+)
+{
+    name = "LDR Photoresistor"
+    description = "Light dependent resistor, resistance falls with illuminance"
+
+    pins = [
+        1 = 1, "Term 1"
+        2 = 2, "Term 2"
+    ]
+
+    spec = [
+        resistance_light = rlight
+        resistance_dark = rdark
+        voltage_rated = volt
+        tolerance = tol
+        peak_wavelength = _
+        response_rise = _
+        response_fall = _
+        rohs = _
+    ]
+}
+
 # =============================================================================
 # Usage Examples
 # =============================================================================
