@@ -131,7 +131,7 @@ component USB3.SOCK_TYPEA()
         // USB 3.x additional pins (host side: receive on SSRX 5/6, transmit on SSTX 8/9)
         5 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
         6 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"
-        7 = DRAIN, "Ground Drain"
+        7 = GND_DRAIN, "Ground Drain"
         8 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
         9 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"
     ]
@@ -159,7 +159,7 @@ component USB3.SOCK_TYPEB()
         // USB 3.x additional pins (device side: transmit on SSTX 5/6, receive on SSRX 8/9)
         5 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
         6 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"
-        7 = DRAIN, "Ground Drain"
+        7 = GND_DRAIN, "Ground Drain"
         8 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
         9 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"
     ]
@@ -188,7 +188,7 @@ component USB3.SOCK_MICROB()
         // USB 3.x additional pins (device side: transmit on SSTX 6/7, receive on SSRX 9/10)
         6 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
         7 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"
-        8 = DRAIN, "Ground Drain"
+        8 = GND_DRAIN, "Ground Drain"
         9 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
         10 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"
     ]
