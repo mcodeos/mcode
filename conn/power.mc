@@ -30,8 +30,7 @@ component POWER.DC_JACK(polarity::STRING)
     ]
     
     pins = [
-        1 = [VCC]::DC(), "Center Pin"
-        2 = [GND]::DC() @exposed(esd_contact), "Outer Sleeve"
+        [1,2] = [VCC,GND]::DC(), ["Center Pin","Outer Sleeve"]
     ]
 }
 

@@ -29,7 +29,7 @@ component BAT.HOLDER()
     ]
 
     pins = [
-        [1,2] = [\+, \-]        // contact face: pin 1 positive, pin 2 negative
+        [1,2] = [\+, \-]::DC()        // contact face: pin 1 positive, pin 2 negative
     ]
 }
 

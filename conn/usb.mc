@@ -37,10 +37,9 @@ component USB.SOCK_TYPEA()
     ]
 
     pins = [
-        1 = 1, "Power (+5V)"
-        2 = 2, "Data Negative"
-        3 = 3, "Data Positive"
-        4 = 4, "Ground"
+        [1,4] = [VBUS,GND]::DC(5V), ["Power","Ground"]
+        2 = D\- @pair(d), "Data Negative"
+        3 = D\+ @pair(d), "Data Positive"
     ]
 }
 
@@ -58,10 +57,9 @@ component USB.SOCK_TYPEB()
     ]
 
     pins = [
-        1 = 1, "Power (+5V)"
-        2 = 2, "Data Negative"
-        3 = 3, "Data Positive"
-        4 = 4, "Ground"
+        [1,4] = [VBUS,GND]::DC(5V), ["Power","Ground"]
+        2 = D\- @pair(d), "Data Negative"
+        3 = D\+ @pair(d), "Data Positive"
     ]
 }
 
@@ -101,11 +99,10 @@ component USB.SOCK_MICROB()
     ]
 
     pins = [
-        1 = 1, "Power (+5V)"
-        2 = 2, "Data Negative"
-        3 = 3, "Data Positive"
-        4 = 4, "Identification (OTG)"
-        5 = 5, "Ground"
+        [1,5] = [VBUS,GND]::DC(5V), ["Power","Ground"]
+        2 = D\- @pair(d), "Data Negative"
+        3 = D\+ @pair(d), "Data Positive"
+        4 = ID, "Identification (OTG)"
     ]
 }
 
@@ -127,17 +124,16 @@ component USB3.SOCK_TYPEA()
 
     pins = [
         // USB 2.0 pins (backward compatibility)
-        1 = 1, "Power (+5V)"
-        2 = 2, "Data Negative (USB 2.0)"
-        3 = 3, "Data Positive (USB 2.0)"
-        4 = 4, "Ground"
+        [1,4] = [VBUS,GND]::DC(5V), ["Power","Ground"]
+        2 = D\- @pair(d), "Data Negative (USB 2.0)"
+        3 = D\+ @pair(d), "Data Positive (USB 2.0)"
 
         // USB 3.x additional pins (host side: receive on SSRX 5/6, transmit on SSTX 8/9)
-        5 = 5, "SuperSpeed RX Negative"
-        6 = 6, "SuperSpeed RX Positive"
-        7 = 7, "Ground Drain"
-        8 = 8, "SuperSpeed TX Negative"
-        9 = 9, "SuperSpeed TX Positive"
+        5 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
+        6 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"
+        7 = DRAIN, "Ground Drain"
+        8 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
+        9 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"
     ]
 }
 
@@ -156,17 +152,16 @@ component USB3.SOCK_TYPEB()
 
     pins = [
         // USB 2.0 pins (backward compatibility)
-        1 = 1, "Power (+5V)"
-        2 = 2, "Data Negative (USB 2.0)"
-        3 = 3, "Data Positive (USB 2.0)"
-        4 = 4, "Ground"
+        [1,4] = [VBUS,GND]::DC(5V), ["Power","Ground"]
+        2 = D\- @pair(d), "Data Negative (USB 2.0)"
+        3 = D\+ @pair(d), "Data Positive (USB 2.0)"
 
         // USB 3.x additional pins (device side: transmit on SSTX 5/6, receive on SSRX 8/9)
-        5 = 5, "SuperSpeed TX Negative"
-        6 = 6, "SuperSpeed TX Positive"
-        7 = 7, "Ground Drain"
-        8 = 8, "SuperSpeed RX Negative"
-        9 = 9, "SuperSpeed RX Positive"
+        5 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
+        6 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"
+        7 = DRAIN, "Ground Drain"
+        8 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
+        9 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"
     ]
 }
 
@@ -185,18 +180,17 @@ component USB3.SOCK_MICROB()
 
     pins = [
         // USB 2.0 pins (backward compatibility)
-        1 = 1, "Power (+5V)"
-        2 = 2, "Data Negative (USB 2.0)"
-        3 = 3, "Data Positive (USB 2.0)"
-        4 = 4, "Identification (OTG)"
-        5 = 5, "Ground"
+        [1,5] = [VBUS,GND]::DC(5V), ["Power","Ground"]
+        2 = D\- @pair(d), "Data Negative (USB 2.0)"
+        3 = D\+ @pair(d), "Data Positive (USB 2.0)"
+        4 = ID, "Identification (OTG)"
 
         // USB 3.x additional pins (device side: transmit on SSTX 6/7, receive on SSRX 9/10)
-        6 = 6, "SuperSpeed TX Negative"
-        7 = 7, "SuperSpeed TX Positive"
-        8 = 8, "Ground Drain"
-        9 = 9, "SuperSpeed RX Negative"
-        10 = 10, "SuperSpeed RX Positive"
+        6 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
+        7 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"
+        8 = DRAIN, "Ground Drain"
+        9 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
+        10 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"
     ]
 }
 
