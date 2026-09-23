@@ -34,11 +34,19 @@ interface MOST(role)
     
     role Master {
         name = "MOST Master"
+        pins = [
+            io 1 = OPT, "Optical"     // A ring circulates frames past every node —
+            io 2 = ELE, "Electrical"  // each node relays in and out (one medium in use)
+        ]
         peer = Slave
     }
-    
+
     role Slave {
         name = "MOST Slave"
+        pins = [
+            io 1 = OPT, "Optical"     // A ring circulates frames past every node —
+            io 2 = ELE, "Electrical"  // each node relays in and out (one medium in use)
+        ]
         peer = Master
     }
 }

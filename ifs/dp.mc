@@ -44,10 +44,36 @@ interface DP(role)
 
     role Source {
         name = "DP Source"
+        pins = [
+            out 1 = ML0_P, "Main link lane 0 positive"  // The source drives the main link
+            out 2 = ML0_N, "Main link lane 0 negative"
+            out 3 = ML1_P, "Main link lane 1 positive"
+            out 4 = ML1_N, "Main link lane 1 negative"
+            out 5 = ML2_P, "Main link lane 2 positive"
+            out 6 = ML2_N, "Main link lane 2 negative"
+            out 7 = ML3_P, "Main link lane 3 positive"
+            out 8 = ML3_N, "Main link lane 3 negative"
+            io 9 = AUX_P, "Auxiliary channel positive"   // AUX is bidirectional half duplex
+            io 10 = AUX_N, "Auxiliary channel negative"
+            in 11 = HPD, "Hot plug detect"               // The sink drives HPD
+        ]
         peer = Sink
     }
     role Sink {
         name = "DP Sink"
+        pins = [
+            in 1 = ML0_P, "Main link lane 0 positive"    // The sink receives the main link
+            in 2 = ML0_N, "Main link lane 0 negative"
+            in 3 = ML1_P, "Main link lane 1 positive"
+            in 4 = ML1_N, "Main link lane 1 negative"
+            in 5 = ML2_P, "Main link lane 2 positive"
+            in 6 = ML2_N, "Main link lane 2 negative"
+            in 7 = ML3_P, "Main link lane 3 positive"
+            in 8 = ML3_N, "Main link lane 3 negative"
+            io 9 = AUX_P, "Auxiliary channel positive"   // AUX is bidirectional half duplex
+            io 10 = AUX_N, "Auxiliary channel negative"
+            out 11 = HPD, "Hot plug detect"              // The sink asserts hot plug
+        ]
         peer = Source
     }
 }

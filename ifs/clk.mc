@@ -35,10 +35,16 @@ interface CLK(role)
 
     role Transmitter {  // Clock generator: active oscillator module or clock driver
         name = "CLK Transmitter"
+        pins = [
+            out 1 = CLK  // The generator sources the line
+        ]
         peer = Receiver
     }
     role Receiver {  // Clock consumer: SoC, FPGA, or MCU clock input
         name = "CLK Receiver"
+        pins = [
+            in 1 = CLK   // The consumer reads the line
+        ]
         peer = Transmitter
     }
 }
