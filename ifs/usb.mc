@@ -381,10 +381,12 @@ interface USB3.TX(role)
     
     // The two rows tagged @pair(sstx) are the two legs of one differential
     // signal; the +/- spellings are the naming convention (same as USB3.RX
-    // and every other differential interface).
+    // and every other differential interface). The match slot records the
+    // intra-pair length tolerance as a requirement: mcc records it, the
+    // layout tool and the bench judge it.
     pins = [
-        1 = SSTX\+ @pair(sstx), "SuperSpeed TX Positive"  // SuperSpeed transmit positive
-        2 = SSTX\- @pair(sstx), "SuperSpeed TX Negative"  // SuperSpeed transmit negative
+        1 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"  // SuperSpeed transmit positive
+        2 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"  // SuperSpeed transmit negative
     ]
 
     role Host { 
@@ -410,9 +412,11 @@ interface USB3.RX(role)
 
     // The two rows tagged @pair(ssrx) are the two legs of one differential
     // signal; the +/- spellings are the naming convention (same as USB3.TX).
+    // The match slot records the intra-pair length tolerance as a requirement:
+    // mcc records it, the layout tool and the bench judge it.
     pins = [
-        1 = SSRX\+ @pair(ssrx), "SuperSpeed RX Positive"  // SuperSpeed receive positive
-        2 = SSRX\- @pair(ssrx), "SuperSpeed RX Negative"  // SuperSpeed receive negative
+        1 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"  // SuperSpeed receive positive
+        2 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"  // SuperSpeed receive negative
     ]
 
     role Host { 
