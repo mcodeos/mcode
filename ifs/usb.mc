@@ -38,14 +38,23 @@ interface USB(role)
         [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]
     ]
     
-    role Host {  // USB Host - Controls the bus
+    role Host {
         name = "USB Host"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+        ]
         peer = Device
     }
-    role Device {  // USB Device - the spec word (USB 2.0 §2.1)
+    role Device {
         name = "USB Device"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+        ]
         peer = Host
     }
+
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -71,12 +80,21 @@ interface USB.TYPEA(role)
 
     role Host {
         name = "USB Host"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+        ]
         peer = Host
     }
+
 }
 
 // USB 2.0 Type B Connector
@@ -96,14 +114,23 @@ interface USB.TYPEB(role)
         [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]
     ]
 
-    role Host { 
+    role Host {
         name = "USB Host"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+        ]
         peer = Host
     }
+
 }
 
 // USB 2.0 Mini Type B Connector
@@ -124,14 +151,25 @@ interface USB.MINIB(role)
         4 = ID, "ID"                // Identification pin (for OTG)
     ]
 
-    role Host { 
+    role Host {
         name = "USB Host"
+        pins = [
+            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
+        ]
         peer = Host
     }
+
 }
 
 // USB 2.0 Micro Type B Connector
@@ -152,14 +190,25 @@ interface USB.MICROB(role)
         4 = ID, "ID"                // Identification pin (for OTG)
     ]
 
-    role Host { 
+    role Host {
         name = "USB Host"
+        pins = [
+            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
+        ]
         peer = Host
     }
+
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -192,14 +241,33 @@ interface USB3.TYPEA(role)
         9 = SSTX\+, "SuperSpeed TX Positive"  // SuperSpeed transmit positive
     ]
 
-    role Host { 
+    role Host {
         name = "USB Host"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            in 5 = SSRX\-, "SuperSpeed RX Negative"  // The host receives on SSRX
+            in 6 = SSRX\+, "SuperSpeed RX Positive"
+            7 = GND_DRAIN, "Ground Drain"        // Ground drain
+            out 8 = SSTX\-, "SuperSpeed TX Negative"  // and transmits on SSTX
+            out 9 = SSTX\+, "SuperSpeed TX Positive"
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            out 5 = SSRX\-, "SuperSpeed RX Negative"  // The device transmits on these wires
+            out 6 = SSRX\+, "SuperSpeed RX Positive"
+            7 = GND_DRAIN, "Ground Drain"        // Ground drain
+            in 8 = SSTX\-, "SuperSpeed TX Negative"  // and reads what the host sends
+            in 9 = SSTX\+, "SuperSpeed TX Positive"
+        ]
         peer = Host
     }
+
 }
 
 // USB 3.x Type B Connector
@@ -230,12 +298,31 @@ interface USB3.TYPEB(role)
 
     role Host {
         name = "USB Host"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            in 5 = SSTX\-, "SuperSpeed TX Negative"  // The device transmits on SSTX
+            in 6 = SSTX\+, "SuperSpeed TX Positive"
+            7 = GND_DRAIN, "Ground Drain"        // Ground drain
+            out 8 = SSRX\-, "SuperSpeed RX Negative"  // The host answers on SSRX
+            out 9 = SSRX\+, "SuperSpeed RX Positive"
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            out 5 = SSTX\-, "SuperSpeed TX Negative"  // The device transmits on SSTX
+            out 6 = SSTX\+, "SuperSpeed TX Positive"
+            7 = GND_DRAIN, "Ground Drain"        // Ground drain
+            in 8 = SSRX\-, "SuperSpeed RX Negative"  // and reads what the host sends
+            in 9 = SSRX\+, "SuperSpeed RX Positive"
+        ]
         peer = Host
     }
+
 }
 
 // USB 3.x Micro B Connector
@@ -265,14 +352,35 @@ interface USB3.MICROB(role)
         10 = SSRX\+, "SuperSpeed RX Positive" // SuperSpeed receive positive
     ]
     
-    role Host { 
+    role Host {
         name = "USB Host"
+        pins = [
+            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
+            in 6 = SSTX\-, "SuperSpeed TX Negative"  // The device transmits on SSTX
+            in 7 = SSTX\+, "SuperSpeed TX Positive"
+            8 = GND_DRAIN, "Ground Drain"
+            out 9 = SSRX\-, "SuperSpeed RX Negative"  // The host answers on SSRX
+            out 10 = SSRX\+, "SuperSpeed RX Positive"
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
+            io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
+            out 6 = SSTX\-, "SuperSpeed TX Negative"  // The device transmits on SSTX
+            out 7 = SSTX\+, "SuperSpeed TX Positive"
+            8 = GND_DRAIN, "Ground Drain"
+            in 9 = SSRX\-, "SuperSpeed RX Negative"  // and reads what the host sends
+            in 10 = SSRX\+, "SuperSpeed RX Positive"
+        ]
         peer = Host
     }
+
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -333,14 +441,67 @@ interface USB.C(role)
         "Dual Role Device (DRD) capability"
     ]
 
-    role Host { 
+    role Host {
         name = "USB Host"
+        pins = [
+            A1 = GND, "Ground"
+            out A2 = SSTX1\+, "SuperSpeed TX1 Positive"  // host view
+            out A3 = SSTX1\-, "SuperSpeed TX1 Negative"  // host view
+            A4 = VBUS, "Power"
+            io A5 = CC1, "Configuration Channel 1"  // host view
+            io A6 = USB2_D\+ @pair(dA), "USB 2.0 Data Positive"  // host view
+            io A7 = USB2_D\- @pair(dA), "USB 2.0 Data Negative"  // host view
+            io A8 = SBU1, "Sideband Use 1"  // host view
+            A9 = VBUS, "Power"
+            in A10 = SSRX2\+, "SuperSpeed RX2 Positive"  // host view
+            in A11 = SSRX2\-, "SuperSpeed RX2 Negative"  // host view
+            A12 = GND, "Ground"
+            B1 = GND, "Ground"
+            in B2 = SSRX1\+, "SuperSpeed RX1 Positive"  // host view
+            in B3 = SSRX1\-, "SuperSpeed RX1 Negative"  // host view
+            B4 = VBUS, "Power"
+            io B5 = CC2, "Configuration Channel 2"  // host view
+            io B6 = USB2_D\+ @pair(dB), "USB 2.0 Data Positive"  // host view
+            io B7 = USB2_D\- @pair(dB), "USB 2.0 Data Negative"  // host view
+            io B8 = SBU2, "Sideband Use 2"  // host view
+            B9 = VBUS, "Power"
+            out B10 = SSTX2\+, "SuperSpeed TX2 Positive"  // host view
+            out B11 = SSTX2\-, "SuperSpeed TX2 Negative"  // host view
+            B12 = GND, "Ground"
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            A1 = GND, "Ground"
+            in A2 = SSTX1\+, "SuperSpeed TX1 Positive"  // device view
+            in A3 = SSTX1\-, "SuperSpeed TX1 Negative"  // device view
+            A4 = VBUS, "Power"
+            io A5 = CC1, "Configuration Channel 1"  // device view
+            io A6 = USB2_D\+ @pair(dA), "USB 2.0 Data Positive"  // device view
+            io A7 = USB2_D\- @pair(dA), "USB 2.0 Data Negative"  // device view
+            io A8 = SBU1, "Sideband Use 1"  // device view
+            A9 = VBUS, "Power"
+            out A10 = SSRX2\+, "SuperSpeed RX2 Positive"  // device view
+            out A11 = SSRX2\-, "SuperSpeed RX2 Negative"  // device view
+            A12 = GND, "Ground"
+            B1 = GND, "Ground"
+            out B2 = SSRX1\+, "SuperSpeed RX1 Positive"  // device view
+            out B3 = SSRX1\-, "SuperSpeed RX1 Negative"  // device view
+            B4 = VBUS, "Power"
+            io B5 = CC2, "Configuration Channel 2"  // device view
+            io B6 = USB2_D\+ @pair(dB), "USB 2.0 Data Positive"  // device view
+            io B7 = USB2_D\- @pair(dB), "USB 2.0 Data Negative"  // device view
+            io B8 = SBU2, "Sideband Use 2"  // device view
+            B9 = VBUS, "Power"
+            in B10 = SSTX2\+, "SuperSpeed TX2 Positive"  // device view
+            in B11 = SSTX2\-, "SuperSpeed TX2 Negative"  // device view
+            B12 = GND, "Ground"
+        ]
         peer = Host
     }
+
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -364,12 +525,21 @@ interface USB.DATA(role)
 
     role Host {
         name = "USB Host"
+        pins = [
+            io 1 = D\+ @pair(d), "Data Positive"     // Half duplex: either side drives
+            io 2 = D\- @pair(d), "Data Negative"
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            io 1 = D\+ @pair(d), "Data Positive"     // Half duplex: either side drives
+            io 2 = D\- @pair(d), "Data Negative"
+        ]
         peer = Host
     }
+
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -393,14 +563,23 @@ interface USB3.TX(role)
         2 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"  // SuperSpeed transmit negative
     ]
 
-    role Host { 
+    role Host {
         name = "USB Host"
+        pins = [
+            out 1 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"  // The transmit end drives
+            out 2 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            in 1 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"  // The peer end reads
+            in 2 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
+        ]
         peer = Host
     }
+
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -423,12 +602,21 @@ interface USB3.RX(role)
         2 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"  // SuperSpeed receive negative
     ]
 
-    role Host { 
+    role Host {
         name = "USB Host"
+        pins = [
+            in 1 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"  // The receive end reads
+            in 2 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
+        ]
         peer = Device
     }
     role Device {
         name = "USB Device"
+        pins = [
+            out 1 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"  // The transmit end drives
+            out 2 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
+        ]
         peer = Host
     }
+
 }
