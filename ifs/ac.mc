@@ -33,8 +33,13 @@
 // form ::AC.1P() (the ::DC() socket precedent) and module power faces
 // carry the nominal: psnk mains{L, N}::AC.1P(230V, 50Hz).
 //
-// Reserved family names (land when a real consumer appears, U176 law):
-// AC.SPLIT (L1, L2, N), AC.3P (L1..L3, N).
+// Reserved family names (U176 law: land when a real consumer appears):
+// AC.SPLIT (L1, L2, N) stays reserved. AC.3P landed early by ruling (user
+// 2026-09-23: build the reserved family now rather than let the slot go
+// stale) — three phases and a neutral, the four-wire Y face. The delta
+// three-wire shape (no neutral, phase-to-phase return) is NOT landed: its
+// return modeling is an open design question (ac-axis-interface-design.md
+// §3.3/§8-2), so no contract declares it yet.
 
 interface AC.1P(volt::UV.VOLT, freq::UV.HZ) // Single-phase AC mains interface
 {
@@ -49,5 +54,25 @@ interface AC.1P(volt::UV.VOLT, freq::UV.HZ) // Single-phase AC mains interface
     pins = [
         1 = L, "Line (live conductor)"
         2 = N, "Neutral (return conductor)"
+    ]
+}
+
+interface AC.3P(volt::UV.VOLT, freq::UV.HZ) // Three-phase AC mains interface (4-wire Y)
+{
+    topology = "point to point"
+    mode = ["unidirectional"]
+    voltage = volt
+    frequency = freq
+
+    // Core Rule: three live phase conductors over one shared neutral return,
+    // the four-wire Y face. Phase order is the member order (L1, L2, L3);
+    // the neutral is nominally at earth potential but is a current-carrying
+    // member; PE is not — an earthed three-phase face binds AC.3P and carries
+    // PE as its own pin (@role(protective)), same law as AC.1P (see header).
+    pins = [
+        1 = L1, "Phase 1 (live conductor)"
+        2 = L2, "Phase 2 (live conductor)"
+        3 = L3, "Phase 3 (live conductor)"
+        4 = N, "Neutral (return conductor)"
     ]
 }
