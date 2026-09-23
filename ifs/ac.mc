@@ -36,10 +36,12 @@
 // Reserved family names (U176 law: land when a real consumer appears):
 // AC.SPLIT (L1, L2, N) stays reserved. AC.3P landed early by ruling (user
 // 2026-09-23: build the reserved family now rather than let the slot go
-// stale) — three phases and a neutral, the four-wire Y face. The delta
-// three-wire shape (no neutral, phase-to-phase return) is NOT landed: its
-// return modeling is an open design question (ac-axis-interface-design.md
-// §3.3/§8-2), so no contract declares it yet.
+// stale) — three phases and a neutral, the four-wire Y face. AC.3P3W (the
+// delta three-wire face, no neutral member) landed by ruling (user
+// 2026-09-23, ac-delta-return-design.md §4.1): the return runs
+// phase-to-phase, so the face declares no return conductor — any two
+// phases close a line-voltage loop, and the 6057 face gate reads a
+// one-phase-wired face as torn.
 
 interface AC.1P(volt::UV.VOLT, freq::UV.HZ) // Single-phase AC mains interface
 {
@@ -74,5 +76,27 @@ interface AC.3P(volt::UV.VOLT, freq::UV.HZ) // Three-phase AC mains interface (4
         2 = L2, "Phase 2 (live conductor)"
         3 = L3, "Phase 3 (live conductor)"
         4 = N, "Neutral (return conductor)"
+    ]
+}
+
+interface AC.3P3W(volt::UV.VOLT, freq::UV.HZ) // Three-phase AC mains interface (3-wire delta)
+{
+    topology = "point to point"
+    mode = ["unidirectional"]
+    voltage = volt
+    frequency = freq
+
+    // Core Rule: three live phase conductors and no neutral member, the
+    // three-wire delta face (ac-delta-return-design.md §4.1 ruling). The
+    // return runs phase-to-phase: no member is the return conductor, any
+    // two phases close a line-voltage loop. The name states the wire
+    // count, not the winding — at the terminal group "3W" reads exactly
+    // as "no neutral member". PE is not a member — an earthed delta face
+    // binds AC.3P3W and carries PE as its own pin (@role(protective)),
+    // same law as AC.1P/AC.3P (see header).
+    pins = [
+        1 = L1, "Phase 1 (live conductor)"
+        2 = L2, "Phase 2 (live conductor)"
+        3 = L3, "Phase 3 (live conductor)"
     ]
 }
