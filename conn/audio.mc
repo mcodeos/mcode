@@ -18,29 +18,29 @@
 
 // 3.5mm TRS Connector (Headphone Jack)
 // configuration: Connector configuration (stereo, mono, headset)
-component AUDIO.TRS_35MM(configuration::STRING)
+component AUDIO.TRS_35MM(config::STRING)
 {
     name = "3.5mm TRS Connector"
-    description = "3.5mm TRS audio connector, " + configuration + " configuration"
+    description = "3.5mm TRS audio connector, " + config + " configuration"
     
     spec = [
         type = "TRS"
         size = "3.5mm"
-        configuration = configuration
+        configuration = config
     ]
     
-    if configuration == "stereo" 
+    if config == "stereo" 
         pins = [
             1 = Tip, "Tip (Left)"
             2 = Ring, "Ring (Right)"
             3 = Sleeve @exposed(esd_contact), "Sleeve (Ground)"
         ] 
-    else if configuration == "mono" 
+    else if config == "mono" 
         pins = [
             1 = Tip, "Tip (Signal)"
             2 = Sleeve @exposed(esd_contact), "Sleeve (Ground)"
         ] 
-    else if configuration == "headset" 
+    else if config == "headset" 
         pins = [
             1 = Tip, "Tip (Left)"
             2 = Ring1, "Ring 1 (Right)"
@@ -125,9 +125,7 @@ component AUDIO.XLR(pin_count::INT)
             5 = Power\-, "Power-"
         ]
     else
-        pins = [
-            1:pin_count = 1:pin_count
-        ]
+        error("AUDIO.XLR: pin_count must be 3, 4, or 5, got " + pin_count)
 }
 
 // Speakon Connector (Professional Audio)
@@ -145,6 +143,9 @@ component AUDIO.SPEAKON(pin_count::INT)
     pins = [
         1:pin_count = 1:pin_count
     ]
+
+    if pin_count != 4 && pin_count != 8
+        error("AUDIO.SPEAKON: pin_count must be 4 or 8, got " + pin_count)
 }
 
 // Banana Plug Connector (Speaker Terminals)
