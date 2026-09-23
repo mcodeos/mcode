@@ -24,7 +24,12 @@
 // the crystal transmits nothing) and no direction words (passive leaf law).
 // ERC / sim / DRC judgments anchor on the roles: both ends of a resonator must
 // land on one Oscillator instance, and a Resonator has exactly one Oscillator
-// (U200; mcd/doc/ee/xtal-oscillator-design.md).
+// (U200; mcd/doc/ee/xtal-oscillator-design.md). The `exclusive = true` on both
+// roles is that law made declarative for the flat ERC gate (6054): one adoption
+// lane of an exclusive role must reach one peer instance across its terminals —
+// a resonator body wired X1 onto one MCU and X2 onto another is a torn pairing
+// each of whose nets passes the point-to-point count. Roles that declare
+// nothing pair unrestricted.
 // The @class(analog) row attribute is the library-default signal class:
 // adopting components inherit it and may override by ordinal.
 // Active oscillator modules do NOT adopt this face; their clock output adopts
@@ -42,10 +47,12 @@ interface XTAL(role)
     role Oscillator {  // hosts the sustaining amplifier: MCU XIN/XOUT
         name = "XTAL Oscillator"
         peer = Resonator
+        exclusive = true
     }
     role Resonator {   // the passive piezoelectric body
         name = "XTAL Resonator"
         peer = Oscillator
+        exclusive = true
     }
 }
 
