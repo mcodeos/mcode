@@ -21,6 +21,7 @@ pub use ./pwm.mc        // PWM interface
 pub use ./onewire.mc    // OneWire interface
 pub use ./xtal.mc       // XTAL interface for crystal oscillators
 pub use ./dc.mc         // DC power supply interface
+pub use ./ac.mc         // AC mains power interface (single-phase)
 
 // Communication Interfaces
 pub use ./uart.mc       // UART interfaces (TTL, RS232, RS422, RS423, RS449, RS485)

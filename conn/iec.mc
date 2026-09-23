@@ -16,9 +16,14 @@
 // IEC 60320 Appliance Inlet Definitions
 // ---------------------------------------------------------------------------------------------
 // Panel-mount AC inlets. Mating cord families are C13 (for C14) and C7
-// (for C8). Pins carry the mains-facing contact names; the protective earth
-// contact exists only on the earthed families. Physical face = named pins,
-// no interface binding (U193 physical-socket ruling).
+// (for C8). The mains contacts bind the single-phase interface AC.1P with
+// the empty form: a panel inlet is region-neutral (100-240V), so the region
+// nominal (e.g. ::AC.1P(230V, 50Hz)) belongs to the consuming module, the
+// same tiering as the ::DC() socket faces. The protective-earth contact
+// exists only on the earthed families and is not an interface member: PE
+// carries fault current only, its authority lives in the protective/earth
+// role machinery, so it stays a bare role-marked pin (U217, ac-interface-
+// design.md).
 
 // IEC C14 Appliance Inlet (earthed, mates with a C13 cord set)
 component IEC.C14()
@@ -34,9 +39,8 @@ component IEC.C14()
     ]
 
     pins = [
-        1 = L, "Line"
-        2 = N, "Neutral"
-        3 = PE, "Protective earth"
+        [1,2] = [L,N]::AC.1P(), ["Line","Neutral"]
+        3 = PE @role(protective), "Protective earth"
     ]
 }
 
@@ -54,8 +58,7 @@ component IEC.C8()
     ]
 
     pins = [
-        1 = L, "Line"
-        2 = N, "Neutral"
+        [1,2] = [L,N]::AC.1P(), ["Line","Neutral"]
     ]
 }
 
