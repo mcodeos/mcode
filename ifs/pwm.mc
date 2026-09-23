@@ -39,11 +39,17 @@ interface PWM(role)
 
     role Transmitter {  // PWM source: MCU timer output, driver IC
         name = "PWM Transmitter"
+        pins = [
+            out 1 = _ @drive(pp)  // The source drives the channel
+        ]
         peer = Receiver
     }
 
     role Receiver {  // PWM sink: motor driver input, LED, MOSFET gate
         name = "PWM Receiver"
+        pins = [
+            in 1 = _ @drive(pp)   // The sink reads it
+        ]
         peer = Transmitter
     }
 }

@@ -37,10 +37,16 @@ interface ADC.SINGLE(role)
 
     role Transmitter {  // ADC.SINGLE Transmitter - Sensor or signal source
         name = "ADC.SINGLE Transmitter"
+        pins = [
+            out 1 = IN @class(analog)  // The source drives the line
+        ]
         peer = Receiver
     }
     role Receiver {  // ADC.SINGLE Receiver - ADC converter or analog front-end
         name = "ADC.SINGLE Receiver"
+        pins = [
+            in 1 = IN @class(analog)   // The converter samples the line
+        ]
         peer = Transmitter
     }
 }

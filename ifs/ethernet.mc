@@ -40,11 +40,31 @@ interface ETHERNET(role)
     
     role Host {
         name = "Ethernet Host"
+        pins = [
+            out 1 = TD\+, "Transmit Data Positive"  // The host transmits on TD
+            out 2 = TD\-, "Transmit Data Negative"
+            in 3 = RD\+, "Receive Data Positive"    // and receives on RD
+            io 4 = BI4, "Bidirectional"             // Gigabit quad: all four pairs
+            io 5 = BI5, "Bidirectional"             // are bidirectional
+            in 6 = RD\-, "Receive Data Negative"
+            io 7 = BI7, "Bidirectional"
+            io 8 = BI8, "Bidirectional"
+        ]
         peer = Switch
     }
-    
+
     role Switch {
         name = "Ethernet Switch"
+        pins = [
+            in 1 = TD\+, "Transmit Data Positive"   // The switch port receives the host's TD
+            in 2 = TD\-, "Transmit Data Negative"
+            out 3 = RD\+, "Receive Data Positive"   // and transmits the host's RD
+            io 4 = BI4, "Bidirectional"             // Gigabit quad: all four pairs
+            io 5 = BI5, "Bidirectional"             // are bidirectional
+            out 6 = RD\-, "Receive Data Negative"
+            io 7 = BI7, "Bidirectional"
+            io 8 = BI8, "Bidirectional"
+        ]
         peer = Host
     }
 }

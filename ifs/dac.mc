@@ -36,11 +36,17 @@ interface DAC(role)
     
     role Transmitter {  // the DAC analog output stage
         name = "DAC Transmitter"
+        pins = [
+            out 1 = OUT @class(analog), "Analog Output"  // The DAC drives the output
+        ]
         peer = Receiver
     }
 
     role Receiver {  // the analog input it feeds (amp, ADC, filter)
         name = "DAC Receiver"
+        pins = [
+            in 1 = OUT @class(analog), "Analog Output"   // The fed stage samples it
+        ]
         peer = Transmitter
     }
 }

@@ -36,10 +36,18 @@ interface CLK.DIFF(role)
 
     role Transmitter {  // CLK.DIFF Transmitter - Clock generator or oscillator
         name = "CLK.DIFF Transmitter"
+        pins = [
+            out 1 = CLK_P @pair(clk)  // The generator sources the pair
+            out 2 = CLK_N @pair(clk)
+        ]
         peer = Receiver
     }
     role Receiver {  // CLK.DIFF Receiver - SoC, FPGA, or clock consumer
         name = "CLK.DIFF Receiver"
+        pins = [
+            in 1 = CLK_P @pair(clk)   // The consumer reads the pair
+            in 2 = CLK_N @pair(clk)
+        ]
         peer = Transmitter
     }
 }

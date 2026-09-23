@@ -37,6 +37,13 @@ interface FLEXRAY(role)
     
     role Node {
         name = "FlexRay Node"
+        pins = [
+            io 1 = CH_A\+, "Channel A Positive"  // TDMA time-share: a node drives its own slot
+            io 2 = CH_A\-, "Channel A Negative"  // and listens on every other slot
+            io 3 = CH_B\+, "Channel B Positive"
+            io 4 = CH_B\-, "Channel B Negative"
+            5 = GND, "Ground"                    // Signal reference ground
+        ]
         peer = Node
     }
 }

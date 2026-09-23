@@ -40,6 +40,11 @@ interface CAN(role)
     
     role Node {
         name = "CAN Node"
+        pins = [
+            io 1 = CAN_H @pair(can), "CAN High"  // Any node may drive the dominant state
+            io 2 = CAN_L @pair(can), "CAN Low"   // and every node reads the bus back
+            3 = GND, "Ground"                    // Signal reference ground
+        ]
         peer = Node
     }
 }
