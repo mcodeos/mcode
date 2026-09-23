@@ -98,10 +98,20 @@ interface SPI.3(role)
 
     role Master {  // SPI Master - Controls the bus
         name = "SPI Master"
+        pins = [
+            out 1 = CS, "Chip Select"    // Slave select
+            out 2 = SCLK, "Serial Clock" // Clock, driven by master
+            io 3 = SDA, "Serial Data"    // Single bidirectional data line
+        ]
         peer = Slave
     }
     role Slave {  // SPI Slave - Responds to master
         name = "SPI Slave"
+        pins = [
+            in 1 = CS, "Chip Select"   // Slave select
+            in 2 = SCLK, "Serial Clock" // Clock, from master
+            io 3 = SDA, "Serial Data"   // Single bidirectional data line
+        ]
         peer = Master
     }
 }
@@ -134,10 +144,26 @@ interface SPI.QUAD(role)
 
     role Master {  // QSPI Master (typically MCU/SoC)
         name = "QSPI Master"
+        pins = [
+            out 1 = CS, "Chip Select"    // Slave select
+            out 2 = SCLK, "Serial Clock" // Clock, driven by master
+            io 3 = IO0, "I/O 0"          // Bidirectional data line 0
+            io 4 = IO1, "I/O 1"          // Bidirectional data line 1
+            io 5 = IO2, "I/O 2"          // Bidirectional data line 2
+            io 6 = IO3, "I/O 3"          // Bidirectional data line 3
+        ]
         peer = Slave
     }
     role Slave {  // QSPI Slave (typically NOR Flash)
         name = "QSPI Slave"
+        pins = [
+            in 1 = CS, "Chip Select"   // Slave select
+            in 2 = SCLK, "Serial Clock" // Clock, from master
+            io 3 = IO0, "I/O 0"        // Bidirectional data line 0
+            io 4 = IO1, "I/O 1"        // Bidirectional data line 1
+            io 5 = IO2, "I/O 2"        // Bidirectional data line 2
+            io 6 = IO3, "I/O 3"        // Bidirectional data line 3
+        ]
         peer = Master
     }
 }

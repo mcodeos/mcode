@@ -37,10 +37,18 @@ interface I2C(role)
     
     role Master {  // I2C Master - Initiates communication
         name = "I2C Master"
+        pins = [
+            out 1 = SCL @drive(od), "Serial Clock"  // The master sources the clock
+            io 2 = SDA @drive(od), "Serial Data"    // Either side drives the data line
+        ]
         peer = Slave
     }
     role Slave {  // I2C Slave - Responds to master
         name = "I2C Slave"
+        pins = [
+            in 1 = SCL @drive(od), "Serial Clock"  // Clock stretching holds SCL low; the master stays the clock source
+            io 2 = SDA @drive(od), "Serial Data"   // Either side drives the data line
+        ]
         peer = Master
     }
 }
@@ -74,10 +82,20 @@ interface I2C.SMBUS(role)
 
     role Host {  // SMBus Host - Initiates communication
         name = "SMBus Host"
+        pins = [
+            out 1 = SCL @drive(od), "Serial Clock"  // The host sources the clock
+            io 2 = SDA @drive(od), "Serial Data"    // Either side drives the data line
+            in 3 = ALERT @drive(od), "SMBus Alert"  // Slaves pull ALERT low to request attention
+        ]
         peer = Slave
     }
     role Slave {  // SMBus Slave - Responds to host
         name = "SMBus Slave"
+        pins = [
+            in 1 = SCL @drive(od), "Serial Clock"  // Clock stretching holds SCL low; the host stays the clock source
+            io 2 = SDA @drive(od), "Serial Data"   // Either side drives the data line
+            out 3 = ALERT @drive(od), "SMBus Alert"  // The slave asserts ALERT
+        ]
         peer = Host
     }
 }
