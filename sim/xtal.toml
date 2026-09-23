@@ -5,6 +5,10 @@
 # to the Oscillator side. Cards are curated data, read by consumers
 # read-only -- no solver semantics live here. A parameter the library does
 # not carry yet is named in `missing`, never invented.
+#
+# TOML ordering trap: every bare key after a [[card.pins]] header attaches
+# to that pins element, so each card's scalar fields stay above its pins
+# array.
 
 [meta]
 schema = 1
@@ -18,17 +22,6 @@ schema = 1
 key = "XTAL::Resonator"
 tier = "derive"
 model = "crystal_dae"
-
-[[card.pins]]
-pin = "X1"
-kind = "differential"
-source = "spec-derive"
-
-[[card.pins]]
-pin = "X2"
-kind = "differential"
-source = "spec-derive"
-
 consumes = ["spec:frequency"]
 # esr = motional resistance Rm; cm = motional capacitance; c0 = shunt
 # capacitance Cp. With these the derive upgrades from frequency-only to the
@@ -39,6 +32,16 @@ notes = [
     "one Resonator body pairs exactly one Oscillator across both terminals (exclusive = true, ERC 6054)",
 ]
 
+[[card.pins]]
+pin = "X1"
+kind = "differential"
+source = "spec-derive"
+
+[[card.pins]]
+pin = "X2"
+kind = "differential"
+source = "spec-derive"
+
 # The sustaining amplifier lives inside the adopting part (MCU XIN/XOUT,
 # RTC OSC pins): port convention only, internal silicon not modeled. Upgrading
 # to a negative-resistance model is a host-A concern and needs the amplifier
@@ -47,6 +50,15 @@ notes = [
 key = "XTAL::Oscillator"
 tier = "boundary"
 model = "sustaining_amplifier"
+boundary_on = ["X1", "X2"]
+# load_capacitance resolves from the paired Resonator part's spec (U200
+# ownership), not from the adopting part; negative_resistance is the
+# datasheet fact a host-A amplifier model would consume.
+missing = ["negative_resistance", "load_capacitance"]
+assumptions = ["linear-region", "nominal-only", "starts-and-sustains"]
+notes = [
+    "boundary tier answers rail-level and pairing facts only, never ripple or startup margin",
+]
 
 [[card.pins]]
 pin = "X1"
@@ -57,13 +69,3 @@ source = "boundary"
 pin = "X2"
 kind = "algebraic"
 source = "boundary"
-
-boundary_on = ["X1", "X2"]
-# load_capacitance resolves from the paired Resonator part's spec (U200
-# ownership), not from the adopting part; negative_resistance is the
-# datasheet fact a host-A amplifier model would consume.
-missing = ["negative_resistance", "load_capacitance"]
-assumptions = ["linear-region", "nominal-only", "starts-and-sustains"]
-notes = [
-    "boundary tier answers rail-level and pairing facts only, never ripple or startup margin",
-]
