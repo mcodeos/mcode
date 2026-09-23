@@ -43,8 +43,8 @@ component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE)
         capacity = charge // [100mAh, 500mAh, 1000mAh, 2000mAh, 5000mAh]
     ]
     
-    pins = [ 
-        [1,2] = [\+, \-]::DC(volt)   // battery: charge terminal sinks, discharge terminal sources
+    pins = [
+        psbi [1,2] = BAT{VCC, GND}::DC(volt)   // battery: bidirectional source (charge = sink, discharge = source); BAT bus, whole-lead addressable
     ]
 }
 

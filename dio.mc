@@ -50,6 +50,23 @@ component DIO.ESD(rating::UV.VOLT)
     }
 }
 
+# ESD Protection Diode Array (dual channel)
+# Two protected signal lines clamped to a common clamp reference
+# (U226 b3878: sedimented from the pwrint board's board-internal
+# TVS.ESD_ARRAY; same clamp-reference law as DIO.ESD, array form)
+component DIO.ESD_ARRAY(rating::UV.VOLT)
+{
+    name = "ESD Protection Diode Array"
+    spec = [
+        esd_rating = rating
+    ]
+
+    pins = [
+        io [1,2] = [IO1, IO2]   # protected signal lines
+        3 = GND                 # clamp reference
+    ]
+}
+
 # Schottky Diode
 # Fast switching diode with low forward voltage drop
 component DIO.SCH(vfwd::UV.VOLT, vrev::UV.VOLT, imax::UV.AMP)
