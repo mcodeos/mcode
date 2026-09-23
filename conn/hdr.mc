@@ -532,3 +532,13 @@ component HDR.2X10()
         1:20 = R[1:2]C[1:10]
     ]
 }
+
+// Usage Examples:
+// 1. Single-row 1x8 header
+// HDR.SINGLE(8)
+//
+// 2. 2x10 box header
+// HDR.MULTI(2, 10)
+//
+// 3. Fixed 1x4 header
+// HDR.1X4()
