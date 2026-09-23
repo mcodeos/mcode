@@ -111,18 +111,16 @@ component AUDIO.XLR(pin_count::INT)
         ]
     else if pin_count == 4
         pins = [
-            1 = GND @exposed(esd_contact), "Ground"
+            [4,1] = [Power,GND]::DC(), ["Power","Ground"]
             2 = Hot, "Hot"
             3 = Cold, "Cold"
-            4 = Power, "Power"
         ]
     else if pin_count == 5
         pins = [
+            [4,5] = [Power\+,Power\-]::DC(), ["Power+","Power-"]
             1 = GND @exposed(esd_contact), "Ground"
             2 = Hot, "Hot"
             3 = Cold, "Cold"
-            4 = Power\+, "Power+"
-            5 = Power\-, "Power-"
         ]
     else
         error("AUDIO.XLR: pin_count must be 3, 4, or 5, got " + pin_count)

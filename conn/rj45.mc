@@ -34,14 +34,14 @@ component RJ45.JACK()
     ]
 
     pins = [
-        1 = TD\+, "Transmit Data Positive"     // MDI pin 1
-        2 = TD\-, "Transmit Data Negative"     // MDI pin 2
-        3 = RD\+, "Receive Data Positive"      // MDI pin 3
-        4 = BI4, "Bidirectional line 4"        // PoE / termination
-        5 = BI5, "Bidirectional line 5"        // PoE / termination
-        6 = RD\-, "Receive Data Negative"      // MDI pin 6
-        7 = BI7, "Bidirectional line 7"        // PoE / termination
-        8 = BI8, "Bidirectional line 8"        // PoE / termination
+        1 = TD\+ @pair(td), "Transmit Data Positive"     // MDI pin 1
+        2 = TD\- @pair(td), "Transmit Data Negative"     // MDI pin 2
+        3 = RD\+ @pair(rd), "Receive Data Positive"      // MDI pin 3
+        4 = BI4 @pair(bi45), "Bidirectional line 4"      // PoE / termination
+        5 = BI5 @pair(bi45), "Bidirectional line 5"      // PoE / termination
+        6 = RD\- @pair(rd), "Receive Data Negative"      // MDI pin 6
+        7 = BI7 @pair(bi78), "Bidirectional line 7"      // PoE / termination
+        8 = BI8 @pair(bi78), "Bidirectional line 8"      // PoE / termination
     ]
 }
 
@@ -65,10 +65,10 @@ component RJ45.MAGJACK()
     ]
 
     pins = [
-        1 = TD\+, "Transmit pair positive (PHY side)"
-        2 = TD\-, "Transmit pair negative (PHY side)"
-        3 = RD\+, "Receive pair positive (PHY side)"
-        4 = RD\-, "Receive pair negative (PHY side)"
+        1 = TD\+ @pair(td), "Transmit pair positive (PHY side)"
+        2 = TD\- @pair(td), "Transmit pair negative (PHY side)"
+        3 = RD\+ @pair(rd), "Receive pair positive (PHY side)"
+        4 = RD\- @pair(rd), "Receive pair negative (PHY side)"
         5 = TCT, "Transmit center tap"
         6 = RCT, "Receive center tap"
         7 = TERM, "Internal 75 Ohm termination point (Bob Smith network)"
