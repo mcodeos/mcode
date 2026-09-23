@@ -298,8 +298,12 @@ interface USB.C(role)
         A3 = SSTX1\-, "SuperSpeed TX1 Negative"  // SuperSpeed transmit pair 1 negative
         A4 = VBUS, "Power"           // +5V power (Power Delivery capable)
         A5 = CC1, "Configuration Channel 1"  // Configuration channel
-        A6 = USB2_D\+, "USB 2.0 Data Positive"  // USB 2.0 positive data line
-        A7 = USB2_D\-, "USB 2.0 Data Negative"  // USB 2.0 negative data line
+        // The USB 2.0 lane exists on both sides under the same member names:
+        // two @pair groups are declared (U205③ ruled 2026-09-23) and the
+        // name-level consumer resolves them to one pair — only one side is
+        // live at a time (plug orientation).
+        A6 = USB2_D\+ @pair(dA), "USB 2.0 Data Positive"  // USB 2.0 positive data line (A side)
+        A7 = USB2_D\- @pair(dA), "USB 2.0 Data Negative"  // USB 2.0 negative data line (A side)
         A8 = SBU1, "Sideband Use 1"  // Sideband use pin
         A9 = VBUS, "Power"           // +5V power (Power Delivery capable)
         A10 = SSRX2\+, "SuperSpeed RX2 Positive"  // SuperSpeed receive pair 2 positive
@@ -312,8 +316,8 @@ interface USB.C(role)
         B3 = SSRX1\-, "SuperSpeed RX1 Negative"  // SuperSpeed receive pair 1 negative
         B4 = VBUS, "Power"           // +5V power (Power Delivery capable)
         B5 = CC2, "Configuration Channel 2"  // Configuration channel
-        B6 = USB2_D\+, "USB 2.0 Data Positive"  // USB 2.0 positive data line
-        B7 = USB2_D\-, "USB 2.0 Data Negative"  // USB 2.0 negative data line
+        B6 = USB2_D\+ @pair(dB), "USB 2.0 Data Positive"  // USB 2.0 positive data line (B side)
+        B7 = USB2_D\- @pair(dB), "USB 2.0 Data Negative"  // USB 2.0 negative data line (B side)
         B8 = SBU2, "Sideband Use 2"  // Sideband use pin
         B9 = VBUS, "Power"           // +5V power (Power Delivery capable)
         B10 = SSTX2\+, "SuperSpeed TX2 Positive"  // SuperSpeed transmit pair 2 positive

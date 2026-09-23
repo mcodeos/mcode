@@ -300,8 +300,8 @@ interface UART.RS422(role)
     role Transmitter {  // Sends balanced differential signals
         name = "RS422 Transmitter"
         pins = [
-            out 1 = A, "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
-            out 2 = B, "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
+            out 1 = A @pair(ab), "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
+            out 2 = B @pair(ab), "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                                    // Signal reference ground
         ]
         peer = Receiver  // Paired with RS422 Receiver
@@ -311,8 +311,8 @@ interface UART.RS422(role)
     role Receiver {  // Receives balanced differential signals
         name = "RS422 Receiver"
         pins = [
-            in 1 = A, "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
-            in 2 = B, "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
+            in 1 = A @pair(ab), "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
+            in 2 = B @pair(ab), "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                                   // Signal reference ground
         ]
         peer = Transmitter  // Paired with RS422 Transmitter
@@ -343,8 +343,8 @@ interface UART.RS422.2(role)
     role Transmitter {  // Sends balanced differential signals
         name = "RS422.2 Transmitter"
         pins = [
-            out 1 = A, "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
-            out 2 = B, "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+            out 1 = A @pair(ab), "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            out 2 = B @pair(ab), "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
         peer = Receiver
     }
@@ -352,8 +352,8 @@ interface UART.RS422.2(role)
     role Receiver {  // Receives balanced differential signals
         name = "RS422.2 Receiver"
         pins = [
-            in 1 = A, "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
-            in 2 = B, "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+            in 1 = A @pair(ab), "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            in 2 = B @pair(ab), "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
         peer = Transmitter
     }
@@ -535,8 +535,8 @@ interface UART.RS485.3(role)
     role Master {  // RS485 Master - Controls the bus
         name = "RS485 Master"
         pins = [
-            io 1 = A, "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
-            io 2 = B, "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
+            io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
+            io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                           // Signal reference ground
         ]
         peer = Slave  // Paired with RS485 Slave
@@ -546,8 +546,8 @@ interface UART.RS485.3(role)
     role Slave {  // RS485 Slave - Responds to master
         name = "RS485 Slave"
         pins = [
-            io 1 = A, "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
-            io 2 = B, "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
+            io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
+            io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                           // Signal reference ground
         ]
         peer = Master  // Paired with RS485 Master
@@ -581,8 +581,8 @@ interface UART.RS485(role)
     role Master {  // RS485 Master - Controls the bus
         name = "RS485 Master"
         pins = [
-            io 1 = A, "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
-            io 2 = B, "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+            io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
         peer = Slave
     }
@@ -590,8 +590,8 @@ interface UART.RS485(role)
     role Slave {  // RS485 Slave - Responds to master
         name = "RS485 Slave"
         pins = [
-            io 1 = A, "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
-            io 2 = B, "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+            io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
         peer = Master
     }
