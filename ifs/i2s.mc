@@ -35,12 +35,26 @@ interface I2S(role)
         3 = SD, "Serial Data"      // Audio data
     ]
     
+    // Direction words follow the PCM ruling: SCK/WS stay direction-less in the
+    // role views — either side can be the controller, so their direction is
+    // orthogonal to the Transmitter/Receiver pairing. Only the data lane gets
+    // a word.
     role Transmitter {  // I2S Transmitter - Sends audio data
         name = "I2S Transmitter"
+        pins = [
+            1 = SCK, "Bit Clock"       // Controller face — direction follows the controller
+            2 = WS, "Word Select"      // Controller face — direction follows the controller
+            out 3 = SD, "Serial Data"  // The transmitter drives the data lane
+        ]
         peer = Receiver
     }
     role Receiver {  // I2S Receiver - Receives audio data
         name = "I2S Receiver"
+        pins = [
+            1 = SCK, "Bit Clock"      // Controller face — direction follows the controller
+            2 = WS, "Word Select"     // Controller face — direction follows the controller
+            in 3 = SD, "Serial Data"  // The receiver listens on the data lane
+        ]
         peer = Transmitter
     }
 }

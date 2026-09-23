@@ -34,11 +34,19 @@ interface LIN(role)
     
     role Master {
         name = "LIN Master"
+        pins = [
+            io 1 = LIN, "Data"  // Master and slaves time-share the wire — either side may drive a response
+            2 = GND, "Ground"   // Signal reference ground
+        ]
         peer = Slave
     }
-    
+
     role Slave {
         name = "LIN Slave"
+        pins = [
+            io 1 = LIN, "Data"  // Master and slaves time-share the wire — either side may drive a response
+            2 = GND, "Ground"   // Signal reference ground
+        ]
         peer = Master
     }
 }

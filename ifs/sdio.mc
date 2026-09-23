@@ -40,10 +40,26 @@ interface SDIO(role)
 
     role Host {  // SDIO Host (MCU/SoC)
         name = "SDIO Host"
+        pins = [
+            out 1 = CLK, "Clock"     // The host sources the clock
+            io 2 = CMD, "Command"    // Command out, response in — either side drives
+            io 3 = DAT0, "Data 0"    // Bidirectional data line 0
+            io 4 = DAT1, "Data 1"    // Bidirectional data line 1
+            io 5 = DAT2, "Data 2"    // Bidirectional data line 2
+            io 6 = DAT3, "Data 3"    // Bidirectional data line 3 (also CS in SPI mode)
+        ]
         peer = Card
     }
     role Card {  // SDIO Card (SD card / SDIO peripheral)
         name = "SDIO Card"
+        pins = [
+            in 1 = CLK, "Clock"      // The clock is an input on the card side
+            io 2 = CMD, "Command"    // Command out, response in — either side drives
+            io 3 = DAT0, "Data 0"    // Bidirectional data line 0
+            io 4 = DAT1, "Data 1"    // Bidirectional data line 1
+            io 5 = DAT2, "Data 2"    // Bidirectional data line 2
+            io 6 = DAT3, "Data 3"    // Bidirectional data line 3 (also CS in SPI mode)
+        ]
         peer = Host
     }
 }
@@ -70,10 +86,20 @@ interface SDIO.1(role)
 
     role Host {
         name = "SDIO Host"
+        pins = [
+            out 1 = CLK, "Clock"   // The host sources the clock
+            io 2 = CMD, "Command"  // Command out, response in — either side drives
+            io 3 = DAT0, "Data 0"  // Bidirectional data line
+        ]
         peer = Card
     }
     role Card {
         name = "SDIO Card"
+        pins = [
+            in 1 = CLK, "Clock"    // The clock is an input on the card side
+            io 2 = CMD, "Command"  // Command out, response in — either side drives
+            io 3 = DAT0, "Data 0"  // Bidirectional data line
+        ]
         peer = Host
     }
 }
