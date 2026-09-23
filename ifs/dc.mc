@@ -25,90 +25,26 @@ interface DC(volt::UV.VOLT) // DC Power Supply Interface
 
     // DC Power Supply Standard Definition
     // Core Rule: Unidirectional direct current power supply
-    // Voltage Levels: Standard rails (1.2/1.8/3.3/5/12/24/48 V) get canonical
-    //   net names (VCC1V2, VCC5V0N, ...). Any other voltage falls back to a
-    //   sign-aware generic name: VCC for positive rails, VEE for negative.
+    // Naming law (U216, ruled 2026-09-23): one computed rule replaces the
+    //   fourteen voltage branches — "VCC" + the canonical rail text of volt
+    //   (canon: one fixed decimal, the decimal point read as `V`, a negative
+    //   value marked `N`; 3.3V → VCC3V3, 12V → VCC12V0, -5V → VCC5V0N). A
+    //   voltage that binds to no single number keeps the sign-aware generic
+    //   name: VCC (the ELSE branch is also what the declared family table —
+    //   the boundary face, U141 — spells).
     // Energy direction is not a DC parameter (role slot removed 2026-09-07):
     // source/sink rides on the adopting terminal's direction word
     // (psrc = source / psnk = sink / psbi = bidir) at the pin/port level.
     // Applications: Powering electronic circuits and devices
 
-    // Positive Voltage Supplies
-    if (volt == 1.2V)
+    if (volt < 0V)
         pins = [
-            1 = VCC1V2, "DC power positive", voltage:1.2V
+            1 = "VCC" + canon(volt), "DC power negative", voltage:volt
             2 = GND, "DC power ground", voltage:0.0V
         ]
-    else if (volt == 1.8V)
+    else if (volt > 0V)
         pins = [
-            1 = VCC1V8, "DC power positive", voltage:1.8V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == 3.3V)
-        pins = [
-            1 = VCC3V3, "DC power positive", voltage:3.3V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == 5.0V)
-        pins = [
-            1 = VCC5V0, "DC power positive", voltage:5.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == 12.0V)
-        pins = [
-            1 = VCC12V0, "DC power positive", voltage:12.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == 24.0V)
-        pins = [
-            1 = VCC24V0, "DC power positive", voltage:24.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == 48.0V)
-        pins = [
-            1 = VCC48V0, "DC power positive", voltage:48.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    // Negative Voltage Supplies
-    else if (volt == -1.2V)
-        pins = [
-            1 = VCC1V2N, "DC power negative", voltage:-1.2V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == -1.8V)
-        pins = [
-            1 = VCC1V8N, "DC power negative", voltage:-1.8V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == -3.3V)
-        pins = [
-            1 = VCC3V3N, "DC power negative", voltage:-3.3V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == -5.0V)
-        pins = [
-            1 = VCC5V0N, "DC power negative", voltage:-5.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == -12.0V)
-        pins = [
-            1 = VCC12V0N, "DC power negative", voltage:-12.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == -24.0V)
-        pins = [
-            1 = VCC24V0N, "DC power negative", voltage:-24.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    else if (volt == -48.0V)
-        pins = [
-            1 = VCC48V0N, "DC power negative", voltage:-48.0V
-            2 = GND, "DC power ground", voltage:0.0V
-        ]
-    // Non-standard voltages: sign-aware generic naming
-    else if (volt < 0)
-        pins = [
-            1 = VEE, "DC power negative", voltage:volt
+            1 = "VCC" + canon(volt), "DC power positive", voltage:volt
             2 = GND, "DC power ground", voltage:0.0V
         ]
     else
