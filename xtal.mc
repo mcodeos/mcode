@@ -109,29 +109,6 @@ component XTAL.CERAMIC(freq::UV.HZ)
     ]
 }
 
-# Surface Mount Crystal Component
-component XTAL.SMD(freq::UV.HZ, cload::UV.CAP)
-{
-    name = "SMD Crystal"
-    description = "Surface mount crystal oscillator"
-
-    spec = [
-        frequency = freq
-        load_capacitance = cload
-    ]
-
-    pins = [
-        [1,2] = XTAL{X1,X2}::XTAL(Resonator) , ["Crystal oscillator input","Crystal oscillator output"]
-    ]
-
-    func Setup(gnd)
-    {
-        [XTAL.X1, gnd] => CAP(cload).Cap(_)
-        [XTAL.X2, gnd] => CAP(cload).Cap(_)
-        return XTAL{X1,X2}
-    }
-}
-
 # ---------------------------------------------------------------------------------------------
 # Usage Examples
 #
