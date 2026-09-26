@@ -23,7 +23,7 @@ interface DBG.JTAG(role)
     // JTAG (Joint Test Action Group) Standard Definition
     // Core Rule: Standard interface for boundary scan testing and debugging of integrated circuits
     // JTAG Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: TAP = Test Access Port (target device), Host = JTAG debugger/programmer
+    // Device Definition: TAP = Test Access Port (target device), HOST = JTAG debugger/programmer
     // Applications: Chip testing, firmware programming, embedded system debugging
 
     // Role-less conductor view: 5 anonymous lanes, ordinal = wire identity
@@ -48,10 +48,10 @@ interface DBG.JTAG(role)
             4 = TMS, "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]     // Controls the state machine
             5 = TRST, "Test Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
         ]
-        peer = Host
+        peer = HOST
     }
 
-    role Host {  // JTAG Host - Debugger/programmer (the TAP controller lives in the target, IEEE 1149.1)
+    role HOST {  // JTAG Host - Debugger/programmer (the TAP controller lives in the target, IEEE 1149.1)
         name = "JTAG Host"
         pins = [
             out 1 = TDI, "Test Data Input", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as the TAP's input
@@ -76,7 +76,7 @@ interface DBG.JTAG.2(role)
     // Core Rule: Reduced pin count JTAG using bidirectional SWDIO/SWMS line
     // Principle: TDI and TDO are multiplexed on a single bidirectional pin (TMS)
     // 2-Wire JTAG Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: TAP = Test Access Port (target device), Host = JTAG debugger/programmer
+    // Device Definition: TAP = Test Access Port (target device), HOST = JTAG debugger/programmer
     // Protocol: Timing transitions on TMS determine whether data is sent or received
 
     pins = [
@@ -86,10 +86,10 @@ interface DBG.JTAG.2(role)
 
     role TAP {  // Test Access Port - Target device being tested/debugged
         name = "2-Wire JTAG TAP"
-        peer = Host
+        peer = HOST
     }
 
-    role Host {  // JTAG Host - Debugger/programmer (the TAP controller lives in the target, IEEE 1149.1)
+    role HOST {  // JTAG Host - Debugger/programmer (the TAP controller lives in the target, IEEE 1149.1)
         name = "2-Wire JTAG Host"
         peer = TAP
     }
@@ -106,7 +106,7 @@ interface DBG.DAP(role)
     // DAP (Debug Access Port) Standard Definition
     // Core Rule: Debug interface for accessing debug ports of microcontrollers
     // DAP Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Host = Debugger, Target = Microcontroller
+    // Device Definition: HOST = Debugger, TARGET = Microcontroller
     // Applications: Microcontroller debugging, firmware programming
 
     pins =[
@@ -114,14 +114,14 @@ interface DBG.DAP(role)
         2 = DAP1, "Debug Access Port 1", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
     
-    role Host {
+    role HOST {
         name = "DAP Host"
-        peer = Target
+        peer = TARGET
     }
     
-    role Target {
+    role TARGET {
         name = "DAP Target"
-        peer = Host
+        peer = HOST
     }
 }
 
@@ -136,7 +136,7 @@ interface DBG.DAP.PU(role)
     // DAP.PU (3-pin Unidirectional) Standard Definition
     // Core Rule: 3-pin unidirectional debug access port
     // DAP.PU Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Host = Debugger, Target = Microcontroller
+    // Device Definition: HOST = Debugger, TARGET = Microcontroller
     // Applications: Simplified microcontroller debugging
 
     // 3 pin unidir
@@ -146,14 +146,14 @@ interface DBG.DAP.PU(role)
         3 = DAP2, "Debug Access Port 2", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
 
-    role Host {
+    role HOST {
         name = "DAP.PU Host"
-        peer = Target
+        peer = TARGET
     }
 
-    role Target {
+    role TARGET {
         name = "DAP.PU Target"
-        peer = Host
+        peer = HOST
     }
 }
 
@@ -168,7 +168,7 @@ interface DBG.DAP.WM(role)
     // DAP.WM (3-pin Wide Mode) Standard Definition
     // Core Rule: 3-pin wide mode debug access port
     // DAP.WM Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Host = Debugger, Target = Microcontroller
+    // Device Definition: HOST = Debugger, TARGET = Microcontroller
     // Applications: Enhanced microcontroller debugging
 
     // 3 Pin wide mode
@@ -178,14 +178,14 @@ interface DBG.DAP.WM(role)
         3 = DAP2, "Debug Access Port 2", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
 
-    role Host {
+    role HOST {
         name = "DAP.WM Host"
-        peer = Target
+        peer = TARGET
     }
 
-    role Target {
+    role TARGET {
         name = "DAP.WM Target"
-        peer = Host
+        peer = HOST
     }
 }
 
@@ -200,7 +200,7 @@ interface DBG.CMSISDAP(role)
     // CMSIS_DAP (ARM CMSIS Debug Access Port) Standard Definition
     // Core Rule: ARM standard debug interface for Cortex-M microcontrollers
     // CMSIS_DAP Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Host = Debugger, Target = Cortex-M microcontroller
+    // Device Definition: HOST = Debugger, TARGET = Cortex-M microcontroller
     // Applications: Cortex-M microcontroller debugging, firmware programming
 
     //ARM CMSIS DAP standard, for Cortext-M
@@ -213,14 +213,14 @@ interface DBG.CMSISDAP(role)
         3 = RST, "Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
     
-    role Host {
+    role HOST {
         name = "CMSIS_DAP Host"
-        peer = Target
+        peer = TARGET
     }
     
-    role Target {
+    role TARGET {
         name = "CMSIS_DAP Target"
-        peer = Host
+        peer = HOST
     }
 }
 
@@ -235,7 +235,7 @@ interface DBG.SWD(role)
     // SWD (Serial Wire Debug) Standard Definition
     // Core Rule: ARM standard two-wire debug interface
     // SWD Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Host = Debugger, Target = ARM microcontroller
+    // Device Definition: HOST = Debugger, TARGET = ARM microcontroller
     // Applications: ARM microcontroller debugging, firmware programming
 
     pins = [
@@ -245,14 +245,14 @@ interface DBG.SWD(role)
         4 = VREF, "Reference Voltage", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
     
-    role Host {
+    role HOST {
         name = "SWD Host"
-        peer = Target
+        peer = TARGET
     }
     
-    role Target {
+    role TARGET {
         name = "SWD Target"
-        peer = Host
+        peer = HOST
     }
 }
 
@@ -267,7 +267,7 @@ interface DBG.SWIM(role)
     // SWIM (Single Wire Interface Module) Standard Definition
     // Core Rule: STMicroelectronics single-wire debug interface
     // SWIM Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Host = Debugger, Target = STM8/STM32 microcontroller
+    // Device Definition: HOST = Debugger, TARGET = STM8/STM32 microcontroller
     // Applications: STMicroelectronics microcontroller debugging, firmware programming
 
     pins = [
@@ -276,14 +276,14 @@ interface DBG.SWIM(role)
         3 = GND, "Ground"
     ]
     
-    role Host {
+    role HOST {
         name = "SWIM Host"
-        peer = Target
+        peer = TARGET
     }
     
-    role Target {
+    role TARGET {
         name = "SWIM Target"
-        peer = Host
+        peer = HOST
     }
 }
 
@@ -298,7 +298,7 @@ interface DBG.ICD(role)
     // ICD (In-Circuit Debugger) Standard Definition
     // Core Rule: Microchip standard debug interface
     // ICD Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Host = Debugger, Target = Microchip microcontroller
+    // Device Definition: HOST = Debugger, TARGET = Microchip microcontroller
     // Applications: Microchip microcontroller debugging, firmware programming
 
     pins = [
@@ -307,14 +307,14 @@ interface DBG.ICD(role)
         3 = MCLR, "Master Clear/Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
     
-    role Host {
+    role HOST {
         name = "ICD Host"
-        peer = Target
+        peer = TARGET
     }
     
-    role Target {
+    role TARGET {
         name = "ICD Target"
-        peer = Host
+        peer = HOST
     }
 }
 
@@ -329,7 +329,7 @@ interface DBG.UARTBOOT(role)
     // UART Bootloader Standard Definition
     // Core Rule: Serial bootloader interface for firmware programming
     // UART Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Host = Programming device, Target = Microcontroller
+    // Device Definition: HOST = Programming device, TARGET = Microcontroller
     // Applications: Firmware programming, bootloader updates
 
     // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
@@ -342,23 +342,23 @@ interface DBG.UARTBOOT(role)
         3 = _    // GND
     ]
 
-    role Host {
+    role HOST {
         name = "UART Bootloader Host"
         pins = [
             out 1 = TXD, "Transmit Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
             in 2 = RXD, "Receive Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
             3 = GND, "Ground"
         ]
-        peer = Target
+        peer = TARGET
     }
 
-    role Target {
+    role TARGET {
         name = "UART Bootloader Target"
         pins = [
             in 1 = RXD, "Receive Data, from the host TXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as ordinal 1
             out 2 = TXD, "Transmit Data, to the host RXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]   // Same wire as ordinal 2
             3 = GND, "Ground"
         ]
-        peer = Host
+        peer = HOST
     }
 }

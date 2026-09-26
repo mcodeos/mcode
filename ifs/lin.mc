@@ -24,7 +24,7 @@ interface LIN(role)
     // LIN Standard Definition
     // Core Rule: Low-cost, low-speed serial communication for automotive body electronics
     // LIN Level Spec: Single wire with ground reference
-    // Device Definition: Master = Controls the bus, Slave = Body electronics module
+    // Device Definition: MASTER = Controls the bus, SLAVE = Body electronics module
     // Applications: Power windows, door locks, seat controls, lighting
 
     pins = [
@@ -32,21 +32,21 @@ interface LIN(role)
         2 = GND, "Ground"  // Signal reference ground
     ]
     
-    role Master {
+    role MASTER {
         name = "LIN Master"
         pins = [
             io 1 = LIN, "Data"  // Master and slaves time-share the wire — either side may drive a response
             2 = GND, "Ground"   // Signal reference ground
         ]
-        peer = Slave
+        peer = SLAVE
     }
 
-    role Slave {
+    role SLAVE {
         name = "LIN Slave"
         pins = [
             io 1 = LIN, "Data"  // Master and slaves time-share the wire — either side may drive a response
             2 = GND, "Ground"   // Signal reference ground
         ]
-        peer = Master
+        peer = MASTER
     }
 }

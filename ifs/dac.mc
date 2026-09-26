@@ -26,27 +26,27 @@ interface DAC(role)
     // DAC (Digital-to-Analog Converter) Standard Definition
     // Core Rule: Converts digital values to analog voltage
     // DAC Level Spec: Output voltage proportional to digital input
-    // Device Definition: Transmitter = the DAC analog output stage,
-    //                    Receiver = the analog input it feeds (amp, ADC, filter)
+    // Device Definition: TRANSMITTER = the DAC analog output stage,
+    //                    RECEIVER = the analog input it feeds (amp, ADC, filter)
     // Applications: Audio output, signal generation, motor control
 
     pins = [
         1 = OUT @class(analog), "Analog Output"    // Analog output voltage
     ]
     
-    role Transmitter {  // the DAC analog output stage
+    role TRANSMITTER {  // the DAC analog output stage
         name = "DAC Transmitter"
         pins = [
             out 1 = OUT @class(analog), "Analog Output"  // The DAC drives the output
         ]
-        peer = Receiver
+        peer = RECEIVER
     }
 
-    role Receiver {  // the analog input it feeds (amp, ADC, filter)
+    role RECEIVER {  // the analog input it feeds (amp, ADC, filter)
         name = "DAC Receiver"
         pins = [
             in 1 = OUT @class(analog), "Analog Output"   // The fed stage samples it
         ]
-        peer = Transmitter
+        peer = TRANSMITTER
     }
 }

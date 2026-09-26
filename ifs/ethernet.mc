@@ -24,7 +24,7 @@ interface ETHERNET(role)
     // Ethernet Standard Definition
     // Core Rule: Twisted pair or fiber optic network interface
     // Ethernet Level Spec: Differential signaling over twisted pair, optical signaling over fiber
-    // Device Definition: Host = Network device, Switch = Network switch
+    // Device Definition: HOST = Network device, SWITCH = Network switch
     // Versions: 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T
 
     pins = [
@@ -38,7 +38,7 @@ interface ETHERNET(role)
         8 = BI8, "Bidirectional"              // Bidirectional line
     ]
     
-    role Host {
+    role HOST {
         name = "Ethernet Host"
         pins = [
             out 1 = TD\+, "Transmit Data Positive"  // The host transmits on TD
@@ -50,10 +50,10 @@ interface ETHERNET(role)
             io 7 = BI7, "Bidirectional"
             io 8 = BI8, "Bidirectional"
         ]
-        peer = Switch
+        peer = SWITCH
     }
 
-    role Switch {
+    role SWITCH {
         name = "Ethernet Switch"
         pins = [
             in 1 = TD\+, "Transmit Data Positive"   // The switch port receives the host's TD
@@ -65,6 +65,6 @@ interface ETHERNET(role)
             io 7 = BI7, "Bidirectional"
             io 8 = BI8, "Bidirectional"
         ]
-        peer = Host
+        peer = HOST
     }
 }

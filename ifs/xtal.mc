@@ -44,14 +44,14 @@ interface XTAL(role)
         2 = X2 @class(analog)   // Crystal terminal 2
     ]
 
-    role Oscillator {  // hosts the sustaining amplifier: MCU XIN/XOUT
+    role OSCILLATOR {  // hosts the sustaining amplifier: MCU XIN/XOUT
         name = "XTAL Oscillator"
-        peer = Resonator
+        peer = RESONATOR
         exclusive = true
     }
-    role Resonator {   // the passive piezoelectric body
+    role RESONATOR {   // the passive piezoelectric body
         name = "XTAL Resonator"
-        peer = Oscillator
+        peer = OSCILLATOR
         exclusive = true
     }
 }
@@ -60,8 +60,8 @@ interface XTAL(role)
 // component MyComponent
 // {
 //     pins = [
-//         [1,2] = XTAL{X1,X2}::XTAL(Resonator) , ["Crystal input","Crystal output"]
+//         [1,2] = XTAL{X1,X2}::XTAL(RESONATOR) , ["Crystal input","Crystal output"]
 //     ]
 // }
 // MCU side (the pins hosting the sustaining amplifier):
-//     in [3,4] = XTAL::XTAL(Oscillator) , ["Crystal in","Crystal out"]
+//     in [3,4] = XTAL::XTAL(OSCILLATOR) , ["Crystal in","Crystal out"]

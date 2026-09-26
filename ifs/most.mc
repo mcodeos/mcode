@@ -24,7 +24,7 @@ interface MOST(role)
     // MOST Standard Definition
     // Core Rule: High-speed multimedia network for in-vehicle entertainment systems
     // MOST Level Spec: Optical or electrical signaling
-    // Device Definition: Master = Controls the bus, Slave = Audio/Video device
+    // Device Definition: MASTER = Controls the bus, SLAVE = Audio/Video device
     // Applications: In-car infotainment, navigation, audio/video distribution
 
     pins = [
@@ -32,21 +32,21 @@ interface MOST(role)
         2 = ELE, "Electrical" // Electrical connection (alternative)
     ]
     
-    role Master {
+    role MASTER {
         name = "MOST Master"
         pins = [
             io 1 = OPT, "Optical"     // A ring circulates frames past every node —
             io 2 = ELE, "Electrical"  // each node relays in and out (one medium in use)
         ]
-        peer = Slave
+        peer = SLAVE
     }
 
-    role Slave {
+    role SLAVE {
         name = "MOST Slave"
         pins = [
             io 1 = OPT, "Optical"     // A ring circulates frames past every node —
             io 2 = ELE, "Electrical"  // each node relays in and out (one medium in use)
         ]
-        peer = Master
+        peer = MASTER
     }
 }

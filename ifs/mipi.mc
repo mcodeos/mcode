@@ -42,7 +42,7 @@ interface MIPI.DSI(role)
         10 = D3_N, "Data lane 3 negative"
     ]
 
-    role Host {
+    role HOST {
         name = "DSI Host (SoC display controller)"
         pins = [
             out 1 = CLK_P, "D-PHY clock pair positive"  // The host drives every lane
@@ -56,9 +56,9 @@ interface MIPI.DSI(role)
             out 9 = D3_P, "Data lane 3 positive"
             out 10 = D3_N, "Data lane 3 negative"
         ]
-        peer = Display
+        peer = DISPLAY
     }
-    role Display {
+    role DISPLAY {
         name = "DSI Peripheral (display panel)"
         pins = [
             in 1 = CLK_P, "D-PHY clock pair positive"   // The panel receives
@@ -72,7 +72,7 @@ interface MIPI.DSI(role)
             in 9 = D3_P, "Data lane 3 positive"
             in 10 = D3_N, "Data lane 3 negative"
         ]
-        peer = Host
+        peer = HOST
     }
 }
 
@@ -98,7 +98,7 @@ interface MIPI.CSI(role)
         10 = D3_N, "Data lane 3 negative"
     ]
 
-    role Sensor {
+    role SENSOR {
         name = "CSI Transmitter (camera sensor)"
         pins = [
             out 1 = CLK_P, "D-PHY clock pair positive"  // The sensor drives every lane
@@ -112,9 +112,9 @@ interface MIPI.CSI(role)
             out 9 = D3_P, "Data lane 3 positive"
             out 10 = D3_N, "Data lane 3 negative"
         ]
-        peer = Host
+        peer = HOST
     }
-    role Host {
+    role HOST {
         name = "CSI Receiver (SoC ISP)"
         pins = [
             in 1 = CLK_P, "D-PHY clock pair positive"   // The ISP samples them
@@ -128,6 +128,6 @@ interface MIPI.CSI(role)
             in 9 = D3_P, "Data lane 3 positive"
             in 10 = D3_N, "Data lane 3 negative"
         ]
-        peer = Sensor
+        peer = SENSOR
     }
 }

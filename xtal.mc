@@ -40,7 +40,7 @@ component XTAL2(freq::UV.HZ, cload::UV.CAP)
     ]
 
     pins = [
-        [1,2] = XTAL{X1,X2}::XTAL(Resonator) , ["Crystal oscillator input","Crystal oscillator output"]
+        [1,2] = XTAL{X1,X2}::XTAL(RESONATOR) , ["Crystal oscillator input","Crystal oscillator output"]
     ]
 
     // Load-capacitor ownership (U200 ruling): the load capacitors are part of
@@ -67,7 +67,7 @@ component XTAL4(freq::UV.HZ, cload::UV.CAP)
     ]
 
     pins = [
-        [1,3] = XTAL{X1,X2}::XTAL(Resonator) , ["Crystal oscillator input","Crystal oscillator output"]
+        [1,3] = XTAL{X1,X2}::XTAL(RESONATOR) , ["Crystal oscillator input","Crystal oscillator output"]
     ]
 
     func Setup(gnd)
@@ -89,7 +89,7 @@ component OSC(freq::UV.HZ)
     ]
 
     pins = [
-        3 = CLKOUT::CLK(Transmitter) , "Oscillator output (single-ended clock)"
+        3 = CLKOUT::CLK(TRANSMITTER) , "Oscillator output (single-ended clock)"
         [4,2] = [VDD, GND]::DC(), ["Power supply", "Ground"]
     ]
 }
@@ -105,7 +105,7 @@ component XTAL.CERAMIC(freq::UV.HZ)
     ]
 
     pins = [
-        [1,2] = XTAL{X1,X2}::XTAL(Resonator) , ["Resonator input","Resonator output"]
+        [1,2] = XTAL{X1,X2}::XTAL(RESONATOR) , ["Resonator input","Resonator output"]
     ]
 }
 

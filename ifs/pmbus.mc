@@ -36,7 +36,7 @@ interface PMBUS(role)
         4 = CONTROL, "Enable / sequencing control line"
     ]
 
-    role Host {
+    role HOST {
         name = "PMBus Host (system manager)"
         pins = [
             out 1 = SCL, "Serial Clock"                  // The host sources the clock
@@ -44,9 +44,9 @@ interface PMBUS(role)
             in 3 = ALERT, "PMBus Alert (SMBALERT)"       // Slaves assert alert
             out 4 = CONTROL, "Enable / sequencing control line"  // The host sequences converters
         ]
-        peer = Slave
+        peer = SLAVE
     }
-    role Slave {
+    role SLAVE {
         name = "PMBus Slave (power device)"
         pins = [
             in 1 = SCL, "Serial Clock"                   // Clock stretching holds SCL low; the host stays the clock source
@@ -54,6 +54,6 @@ interface PMBUS(role)
             out 3 = ALERT, "PMBus Alert (SMBALERT)"      // A slave asks for the bus
             in 4 = CONTROL, "Enable / sequencing control line"   // The slave is enabled by it
         ]
-        peer = Host
+        peer = HOST
     }
 }

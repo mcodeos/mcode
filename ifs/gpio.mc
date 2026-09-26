@@ -20,8 +20,8 @@
 // Applications: LEDs, buttons, relays, digital sensors
 //
 // A GPIO unit is a single pin: one instance per general-purpose line.
-//   GPIO3::GPIO(Provider)      -> one GPIO line
-//   GPIO[3, 4]::GPIO(Provider) -> members GPIO3, GPIO4, one pin each
+//   GPIO3::GPIO(PROVIDER)      -> one GPIO line
+//   GPIO[3, 4]::GPIO(PROVIDER) -> members GPIO3, GPIO4, one pin each
 interface GPIO(role)
 {
     topology = "point to point"
@@ -39,13 +39,13 @@ interface GPIO(role)
         1 = _ @drive(pp)
     ]
 
-    role Provider {  // offers the line: MCU/SoC GPIO block
+    role PROVIDER {  // offers the line: MCU/SoC GPIO block
         name = "GPIO Provider"
-        peer = Consumer
+        peer = CONSUMER
     }
 
-    role Consumer {  // uses the line: any digital device
+    role CONSUMER {  // uses the line: any digital device
         name = "GPIO Consumer"
-        peer = Provider
+        peer = PROVIDER
     }
 }

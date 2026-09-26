@@ -23,7 +23,7 @@ interface PCM(role)
     // PCM (Pulse Code Modulation) Standard Definition
     // Core Rule: Digital audio interface for connecting audio CODECs to processors
     // PCM Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Transmitter = Sends audio data, Receiver = Receives audio data
+    // Device Definition: TRANSMITTER = Sends audio data, RECEIVER = Receives audio data
     // Audio Format: Supports various sample rates and bit depths
 
     // Role-less conductor view: 5 named lanes, ordinal = wire identity
@@ -38,7 +38,7 @@ interface PCM(role)
         5 = GND, "Ground"           // Ground
     ]
 
-    role Transmitter {  // PCM Transmitter - Sends audio data
+    role TRANSMITTER {  // PCM Transmitter - Sends audio data
         name = "PCM Transmitter"
         pins = [
             1 = CLK, "Bit Clock"        // Bit clock signal
@@ -47,9 +47,9 @@ interface PCM(role)
             out 4 = OUT, "Audio Output" // Audio data output (my side drives)
             5 = GND, "Ground"           // Ground
         ]
-        peer = Receiver
+        peer = RECEIVER
     }
-    role Receiver {  // PCM Receiver - Receives audio data
+    role RECEIVER {  // PCM Receiver - Receives audio data
         name = "PCM Receiver"
         pins = [
             1 = CLK, "Bit Clock"        // Bit clock signal
@@ -58,6 +58,6 @@ interface PCM(role)
             in 4 = OUT, "Audio Output"  // Same wire as the transmitter's output
             5 = GND, "Ground"           // Ground
         ]
-        peer = Transmitter
+        peer = TRANSMITTER
     }
 }

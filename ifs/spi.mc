@@ -27,7 +27,7 @@ interface SPI(role)
     // SPI (Serial Peripheral Interface) Standard Definition
     // Core Rule: Four-wire synchronous serial bus, high speed
     // SPI Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Master = Controls the bus, Slave = Responds to master
+    // Device Definition: MASTER = Controls the bus, SLAVE = Responds to master
     // Modes: Supports 4 different clock polarity and phase combinations (Mode 0-3)
 
     // Role tables declare each role's wiring order: ordinal k on the two sides is
@@ -49,7 +49,7 @@ interface SPI(role)
         4 = _    // CS
     ]
 
-    role Master {  // SPI Master - Controls the bus
+    role MASTER {  // SPI Master - Controls the bus
         name = "SPI Master"
         pins = [
             out 1 = SCLK, "Serial Clock"         // Clock, driven by master
@@ -57,9 +57,9 @@ interface SPI(role)
             in 3 = MISO, "Master In Slave Out"  // Data from slave to master (my input)
             out 4 = CS, "Chip Select"            // Slave select
         ]
-        peer = Slave
+        peer = SLAVE
     }
-    role Slave {  // SPI Slave - Responds to master
+    role SLAVE {  // SPI Slave - Responds to master
         name = "SPI Slave"
         pins = [
             in 1 = SCLK, "Serial Clock"          // Clock, from master
@@ -67,7 +67,7 @@ interface SPI(role)
             out 3 = SO, "Slave Out (to Master)"   // Data from slave to master (my output)
             in 4 = CS, "Chip Select"             // Slave select
         ]
-        peer = Master
+        peer = MASTER
     }
 }
 
@@ -86,7 +86,7 @@ interface SPI.3(role)
     // 3-Wire SPI Standard Definition
     // Core Rule: Three-wire synchronous serial bus, high speed
     // SPI Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-    // Device Definition: Master = Controls the bus, Slave = Responds to master
+    // Device Definition: MASTER = Controls the bus, SLAVE = Responds to master
     // Modes: Supports 4 different clock polarity and phase combinations (Mode 0-3)
     // Note: Uses single bidirectional data line instead of separate MISO/MOSI
 
@@ -96,23 +96,23 @@ interface SPI.3(role)
         3 = SDA, "Serial Data"     // Bidirectional data line
     ]
 
-    role Master {  // SPI Master - Controls the bus
+    role MASTER {  // SPI Master - Controls the bus
         name = "SPI Master"
         pins = [
             out 1 = CS, "Chip Select"    // Slave select
             out 2 = SCLK, "Serial Clock" // Clock, driven by master
             io 3 = SDA, "Serial Data"    // Single bidirectional data line
         ]
-        peer = Slave
+        peer = SLAVE
     }
-    role Slave {  // SPI Slave - Responds to master
+    role SLAVE {  // SPI Slave - Responds to master
         name = "SPI Slave"
         pins = [
             in 1 = CS, "Chip Select"   // Slave select
             in 2 = SCLK, "Serial Clock" // Clock, from master
             io 3 = SDA, "Serial Data"   // Single bidirectional data line
         ]
-        peer = Master
+        peer = MASTER
     }
 }
 
@@ -142,7 +142,7 @@ interface SPI.QUAD(role)
         6 = IO3, "I/O 3"              // Bidirectional data line 3 (HOLD# in single mode)
     ]
 
-    role Master {  // QSPI Master (typically MCU/SoC)
+    role MASTER {  // QSPI Master (typically MCU/SoC)
         name = "QSPI Master"
         pins = [
             out 1 = CS, "Chip Select"    // Slave select
@@ -152,9 +152,9 @@ interface SPI.QUAD(role)
             io 5 = IO2, "I/O 2"          // Bidirectional data line 2
             io 6 = IO3, "I/O 3"          // Bidirectional data line 3
         ]
-        peer = Slave
+        peer = SLAVE
     }
-    role Slave {  // QSPI Slave (typically NOR Flash)
+    role SLAVE {  // QSPI Slave (typically NOR Flash)
         name = "QSPI Slave"
         pins = [
             in 1 = CS, "Chip Select"   // Slave select
@@ -164,6 +164,6 @@ interface SPI.QUAD(role)
             io 5 = IO2, "I/O 2"        // Bidirectional data line 2
             io 6 = IO3, "I/O 3"        // Bidirectional data line 3
         ]
-        peer = Master
+        peer = MASTER
     }
 }

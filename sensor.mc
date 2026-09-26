@@ -35,17 +35,17 @@ component SENSOR.TEMP(otype::STRING, range::STRING, acc::STRING)
     if output_type == "i2c"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3,4] = BUS::I2C(Slave)
+            [3,4] = BUS::I2C(SLAVE)
         ]
     else if output_type == "spi"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3:6] = BUS::SPI(Slave)
+            [3:6] = BUS::SPI(SLAVE)
         ]
     else
         pins = [
             [1,3] = [VCC, GND]::DC()
-            2 = AOUT::ADC.SINGLE(Transmitter)
+            2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
 component SENSOR.HUMIDITY(otype::STRING, range::STRING, acc::STRING)
@@ -59,17 +59,17 @@ component SENSOR.HUMIDITY(otype::STRING, range::STRING, acc::STRING)
     if output_type == "i2c"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3,4] = BUS::I2C(Slave)
+            [3,4] = BUS::I2C(SLAVE)
         ]
     else if output_type == "spi"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3:6] = BUS::SPI(Slave)
+            [3:6] = BUS::SPI(SLAVE)
         ]
     else
         pins = [
             [1,3] = [VCC, GND]::DC()
-            2 = AOUT::ADC.SINGLE(Transmitter)
+            2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
 component SENSOR.PRESSURE(otype::STRING, range::STRING, acc::STRING)
@@ -83,17 +83,17 @@ component SENSOR.PRESSURE(otype::STRING, range::STRING, acc::STRING)
     if output_type == "i2c"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3,4] = BUS::I2C(Slave)
+            [3,4] = BUS::I2C(SLAVE)
         ]
     else if output_type == "spi"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3:6] = BUS::SPI(Slave)
+            [3:6] = BUS::SPI(SLAVE)
         ]
     else
         pins = [
             [1,3] = [VCC, GND]::DC()
-            2 = AOUT::ADC.SINGLE(Transmitter)
+            2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
 component SENSOR.LIGHT(otype::STRING, range::STRING, sens::STRING)
@@ -107,17 +107,17 @@ component SENSOR.LIGHT(otype::STRING, range::STRING, sens::STRING)
     if output_type == "i2c"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3,4] = BUS::I2C(Slave)
+            [3,4] = BUS::I2C(SLAVE)
         ]
     else if output_type == "spi"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3:6] = BUS::SPI(Slave)
+            [3:6] = BUS::SPI(SLAVE)
         ]
     else
         pins = [
             [1,3] = [VCC, GND]::DC()
-            2 = AOUT::ADC.SINGLE(Transmitter)
+            2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
 component SENSOR.PROX(otype::STRING, range::STRING, rtime::UV.TIME)
@@ -131,17 +131,17 @@ component SENSOR.PROX(otype::STRING, range::STRING, rtime::UV.TIME)
     if output_type == "i2c"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3,4] = BUS::I2C(Slave)
+            [3,4] = BUS::I2C(SLAVE)
         ]
     else if output_type == "spi"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3:6] = BUS::SPI(Slave)
+            [3:6] = BUS::SPI(SLAVE)
         ]
     else
         pins = [
             [1,3] = [VCC, GND]::DC()
-            2 = AOUT::ADC.SINGLE(Transmitter)
+            2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
 component SENSOR.MOTION(otype::STRING, range::STRING, sens::STRING)
@@ -155,17 +155,17 @@ component SENSOR.MOTION(otype::STRING, range::STRING, sens::STRING)
     if output_type == "i2c"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3,4] = BUS::I2C(Slave)
+            [3,4] = BUS::I2C(SLAVE)
         ]
     else if output_type == "spi"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3:6] = BUS::SPI(Slave)
+            [3:6] = BUS::SPI(SLAVE)
         ]
     else
         pins = [
             [1,3] = [VCC, GND]::DC()
-            2 = AOUT::ADC.SINGLE(Transmitter)
+            2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
 component SENSOR.GAS(otype::STRING, gas::STRING, sens::STRING)
@@ -180,19 +180,19 @@ component SENSOR.GAS(otype::STRING, gas::STRING, sens::STRING)
         pins = [
             [1,2] = [VCC, GND]::DC()
             3 = HEATER
-            [4,5] = BUS::I2C(Slave)
+            [4,5] = BUS::I2C(SLAVE)
         ]
     else if output_type == "spi"
         pins = [
             [1,2] = [VCC, GND]::DC()
             3 = HEATER
-            [4:7] = BUS::SPI(Slave)
+            [4:7] = BUS::SPI(SLAVE)
         ]
     else
         pins = [
             [1,4] = [VCC, GND]::DC()
             2 = HEATER
-            3 = AOUT::ADC.SINGLE(Transmitter)
+            3 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
 component SENSOR.ACCEL(otype::STRING, range::STRING, sens::STRING)
@@ -206,19 +206,19 @@ component SENSOR.ACCEL(otype::STRING, range::STRING, sens::STRING)
     if output_type == "i2c"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3,4] = BUS::I2C(Slave)
+            [3,4] = BUS::I2C(SLAVE)
         ]
     else if output_type == "spi"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3:6] = BUS::SPI(Slave)
+            [3:6] = BUS::SPI(SLAVE)
         ]
     else
         pins = [
             [1,5] = [VCC, GND]::DC()
-            2 = AOUTX::ADC.SINGLE(Transmitter)
-            3 = AOUTY::ADC.SINGLE(Transmitter)
-            4 = AOUTZ::ADC.SINGLE(Transmitter)
+            2 = AOUTX::ADC.SINGLE(TRANSMITTER)
+            3 = AOUTY::ADC.SINGLE(TRANSMITTER)
+            4 = AOUTZ::ADC.SINGLE(TRANSMITTER)
         ]
 }
 component SENSOR.GYRO(otype::STRING, range::STRING, sens::STRING)
@@ -232,19 +232,19 @@ component SENSOR.GYRO(otype::STRING, range::STRING, sens::STRING)
     if output_type == "i2c"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3,4] = BUS::I2C(Slave)
+            [3,4] = BUS::I2C(SLAVE)
         ]
     else if output_type == "spi"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3:6] = BUS::SPI(Slave)
+            [3:6] = BUS::SPI(SLAVE)
         ]
     else
         pins = [
             [1,5] = [VCC, GND]::DC()
-            2 = AOUTX::ADC.SINGLE(Transmitter)
-            3 = AOUTY::ADC.SINGLE(Transmitter)
-            4 = AOUTZ::ADC.SINGLE(Transmitter)
+            2 = AOUTX::ADC.SINGLE(TRANSMITTER)
+            3 = AOUTY::ADC.SINGLE(TRANSMITTER)
+            4 = AOUTZ::ADC.SINGLE(TRANSMITTER)
         ]
 }
 component SENSOR.MAG(otype::STRING, range::STRING, sens::STRING)
@@ -258,19 +258,19 @@ component SENSOR.MAG(otype::STRING, range::STRING, sens::STRING)
     if output_type == "i2c"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3,4] = BUS::I2C(Slave)
+            [3,4] = BUS::I2C(SLAVE)
         ]
     else if output_type == "spi"
         pins = [
             [1,2] = [VCC, GND]::DC()
-            [3:6] = BUS::SPI(Slave)
+            [3:6] = BUS::SPI(SLAVE)
         ]
     else
         pins = [
             [1,5] = [VCC, GND]::DC()
-            2 = AOUTX::ADC.SINGLE(Transmitter)
-            3 = AOUTY::ADC.SINGLE(Transmitter)
-            4 = AOUTZ::ADC.SINGLE(Transmitter)
+            2 = AOUTX::ADC.SINGLE(TRANSMITTER)
+            3 = AOUTY::ADC.SINGLE(TRANSMITTER)
+            4 = AOUTZ::ADC.SINGLE(TRANSMITTER)
         ]
 }
 

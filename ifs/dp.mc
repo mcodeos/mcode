@@ -42,7 +42,7 @@ interface DP(role)
         11 = HPD, "Hot plug detect"
     ]
 
-    role Source {
+    role SOURCE {
         name = "DP Source"
         pins = [
             out 1 = ML0_P, "Main link lane 0 positive"  // The source drives the main link
@@ -57,9 +57,9 @@ interface DP(role)
             io 10 = AUX_N, "Auxiliary channel negative"
             in 11 = HPD, "Hot plug detect"               // The sink drives HPD
         ]
-        peer = Sink
+        peer = SINK
     }
-    role Sink {
+    role SINK {
         name = "DP Sink"
         pins = [
             in 1 = ML0_P, "Main link lane 0 positive"    // The sink receives the main link
@@ -74,6 +74,6 @@ interface DP(role)
             io 10 = AUX_N, "Auxiliary channel negative"
             out 11 = HPD, "Hot plug detect"              // The sink asserts hot plug
         ]
-        peer = Source
+        peer = SOURCE
     }
 }

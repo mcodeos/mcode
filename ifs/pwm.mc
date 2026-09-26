@@ -15,13 +15,13 @@
 // PWM (Pulse Width Modulation) Standard Definition
 // Core Rule: Digital signal with adjustable duty cycle
 // PWM Level Spec: High = VCC, Low = GND
-// Device Definition: Transmitter = PWM source (MCU timer output, driver IC),
-//                    Receiver = PWM sink (motor driver input, LED, MOSFET gate)
+// Device Definition: TRANSMITTER = PWM source (MCU timer output, driver IC),
+//                    RECEIVER = PWM sink (motor driver input, LED, MOSFET gate)
 // Applications: Motor speed control, LED dimming, servo position control
 //
 // A PWM channel is a single pin: one instance per channel.
-//   PWM0::PWM(Transmitter)      -> one PWM channel
-//   PWM0[1:4]::PWM(Transmitter) -> members PWM0.1 .. PWM0.4, one pin each
+//   PWM0::PWM(TRANSMITTER)      -> one PWM channel
+//   PWM0[1:4]::PWM(TRANSMITTER) -> members PWM0.1 .. PWM0.4, one pin each
 interface PWM(role)
 {
     topology = "point to point"
@@ -37,19 +37,19 @@ interface PWM(role)
         1 = _ @drive(pp)
     ]
 
-    role Transmitter {  // PWM source: MCU timer output, driver IC
+    role TRANSMITTER {  // PWM source: MCU timer output, driver IC
         name = "PWM Transmitter"
         pins = [
             out 1 = _ @drive(pp)  // The source drives the channel
         ]
-        peer = Receiver
+        peer = RECEIVER
     }
 
-    role Receiver {  // PWM sink: motor driver input, LED, MOSFET gate
+    role RECEIVER {  // PWM sink: motor driver input, LED, MOSFET gate
         name = "PWM Receiver"
         pins = [
             in 1 = _ @drive(pp)   // The sink reads it
         ]
-        peer = Transmitter
+        peer = TRANSMITTER
     }
 }

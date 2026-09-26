@@ -284,7 +284,7 @@ interface UART.RS422(role)
     // EIA-RS-422 Standard Definition
     // Core Rule: Balanced differential signaling for noise immunity, multi-point capability (1 transmitter, multiple receivers)
     // RS422 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: Transmitter = drives the A/B pair, Receiver = receives it
+    // Device Definition: TRANSMITTER = drives the A/B pair, RECEIVER = receives it
     // Variant note: the 2-wire variant (A/B only, no GND) is UART.RS422.2 — the
     // variants share a name family, not a conductor view (conductor-view-design.md R-CV3)
 
@@ -297,25 +297,25 @@ interface UART.RS422(role)
     ]
 
     // -------------------------- RS422 Transmitter --------------------------
-    role Transmitter {  // Sends balanced differential signals
+    role TRANSMITTER {  // Sends balanced differential signals
         name = "RS422 Transmitter"
         pins = [
             out 1 = A @pair(ab), "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
             out 2 = B @pair(ab), "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                                    // Signal reference ground
         ]
-        peer = Receiver  // Paired with RS422 Receiver
+        peer = RECEIVER  // Paired with RS422 Receiver
     }
 
     // -------------------------- RS422 Receiver --------------------------
-    role Receiver {  // Receives balanced differential signals
+    role RECEIVER {  // Receives balanced differential signals
         name = "RS422 Receiver"
         pins = [
             in 1 = A @pair(ab), "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
             in 2 = B @pair(ab), "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                                   // Signal reference ground
         ]
-        peer = Transmitter  // Paired with RS422 Transmitter
+        peer = TRANSMITTER  // Paired with RS422 Transmitter
     }
 }
 
@@ -331,7 +331,7 @@ interface UART.RS422.2(role)
     // EIA-RS-422 Standard Definition - 2-Wire variant (A/B only, no GND), same-cabinet use
     // Core Rule: Balanced differential signaling for noise immunity, multi-point capability (1 transmitter, multiple receivers)
     // RS422 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: Transmitter = drives the A/B pair, Receiver = receives it
+    // Device Definition: TRANSMITTER = drives the A/B pair, RECEIVER = receives it
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
@@ -340,22 +340,22 @@ interface UART.RS422.2(role)
         2 = _    // B
     ]
 
-    role Transmitter {  // Sends balanced differential signals
+    role TRANSMITTER {  // Sends balanced differential signals
         name = "RS422.2 Transmitter"
         pins = [
             out 1 = A @pair(ab), "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
             out 2 = B @pair(ab), "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
-        peer = Receiver
+        peer = RECEIVER
     }
 
-    role Receiver {  // Receives balanced differential signals
+    role RECEIVER {  // Receives balanced differential signals
         name = "RS422.2 Receiver"
         pins = [
             in 1 = A @pair(ab), "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
             in 2 = B @pair(ab), "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
-        peer = Transmitter
+        peer = TRANSMITTER
     }
 }
 
@@ -517,7 +517,7 @@ interface UART.RS485.3(role)
     // EIA/TI-RS-485 Standard Definition
     // Core Rule: Multi-point balanced differential signaling, supports multiple nodes on a single bus
     // RS485 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: Master = Controls the bus, Slave = Responds to master
+    // Device Definition: MASTER = Controls the bus, SLAVE = Responds to master
     // Bus Configuration: 1 master, multiple slaves (up to 32 nodes)
     // Variant note: the common 2-wire variant (A/B only, no GND) is the base
     // family name UART.RS485; this 3-wire member (A/B + GND) is UART.RS485.3 — the
@@ -532,25 +532,25 @@ interface UART.RS485.3(role)
     ]
 
     // -------------------------- RS485 Master --------------------------
-    role Master {  // RS485 Master - Controls the bus
+    role MASTER {  // RS485 Master - Controls the bus
         name = "RS485 Master"
         pins = [
             io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
             io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                           // Signal reference ground
         ]
-        peer = Slave  // Paired with RS485 Slave
+        peer = SLAVE  // Paired with RS485 Slave
     }
 
     // -------------------------- RS485 Slave --------------------------
-    role Slave {  // RS485 Slave - Responds to master
+    role SLAVE {  // RS485 Slave - Responds to master
         name = "RS485 Slave"
         pins = [
             io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
             io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                           // Signal reference ground
         ]
-        peer = Master  // Paired with RS485 Master
+        peer = MASTER  // Paired with RS485 Master
     }
 }
 
@@ -568,7 +568,7 @@ interface UART.RS485(role)
     // 3-wire member (A/B + GND) is UART.RS485.3.
     // Core Rule: Multi-point balanced differential signaling, supports multiple nodes on a single bus
     // RS485 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: Master = Controls the bus, Slave = Responds to master
+    // Device Definition: MASTER = Controls the bus, SLAVE = Responds to master
     // Bus Configuration: 1 master, multiple slaves (up to 32 nodes)
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
@@ -578,21 +578,21 @@ interface UART.RS485(role)
         2 = _    // B
     ]
 
-    role Master {  // RS485 Master - Controls the bus
+    role MASTER {  // RS485 Master - Controls the bus
         name = "RS485 Master"
         pins = [
             io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
             io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
-        peer = Slave
+        peer = SLAVE
     }
 
-    role Slave {  // RS485 Slave - Responds to master
+    role SLAVE {  // RS485 Slave - Responds to master
         name = "RS485 Slave"
         pins = [
             io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
             io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
-        peer = Master
+        peer = MASTER
     }
 }

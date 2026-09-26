@@ -41,7 +41,7 @@ interface LVDS(role)
         10 = D3_N, "Data pair 3 negative"
     ]
 
-    role Driver {
+    role DRIVER {
         name = "LVDS Driver"
         pins = [
             out 1 = CLK_P, "Differential clock positive"  // The serializer drives every pair
@@ -55,9 +55,9 @@ interface LVDS(role)
             out 9 = D3_P, "Data pair 3 positive"
             out 10 = D3_N, "Data pair 3 negative"
         ]
-        peer = Receiver
+        peer = RECEIVER
     }
-    role Receiver {
+    role RECEIVER {
         name = "LVDS Receiver"
         pins = [
             in 1 = CLK_P, "Differential clock positive"   // The deserializer samples them
@@ -71,6 +71,6 @@ interface LVDS(role)
             in 9 = D3_P, "Data pair 3 positive"
             in 10 = D3_N, "Data pair 3 negative"
         ]
-        peer = Driver
+        peer = DRIVER
     }
 }

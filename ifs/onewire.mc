@@ -15,13 +15,13 @@
 // 1-Wire Standard Definition
 // Core Rule: Single wire communication with parasitic power
 // 1-Wire Level Spec: High = VCC (Logic 1), Low = GND (Logic 0)
-// Device Definition: Master = Initiates communication, Slave = Responds to master
+// Device Definition: MASTER = Initiates communication, SLAVE = Responds to master
 // Applications: Temperature sensors (DS18B20), EEPROM, iButton
 //
 // A 1-Wire bus tap is a single pin (the anonymous data line, DQ in the
 // datasheets): one instance per bus.
-//   OW0::ONEWIRE(Master)      -> one bus tap
-//   OW0[1:2]::ONEWIRE(Master) -> members OW0.1, OW0.2, one pin each
+//   OW0::ONEWIRE(MASTER)      -> one bus tap
+//   OW0[1:2]::ONEWIRE(MASTER) -> members OW0.1, OW0.2, one pin each
 interface ONEWIRE(role)
 {
     topology = "multi-point"
@@ -37,13 +37,13 @@ interface ONEWIRE(role)
         1 = _ @drive(od)
     ]
 
-    role Master {
+    role MASTER {
         name = "1-Wire Master"
-        peer = Slave
+        peer = SLAVE
     }
 
-    role Slave {
+    role SLAVE {
         name = "1-Wire Slave"
-        peer = Master
+        peer = MASTER
     }
 }

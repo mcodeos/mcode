@@ -41,20 +41,20 @@ interface AMP.BTL(role)
         2 = N @class(analog) @pair(p), "Negative BTL Output"   // Anti-phase bridge leg
     ]
 
-    role Transmitter {  // AMP.BTL Transmitter - Amplifier BTL output stage
+    role TRANSMITTER {  // AMP.BTL Transmitter - Amplifier BTL output stage
         name = "AMP.BTL Transmitter"
         pins = [
             out 1 = P @class(analog) @pair(p), "Positive BTL Output"  // The amplifier drives both legs
             out 2 = N @class(analog) @pair(p), "Negative BTL Output"
         ]
-        peer = Receiver
+        peer = RECEIVER
     }
-    role Receiver {  // AMP.BTL Receiver - Speaker or other passive load
+    role RECEIVER {  // AMP.BTL Receiver - Speaker or other passive load
         name = "AMP.BTL Receiver"
         pins = [
             in 1 = P @class(analog) @pair(p), "Positive BTL Output"   // The load floats across the pair
             in 2 = N @class(analog) @pair(p), "Negative BTL Output"
         ]
-        peer = Transmitter
+        peer = TRANSMITTER
     }
 }

@@ -41,20 +41,20 @@ interface ADC.DIFF(role)
         2 = N @class(analog) @pair(p), "Negative Input"   // Negative differential input
     ]
     
-    role Transmitter {  // ADC.DIFF Transmitter - Sensor or signal source
+    role TRANSMITTER {  // ADC.DIFF Transmitter - Sensor or signal source
         name = "ADC.DIFF Transmitter"
         pins = [
             out 1 = P @class(analog) @pair(p), "Positive Input"   // The source drives the pair
             out 2 = N @class(analog) @pair(p), "Negative Input"
         ]
-        peer = Receiver
+        peer = RECEIVER
     }
-    role Receiver {  // ADC.DIFF Receiver - ADC converter
+    role RECEIVER {  // ADC.DIFF Receiver - ADC converter
         name = "ADC.DIFF Receiver"
         pins = [
             in 1 = P @class(analog) @pair(p), "Positive Input"    // The converter samples the pair
             in 2 = N @class(analog) @pair(p), "Negative Input"
         ]
-        peer = Transmitter
+        peer = TRANSMITTER
     }
 }

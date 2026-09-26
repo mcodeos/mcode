@@ -24,7 +24,7 @@ interface I2C(role)
     // I2C (Inter-Integrated Circuit) Standard Definition
     // Core Rule: Two-wire serial bus, supports multiple devices with unique addresses
     // I2C Level Spec: High = VCC (Logic 1), Low = GND (Logic 0) - open drain with pullups
-    // Device Definition: Master = Initiates communication, Slave = Responds to master
+    // Device Definition: MASTER = Initiates communication, SLAVE = Responds to master
     // Addressing: 7-bit or 10-bit device addresses
 
     // @drive(od): the I2C bus is open-drain with external pullups — every node
@@ -35,21 +35,21 @@ interface I2C(role)
         2 = SDA @drive(od), "Serial Data"  // Bi-directional data signal
     ]
     
-    role Master {  // I2C Master - Initiates communication
+    role MASTER {  // I2C Master - Initiates communication
         name = "I2C Master"
         pins = [
             out 1 = SCL @drive(od), "Serial Clock"  // The master sources the clock
             io 2 = SDA @drive(od), "Serial Data"    // Either side drives the data line
         ]
-        peer = Slave
+        peer = SLAVE
     }
-    role Slave {  // I2C Slave - Responds to master
+    role SLAVE {  // I2C Slave - Responds to master
         name = "I2C Slave"
         pins = [
             in 1 = SCL @drive(od), "Serial Clock"  // Clock stretching holds SCL low; the master stays the clock source
             io 2 = SDA @drive(od), "Serial Data"   // Either side drives the data line
         ]
-        peer = Master
+        peer = MASTER
     }
 }
 
@@ -80,22 +80,22 @@ interface I2C.SMBUS(role)
         3 = ALERT @drive(od), "SMBus Alert"  // Optional interrupt / alert line
     ]
 
-    role Host {  // SMBus Host - Initiates communication
+    role HOST {  // SMBus Host - Initiates communication
         name = "SMBus Host"
         pins = [
             out 1 = SCL @drive(od), "Serial Clock"  // The host sources the clock
             io 2 = SDA @drive(od), "Serial Data"    // Either side drives the data line
             in 3 = ALERT @drive(od), "SMBus Alert"  // Slaves pull ALERT low to request attention
         ]
-        peer = Slave
+        peer = SLAVE
     }
-    role Slave {  // SMBus Slave - Responds to host
+    role SLAVE {  // SMBus Slave - Responds to host
         name = "SMBus Slave"
         pins = [
             in 1 = SCL @drive(od), "Serial Clock"  // Clock stretching holds SCL low; the host stays the clock source
             io 2 = SDA @drive(od), "Serial Data"   // Either side drives the data line
             out 3 = ALERT @drive(od), "SMBus Alert"  // The slave asserts ALERT
         ]
-        peer = Host
+        peer = HOST
     }
 }

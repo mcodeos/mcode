@@ -35,7 +35,7 @@ interface FLEXRAY(role)
         5 = GND, "Ground"                  // Signal reference ground
     ]
     
-    role Node {
+    role NODE {
         name = "FlexRay Node"
         pins = [
             io 1 = CH_A\+, "Channel A Positive"  // TDMA time-share: a node drives its own slot
@@ -44,6 +44,6 @@ interface FLEXRAY(role)
             io 4 = CH_B\-, "Channel B Negative"
             5 = GND, "Ground"                    // Signal reference ground
         ]
-        peer = Node
+        peer = NODE
     }
 }
