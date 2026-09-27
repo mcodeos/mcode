@@ -49,8 +49,8 @@ component XTAL2(freq::UV.HZ, cload::UV.CAP)
     // judgment they belong to the peer Oscillator side.
     func Setup(gnd)
     {
-        [XTAL.X1, gnd] => CAP(cload).Cap(_)
-        [XTAL.X2, gnd] => CAP(cload).Cap(_)
+        XTAL.X1 - CAP(cload) - gnd
+        XTAL.X2 - CAP(cload) - gnd
         return XTAL{X1,X2}
     }
 }
@@ -72,8 +72,8 @@ component XTAL4(freq::UV.HZ, cload::UV.CAP)
 
     func Setup(gnd)
     {
-        [XTAL.X1, gnd] => CAP(cload).Cap(_)
-        [XTAL.X2, gnd] => CAP(cload).Cap(_)
+        XTAL.X1 - CAP(cload) - gnd
+        XTAL.X2 - CAP(cload) - gnd
         return XTAL{X1,X2}
     }
 }
