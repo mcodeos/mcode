@@ -21,13 +21,22 @@
 // =============================================================================
 // Generic 2-pin fixed resistor (allow direct instantiation)
 // =============================================================================
+recipe PullTie
+{
+    func Pull([node, supply])
+    {
+        node - this.1
+        supply - this.2
+    }
+}
+
 component RES(
     rs::UV.OHM,
     volt::UV.VOLT,
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-)
+) :: PullTie
 {
     name = "Resistor"
     description = "Generic resistor"
