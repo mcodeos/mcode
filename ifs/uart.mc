@@ -40,7 +40,10 @@ interface UART.TTL(role)
         2 = _    // RX <-> TX
     ]
 
-    // DCE Roles for different voltage levels
+    // DCE role: cross-connects to DTE. Level windows are device truth — they
+    // belong on the component's own pin rows (or a protocol-fixed row like
+    // RS-232), and ERC judges them per net (E4124); the role name stays
+    // level-free.
     role DCE {
         name = "UART.TTL DCE"
         pins = [
@@ -49,71 +52,15 @@ interface UART.TTL(role)
         ]
         peer = DTE(1)
     }
-    
-    // DCE Roles for different voltage levels
-    role DCE_1V8 {  // UART.TTL DCE - 1.8V Data Communications Equipment
-        name = "UART.TTL DCE 1.8V"
-        pins = [
-            out 1 = TX, "Transmit", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DTE_1V8 RX
-            in 2 = RX, "Receive", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DTE_1V8 TX
-        ]
-        peer = DTE_1V8(1)
-    }
-    
-    role DCE_3V3 {  // UART.TTL DCE - 3.3V Data Communications Equipment
-        name = "UART.TTL DCE 3.3V"
-        pins = [
-            out 1 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DTE_3V3 RX
-            in 2 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DTE_3V3 TX
-        ]
-        peer = DTE_3V3(1)
-    }
-    
-    role DCE_5V {  // UART.TTL DCE - 5V Data Communications Equipment
-        name = "UART.TTL DCE 5V"
-        pins = [
-            out 1 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DTE_5V RX
-            in 2 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DTE_5V TX
-        ]
-        peer = DTE_5V(1)
-    }
-    
-    // DTE Roles for different voltage levels
+
+    // DTE role: cross-connects to DCE (level judging per pin row, see DCE).
     role DTE {
         name = "UART.TTL DTE"
-        pins = [ 
+        pins = [
             in 1 = RX, "Receive"           // Cross-connect to DCE TX
             out 2 = TX, "Transmit"          // Cross-connect to DCE RX
         ]
         peer = DCE(1)
-    }
-    
-    // DTE Roles for different voltage levels
-    role DTE_1V8 {  // UART.TTL DTE - 1.8V Data Terminal Equipment
-        name = "UART.TTL DTE 1.8V"
-        pins = [ 
-            in 1 = RX, "Receive", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DCE_1V8 TX
-            out 2 = TX, "Transmit", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DCE_1V8 RX
-        ]
-        peer = DCE_1V8(1)
-    }
-    
-    role DTE_3V3 {  // UART.TTL DTE - 3.3V Data Terminal Equipment
-        name = "UART.TTL DTE 3.3V"
-        pins = [ 
-            in 1 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DCE_3V3 TX
-            out 2 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DCE_3V3 RX
-        ]
-        peer = DCE_3V3(1)
-    }
-    
-    role DTE_5V {  // UART.TTL DTE - 5V Data Terminal Equipment
-        name = "UART.TTL DTE 5V"
-        pins = [ 
-            in 1 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DCE_5V TX
-            out 2 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DCE_5V RX
-        ]
-        peer = DCE_5V(1)
     }
 
     // Relay face (iface-peer-cardinality-design.md §4): the cable's conductor
