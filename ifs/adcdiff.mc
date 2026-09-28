@@ -47,8 +47,7 @@ interface ADC.DIFF(role)
             out 1 = P @class(analog) @pair(p), "Positive Input"   // The source drives the pair
             out 2 = N @class(analog) @pair(p), "Negative Input"
         ]
-        peer = RECEIVER
-        exclusive = true
+        peer = RECEIVER(1)
     }
     role RECEIVER {  // ADC.DIFF Receiver - ADC converter
         name = "ADC.DIFF Receiver"
@@ -56,7 +55,6 @@ interface ADC.DIFF(role)
             in 1 = P @class(analog) @pair(p), "Positive Input"    // The converter samples the pair
             in 2 = N @class(analog) @pair(p), "Negative Input"
         ]
-        peer = TRANSMITTER
-        exclusive = true
+        peer = TRANSMITTER(1)
     }
 }

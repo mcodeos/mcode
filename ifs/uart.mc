@@ -47,8 +47,7 @@ interface UART.TTL(role)
             out 1 = TX, "Transmit"  // Cross-connect to DTE RX
             in 2 = RX, "Receive"   // Cross-connect to DTE TX
         ]
-        peer = DTE
-        exclusive = true
+        peer = DTE(1)
     }
     
     // DCE Roles for different voltage levels
@@ -58,8 +57,7 @@ interface UART.TTL(role)
             out 1 = TX, "Transmit", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DTE_1V8 RX
             in 2 = RX, "Receive", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DTE_1V8 TX
         ]
-        peer = DTE_1V8
-        exclusive = true
+        peer = DTE_1V8(1)
     }
     
     role DCE_3V3 {  // UART.TTL DCE - 3.3V Data Communications Equipment
@@ -68,8 +66,7 @@ interface UART.TTL(role)
             out 1 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DTE_3V3 RX
             in 2 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DTE_3V3 TX
         ]
-        peer = DTE_3V3
-        exclusive = true
+        peer = DTE_3V3(1)
     }
     
     role DCE_5V {  // UART.TTL DCE - 5V Data Communications Equipment
@@ -78,8 +75,7 @@ interface UART.TTL(role)
             out 1 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DTE_5V RX
             in 2 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DTE_5V TX
         ]
-        peer = DTE_5V
-        exclusive = true
+        peer = DTE_5V(1)
     }
     
     // DTE Roles for different voltage levels
@@ -89,8 +85,7 @@ interface UART.TTL(role)
             in 1 = RX, "Receive"           // Cross-connect to DCE TX
             out 2 = TX, "Transmit"          // Cross-connect to DCE RX
         ]
-        peer = DCE
-        exclusive = true
+        peer = DCE(1)
     }
     
     // DTE Roles for different voltage levels
@@ -100,8 +95,7 @@ interface UART.TTL(role)
             in 1 = RX, "Receive", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DCE_1V8 TX
             out 2 = TX, "Transmit", voltage:[low:0V ~ 0.4V, high:1.2V ~ 1.8V]  // Cross-connect to DCE_1V8 RX
         ]
-        peer = DCE_1V8
-        exclusive = true
+        peer = DCE_1V8(1)
     }
     
     role DTE_3V3 {  // UART.TTL DTE - 3.3V Data Terminal Equipment
@@ -110,8 +104,7 @@ interface UART.TTL(role)
             in 1 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DCE_3V3 TX
             out 2 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 3.3V]  // Cross-connect to DCE_3V3 RX
         ]
-        peer = DCE_3V3
-        exclusive = true
+        peer = DCE_3V3(1)
     }
     
     role DTE_5V {  // UART.TTL DTE - 5V Data Terminal Equipment
@@ -120,8 +113,7 @@ interface UART.TTL(role)
             in 1 = RX, "Receive", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DCE_5V TX
             out 2 = TX, "Transmit", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Cross-connect to DCE_5V RX
         ]
-        peer = DCE_5V
-        exclusive = true
+        peer = DCE_5V(1)
     }
 }
 
@@ -156,8 +148,7 @@ interface UART.RS232.3(role)
             out 2 = TXD, "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V] // Cross-connect to DTE Pin2 RXD
             3 = GND, "Signal Ground"                                    // Direct connect to DTE Pin3 GND, signal reference ground
         ]
-        peer = DTE  // Paired with terminal device DTE
-        exclusive = true
+        peer = DTE(1)  // Paired with terminal device DTE
     }
 
     role DTE {  // RS232.3 DTE - basic TX/RX function only
@@ -167,8 +158,7 @@ interface UART.RS232.3(role)
             in 2 = RXD, "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]  // Cross-connect to DCE Pin2 TXD
             3 = GND, "Signal Ground"                                    // Direct connect to DCE Pin3 GND, signal reference ground
         ]
-        peer = DCE  // Paired with communication device DCE
-        exclusive = true
+        peer = DCE(1)  // Paired with communication device DCE
     }
 }
 
@@ -205,8 +195,7 @@ interface UART.RS232.5(role)
             in 4 = RTS, "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]      // Cross-connect to DTE Pin4 CTS, hardware flow control
             out 5 = CTS, "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DTE Pin5 RTS, hardware flow control
         ]
-        peer = DTE  // Paired with terminal device DTE
-        exclusive = true
+        peer = DTE(1)  // Paired with terminal device DTE
     }
 
     role DTE {  // RS232.5 DTE - TX/RX + RTS/CTS hardware flow control
@@ -218,8 +207,7 @@ interface UART.RS232.5(role)
             in 4 = CTS, "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DCE Pin4 RTS, hardware flow control
             out 5 = RTS, "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]      // Cross-connect to DCE Pin5 CTS, hardware flow control
         ]
-        peer = DCE  // Paired with communication device DCE
-        exclusive = true
+        peer = DCE(1)  // Paired with communication device DCE
     }
 }
 
@@ -264,8 +252,7 @@ interface UART.RS232.9(role)
             out 8 = CTS,  "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]         // Cross-connect to DTE Pin8 RTS, hardware flow control
             out 9 = RI,   "Ring Indicator", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Direct connect to DTE Pin9 RI, status indicator
         ]
-        peer = DTE  // Paired with terminal device DTE
-        exclusive = true
+        peer = DTE(1)  // Paired with terminal device DTE
     }
 
     role DTE {  // RS232.9 DTE - EIA-RS-232C full function
@@ -281,8 +268,7 @@ interface UART.RS232.9(role)
             out 8 = RTS,  "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DCE Pin8 CTS, hardware flow control
             in 9 = RI,   "Ring Indicator", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Direct connect to DCE Pin9 RI, status indicator
         ]
-        peer = DCE  // Paired with communication device DCE
-        exclusive = true
+        peer = DCE(1)  // Paired with communication device DCE
     }
 }
 
@@ -407,8 +393,7 @@ interface UART.RS423(role)
             in 4 = RTS, "Request to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Cross-connect to DTE CTS
             out 5 = CTS, "Clear to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DTE RTS
         ]
-        peer = DTE  // Paired with RS423 DTE
-        exclusive = true
+        peer = DTE(1)  // Paired with RS423 DTE
     }
 
     // -------------------------- RS423 DTE --------------------------
@@ -421,8 +406,7 @@ interface UART.RS423(role)
             in 4 = CTS, "Clear to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DCE RTS
             out 5 = RTS, "Request to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Cross-connect to DCE CTS
         ]
-        peer = DCE  // Paired with RS423 DCE
-        exclusive = true
+        peer = DCE(1)  // Paired with RS423 DCE
     }
 }
 
@@ -490,8 +474,7 @@ interface UART.RS449(role)
             out 15 = DR2, "Data Ready 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]        // Cross-connect to DTE CD2
             out 16 = CD2, "Carrier Detect 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]    // Cross-connect to DTE DR2
         ]
-        peer = DTE  // Paired with RS449 DTE
-        exclusive = true
+        peer = DTE(1)  // Paired with RS449 DTE
     }
 
     // -------------------------- RS449 DTE --------------------------
@@ -518,8 +501,7 @@ interface UART.RS449(role)
             in 15 = CD2, "Carrier Detect 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]    // Cross-connect to DCE DR2
             out 16 = DR2, "Data Ready 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]        // Cross-connect to DCE CD2
         ]
-        peer = DCE  // Paired with RS449 DCE
-        exclusive = true
+        peer = DCE(1)  // Paired with RS449 DCE
     }
 }
 

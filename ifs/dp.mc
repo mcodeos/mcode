@@ -57,8 +57,7 @@ interface DP(role)
             io 10 = AUX_N, "Auxiliary channel negative"
             in 11 = HPD, "Hot plug detect"               // The sink drives HPD
         ]
-        peer = SINK
-        exclusive = true
+        peer = SINK(1)
     }
     role SINK {
         name = "DP Sink"
@@ -75,7 +74,6 @@ interface DP(role)
             io 10 = AUX_N, "Auxiliary channel negative"
             out 11 = HPD, "Hot plug detect"              // The sink asserts hot plug
         ]
-        peer = SOURCE
-        exclusive = true
+        peer = SOURCE(1)
     }
 }

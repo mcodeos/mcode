@@ -44,8 +44,7 @@ interface USB(role)
             [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -53,8 +52,7 @@ interface USB(role)
             [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -86,8 +84,7 @@ interface USB.TYPEA(role)
             [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -95,8 +92,7 @@ interface USB.TYPEA(role)
             [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -124,8 +120,7 @@ interface USB.TYPEB(role)
             [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -133,8 +128,7 @@ interface USB.TYPEB(role)
             [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -164,8 +158,7 @@ interface USB.MINIB(role)
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
             in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -174,8 +167,7 @@ interface USB.MINIB(role)
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
             in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -205,8 +197,7 @@ interface USB.MICROB(role)
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
             in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -215,8 +206,7 @@ interface USB.MICROB(role)
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
             in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -262,8 +252,7 @@ interface USB3.TYPEA(role)
             out 8 = SSTX\-, "SuperSpeed TX Negative"  // and transmits on SSTX
             out 9 = SSTX\+, "SuperSpeed TX Positive"
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -276,8 +265,7 @@ interface USB3.TYPEA(role)
             in 8 = SSTX\-, "SuperSpeed TX Negative"  // and reads what the host sends
             in 9 = SSTX\+, "SuperSpeed TX Positive"
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -319,8 +307,7 @@ interface USB3.TYPEB(role)
             out 8 = SSRX\-, "SuperSpeed RX Negative"  // The host answers on SSRX
             out 9 = SSRX\+, "SuperSpeed RX Positive"
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -333,8 +320,7 @@ interface USB3.TYPEB(role)
             in 8 = SSRX\-, "SuperSpeed RX Negative"  // and reads what the host sends
             in 9 = SSRX\+, "SuperSpeed RX Positive"
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -378,8 +364,7 @@ interface USB3.MICROB(role)
             out 9 = SSRX\-, "SuperSpeed RX Negative"  // The host answers on SSRX
             out 10 = SSRX\+, "SuperSpeed RX Positive"
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -393,8 +378,7 @@ interface USB3.MICROB(role)
             in 9 = SSRX\-, "SuperSpeed RX Negative"  // and reads what the host sends
             in 10 = SSRX\+, "SuperSpeed RX Positive"
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -485,8 +469,7 @@ interface USB.C(role)
             out B11 = SSTX2\-, "SuperSpeed TX2 Negative"  // host view
             B12 = GND, "Ground"
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -516,8 +499,7 @@ interface USB.C(role)
             in B11 = SSTX2\-, "SuperSpeed TX2 Negative"  // device view
             B12 = GND, "Ground"
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -547,8 +529,7 @@ interface USB.DATA(role)
             io 1 = D\+ @pair(d), "Data Positive"     // Half duplex: either side drives
             io 2 = D\- @pair(d), "Data Negative"
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -556,8 +537,7 @@ interface USB.DATA(role)
             io 1 = D\+ @pair(d), "Data Positive"     // Half duplex: either side drives
             io 2 = D\- @pair(d), "Data Negative"
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -589,8 +569,7 @@ interface USB3.TX(role)
             out 1 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"  // The transmit end drives
             out 2 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -598,8 +577,7 @@ interface USB3.TX(role)
             in 1 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"  // The peer end reads
             in 2 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }
@@ -630,8 +608,7 @@ interface USB3.RX(role)
             in 1 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"  // The receive end reads
             in 2 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
         ]
-        peer = DEVICE
-        exclusive = true
+        peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
@@ -639,8 +616,7 @@ interface USB3.RX(role)
             out 1 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"  // The transmit end drives
             out 2 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 
 }

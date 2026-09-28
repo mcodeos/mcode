@@ -29,7 +29,7 @@ consumes = ["spec:frequency"]
 missing = ["esr", "cm", "c0"]
 assumptions = ["linear", "nominal-only"]
 notes = [
-    "one Resonator body pairs exactly one Oscillator across both terminals (exclusive = true, ERC 6054)",
+    "one Resonator body pairs exactly one Oscillator across both terminals (peer = ROLE(1), ERC 6054)",
 ]
 
 [[card.pins]]

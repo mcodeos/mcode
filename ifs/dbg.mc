@@ -116,14 +116,12 @@ interface DBG.DAP(role)
     
     role HOST {
         name = "DAP Host"
-        peer = TARGET
-        exclusive = true
+        peer = TARGET(1)
     }
     
     role TARGET {
         name = "DAP Target"
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 }
 
@@ -150,14 +148,12 @@ interface DBG.DAP.PU(role)
 
     role HOST {
         name = "DAP.PU Host"
-        peer = TARGET
-        exclusive = true
+        peer = TARGET(1)
     }
 
     role TARGET {
         name = "DAP.PU Target"
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 }
 
@@ -184,14 +180,12 @@ interface DBG.DAP.WM(role)
 
     role HOST {
         name = "DAP.WM Host"
-        peer = TARGET
-        exclusive = true
+        peer = TARGET(1)
     }
 
     role TARGET {
         name = "DAP.WM Target"
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 }
 
@@ -221,14 +215,12 @@ interface DBG.CMSISDAP(role)
     
     role HOST {
         name = "CMSIS_DAP Host"
-        peer = TARGET
-        exclusive = true
+        peer = TARGET(1)
     }
     
     role TARGET {
         name = "CMSIS_DAP Target"
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 }
 
@@ -255,14 +247,12 @@ interface DBG.SWD(role)
     
     role HOST {
         name = "SWD Host"
-        peer = TARGET
-        exclusive = true
+        peer = TARGET(1)
     }
     
     role TARGET {
         name = "SWD Target"
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 }
 
@@ -288,14 +278,12 @@ interface DBG.SWIM(role)
     
     role HOST {
         name = "SWIM Host"
-        peer = TARGET
-        exclusive = true
+        peer = TARGET(1)
     }
     
     role TARGET {
         name = "SWIM Target"
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 }
 
@@ -321,14 +309,12 @@ interface DBG.ICD(role)
     
     role HOST {
         name = "ICD Host"
-        peer = TARGET
-        exclusive = true
+        peer = TARGET(1)
     }
     
     role TARGET {
         name = "ICD Target"
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 }
 
@@ -363,8 +349,7 @@ interface DBG.UARTBOOT(role)
             in 2 = RXD, "Receive Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
             3 = GND, "Ground"
         ]
-        peer = TARGET
-        exclusive = true
+        peer = TARGET(1)
     }
 
     role TARGET {
@@ -374,7 +359,6 @@ interface DBG.UARTBOOT(role)
             out 2 = TXD, "Transmit Data, to the host RXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]   // Same wire as ordinal 2
             3 = GND, "Ground"
         ]
-        peer = HOST
-        exclusive = true
+        peer = HOST(1)
     }
 }
