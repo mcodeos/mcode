@@ -115,6 +115,15 @@ interface UART.TTL(role)
         ]
         peer = DCE_5V(1)
     }
+
+    // Relay face (iface-peer-cardinality-design.md §4): the cable's conductor
+    // view — inherits the role-less table above (2 anonymous lanes) and
+    // selects no endpoint role. A cable module binds
+    // `io a::UART.TTL(RELAY)` on each end and states its crossing or
+    // straight join in the body.
+    role RELAY {
+        name = "UART TTL Relay"
+    }
 }
 
 interface UART.RS232.3(role)

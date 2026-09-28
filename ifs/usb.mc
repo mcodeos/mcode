@@ -55,6 +55,13 @@ interface USB(role)
         peer = HOST(1)
     }
 
+    // Relay face (iface-peer-cardinality-design.md §4): the cable's conductor
+    // view — takes the interface's base pin table and selects no endpoint
+    // role. A cable module binds `io a::USB(RELAY)` on each end and states
+    // its crossing or straight join in the body.
+    role RELAY {
+        name = "USB Relay"
+    }
 }
 
 // ---------------------------------------------------------------------------------------------
