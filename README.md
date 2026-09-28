@@ -330,10 +330,10 @@ func Cap([net1, net2])
     return [net1, net2]
 }
 
-func Pullup([net, vcc])
+func Pull([node, supply])
 {
-    net - this - vcc
-    return net
+    node - this
+    supply - this
 }
 
 func ColorIndicator(red_control, green_control, blue_control, gnd)
@@ -362,7 +362,7 @@ Rules:
    `driver.VCC` / `driver.GND`). The kind is expressed by syntax; the name is a
    lowercase net label ([Naming Conventions §3](#3-func-params-are-net-names)).
 5. Two-terminal passives expose list-form helpers: CAP provides
-   `Cap([net1, net2])`; RES adds `Pullup([net, vcc])` / `Pulldown([net, gnd])`.
+   `Cap([net1, net2])`; RES adds `Pull([node, supply])` (recipe `PullTie`).
    Parts with a different topology (RES.POT, IND.CMC, RES.ARRAY) get dedicated
    functions and do not inherit the two-terminal helpers.
 6. func params never duplicate component params (COMPONENT_PARAM_FUNC_CONFLICT).
@@ -402,11 +402,11 @@ for the call site:
 
 ```mc
 # CAP.MLCC(100nF, 50V, 10%).Cap([vcc, gnd])
-# RES.SMD(470Ω, 50V, 0.125W, 5%).Pulldown([enable, gnd])
+# RES.SMD(470Ω, 50V, 0.125W, 5%).Pull([enable, gnd])
 # IND.POWER(47μH, 3A, 4A, 0.05Ω) l1
 # DIO.SCH(0.3V, 40V, 5A).FastRectifier(high_freq_ac, dc_output)
 # RES.POT(10kΩ, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
-# R_PULLUP::RES(10kΩ, 50V).Pullup([button_in, v3v3])
+# R_PULL::RES(10kΩ, 50V).Pull([button_in, v3v3])
 ```
 
 Keep this block in sync with the constructor signature and the func names; it
