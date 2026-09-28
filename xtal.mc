@@ -121,6 +121,6 @@ component XTAL.CERAMIC(freq::UV.HZ)
 #
 # Manual per-pin form:
 #    XTAL2(32.768kHz, 33pF) Y4
-#    CAP(33pF).Cap([Y4.XTAL.X1, pwr.GND])
-#    CAP(33pF).Cap([Y4.XTAL.X2, pwr.GND])
+#    Y4.XTAL.X1 - CAP(33pF) - pwr.GND
+#    Y4.XTAL.X2 - CAP(33pF) - pwr.GND
 #

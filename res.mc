@@ -59,17 +59,6 @@ component RES(
         derating_note = _
     ]
 
-    func Pullup([net, vcc])
-    {
-        net - this - vcc
-        return net
-    }
-
-    func Pulldown([net, gnd])
-    {
-        net - this - gnd
-        return net
-    }
 }
 
 // =============================================================================
@@ -104,17 +93,6 @@ component RES.SMD(
         derating_note = _
     ]
 
-    func Pullup([net, vcc])
-    {
-        net - this - vcc
-        return net
-    }
-
-    func Pulldown([net, gnd])
-    {
-        net - this - gnd
-        return net
-    }
 }
 
 // =============================================================================
@@ -182,17 +160,6 @@ component RES.THT(
         derating_note = _
     ]
 
-    func Pullup([net, vcc])
-    {
-        net - this - vcc
-        return net
-    }
-
-    func Pulldown([net, gnd])
-    {
-        net - this - gnd
-        return net
-    }
 }
 
 // =============================================================================
@@ -312,7 +279,7 @@ component RES.ARRAY(
         rohs = _
         derating_note = _
     ]
-    // No single-resistor functions (Pullup / Pulldown); series placement uses default 1×2 shape
+    // No pull-up/pull-down helpers here; series placement uses default 1×2 shape
     // Extend with dedicated channel binding functions later if needed
 }
 
@@ -349,8 +316,9 @@ component RES.LDR(
 # =============================================================================
 # Usage Examples
 # =============================================================================
-# RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pullup([signal, vcc])
-# RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pulldown([enable, gnd])
+# signal - RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃) - vcc                       // plain infix
+# RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pull([signal, vcc])                  // pull-up via the PullTie recipe
+# RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pull([enable, gnd])              // pull-down via the PullTie recipe
 # vcc -> RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃) -> load                  // two-terminal part, default 1x2 shape placement
 # vout -> RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃) -> load
 # RES.POT(10kΩ, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
