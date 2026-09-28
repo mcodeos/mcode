@@ -37,6 +37,7 @@ interface SPDIF(role)
             out 1 = SIG, "Serial digital audio signal"  // The transmitter drives the link
         ]
         peer = RECEIVER
+        exclusive = true
     }
     role RECEIVER {
         name = "S/PDIF Receiver"
@@ -44,5 +45,6 @@ interface SPDIF(role)
             in 1 = SIG, "Serial digital audio signal"   // The receiver decodes it
         ]
         peer = TRANSMITTER
+        exclusive = true
     }
 }

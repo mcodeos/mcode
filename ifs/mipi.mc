@@ -57,6 +57,7 @@ interface MIPI.DSI(role)
             out 10 = D3_N, "Data lane 3 negative"
         ]
         peer = DISPLAY
+        exclusive = true
     }
     role DISPLAY {
         name = "DSI Peripheral (display panel)"
@@ -73,6 +74,7 @@ interface MIPI.DSI(role)
             in 10 = D3_N, "Data lane 3 negative"
         ]
         peer = HOST
+        exclusive = true
     }
 }
 
@@ -113,6 +115,7 @@ interface MIPI.CSI(role)
             out 10 = D3_N, "Data lane 3 negative"
         ]
         peer = HOST
+        exclusive = true
     }
     role HOST {
         name = "CSI Receiver (SoC ISP)"
@@ -129,5 +132,6 @@ interface MIPI.CSI(role)
             in 10 = D3_N, "Data lane 3 negative"
         ]
         peer = SENSOR
+        exclusive = true
     }
 }

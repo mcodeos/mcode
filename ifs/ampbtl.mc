@@ -48,6 +48,7 @@ interface AMP.BTL(role)
             out 2 = N @class(analog) @pair(p), "Negative BTL Output"
         ]
         peer = RECEIVER
+        exclusive = true
     }
     role RECEIVER {  // AMP.BTL Receiver - Speaker or other passive load
         name = "AMP.BTL Receiver"
@@ -56,5 +57,6 @@ interface AMP.BTL(role)
             in 2 = N @class(analog) @pair(p), "Negative BTL Output"
         ]
         peer = TRANSMITTER
+        exclusive = true
     }
 }

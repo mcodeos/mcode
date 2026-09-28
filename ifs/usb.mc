@@ -45,6 +45,7 @@ interface USB(role)
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -53,6 +54,7 @@ interface USB(role)
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -85,6 +87,7 @@ interface USB.TYPEA(role)
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -93,6 +96,7 @@ interface USB.TYPEA(role)
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -121,6 +125,7 @@ interface USB.TYPEB(role)
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -129,6 +134,7 @@ interface USB.TYPEB(role)
             io [2,3] = [D\-,D\+], ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -159,6 +165,7 @@ interface USB.MINIB(role)
             in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -168,6 +175,7 @@ interface USB.MINIB(role)
             in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -198,6 +206,7 @@ interface USB.MICROB(role)
             in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -207,6 +216,7 @@ interface USB.MICROB(role)
             in 4 = ID, "ID"                // Cable sense: the plug grounds it (OTG)
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -253,6 +263,7 @@ interface USB3.TYPEA(role)
             out 9 = SSTX\+, "SuperSpeed TX Positive"
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -266,6 +277,7 @@ interface USB3.TYPEA(role)
             in 9 = SSTX\+, "SuperSpeed TX Positive"
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -308,6 +320,7 @@ interface USB3.TYPEB(role)
             out 9 = SSRX\+, "SuperSpeed RX Positive"
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -321,6 +334,7 @@ interface USB3.TYPEB(role)
             in 9 = SSRX\+, "SuperSpeed RX Positive"
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -365,6 +379,7 @@ interface USB3.MICROB(role)
             out 10 = SSRX\+, "SuperSpeed RX Positive"
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -379,6 +394,7 @@ interface USB3.MICROB(role)
             in 10 = SSRX\+, "SuperSpeed RX Positive"
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -470,6 +486,7 @@ interface USB.C(role)
             B12 = GND, "Ground"
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -500,6 +517,7 @@ interface USB.C(role)
             B12 = GND, "Ground"
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -530,6 +548,7 @@ interface USB.DATA(role)
             io 2 = D\- @pair(d), "Data Negative"
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -538,6 +557,7 @@ interface USB.DATA(role)
             io 2 = D\- @pair(d), "Data Negative"
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -570,6 +590,7 @@ interface USB3.TX(role)
             out 2 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -578,6 +599,7 @@ interface USB3.TX(role)
             in 2 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
         ]
         peer = HOST
+        exclusive = true
     }
 
 }
@@ -609,6 +631,7 @@ interface USB3.RX(role)
             in 2 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
         ]
         peer = DEVICE
+        exclusive = true
     }
     role DEVICE {
         name = "USB Device"
@@ -617,6 +640,7 @@ interface USB3.RX(role)
             out 2 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
         ]
         peer = HOST
+        exclusive = true
     }
 
 }

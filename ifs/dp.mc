@@ -58,6 +58,7 @@ interface DP(role)
             in 11 = HPD, "Hot plug detect"               // The sink drives HPD
         ]
         peer = SINK
+        exclusive = true
     }
     role SINK {
         name = "DP Sink"
@@ -75,5 +76,6 @@ interface DP(role)
             out 11 = HPD, "Hot plug detect"              // The sink asserts hot plug
         ]
         peer = SOURCE
+        exclusive = true
     }
 }
