@@ -45,7 +45,7 @@ mkdir -p "$MCODE_DIR"
 # reach the installed library (U190).
 echo "Copying mcode library files from $SOURCE_DIR to $MCODE_DIR..."
 cp "$SOURCE_DIR"/*.mc "$MCODE_DIR"/ || { echo "Error: Cannot copy mcode files"; exit 1; }
-for SUBDIR in conn ifs; do
+for SUBDIR in conn ifs meta; do
     if [ -d "$SOURCE_DIR/$SUBDIR" ]; then
         mkdir -p "$MCODE_DIR/$SUBDIR"
         cp "$SOURCE_DIR/$SUBDIR"/*.mc "$MCODE_DIR/$SUBDIR"/ || { echo "Error: Cannot copy $SUBDIR files"; exit 1; }

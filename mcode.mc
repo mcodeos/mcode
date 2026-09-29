@@ -20,6 +20,9 @@
 pub use ./ifs/ifs.mc
 pub use ./conn/conn.mc
 
+// import metas (declarations only, meta-system-design.md ruling 12)
+pub use ./meta.mc
+
 // import files
 pub use ./ant.mc
 pub use ./cap.mc
