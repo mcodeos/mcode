@@ -23,10 +23,11 @@
 // the meta grammar batch uncomments them in place. Do not add live
 // `meta` syntax here before that batch lands.
 //
-// The single application form is instantiation (design rulings 15-17):
+// The single application form is instantiation (design rulings 15-18):
 // key = MetaName(axes)(one value literal) — bare same-name values are
-// retired. The value literal keeps its own shape grammar: scalar bare,
-// range a ~ b, point list [...], named-slot dict [low:, typ:, high:].
+// retired. The literal carries everything: four shapes, four spellings
+// (scalar bare / range a ~ b / dict [k: v, ...] / list — value@condition
+// for envelope, (x, y) pairs for curve); shape and unit derive from it.
 
 // 1. device-truth supply window on a body (L1). LM317: VIN 3V ~ 40V.
 // meta vin_range {
@@ -123,11 +124,11 @@
 
 // 10. safe operating area curve: current vs drain voltage, one line per
 // pulse width (D5 -> G13; the x-unit slot is meta-system §8-8).
-// Canon (2026-09-29 user rulings 14-17): curve points spell value@condition
-// — y value first, aligned with the unit column. The call parens carry the
-// params axes only; the value parens take one literal, and a point list
-// keeps its brackets inside them. IRF3710S:
-// spec = [ soa = soa(tp=10ms)([40A@10V, 5A@80V]) ]
+// Canon (2026-09-29 user ruling 18): a curve spells coordinate pairs
+// (x, y) — the independent variable first, the judged quantity (unit
+// column) second; the x unit rides each point (closes §8-8). envelope
+// keeps the value@condition spelling (ruling 14). IRF3710S:
+// spec = [ soa = soa(tp=10ms)([(10V, 40A), (32V, 14A), (80V, 5A)]) ]
 // meta soa {
 //     unit   = UV.AMP
 //     shape  = curve
@@ -138,10 +139,10 @@
 
 // 11. thermal impedance curve: Zth vs time, one line per duty cycle
 // (survey class 17). IPA60R280P7S: ZthJC = f(tP), parameter D = tp/T.
-// Same canon as 10: zth = zth(d=0.02)([value@t, ...]) — values read off the
-// datasheet figure at landing time (survey cites the shape, not numbers).
-// Unit gap: K/W parses as a compound unit (MCAST_UNIT_DIV) but has no
-// UV.* member for the unit column - same open slot as §8-8's x-unit.
+// Same canon as 10: zth = zth(d=0.02)([(t, K/W), ...]) — values read off
+// the datasheet figure at landing time (survey cites the shape, not
+// numbers). Unit gap closed by ruling 18: the unit column derives from
+// the literals, so K/W needs no UV.* member.
 // meta zth {
 //     unit   = ?
 //     shape  = curve
@@ -152,7 +153,8 @@
 
 // 12. package thermal resistance: one scalar per package plus its test-board
 // condition (survey class 10). TC275: thetaJA 8.7K/W @ 10-layer 114x101mm.
-// Unit gap: K/W has no UV.* member (see 11).
+// Use: theta_ja = theta_ja(board=10l-114x101mm)(8.7K/W) — K/W rides the
+// value literal (ruling 18), no UV.* member needed.
 // meta theta_ja {
 //     unit   = ?
 //     shape  = scalar
