@@ -23,10 +23,10 @@
 // the meta grammar batch uncomments them in place. Do not add live
 // `meta` syntax here before that batch lands.
 //
-// The single application form is instantiation (design rulings 15-16):
-// key = MetaName(axes)(value) — bare same-name values are retired, and
-// every value (scalar, range, point list) lives in the call parens; `[]`
-// is a container only (the spec block, one-key multi-instance grouping).
+// The single application form is instantiation (design rulings 15-17):
+// key = MetaName(axes)(one value literal) — bare same-name values are
+// retired. The value literal keeps its own shape grammar: scalar bare,
+// range a ~ b, point list [...], named-slot dict [low:, typ:, high:].
 
 // 1. device-truth supply window on a body (L1). LM317: VIN 3V ~ 40V.
 // meta vin_range {
@@ -74,8 +74,8 @@
 // }
 
 // 6. LDO dropout: three-point window, judged on max, never on typ (D1 ->
-// G9 widens the value form to [typ:, high:]). TPS7A8101: typ 170mV @ 1A,
-// max 270mV.
+// G9; the value form is the named-slot dict literal, ruling 17).
+// TPS7A8101: dropout = dropout([low: 0mV, typ: 170mV, high: 270mV]).
 // meta dropout {
 //     unit  = UV.VOLT
 //     shape = window
@@ -94,8 +94,8 @@
 // }
 
 // 8. conditional reach envelope: one condition axis, named (K form, G2).
-// Point form = value@condition; the point list rides in the value parens
-// (design ruling 16): maxspeed = maxspeed(9.6kbps@15m, 115.2kbps@5m)
+// Point form = value@condition; the point-list literal rides in the value
+// parens (design ruling 17): maxspeed = maxspeed([9.6kbps@15m, 115.2kbps@5m])
 // meta maxspeed {
 //     unit   = UV.BAUD
 //     shape  = envelope
@@ -123,11 +123,11 @@
 
 // 10. safe operating area curve: current vs drain voltage, one line per
 // pulse width (D5 -> G13; the x-unit slot is meta-system §8-8).
-// Canon (2026-09-29 user rulings 14-16): curve points spell value@condition
+// Canon (2026-09-29 user rulings 14-17): curve points spell value@condition
 // — y value first, aligned with the unit column. The call parens carry the
-// params axes only; every value, point lists included, rides in the value
-// parens; `[]` is a container only. IRF3710S:
-// spec = [ soa = soa(tp=10ms)(40A@10V, 5A@80V) ]
+// params axes only; the value parens take one literal, and a point list
+// keeps its brackets inside them. IRF3710S:
+// spec = [ soa = soa(tp=10ms)([40A@10V, 5A@80V]) ]
 // meta soa {
 //     unit   = UV.AMP
 //     shape  = curve
@@ -138,7 +138,7 @@
 
 // 11. thermal impedance curve: Zth vs time, one line per duty cycle
 // (survey class 17). IPA60R280P7S: ZthJC = f(tP), parameter D = tp/T.
-// Same canon as 10: zth = zth(d=0.02)(value@t, ...) — values read off the
+// Same canon as 10: zth = zth(d=0.02)([value@t, ...]) — values read off the
 // datasheet figure at landing time (survey cites the shape, not numbers).
 // Unit gap: K/W parses as a compound unit (MCAST_UNIT_DIV) but has no
 // UV.* member for the unit column - same open slot as §8-8's x-unit.
