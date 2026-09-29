@@ -22,6 +22,9 @@
 // every block below is comment-gated: the library must stay loadable, and
 // the meta grammar batch uncomments them in place. Do not add live
 // `meta` syntax here before that batch lands.
+//
+// The single application form is instantiation (design ruling 15):
+// key = MetaName(axes)(value) — bare same-name values are retired.
 
 // 1. device-truth supply window on a body (L1). LM317: VIN 3V ~ 40V.
 // meta vin_range {
@@ -89,8 +92,8 @@
 // }
 
 // 8. conditional reach envelope: one condition axis, named (K form, G2).
-// Point form = value@condition, the corpus idiom (uart.mc maxspeed):
-// maxspeed = [9.6kbps@15m, 115.2kbps@5m]     // RS-485 reach
+// Point form = value@condition; the one application form is instantiation
+// (design ruling 15): maxspeed = maxspeed[9.6kbps@15m, 115.2kbps@5m]
 // meta maxspeed {
 //     unit   = UV.BAUD
 //     shape  = envelope
