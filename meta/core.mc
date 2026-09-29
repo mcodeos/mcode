@@ -89,7 +89,8 @@
 // }
 
 // 8. conditional reach envelope: one condition axis, named (K form, G2).
-// RS-485: 9.6kbps @ 15m, 115.2kbps only @ 5m.
+// Point form = value@condition, the corpus idiom (uart.mc maxspeed):
+// maxspeed = [9.6kbps@15m, 115.2kbps@5m]     // RS-485 reach
 // meta maxspeed {
 //     unit   = UV.BAUD
 //     shape  = envelope
@@ -102,6 +103,11 @@
 // duties of the same AMP (D6 -> G14). MMD-10DZ-100M: Isat 8.5A vs Idc 7.5A.
 // Pairing law: a demand pairs only against a supply whose axis values
 // match; axis mismatch is a skip, not a violation.
+// Use: axis args in the call parens, the value follows.
+// spec = [
+//     isat = current_rating(kind=sat)(8.5A)
+//     idc  = current_rating(kind=heat)(7.5A)
+// ]
 // meta current_rating {
 //     unit   = UV.AMP
 //     shape  = scalar
@@ -112,7 +118,12 @@
 
 // 10. safe operating area curve: current vs drain voltage, one line per
 // pulse width (D5 -> G13; the x-unit slot is meta-system §8-8).
-// IRF3710S @ tp=10ms: (10V, 40A) .. (80V, 5A).
+// Canon (2026-09-29 user ruling): curve points spell value@condition —
+// y value first, aligned with the unit column; reuses the corpus idiom
+// (zero new grammar). The call parens carry the params axes only; the
+// value lives in the trailing bracket slot, same as every other shape.
+// IRF3710S:
+// spec = [ soa = soa(tp=10ms)[40A@10V, 5A@80V] ]
 // meta soa {
 //     unit   = UV.AMP
 //     shape  = curve
@@ -123,6 +134,8 @@
 
 // 11. thermal impedance curve: Zth vs time, one line per duty cycle
 // (survey class 17). IPA60R280P7S: ZthJC = f(tP), parameter D = tp/T.
+// Same canon as 10: zth = zth(d=0.02)[value@t, ...] — values read off the
+// datasheet figure at landing time (survey cites the shape, not numbers).
 // Unit gap: K/W parses as a compound unit (MCAST_UNIT_DIV) but has no
 // UV.* member for the unit column - same open slot as §8-8's x-unit.
 // meta zth {
