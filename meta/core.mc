@@ -23,8 +23,10 @@
 // the meta grammar batch uncomments them in place. Do not add live
 // `meta` syntax here before that batch lands.
 //
-// The single application form is instantiation (design ruling 15):
-// key = MetaName(axes)(value) — bare same-name values are retired.
+// The single application form is instantiation (design rulings 15-16):
+// key = MetaName(axes)(value) — bare same-name values are retired, and
+// every value (scalar, range, point list) lives in the call parens; `[]`
+// is a container only (the spec block, one-key multi-instance grouping).
 
 // 1. device-truth supply window on a body (L1). LM317: VIN 3V ~ 40V.
 // meta vin_range {
@@ -92,8 +94,8 @@
 // }
 
 // 8. conditional reach envelope: one condition axis, named (K form, G2).
-// Point form = value@condition; the one application form is instantiation
-// (design ruling 15): maxspeed = maxspeed[9.6kbps@15m, 115.2kbps@5m]
+// Point form = value@condition; the point list rides in the value parens
+// (design ruling 16): maxspeed = maxspeed(9.6kbps@15m, 115.2kbps@5m)
 // meta maxspeed {
 //     unit   = UV.BAUD
 //     shape  = envelope
@@ -121,12 +123,11 @@
 
 // 10. safe operating area curve: current vs drain voltage, one line per
 // pulse width (D5 -> G13; the x-unit slot is meta-system §8-8).
-// Canon (2026-09-29 user ruling): curve points spell value@condition —
-// y value first, aligned with the unit column; reuses the corpus idiom
-// (zero new grammar). The call parens carry the params axes only; the
-// value lives in the trailing bracket slot, same as every other shape.
-// IRF3710S:
-// spec = [ soa = soa(tp=10ms)[40A@10V, 5A@80V] ]
+// Canon (2026-09-29 user rulings 14-16): curve points spell value@condition
+// — y value first, aligned with the unit column. The call parens carry the
+// params axes only; every value, point lists included, rides in the value
+// parens; `[]` is a container only. IRF3710S:
+// spec = [ soa = soa(tp=10ms)(40A@10V, 5A@80V) ]
 // meta soa {
 //     unit   = UV.AMP
 //     shape  = curve
@@ -137,7 +138,7 @@
 
 // 11. thermal impedance curve: Zth vs time, one line per duty cycle
 // (survey class 17). IPA60R280P7S: ZthJC = f(tP), parameter D = tp/T.
-// Same canon as 10: zth = zth(d=0.02)[value@t, ...] — values read off the
+// Same canon as 10: zth = zth(d=0.02)(value@t, ...) — values read off the
 // datasheet figure at landing time (survey cites the shape, not numbers).
 // Unit gap: K/W parses as a compound unit (MCAST_UNIT_DIV) but has no
 // UV.* member for the unit column - same open slot as §8-8's x-unit.
