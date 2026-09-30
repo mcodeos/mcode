@@ -15,16 +15,16 @@
 // Power family: supply windows and current budgets (ruling 13 domain
 // split). Union of the five rfsoc specimens' declarations, transcribed
 // identically in mcs/rfsoc/*/ — that corpus is the necessity evidence.
-// Unsealed in place by the meta grammar batch (1a, b4305).
+// Comment-gated like core.mc: the meta grammar batch uncomments in place.
 
 // supply window on the consumer side of a regulator pair. The key
 // registers cross-vendor, so no chip pin name may bake in (vdd_range
 // renamed supply_range on that law).
 // Literal: a range — window, volt.                                   -> Pass C
-meta supply_range {
-    judge = covers
-    role  = demand
-}
+// meta supply_range {
+//     judge = covers
+//     role  = demand
+// }
 
 // whole-device or per-mode current demand on a supply face; demand.high
 // must stay <= capacity on the source face (Pass D, per-mode slots).
@@ -33,37 +33,36 @@ meta supply_range {
 // standby(rcosc_lf), sce(24MHz). Vendor vocabularies differ by design —
 // the words are data, never a fixed enum here.
 // Literal: a bare scalar, or a dict [typ: ..., max: ...].             -> Pass D
-meta current_draw {
-    judge  = leq
-    role   = demand
-    params = mode
-}
+// meta current_draw {
+//     judge  = leq
+//     role   = demand
+//     params = mode
+// }
 
 // axis-free capacity on the SOURCE face: pairs any demand axis (the
 // regulator counterpart of current_draw).
 // Literal: a bare scalar.                                             -> Pass D
-meta current_capacity {
-    judge = leq
-    role  = supply
-}
+// meta current_capacity {
+//     judge = leq
+//     role  = supply
+// }
 
 // wake/resume time envelope; a require's latency limit must sit inside
 // the point matching its `from` mode.
 // Literal: value@mode points — envelope.                    -> Pass C-2 (require)
-meta wake_time {
-    judge  = in_env
-    role   = supply
-    params = from
-}
+// meta wake_time {
+//     judge  = in_env
+//     role   = supply
+//     params = from
+// }
 
 // additive per-peripheral current, summed onto the rail budget next to
 // current_draw ("adds to core current for each peripheral unit
 // activated"). Unit words are the datasheet's own row names; the shared
-// enum home (words = enum) waits for the G6 vocabulary batch — the words
-// column is out of 1a by ruling.
+// enum home (words = enum) waits for the meta grammar batch.
 // Literal: a bare scalar, or a dict.                                  -> Pass D
-meta peri_current {
-    judge  = leq
-    role   = demand
-    params = unit
-}
+// meta peri_current {
+//     judge  = leq
+//     role   = demand
+//     params = unit
+// }

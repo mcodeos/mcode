@@ -17,10 +17,10 @@
 // authority face, like attr_keys.rs for attribute keys today. Files under
 // ./meta/ hold the definitions per domain; this file is a list only.
 //
-// The `meta` top-level production landed with meta grammar batch 1a
-// (b4305); the domain files carry the declarations live. Specimens and
-// necessity evidence live in mcs/metadata/ and must not be loaded as a
-// library.
+// The `meta` top-level production does not exist in the grammar yet (arc
+// step 2); the domain files carry their scope as comments until the meta
+// grammar batch lands. Specimens and necessity evidence live in
+// mcs/metadata/ and must not be loaded as a library.
 
 // meta declarations, per domain
 pub use ./meta/core.mc

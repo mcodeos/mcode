@@ -20,10 +20,9 @@
 // ruling 12). Sources: mcd/doc/ee/meta-system-design.md v0.2 and
 // mcs/metadata/typical_params.mc (specimens 6 and 9).
 //
-// Every block below stays comment-gated: 1a admits none of their shapes —
-// the words column (the enum-reference arm is the G6 vocabulary batch) and
-// the in-body judge fn (a grammar extension of its own, TC275 necessity
-// law). They unseal with those batches, in place.
+// The `meta` production does not exist in the grammar yet (arc step 2), so
+// every block below is comment-gated: the library must stay loadable, and
+// the meta grammar batch uncomments them in place.
 
 // 1. closed vocabulary by reference: the word table has one source — the
 // enum; a meta never spells words inline. UART: mode = full.
