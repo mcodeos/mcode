@@ -34,7 +34,7 @@ interface ONEWIRE(role)
     // node releases the line by driving high. A push-pull driver states
     // `@drive(pp)` on its own adoption row, which overrides this default.
     pins = [
-        1 = _ @drive(od)
+        1 = _ @drive(od) @class(digital)
     ]
 
     role MASTER {

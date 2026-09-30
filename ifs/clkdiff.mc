@@ -30,23 +30,23 @@ interface CLK.DIFF(role)
     voltage = [1.8V, 2.5V, 3.3V]
 
     pins = [
-        1 = CLK_P @pair(clk)   // Positive differential clock
-        2 = CLK_N @pair(clk)   // Negative differential clock
+        1 = CLK_P @pair(clk) @class(digital) // Positive differential clock
+        2 = CLK_N @pair(clk) @class(digital) // Negative differential clock
     ]
 
     role TRANSMITTER {  // CLK.DIFF Transmitter - Clock generator or oscillator
         name = "CLK.DIFF Transmitter"
         pins = [
-            out 1 = CLK_P @pair(clk)  // The generator sources the pair
-            out 2 = CLK_N @pair(clk)
+            out 1 = CLK_P @pair(clk) @class(digital) // The generator sources the pair
+            out 2 = CLK_N @pair(clk) @class(digital)
         ]
         peer = RECEIVER
     }
     role RECEIVER {  // CLK.DIFF Receiver - SoC, FPGA, or clock consumer
         name = "CLK.DIFF Receiver"
         pins = [
-            in 1 = CLK_P @pair(clk)   // The consumer reads the pair
-            in 2 = CLK_N @pair(clk)
+            in 1 = CLK_P @pair(clk) @class(digital) // The consumer reads the pair
+            in 2 = CLK_N @pair(clk) @class(digital)
         ]
         peer = TRANSMITTER
     }

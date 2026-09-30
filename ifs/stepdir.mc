@@ -33,15 +33,15 @@ interface STEPDIR(role)
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
     pins = [
-        1 = _    // STEP
-        2 = _    // DIR
+        1 = _ @class(digital) // STEP
+        2 = _ @class(digital) // DIR
     ]
 
     role TRANSMITTER {  // pulse source: MCU timer/GPIO
         name = "STEPDIR Transmitter"
         pins = [
-            out 1 = STEP, "Step pulse train (rising edge advances one step)"
-            out 2 = DIR, "Direction level"
+            out 1 = STEP @class(digital), "Step pulse train (rising edge advances one step)"
+            out 2 = DIR @class(digital), "Direction level"
         ]
         peer = RECEIVER
     }
@@ -49,8 +49,8 @@ interface STEPDIR(role)
     role RECEIVER {  // stepper driver indexer input
         name = "STEPDIR Receiver"
         pins = [
-            in 1 = STEP, "Step pulse train (rising edge advances one step)"
-            in 2 = DIR, "Direction level"
+            in 1 = STEP @class(digital), "Step pulse train (rising edge advances one step)"
+            in 2 = DIR @class(digital), "Direction level"
         ]
         peer = TRANSMITTER
     }

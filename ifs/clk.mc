@@ -30,20 +30,20 @@ interface CLK(role)
     mode = ["unidirectional"]
 
     pins = [
-        1 = CLK   // Single-ended clock
+        1 = CLK @class(digital) // Single-ended clock
     ]
 
     role TRANSMITTER {  // Clock generator: active oscillator module or clock driver
         name = "CLK Transmitter"
         pins = [
-            out 1 = CLK  // The generator sources the line
+            out 1 = CLK @class(digital) // The generator sources the line
         ]
         peer = RECEIVER
     }
     role RECEIVER {  // Clock consumer: SoC, FPGA, or MCU clock input
         name = "CLK Receiver"
         pins = [
-            in 1 = CLK   // The consumer reads the line
+            in 1 = CLK @class(digital) // The consumer reads the line
         ]
         peer = TRANSMITTER
     }

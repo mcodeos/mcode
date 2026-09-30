@@ -36,7 +36,7 @@ interface GPIO(role)
     // states `@drive(od)` (and `@pull` where it relies on one) on its own
     // adoption row, which overrides this lib-side default per pin.
     pins = [
-        1 = _ @drive(pp)
+        1 = _ @drive(pp) @class(digital)
     ]
 
     role PROVIDER {  // offers the line: MCU/SoC GPIO block

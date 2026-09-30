@@ -30,9 +30,9 @@ interface I2S(role)
     // data lane (same principle as PCM's CLK, SYNC, IN, OUT; matches the
     // Philips document order SCK, WS, SD).
     pins = [
-        1 = SCK, "Bit Clock"       // Bit clock signal
-        2 = WS, "Word Select"      // Channel select (left/right)
-        3 = SD, "Serial Data"      // Audio data
+        1 = SCK @class(digital), "Bit Clock"       // Bit clock signal
+        2 = WS @class(digital), "Word Select"      // Channel select (left/right)
+        3 = SD @class(digital), "Serial Data"      // Audio data
     ]
     
     // Direction words follow the PCM ruling: SCK/WS stay direction-less in the
@@ -42,18 +42,18 @@ interface I2S(role)
     role TRANSMITTER {  // I2S Transmitter - Sends audio data
         name = "I2S Transmitter"
         pins = [
-            1 = SCK, "Bit Clock"       // Controller face — direction follows the controller
-            2 = WS, "Word Select"      // Controller face — direction follows the controller
-            out 3 = SD, "Serial Data"  // The transmitter drives the data lane
+            1 = SCK @class(digital), "Bit Clock"       // Controller face — direction follows the controller
+            2 = WS @class(digital), "Word Select"      // Controller face — direction follows the controller
+            out 3 = SD @class(digital), "Serial Data"  // The transmitter drives the data lane
         ]
         peer = RECEIVER
     }
     role RECEIVER {  // I2S Receiver - Receives audio data
         name = "I2S Receiver"
         pins = [
-            1 = SCK, "Bit Clock"      // Controller face — direction follows the controller
-            2 = WS, "Word Select"     // Controller face — direction follows the controller
-            in 3 = SD, "Serial Data"  // The receiver listens on the data lane
+            1 = SCK @class(digital), "Bit Clock"      // Controller face — direction follows the controller
+            2 = WS @class(digital), "Word Select"     // Controller face — direction follows the controller
+            in 3 = SD @class(digital), "Serial Data"  // The receiver listens on the data lane
         ]
         peer = TRANSMITTER
     }

@@ -33,16 +33,16 @@ interface CAN(role)
     // drives CAN_H above CAN_L — an electrical fact of the family, not a
     // polarity the declaration carries.
     pins = [
-        1 = CAN_H @pair(can), "CAN High"    // High side of differential signal
-        2 = CAN_L @pair(can), "CAN Low"    // Low side of differential signal
+        1 = CAN_H @pair(can) @class(digital), "CAN High"    // High side of differential signal
+        2 = CAN_L @pair(can) @class(digital), "CAN Low"    // Low side of differential signal
         3 = GND, "Ground"        // Signal reference ground
     ]
     
     role NODE {
         name = "CAN Node"
         pins = [
-            io 1 = CAN_H @pair(can), "CAN High"  // Any node may drive the dominant state
-            io 2 = CAN_L @pair(can), "CAN Low"   // and every node reads the bus back
+            io 1 = CAN_H @pair(can) @class(digital), "CAN High"  // Any node may drive the dominant state
+            io 2 = CAN_L @pair(can) @class(digital), "CAN Low"   // and every node reads the bus back
             3 = GND, "Ground"                    // Signal reference ground
         ]
         peer = NODE

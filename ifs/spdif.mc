@@ -28,20 +28,20 @@ interface SPDIF(role)
     voltage = [3.3V, 5V]  // logic-side levels; coax swing ~1Vpp into 75 Ohm
 
     pins = [
-        1 = SIG, "Serial digital audio signal"
+        1 = SIG @class(digital), "Serial digital audio signal"
     ]
 
     role TRANSMITTER {
         name = "S/PDIF Transmitter"
         pins = [
-            out 1 = SIG, "Serial digital audio signal"  // The transmitter drives the link
+            out 1 = SIG @class(digital), "Serial digital audio signal"  // The transmitter drives the link
         ]
         peer = RECEIVER(1)
     }
     role RECEIVER {
         name = "S/PDIF Receiver"
         pins = [
-            in 1 = SIG, "Serial digital audio signal"   // The receiver decodes it
+            in 1 = SIG @class(digital), "Serial digital audio signal"   // The receiver decodes it
         ]
         peer = TRANSMITTER(1)
     }

@@ -28,15 +28,15 @@ interface MOST(role)
     // Applications: In-car infotainment, navigation, audio/video distribution
 
     pins = [
-        1 = OPT, "Optical"    // Optical fiber connection
-        2 = ELE, "Electrical" // Electrical connection (alternative)
+        1 = OPT @class(digital), "Optical"    // Optical fiber connection
+        2 = ELE @class(digital), "Electrical" // Electrical connection (alternative)
     ]
     
     role MASTER {
         name = "MOST Master"
         pins = [
-            io 1 = OPT, "Optical"     // A ring circulates frames past every node —
-            io 2 = ELE, "Electrical"  // each node relays in and out (one medium in use)
+            io 1 = OPT @class(digital), "Optical"     // A ring circulates frames past every node —
+            io 2 = ELE @class(digital), "Electrical"  // each node relays in and out (one medium in use)
         ]
         peer = SLAVE
     }
@@ -44,8 +44,8 @@ interface MOST(role)
     role SLAVE {
         name = "MOST Slave"
         pins = [
-            io 1 = OPT, "Optical"     // A ring circulates frames past every node —
-            io 2 = ELE, "Electrical"  // each node relays in and out (one medium in use)
+            io 1 = OPT @class(digital), "Optical"     // A ring circulates frames past every node —
+            io 2 = ELE @class(digital), "Electrical"  // each node relays in and out (one medium in use)
         ]
         peer = MASTER
     }

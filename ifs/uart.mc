@@ -36,8 +36,8 @@ interface UART.TTL(role)
     // role-less and take their shape from this table; the role tables below
     // carry the named views: the data pair crosses by position (TX <-> RX).
     pins = [
-        1 = _    // TX <-> RX
-        2 = _    // RX <-> TX
+        1 = _ @class(digital) // TX <-> RX
+        2 = _ @class(digital) // RX <-> TX
     ]
 
     // DCE role: cross-connects to DTE. Level windows are device truth — they
@@ -47,8 +47,8 @@ interface UART.TTL(role)
     role DCE {
         name = "UART.TTL DCE"
         pins = [
-            out 1 = TX, "Transmit"  // Cross-connect to DTE RX
-            in 2 = RX, "Receive"   // Cross-connect to DTE TX
+            out 1 = TX @class(digital), "Transmit"  // Cross-connect to DTE RX
+            in 2 = RX @class(digital), "Receive"   // Cross-connect to DTE TX
         ]
         peer = DTE(1)
     }
@@ -57,8 +57,8 @@ interface UART.TTL(role)
     role DTE {
         name = "UART.TTL DTE"
         pins = [
-            in 1 = RX, "Receive"           // Cross-connect to DCE TX
-            out 2 = TX, "Transmit"          // Cross-connect to DCE RX
+            in 1 = RX @class(digital), "Receive"           // Cross-connect to DCE TX
+            out 2 = TX @class(digital), "Transmit"          // Cross-connect to DCE RX
         ]
         peer = DCE(1)
     }
@@ -92,16 +92,16 @@ interface UART.RS232.3(role)
     // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
     pins = [
-        1 = _    // RXD <-> TXD
-        2 = _    // TXD <-> RXD
-        3 = _    // GND
+        1 = _ @class(digital) // RXD <-> TXD
+        2 = _ @class(digital) // TXD <-> RXD
+        3 = _ // GND
     ]
 
     role DCE {  // RS232.3 DCE - basic TX/RX function only
         name = "RS232.3 DCE"
         pins = [
-            in 1 = RXD, "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]  // Cross-connect to DTE Pin1 TXD
-            out 2 = TXD, "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V] // Cross-connect to DTE Pin2 RXD
+            in 1 = RXD @class(digital), "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]  // Cross-connect to DTE Pin1 TXD
+            out 2 = TXD @class(digital), "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V] // Cross-connect to DTE Pin2 RXD
             3 = GND, "Signal Ground"                                    // Direct connect to DTE Pin3 GND, signal reference ground
         ]
         peer = DTE(1)  // Paired with terminal device DTE
@@ -110,8 +110,8 @@ interface UART.RS232.3(role)
     role DTE {  // RS232.3 DTE - basic TX/RX function only
         name = "RS232.3 DTE"
         pins = [
-            out 1 = TXD, "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V] // Cross-connect to DCE Pin1 RXD
-            in 2 = RXD, "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]  // Cross-connect to DCE Pin2 TXD
+            out 1 = TXD @class(digital), "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V] // Cross-connect to DCE Pin1 RXD
+            in 2 = RXD @class(digital), "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]  // Cross-connect to DCE Pin2 TXD
             3 = GND, "Signal Ground"                                    // Direct connect to DCE Pin3 GND, signal reference ground
         ]
         peer = DCE(1)  // Paired with communication device DCE
@@ -135,21 +135,21 @@ interface UART.RS232.5(role)
     // Role-less conductor view: 5 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
     pins = [
-        1 = _    // RXD <-> TXD
-        2 = _    // TXD <-> RXD
-        3 = _    // GND
-        4 = _    // RTS <-> CTS
-        5 = _    // CTS <-> RTS
+        1 = _ @class(digital) // RXD <-> TXD
+        2 = _ @class(digital) // TXD <-> RXD
+        3 = _ // GND
+        4 = _ @class(digital) // RTS <-> CTS
+        5 = _ @class(digital) // CTS <-> RTS
     ]
 
     role DCE {  // RS232.5 DCE - TX/RX + RTS/CTS hardware flow control
         name = "RS232.5 DCE"
         pins = [
-            in 1 = RXD, "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Cross-connect to DTE Pin1 TXD
-            out 2 = TXD, "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DTE Pin2 RXD
+            in 1 = RXD @class(digital), "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Cross-connect to DTE Pin1 TXD
+            out 2 = TXD @class(digital), "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DTE Pin2 RXD
             3 = GND, "Signal Ground"                                          // Direct connect to DTE Pin3 GND, signal reference ground
-            in 4 = RTS, "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]      // Cross-connect to DTE Pin4 CTS, hardware flow control
-            out 5 = CTS, "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DTE Pin5 RTS, hardware flow control
+            in 4 = RTS @class(digital), "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]      // Cross-connect to DTE Pin4 CTS, hardware flow control
+            out 5 = CTS @class(digital), "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DTE Pin5 RTS, hardware flow control
         ]
         peer = DTE(1)  // Paired with terminal device DTE
     }
@@ -157,11 +157,11 @@ interface UART.RS232.5(role)
     role DTE {  // RS232.5 DTE - TX/RX + RTS/CTS hardware flow control
         name = "RS232.5 DTE"
         pins = [
-            out 1 = TXD, "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DCE Pin1 RXD
-            in 2 = RXD, "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Cross-connect to DCE Pin2 TXD
+            out 1 = TXD @class(digital), "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DCE Pin1 RXD
+            in 2 = RXD @class(digital), "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Cross-connect to DCE Pin2 TXD
             3 = GND, "Signal Ground"                                          // Direct connect to DCE Pin3 GND, signal reference ground
-            in 4 = CTS, "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DCE Pin4 RTS, hardware flow control
-            out 5 = RTS, "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]      // Cross-connect to DCE Pin5 CTS, hardware flow control
+            in 4 = CTS @class(digital), "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DCE Pin4 RTS, hardware flow control
+            out 5 = RTS @class(digital), "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]      // Cross-connect to DCE Pin5 CTS, hardware flow control
         ]
         peer = DCE(1)  // Paired with communication device DCE
     }
@@ -184,29 +184,29 @@ interface UART.RS232.9(role)
     // Role-less conductor view: 9 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
     pins = [
-        1 = _    // DCD
-        2 = _    // RXD <-> TXD
-        3 = _    // TXD <-> RXD
-        4 = _    // DTR <-> DSR
-        5 = _    // GND
-        6 = _    // DSR <-> DTR
-        7 = _    // RTS <-> CTS
-        8 = _    // CTS <-> RTS
-        9 = _    // RI
+        1 = _ @class(digital) // DCD
+        2 = _ @class(digital) // RXD <-> TXD
+        3 = _ @class(digital) // TXD <-> RXD
+        4 = _ @class(digital) // DTR <-> DSR
+        5 = _ // GND
+        6 = _ @class(digital) // DSR <-> DTR
+        7 = _ @class(digital) // RTS <-> CTS
+        8 = _ @class(digital) // CTS <-> RTS
+        9 = _ @class(digital) // RI
     ]
 
     role DCE {  // RS232.9 DCE - EIA-RS-232C full function
         name = "RS232.9 DCE (EIA-RS-232C)"
         pins = [
-            out 1 = DCD,  "Data Carrier Detect", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]   // Direct connect to DTE Pin1 DCD, status indicator
-            in 2 = RXD,  "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]          // Cross-connect to DTE Pin2 TXD, core data receive
-            out 3 = TXD,  "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]         // Cross-connect to DTE Pin3 RXD, core data transmit
-            in 4 = DTR,  "Data Terminal Ready", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]   // Cross-connect to DTE Pin4 DSR, device handshake
+            out 1 = DCD @class(digital),  "Data Carrier Detect", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]   // Direct connect to DTE Pin1 DCD, status indicator
+            in 2 = RXD @class(digital),  "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]          // Cross-connect to DTE Pin2 TXD, core data receive
+            out 3 = TXD @class(digital),  "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]         // Cross-connect to DTE Pin3 RXD, core data transmit
+            in 4 = DTR @class(digital),  "Data Terminal Ready", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]   // Cross-connect to DTE Pin4 DSR, device handshake
             5 = GND,  "Signal Ground"                                            // Direct connect to DTE Pin5 GND, signal reference ground
-            out 6 = DSR,  "Data Set Ready", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Cross-connect to DTE Pin6 DTR, device handshake
-            in 7 = RTS,  "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DTE Pin7 CTS, hardware flow control
-            out 8 = CTS,  "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]         // Cross-connect to DTE Pin8 RTS, hardware flow control
-            out 9 = RI,   "Ring Indicator", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Direct connect to DTE Pin9 RI, status indicator
+            out 6 = DSR @class(digital),  "Data Set Ready", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Cross-connect to DTE Pin6 DTR, device handshake
+            in 7 = RTS @class(digital),  "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DTE Pin7 CTS, hardware flow control
+            out 8 = CTS @class(digital),  "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]         // Cross-connect to DTE Pin8 RTS, hardware flow control
+            out 9 = RI @class(digital),   "Ring Indicator", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Direct connect to DTE Pin9 RI, status indicator
         ]
         peer = DTE(1)  // Paired with terminal device DTE
     }
@@ -214,15 +214,15 @@ interface UART.RS232.9(role)
     role DTE {  // RS232.9 DTE - EIA-RS-232C full function
         name = "RS232.9 DTE (EIA-RS-232C)"
         pins = [
-            in 1 = DCD,  "Data Carrier Detect", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]   // Direct connect to DCE Pin1 DCD, status indicator
-            out 2 = TXD,  "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]         // Cross-connect to DCE Pin2 RXD, core data transmit
-            in 3 = RXD,  "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]          // Cross-connect to DCE Pin3 TXD, core data receive
-            in 4 = DSR,  "Data Set Ready", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Cross-connect to DCE Pin4 DTR, device handshake
+            in 1 = DCD @class(digital),  "Data Carrier Detect", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]   // Direct connect to DCE Pin1 DCD, status indicator
+            out 2 = TXD @class(digital),  "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]         // Cross-connect to DCE Pin2 RXD, core data transmit
+            in 3 = RXD @class(digital),  "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]          // Cross-connect to DCE Pin3 TXD, core data receive
+            in 4 = DSR @class(digital),  "Data Set Ready", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Cross-connect to DCE Pin4 DTR, device handshake
             5 = GND,  "Signal Ground"                                            // Direct connect to DCE Pin5 GND, signal reference ground
-            out 6 = DTR,  "Data Terminal Ready", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]   // Cross-connect to DCE Pin6 DSR, device handshake
-            in 7 = CTS,  "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]         // Cross-connect to DCE Pin7 RTS, hardware flow control
-            out 8 = RTS,  "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DCE Pin8 CTS, hardware flow control
-            in 9 = RI,   "Ring Indicator", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Direct connect to DCE Pin9 RI, status indicator
+            out 6 = DTR @class(digital),  "Data Terminal Ready", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]   // Cross-connect to DCE Pin6 DSR, device handshake
+            in 7 = CTS @class(digital),  "Clear to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]         // Cross-connect to DCE Pin7 RTS, hardware flow control
+            out 8 = RTS @class(digital),  "Request to Send", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]       // Cross-connect to DCE Pin8 CTS, hardware flow control
+            in 9 = RI @class(digital),   "Ring Indicator", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]        // Direct connect to DCE Pin9 RI, status indicator
         ]
         peer = DCE(1)  // Paired with communication device DCE
     }
@@ -247,17 +247,17 @@ interface UART.RS422(role)
     // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
     pins = [
-        1 = _    // A
-        2 = _    // B
-        3 = _    // GND
+        1 = _ @class(digital) // A
+        2 = _ @class(digital) // B
+        3 = _ // GND
     ]
 
     // -------------------------- RS422 Transmitter --------------------------
     role TRANSMITTER {  // Sends balanced differential signals
         name = "RS422 Transmitter"
         pins = [
-            out 1 = A @pair(ab), "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
-            out 2 = B @pair(ab), "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
+            out 1 = A @pair(ab) @class(digital), "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
+            out 2 = B @pair(ab) @class(digital), "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                                    // Signal reference ground
         ]
         peer = RECEIVER  // Paired with RS422 Receiver
@@ -267,8 +267,8 @@ interface UART.RS422(role)
     role RECEIVER {  // Receives balanced differential signals
         name = "RS422 Receiver"
         pins = [
-            in 1 = A @pair(ab), "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
-            in 2 = B @pair(ab), "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
+            in 1 = A @pair(ab) @class(digital), "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
+            in 2 = B @pair(ab) @class(digital), "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                                   // Signal reference ground
         ]
         peer = TRANSMITTER  // Paired with RS422 Transmitter
@@ -292,15 +292,15 @@ interface UART.RS422.2(role)
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
     pins = [
-        1 = _    // A
-        2 = _    // B
+        1 = _ @class(digital) // A
+        2 = _ @class(digital) // B
     ]
 
     role TRANSMITTER {  // Sends balanced differential signals
         name = "RS422.2 Transmitter"
         pins = [
-            out 1 = A @pair(ab), "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
-            out 2 = B @pair(ab), "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+            out 1 = A @pair(ab) @class(digital), "Transmit Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            out 2 = B @pair(ab) @class(digital), "Transmit Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
         peer = RECEIVER
     }
@@ -308,8 +308,8 @@ interface UART.RS422.2(role)
     role RECEIVER {  // Receives balanced differential signals
         name = "RS422.2 Receiver"
         pins = [
-            in 1 = A @pair(ab), "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
-            in 2 = B @pair(ab), "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+            in 1 = A @pair(ab) @class(digital), "Receive Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            in 2 = B @pair(ab) @class(digital), "Receive Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
         peer = TRANSMITTER
     }
@@ -332,22 +332,22 @@ interface UART.RS423(role)
     // Role-less conductor view: 5 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
     pins = [
-        1 = _    // RXD <-> TXD
-        2 = _    // TXD <-> RXD
-        3 = _    // GND
-        4 = _    // RTS <-> CTS
-        5 = _    // CTS <-> RTS
+        1 = _ @class(digital) // RXD <-> TXD
+        2 = _ @class(digital) // TXD <-> RXD
+        3 = _ // GND
+        4 = _ @class(digital) // RTS <-> CTS
+        5 = _ @class(digital) // CTS <-> RTS
     ]
 
     // -------------------------- RS423 DCE --------------------------
     role DCE {  // RS423 DCE - Data Communications Equipment
         name = "RS423 DCE"
         pins = [
-            in 1 = RXD, "Receive Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Cross-connect to DTE RXD
-            out 2 = TXD, "Transmit Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V] // Cross-connect to DTE TXD
+            in 1 = RXD @class(digital), "Receive Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Cross-connect to DTE RXD
+            out 2 = TXD @class(digital), "Transmit Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V] // Cross-connect to DTE TXD
             3 = GND, "Signal Ground"                                    // Signal reference ground
-            in 4 = RTS, "Request to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Cross-connect to DTE CTS
-            out 5 = CTS, "Clear to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DTE RTS
+            in 4 = RTS @class(digital), "Request to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Cross-connect to DTE CTS
+            out 5 = CTS @class(digital), "Clear to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DTE RTS
         ]
         peer = DTE(1)  // Paired with RS423 DTE
     }
@@ -356,11 +356,11 @@ interface UART.RS423(role)
     role DTE {  // RS423 DTE - Data Terminal Equipment
         name = "RS423 DTE"
         pins = [
-            out 1 = TXD, "Transmit Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DCE RXD
-            in 2 = RXD, "Receive Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]    // Cross-connect to DCE TXD
+            out 1 = TXD @class(digital), "Transmit Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DCE RXD
+            in 2 = RXD @class(digital), "Receive Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]    // Cross-connect to DCE TXD
             3 = GND, "Signal Ground"                                   // Signal reference ground
-            in 4 = CTS, "Clear to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DCE RTS
-            out 5 = RTS, "Request to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Cross-connect to DCE CTS
+            in 4 = CTS @class(digital), "Clear to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DCE RTS
+            out 5 = RTS @class(digital), "Request to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Cross-connect to DCE CTS
         ]
         peer = DCE(1)  // Paired with RS423 DCE
     }
@@ -388,22 +388,22 @@ interface UART.RS449(role)
     // Role-less conductor view: 16 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
     pins = [
-        1 = _     // SD <-> RD
-        2 = _     // RD <-> SD
-        3 = _     // RS <-> CS
-        4 = _     // CS <-> RS
-        5 = _     // DR <-> CD
-        6 = _     // CD <-> DR
-        7 = _     // TM <-> TT
-        8 = _     // TT <-> TM
-        9 = _     // RT (timing)
-        10 = _    // SG
-        11 = _    // SD2 <-> RD2 (secondary, optional)
-        12 = _    // RD2 <-> SD2 (secondary, optional)
-        13 = _    // RS2 <-> CS2 (secondary, optional)
-        14 = _    // CS2 <-> RS2 (secondary, optional)
-        15 = _    // DR2 <-> CD2 (secondary, optional)
-        16 = _    // CD2 <-> DR2 (secondary, optional)
+        1 = _ @class(digital) // SD <-> RD
+        2 = _ @class(digital) // RD <-> SD
+        3 = _ @class(digital) // RS <-> CS
+        4 = _ @class(digital) // CS <-> RS
+        5 = _ @class(digital) // DR <-> CD
+        6 = _ @class(digital) // CD <-> DR
+        7 = _ @class(digital) // TM <-> TT
+        8 = _ @class(digital) // TT <-> TM
+        9 = _ @class(digital) // RT (timing)
+        10 = _ @class(digital) // SG
+        11 = _    // SD2 <-> RD2 (secondary @class(digital), optional)
+        12 = _    // RD2 <-> SD2 (secondary @class(digital), optional)
+        13 = _    // RS2 <-> CS2 (secondary @class(digital), optional)
+        14 = _    // CS2 <-> RS2 (secondary @class(digital), optional)
+        15 = _    // DR2 <-> CD2 (secondary @class(digital), optional)
+        16 = _    // CD2 <-> DR2 (secondary @class(digital), optional)
     ]
 
     // -------------------------- RS449 DCE --------------------------
@@ -411,24 +411,24 @@ interface UART.RS449(role)
         name = "RS449 DCE"
         pins = [
             // Primary Data Pins
-            in 1 = SD, "Send Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]         // Cross-connect to DTE RD
-            out 2 = RD, "Receive Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DTE SD
-            in 3 = RS, "Request to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DTE CS
-            out 4 = CS, "Clear to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DTE RS
-            out 5 = DR, "Data Ready", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]          // Cross-connect to DTE CD
-            out 6 = CD, "Carrier Detect", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DTE DR
-            in 7 = TM, "Transmit Clock", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DTE TT
-            out 8 = TT, "Terminal Timing", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DTE TM
-            out 9 = RT, "Receive Timing", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DTE RT
-            10 = SG, "Signal Ground"                                       // Signal reference ground
+            in 1 = SD @class(digital), "Send Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]         // Cross-connect to DTE RD
+            out 2 = RD @class(digital), "Receive Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DTE SD
+            in 3 = RS @class(digital), "Request to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DTE CS
+            out 4 = CS @class(digital), "Clear to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DTE RS
+            out 5 = DR @class(digital), "Data Ready", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]          // Cross-connect to DTE CD
+            out 6 = CD @class(digital), "Carrier Detect", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DTE DR
+            in 7 = TM @class(digital), "Transmit Clock", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DTE TT
+            out 8 = TT @class(digital), "Terminal Timing", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DTE TM
+            out 9 = RT @class(digital), "Receive Timing", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DTE RT
+            10 = SG @class(digital), "Signal Ground"                                       // Signal reference ground
 
             // Secondary Data Pins (Optional)
-            in 11 = SD2, "Send Data 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DTE RD2
-            out 12 = RD2, "Receive Data 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DTE SD2
-            in 13 = RS2, "Request to Send 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DTE CS2
-            out 14 = CS2, "Clear to Send 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DTE RS2
-            out 15 = DR2, "Data Ready 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]        // Cross-connect to DTE CD2
-            out 16 = CD2, "Carrier Detect 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]    // Cross-connect to DTE DR2
+            in 11 = SD2 @class(digital), "Send Data 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DTE RD2
+            out 12 = RD2 @class(digital), "Receive Data 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DTE SD2
+            in 13 = RS2 @class(digital), "Request to Send 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DTE CS2
+            out 14 = CS2 @class(digital), "Clear to Send 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DTE RS2
+            out 15 = DR2 @class(digital), "Data Ready 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]        // Cross-connect to DTE CD2
+            out 16 = CD2 @class(digital), "Carrier Detect 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]    // Cross-connect to DTE DR2
         ]
         peer = DTE(1)  // Paired with RS449 DTE
     }
@@ -438,24 +438,24 @@ interface UART.RS449(role)
         name = "RS449 DTE"
         pins = [
             // Primary Data Pins
-            in 1 = RD, "Receive Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DCE SD
-            out 2 = SD, "Send Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]         // Cross-connect to DCE RD
-            in 3 = CS, "Clear to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DCE RS
-            out 4 = RS, "Request to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DCE CS
-            in 5 = CD, "Carrier Detect", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DCE DR
-            in 6 = DR, "Data Ready", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]          // Cross-connect to DCE CD
-            out 7 = TT, "Terminal Timing", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DCE TM
-            in 8 = TM, "Transmit Clock", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DCE TT
-            in 9 = RT, "Receive Timing", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DCE RT
-            10 = SG, "Signal Ground"                                       // Signal reference ground
+            in 1 = RD @class(digital), "Receive Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DCE SD
+            out 2 = SD @class(digital), "Send Data", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]         // Cross-connect to DCE RD
+            in 3 = CS @class(digital), "Clear to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DCE RS
+            out 4 = RS @class(digital), "Request to Send", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DCE CS
+            in 5 = CD @class(digital), "Carrier Detect", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DCE DR
+            in 6 = DR @class(digital), "Data Ready", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]          // Cross-connect to DCE CD
+            out 7 = TT @class(digital), "Terminal Timing", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DCE TM
+            in 8 = TM @class(digital), "Transmit Clock", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DCE TT
+            in 9 = RT @class(digital), "Receive Timing", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]      // Cross-connect to DCE RT
+            10 = SG @class(digital), "Signal Ground"                                       // Signal reference ground
 
             // Secondary Data Pins (Optional)
-            in 11 = RD2, "Receive Data 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DCE SD2
-            out 12 = SD2, "Send Data 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DCE RD2
-            in 13 = CS2, "Clear to Send 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DCE RS2
-            out 14 = RS2, "Request to Send 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DCE CS2
-            in 15 = CD2, "Carrier Detect 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]    // Cross-connect to DCE DR2
-            out 16 = DR2, "Data Ready 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]        // Cross-connect to DCE CD2
+            in 11 = RD2 @class(digital), "Receive Data 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DCE SD2
+            out 12 = SD2 @class(digital), "Send Data 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]       // Cross-connect to DCE RD2
+            in 13 = CS2 @class(digital), "Clear to Send 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]     // Cross-connect to DCE RS2
+            out 14 = RS2 @class(digital), "Request to Send 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Cross-connect to DCE CS2
+            in 15 = CD2 @class(digital), "Carrier Detect 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]    // Cross-connect to DCE DR2
+            out 16 = DR2 @class(digital), "Data Ready 2", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]        // Cross-connect to DCE CD2
         ]
         peer = DCE(1)  // Paired with RS449 DCE
     }
@@ -482,17 +482,17 @@ interface UART.RS485.3(role)
     // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
     pins = [
-        1 = _    // A
-        2 = _    // B
-        3 = _    // GND
+        1 = _ @class(digital) // A
+        2 = _ @class(digital) // B
+        3 = _ // GND
     ]
 
     // -------------------------- RS485 Master --------------------------
     role MASTER {  // RS485 Master - Controls the bus
         name = "RS485 Master"
         pins = [
-            io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
-            io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
+            io 1 = A @pair(ab) @class(digital), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]  // Positive differential signal
+            io 2 = B @pair(ab) @class(digital), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]  // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                           // Signal reference ground
         ]
         peer = SLAVE  // Paired with RS485 Slave
@@ -502,8 +502,8 @@ interface UART.RS485.3(role)
     role SLAVE {  // RS485 Slave - Responds to master
         name = "RS485 Slave"
         pins = [
-            io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
-            io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
+            io 1 = A @pair(ab) @class(digital), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]   // Positive differential signal
+            io 2 = B @pair(ab) @class(digital), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]   // Negative differential signal (inverted A)
             3 = GND, "Signal Ground"                           // Signal reference ground
         ]
         peer = MASTER  // Paired with RS485 Master
@@ -530,15 +530,15 @@ interface UART.RS485(role)
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     // (conductor-view-design.md R-CV1)
     pins = [
-        1 = _    // A
-        2 = _    // B
+        1 = _ @class(digital) // A
+        2 = _ @class(digital) // B
     ]
 
     role MASTER {  // RS485 Master - Controls the bus
         name = "RS485 Master"
         pins = [
-            io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
-            io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+            io 1 = A @pair(ab) @class(digital), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            io 2 = B @pair(ab) @class(digital), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
         peer = SLAVE
     }
@@ -546,8 +546,8 @@ interface UART.RS485(role)
     role SLAVE {  // RS485 Slave - Responds to master
         name = "RS485 Slave"
         pins = [
-            io 1 = A @pair(ab), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
-            io 2 = B @pair(ab), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
+            io 1 = A @pair(ab) @class(digital), "Data A", voltage:[low:-6V ~ -2V, high:+2V ~ +6V]
+            io 2 = B @pair(ab) @class(digital), "Data B", voltage:[low:+2V ~ +6V, high:-6V ~ -2V]
         ]
         peer = MASTER
     }

@@ -31,20 +31,20 @@ interface PCM(role)
     // every name is the same on both sides). No direction words here: the role
     // tables below carry the directed views, and the data pair flips per side.
     pins = [
-        1 = CLK, "Bit Clock"        // Bit clock signal
-        2 = SYNC, "Frame Sync"      // Frame synchronization signal
-        3 = IN, "Audio Input"       // Audio data line
-        4 = OUT, "Audio Output"     // Audio output line
+        1 = CLK @class(digital), "Bit Clock"        // Bit clock signal
+        2 = SYNC @class(digital), "Frame Sync"      // Frame synchronization signal
+        3 = IN @class(digital), "Audio Input"       // Audio data line
+        4 = OUT @class(digital), "Audio Output"     // Audio output line
         5 = GND, "Ground"           // Ground
     ]
 
     role TRANSMITTER {  // PCM Transmitter - Sends audio data
         name = "PCM Transmitter"
         pins = [
-            1 = CLK, "Bit Clock"        // Bit clock signal
-            2 = SYNC, "Frame Sync"      // Frame synchronization signal
-            in 3 = IN, "Audio Input"    // Audio data input (my side listens)
-            out 4 = OUT, "Audio Output" // Audio data output (my side drives)
+            1 = CLK @class(digital), "Bit Clock"        // Bit clock signal
+            2 = SYNC @class(digital), "Frame Sync"      // Frame synchronization signal
+            in 3 = IN @class(digital), "Audio Input"    // Audio data input (my side listens)
+            out 4 = OUT @class(digital), "Audio Output" // Audio data output (my side drives)
             5 = GND, "Ground"           // Ground
         ]
         peer = RECEIVER
@@ -52,10 +52,10 @@ interface PCM(role)
     role RECEIVER {  // PCM Receiver - Receives audio data
         name = "PCM Receiver"
         pins = [
-            1 = CLK, "Bit Clock"        // Bit clock signal
-            2 = SYNC, "Frame Sync"      // Frame synchronization signal
-            out 3 = IN, "Audio Input"   // Same wire as the transmitter's input
-            in 4 = OUT, "Audio Output"  // Same wire as the transmitter's output
+            1 = CLK @class(digital), "Bit Clock"        // Bit clock signal
+            2 = SYNC @class(digital), "Frame Sync"      // Frame synchronization signal
+            out 3 = IN @class(digital), "Audio Input"   // Same wire as the transmitter's input
+            in 4 = OUT @class(digital), "Audio Output"  // Same wire as the transmitter's output
             5 = GND, "Ground"           // Ground
         ]
         peer = TRANSMITTER

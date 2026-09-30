@@ -28,14 +28,14 @@ interface LIN(role)
     // Applications: Power windows, door locks, seat controls, lighting
 
     pins = [
-        1 = LIN, "Data"    // Single wire data line
+        1 = LIN @class(digital), "Data"    // Single wire data line
         2 = GND, "Ground"  // Signal reference ground
     ]
     
     role MASTER {
         name = "LIN Master"
         pins = [
-            io 1 = LIN, "Data"  // Master and slaves time-share the wire — either side may drive a response
+            io 1 = LIN @class(digital), "Data"  // Master and slaves time-share the wire — either side may drive a response
             2 = GND, "Ground"   // Signal reference ground
         ]
         peer = SLAVE
@@ -44,7 +44,7 @@ interface LIN(role)
     role SLAVE {
         name = "LIN Slave"
         pins = [
-            io 1 = LIN, "Data"  // Master and slaves time-share the wire — either side may drive a response
+            io 1 = LIN @class(digital), "Data"  // Master and slaves time-share the wire — either side may drive a response
             2 = GND, "Ground"   // Signal reference ground
         ]
         peer = MASTER

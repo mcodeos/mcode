@@ -28,20 +28,20 @@ interface FLEXRAY(role)
     // Applications: Automotive drive-by-wire systems, brake-by-wire, steering systems
 
     pins = [
-        1 = CH_A\+, "Channel A Positive"    // Positive differential signal for channel A
-        2 = CH_A\-, "Channel A Negative"    // Negative differential signal for channel A
-        3 = CH_B\+, "Channel B Positive"    // Positive differential signal for channel B
-        4 = CH_B\-, "Channel B Negative"    // Negative differential signal for channel B
+        1 = CH_A\+ @class(digital), "Channel A Positive"    // Positive differential signal for channel A
+        2 = CH_A\- @class(digital), "Channel A Negative"    // Negative differential signal for channel A
+        3 = CH_B\+ @class(digital), "Channel B Positive"    // Positive differential signal for channel B
+        4 = CH_B\- @class(digital), "Channel B Negative"    // Negative differential signal for channel B
         5 = GND, "Ground"                  // Signal reference ground
     ]
     
     role NODE {
         name = "FlexRay Node"
         pins = [
-            io 1 = CH_A\+, "Channel A Positive"  // TDMA time-share: a node drives its own slot
-            io 2 = CH_A\-, "Channel A Negative"  // and listens on every other slot
-            io 3 = CH_B\+, "Channel B Positive"
-            io 4 = CH_B\-, "Channel B Negative"
+            io 1 = CH_A\+ @class(digital), "Channel A Positive"  // TDMA time-share: a node drives its own slot
+            io 2 = CH_A\- @class(digital), "Channel A Negative"  // and listens on every other slot
+            io 3 = CH_B\+ @class(digital), "Channel B Positive"
+            io 4 = CH_B\- @class(digital), "Channel B Negative"
             5 = GND, "Ground"                    // Signal reference ground
         ]
         peer = NODE
