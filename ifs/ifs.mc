@@ -27,7 +27,7 @@ pub use ./ac.mc         // AC mains power interface (single-phase)
 pub use ./uart.mc       // UART interfaces (TTL, RS232, RS422, RS423, RS449, RS485)
 pub use ./i2c.mc        // I2C interface
 pub use ./i2s.mc        // I2S interface
-pub use ./spi.mc        // SPI interface (SPI, SPI.3WIRE, SPI.QUAD)
+pub use ./spi.mc        // SPI interface (SPI, SPI.3WIRE, SPI.QUAD, SPI.WO)
 pub use ./sdio.mc       // SDIO interface (SDIO, SDIO.1BIT)
 pub use ./usb.mc        // USB interface
 pub use ./pcm.mc        // PCM interface
