@@ -35,7 +35,7 @@ interface SDIO(role)
         3 = DAT0 @class(digital), "Data 0"           // Bidirectional data line 0
         4 = DAT1 @class(digital), "Data 1"           // Bidirectional data line 1
         5 = DAT2 @class(digital), "Data 2"           // Bidirectional data line 2
-        6 = DAT3 @class(digital), "Data 3"           // Bidirectional data line 3 (also CS in SPI mode)
+        6 = DAT3, "Data 3"           // Bidirectional data line 3 (also CS in SPI mode)
     ]
 
     role HOST {  // SDIO Host (MCU/SoC)
@@ -46,7 +46,7 @@ interface SDIO(role)
             io 3 = DAT0 @class(digital), "Data 0"    // Bidirectional data line 0
             io 4 = DAT1 @class(digital), "Data 1"    // Bidirectional data line 1
             io 5 = DAT2 @class(digital), "Data 2"    // Bidirectional data line 2
-            io 6 = DAT3 @class(digital), "Data 3"    // Bidirectional data line 3 (also CS in SPI mode)
+            io 6 = DAT3, "Data 3"    // Bidirectional data line 3 (also CS in SPI mode)
         ]
         peer = CARD
     }
@@ -58,7 +58,7 @@ interface SDIO(role)
             io 3 = DAT0 @class(digital), "Data 0"    // Bidirectional data line 0
             io 4 = DAT1 @class(digital), "Data 1"    // Bidirectional data line 1
             io 5 = DAT2 @class(digital), "Data 2"    // Bidirectional data line 2
-            io 6 = DAT3 @class(digital), "Data 3"    // Bidirectional data line 3 (also CS in SPI mode)
+            io 6 = DAT3, "Data 3"    // Bidirectional data line 3 (also CS in SPI mode)
         ]
         peer = HOST
     }
