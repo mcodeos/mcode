@@ -210,7 +210,7 @@ interface DBG.CMSISDAP(role)
     pins = [
         1 = TCK @class(digital), "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
         2 = TMS @class(digital), "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        3 = RST @class(digital), "Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        3 = _RST @class(digital), "Reset (datasheet nRST)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
     
     role HOST {
@@ -272,10 +272,10 @@ interface DBG.SWIM(role)
 
     pins = [
         1 = SWIM @class(digital), "Single Wire Interface Module", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        2 = RST @class(digital), "Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        2 = _RST @class(digital), "Reset (datasheet NRST)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
         3 = GND, "Ground"
     ]
-    
+
     role HOST {
         name = "SWIM Host"
         peer = TARGET(1)
@@ -304,7 +304,7 @@ interface DBG.ICD(role)
     pins = [
         1 = PGED @class(digital), "Program/Debug Enable", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
         2 = PGEC @class(digital), "Program/Debug Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        3 = MCLR @class(digital), "Master Clear/Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        3 = _MCLR @class(digital), "Master Clear (datasheet MCLR overbar)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
     
     role HOST {
