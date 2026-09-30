@@ -819,6 +819,7 @@ enum PKG
     // Speakers & buzzers
     // =================================================================
     SPEAKER_PHB2AWB,   // Specific speaker footprint
+    PIEZO_SOUNDER_D12_2,   // 2-pin radial piezo sounder, 12.2mm dia x 6.5mm, 12.7mm pin pitch (e.g. TDK PS1240P02BT)
 
     // =================================================================
     // Fuses
