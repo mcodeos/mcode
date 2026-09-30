@@ -366,6 +366,8 @@ enum PKG
     SIP9,
     SIP10,
     SIP12,
+    // Multiwatt — staggered in-line power package with metal tab (ST naming)
+    MULTIWATT15,   // 15-lead staggered in-line with heat tab (e.g. L298N; tab = a GND pin)
     ZIP10,
     ZIP16,
     ZIP24,
