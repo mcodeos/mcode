@@ -36,7 +36,7 @@ interface DBG.JTAG(role)
         2 = _ @class(digital) // TDO <-> TDI
         3 = _ @class(digital) // TCK
         4 = _ @class(digital) // TMS
-        5 = _ @class(digital) // TRST
+        5 = _ @class(digital) // _TRST
     ]
 
     role TAP {  // Test Access Port - Target device being tested/debugged
@@ -46,7 +46,7 @@ interface DBG.JTAG(role)
             out 2 = TDO @class(digital), "Test Data Output", voltage:[low:0V ~ 0.8V, high:2V ~ 5V] // Data output from the device
             3 = TCK @class(digital), "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]           // Clock signal for synchronization
             4 = TMS @class(digital), "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]     // Controls the state machine
-            5 = TRST @class(digital), "Test Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
+            5 = _TRST @class(digital), "Test Reset (datasheet TRST)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
         ]
         peer = HOST
     }
@@ -58,7 +58,7 @@ interface DBG.JTAG(role)
             in 2 = TDO @class(digital), "Test Data Output", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as the TAP's output
             3 = TCK @class(digital), "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]           // Clock signal for synchronization
             4 = TMS @class(digital), "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]     // Controls the state machine
-            5 = TRST @class(digital), "Test Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
+            5 = _TRST @class(digital), "Test Reset (datasheet TRST)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
         ]
         peer = TAP
     }
@@ -205,7 +205,7 @@ interface DBG.CMSISDAP(role)
 
     //ARM CMSIS DAP standard, for Cortext-M
     // Debug family pin-order law: data first, then clock, then control/reset
-    // (DBG.JTAG TDI,TDO,TCK,TMS,TRST; DBG.SWD SWDIO,SWCLK; DBG.ICD PGED,PGEC).
+    // (DBG.JTAG TDI,TDO,TCK,TMS,_TRST; DBG.SWD SWDIO,SWCLK,_RST; DBG.ICD PGED,PGEC).
     // With no data lane here, the clock precedes the mode select to match.
     pins = [
         1 = TCK @class(digital), "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
@@ -241,7 +241,7 @@ interface DBG.SWD(role)
     pins = [
         1 = SWDIO @class(digital), "Serial Wire Debug Input/Output", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
         2 = SWCLK @class(digital), "Serial Wire Debug Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        3 = nRST @class(digital), "Reset", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        3 = _RST @class(digital), "Reset (datasheet nRST)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
         4 = VREF @class(digital), "Reference Voltage", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
     ]
     
