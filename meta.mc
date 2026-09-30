@@ -25,3 +25,7 @@
 // meta declarations, per domain
 pub use ./meta/core.mc
 pub use ./meta/judge.mc
+pub use ./meta/power.mc
+pub use ./meta/level.mc
+pub use ./meta/radio.mc
+pub use ./meta/xtal.mc

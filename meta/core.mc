@@ -149,3 +149,26 @@
 //     role   = supply
 //     params = board
 // }
+
+// 13. internal blocks with no external endpoint (internal clocks, supply
+// supervisors, ESD structures): the admission gate REFUSES them a pin
+// landing (R9) — instances stay data on the body spec. Second witness:
+// cc2530 p.8-9 / cc2652r §8 internal-clock tables.
+// Literal: a dict of the block's scalars.                             -> doc (R9)
+// meta rc_osc {
+//     role = supply
+// }
+
+// 14. on-die temperature sensor.                                       -> doc (R10)
+// Literal: a dict [nom: ..., tempco: ...] or a range.
+// meta temp_sense {
+//     role = supply
+// }
+
+// 15. peripheral interface timing (SPI/SSI cycles, duty). Pins are muxed
+// across DIOs, so the instance waits for the alias pin-face work (R9
+// open on the pin anchor); rows stay body data until then.  -> doc (R10)
+// Literal: a dict [cycle: ..., duty: ...].
+// meta spi_timing {
+//     role = supply
+// }
