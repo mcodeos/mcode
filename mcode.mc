@@ -24,10 +24,4 @@ pub use ./conn/conn.mc
 pub use ./meta.mc
 
 // import files
-pub use ./passive/passive.mc
-pub use ./discrete/discrete.mc
-pub use ./electro/electro.mc
-pub use ./board/board.mc
-pub use ./rf/rf.mc
-pub use ./dc.mc
-pub use ./sensor.mc
+pub use ./comp/comp.mc

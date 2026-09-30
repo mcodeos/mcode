@@ -38,14 +38,14 @@ fi
 # Create mcode subdirectory in target
 mkdir -p "$MCODE_DIR"
 
-# Copy only library content to the target: root *.mc files, the category
+# Copy only library content to the target: root *.mc files, the aggregate
 # subdirectories, and the sim/ model-profile sidecar (data, not .mc).
 # Everything else in the repo (build/, logs/, baseline/, config/, docs, this
 # script, the license) is working-tree material and must not reach the
 # installed library (U190).
 echo "Copying mcode library files from $SOURCE_DIR to $MCODE_DIR..."
 cp "$SOURCE_DIR"/*.mc "$MCODE_DIR"/ || { echo "Error: Cannot copy mcode files"; exit 1; }
-for SUBDIR in conn ifs meta passive discrete electro board rf; do
+for SUBDIR in conn ifs meta comp; do
     if [ -d "$SOURCE_DIR/$SUBDIR" ]; then
         mkdir -p "$MCODE_DIR/$SUBDIR"
         cp "$SOURCE_DIR/$SUBDIR"/*.mc "$MCODE_DIR/$SUBDIR"/ || { echo "Error: Cannot copy $SUBDIR files"; exit 1; }
