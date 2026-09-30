@@ -17,7 +17,7 @@
 
 // General Purpose Interfaces
 pub use ./gpio.mc       // GPIO interface
-pub use ./pwm.mc        // PWM interface
+pub use ./pwm.mc        // PWM interface (PWM, PWM.H6)
 pub use ./onewire.mc    // OneWire interface
 pub use ./xtal.mc       // XTAL interface for crystal oscillators
 pub use ./dc.mc         // DC power supply interface

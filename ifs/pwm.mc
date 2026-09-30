@@ -53,3 +53,58 @@ interface PWM(role)
         peer = TRANSMITTER
     }
 }
+
+interface PWM.H6(role)
+{
+    topology = "point to point"
+    mode = ["output"]
+    maxdistance = 0.1m
+    maxspeed = [1MHz]
+    voltage = [1.8V,3.3V,5V]
+
+    // Three-phase complementary PWM (interface inventory B6): the six gate
+    // control lanes of one three-phase bridge, phase-major with the high side
+    // first -- UH, UL, VH, VL, WH, WL. UH/UL drive the same half bridge
+    // complementary, but they are two independent control signals (the
+    // deadtime lives in the driver, not in the lane pair), so the lanes carry
+    // no @pair tag -- unlike the CAN_H/CAN_L legs of one differential signal.
+    // Shape witness: DRV8304H INHA/INLA/INHB/INLB/INHC/INLC six control
+    // inputs (TI ZHCSI91B p.3 package drawing; real part mcpub motor/drv8304).
+
+    // Role-less conductor view: 6 anonymous lanes, ordinal = wire identity
+    // (conductor-view-design.md R-CV1)
+    pins = [
+        1 = _    // UH <-> INHA
+        2 = _    // UL <-> INLA
+        3 = _    // VH <-> INHB
+        4 = _    // VL <-> INLB
+        5 = _    // WH <-> INHC
+        6 = _    // WL <-> INLC
+    ]
+
+    role TRANSMITTER {  // PWM source: MCU advanced timer with complementary outputs
+        name = "Three-phase PWM Transmitter"
+        pins = [
+            out 1 = UH   // Phase U high-side control
+            out 2 = UL   // Phase U low-side control
+            out 3 = VH   // Phase V high-side control
+            out 4 = VL   // Phase V low-side control
+            out 5 = WH   // Phase W high-side control
+            out 6 = WL   // Phase W low-side control
+        ]
+        peer = RECEIVER
+    }
+
+    role RECEIVER {  // PWM sink: three-phase gate driver
+        name = "Three-phase PWM Receiver"
+        pins = [
+            in 1 = UH   // Phase U high-side control
+            in 2 = UL   // Phase U low-side control
+            in 3 = VH   // Phase V high-side control
+            in 4 = VL   // Phase V low-side control
+            in 5 = WH   // Phase W high-side control
+            in 6 = WL   // Phase W low-side control
+        ]
+        peer = TRANSMITTER
+    }
+}
