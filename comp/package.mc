@@ -766,6 +766,7 @@ enum PKG
     // -----------------------------------------------------------------
     SIP2,          // 2-pin SIP/socket
     HDMI_A,        // HDMI Type-A receptacle
+    PHB2,          // 2-pin wire-to-board terminal block, 2.00mm pitch (e.g. LHE PHB-2AWB)
 
     // =================================================================
     // Crystals & oscillators
