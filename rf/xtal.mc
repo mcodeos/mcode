@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-use ./ifs/xtal
-use ./ifs/clk
+use ../ifs/xtal
+use ../ifs/clk
 
 # ---------------------------------------------------------------------------------------------
 # Crystal components

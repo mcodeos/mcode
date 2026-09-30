@@ -10,34 +10,27 @@ interface library of the language. It is loaded with `--lib mcode`.
 
 ```
 mcode.mc        library entry point; pub-use aggregates every module below
-res.mc          resistors        (RES, RES.SMD, RES.THT, RES.POT, RES.NTC, RES.LDR, ...)
-cap.mc          capacitors       (CAP, CAP.ELEC, CAP.MLCC, CAP.DISC, CAP.TANT, ...)
-ind.mc          inductors        (IND, IND.SMD, IND.POWER, IND.HF, IND.FB, IND.CMC)
-dio.mc          diodes           (DIO, DIO.SCH, DIO.ZEN, DIO.TVS, DIO.ESD, DIO.PHOTO, DIO.BR)
-led.mc          LEDs             (LED, LED.RGB, LED.IR, LED.HP)
-xfr.mc          transformers     (XFR, XFR.POWER, XFR.AUDIO, XFR.ISO, XFR.CT)
-trans.mc        transistors      (bipolar: TRANS, TRANS.NPN, TRANS.PNP, TRANS.DARLINGTON; power: TRANS.IGBT, TRANS.SCR, TRANS.TRIAC)
-fet.mc          field-effect transistors (FET, FET.JFET.N, FET.JFET.P, FET.MOSFET.N, FET.MOSFET.P)
-opto.mc         opto-isolators
-relay.mc        relays
-fuse.mc         fuses
-sensor.mc       sensors
-switch.mc       switches
-tp.mc           test points
-ant.mc          antennas
 dc.mc           DC supplies / batteries
-xtal.mc         crystal oscillators
-nettie.mc       net ties (copper bridges)
-package.mc      package definitions
+sensor.mc       sensors
+passive/        passives (resistors RES, capacitors CAP, inductors IND, transformers XFR, net ties NETTIE)
+discrete/       discrete semiconductors (diodes DIO, LEDs LED, transistors TRANS, FETs FET, opto-isolators OPTO)
+electro/        electromechanical and protection (relays RELAY, switches SWITCH, fuses FUSE)
+board/          board-level artifacts (test points TP, package definitions PKG)
+rf/             RF and timing (antennas ANT, crystal oscillators XTAL2/XTAL4)
 ifs/            interface definitions (UART.TTL, I2C, SPI, CAN, USB, GPIO, DP, LVDS, MIPI.DSI/CSI, SPDIF, PMBUS, ...)
 conn/           connector definitions (HDR_*, circular, audio, video, power, RJ45, SD, SIM, JUMPER, BAT, TERM, IDC, IEC)
+meta.mc         global meta declaration aggregate (schema layer; one authority face)
+meta/           meta declarations per domain (core, judge; meta grammar pending)
 cp.sh           install script: copies the library to ~/.mcode/mcode
 ```
 
-One component family per file; the file is named after the family. Each family
-file starts with the Apache-2.0 license header, lists the generic component
-first, then its `.`-suffixed variants (`RES`, `RES.SMD`, `RES.THT`, ...), and
-ends with a `# Usage Examples` comment block showing canonical call sites.
+Each category directory carries a same-named aggregate (`passive/passive.mc`,
+...) that pub-uses its family files; `mcode.mc` aggregates the five category
+aggregates plus the two root files. One component family per file; the file is
+named after the family. Each family file starts with the Apache-2.0 license
+header, lists the generic component first, then its `.`-suffixed variants
+(`RES`, `RES.SMD`, `RES.THT`, ...), and ends with a `# Usage Examples` comment
+block showing canonical call sites.
 
 ## Naming Conventions
 
