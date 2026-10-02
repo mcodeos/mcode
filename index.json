@@ -1,0 +1,46 @@
+{
+  "3rdparty": [],
+  "system": [
+    {
+      "name": "ifs",
+      "path": "ifs",
+      "version": "0.0.0"
+    },
+    {
+      "name": "meta",
+      "path": "meta",
+      "version": "0.0.0"
+    },
+    {
+      "name": "baseline",
+      "path": "baseline",
+      "version": "0.0.0"
+    },
+    {
+      "name": "comp",
+      "path": "comp",
+      "version": "0.0.0"
+    },
+    {
+      "name": "scripts",
+      "path": "scripts",
+      "version": "0.0.0"
+    },
+    {
+      "name": "build",
+      "path": "build",
+      "version": "0.0.0"
+    },
+    {
+      "name": "sim",
+      "path": "sim",
+      "version": "0.0.0"
+    },
+    {
+      "name": "conn",
+      "path": "conn",
+      "version": "0.0.0"
+    }
+  ],
+  "version": 1
+}
