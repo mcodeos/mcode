@@ -399,6 +399,9 @@ enum PKG
     SOIC12,
     SOIC14,
     SOIC16,       // e.g. 74HC595, MAX485
+    SOIC16_NB,    // narrow body 300 mil (SOIC16 NB, e.g. NSI8140N0)
+    SOIC16_WB,    // wide body 450 mil (SOIC16 WB, e.g. NSI8140W0)
+    PG_DSO_36,    // Infineon PG-DSO-36 (e.g. TLE7368)
     SOIC18,
     SOIC20,
     SOIC24,
@@ -500,6 +503,7 @@ enum PKG
     UDFN8,
 
     // USON — ultra-thin SON (smaller than SON, typically < 0.5 mm body)
+    USON6,        // e.g. TI DRY (SN74LVC1G175DRY)
     USON8,
     USON10,
     USON12,
@@ -565,6 +569,7 @@ enum PKG
     HVQFN16,
     HVQFN24,
     HVQFN32,
+    HWQFN24,      // NXP HWQFN24 (heatsink W-QFN, e.g. PCA9555HF)
 
     // MLF — MicroLeadFrame, Japanese vendor equivalent of QFN
     // (Microchip / ON Semi naming convention)

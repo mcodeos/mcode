@@ -132,13 +132,39 @@ component CAP.MLCC(cap::UV.CAP, volt::UV.VOLT)
 |----------------|-------------------------------------|-----------------------------------------------------------------------|
 | `name`         | display label                       | required per variant; the string users see in tools / BOM             |
 | `description`  | one-line functional description     | optional; defaults to `name` when absent                              |
-| `partno`       | manufacturer part number            | optional; omitted means unassigned (`_`)                              |
-| `package`      | footprint / package name            | optional; omitted means unassigned (`_`)                              |
+| `partno`       | manufacturer part number            | optional; omitted means unassigned (`_`); see partno rules below      |
+| `package`      | physical package                    | optional; **must be a `PKG` enum member** (`package = PKG.SOIC8`)     |
 | `manufacturer` | manufacturer name                   | optional; omitted means unassigned (`_`)                              |
 
 `name` is always written (each variant has a distinct display name);
 `description` is optional and defaults to the `name` value when omitted.
 A missing `name` is a lint recommendation, not a syntax error.
+
+**`package` uses the global `PKG` enum** (comp/package.mc), never a free
+string. The package is consumed inside the toolchain (footprint mapping,
+pin-layout drawing, KiCad export), so it must resolve to a controlled
+vocabulary member: `package = PKG.LQFP176_24X24`, `package = PKG.SOT_23_5`.
+A bare string (`package = "SOT23-6"`) is a convention violation even though
+the compiler still accepts it; map it to the nearest existing member, and
+extend the enum when no member exists yet (identifier-legal spelling per the
+naming rules at the top of package.mc).
+
+**`partno` stays a free string and carries content discipline.** The part
+number is an opaque key into the manufacturer's catalog; the toolchain never
+resolves it, so it cannot become an enum or a bareword (real orderable codes
+contain `-`, `/`, `.`). Rules:
+
+1. Copy the exact orderable code as the datasheet prints it — case, hyphens,
+   slashes, delivery/temperature suffixes included (`SGM2019-3.3YN5G/TR`,
+   `SAK-TC275TP-64F200N-DC`). Never invent aliases, never mangle `-`/`/`
+   into `_` (that mangling law is for PKG member names only).
+2. One partno per concrete variant; an abstract base never sets `partno`.
+3. When one file serves several orderables, `partno` is a constructor
+   parameter selected with `==` / `in` string comparisons (the
+   variant-selector pattern); the `else` arm is the default.
+4. `partno` never carries package information (that is `package`'s job),
+   never lives in `spec`, and shape prose belongs in `name` / `description`,
+   not in `partno`.
 
 The three BOM metadata attributes (`partno`, `package`, `manufacturer`) are
 **optional - an omitted attribute means unassigned (`_`)**, exactly as if it
