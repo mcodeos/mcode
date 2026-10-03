@@ -416,11 +416,11 @@ for the call site:
 
 ```mc
 # CAP.MLCC(100nF, 50V, 10%).Cap([vcc, gnd])
-# RES.SMD(470Ω, 50V, 0.125W, 5%).Pull([enable, gnd])
+# RES.SMD(470Ω, 50V, 0.125W, 5%).Pulldown([enable, gnd])
 # IND.POWER(47μH, 3A, 4A, 0.05Ω) l1
 # DIO.SCH(0.3V, 40V, 5A).Rectify(high_freq_ac, dc_output)
 # RES.POT(10kΩ, 50V, 0.1W, 20%).Divider(vcc, fb, gnd)
-# R_PULL::RES(10kΩ, 50V).Pull([button_in, v3v3])
+# R_PULL::RES(10kΩ, 50V).Pullup([button_in, v3v3])
 ```
 
 Keep this block in sync with the constructor signature and the func names; it
