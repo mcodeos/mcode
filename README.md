@@ -344,7 +344,7 @@ func Cap([net1, net2])
     return [net1, net2]
 }
 
-func Pull([node, net])
+func Pullup([node, hot]) // or Pulldown([node, ret]) for the return side
 {
     node - this
     net - this
@@ -376,7 +376,7 @@ Rules:
    `driver.VCC` / `driver.GND`). The kind is expressed by syntax; the name is a
    lowercase net label ([Naming Conventions §3](#3-func-params-are-net-names)).
 5. Two-terminal passives expose list-form helpers: CAP provides
-   `Cap([net1, net2])`; RES adds `Pull([node, net])` (recipe `PULL`).
+   `Cap([net1, net2])`; RES adds `Pullup`/`Pulldown`up([node, hot])` / `Pulldown([node, ret])` (recipe `PULL`).
    Parts with a different topology (RES.POT, IND.CMC, RES.ARRAY) get dedicated
    functions and do not inherit the two-terminal helpers.
 6. func params never duplicate component params (COMPONENT_PARAM_FUNC_CONFLICT).
