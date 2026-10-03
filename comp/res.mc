@@ -11,7 +11,7 @@
 // =============================================================================
 // Generic 2-pin fixed resistor (allow direct instantiation)
 // =============================================================================
-recipe PullTie
+recipe PULL
 {
     func Pull([node, supply])
     {
@@ -26,7 +26,7 @@ component RES(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-) :: PullTie
+) :: PULL
 {
     name = "Resistor"
     description = "Generic resistor"
@@ -307,8 +307,8 @@ component RES.LDR(
 # Usage Examples
 # =============================================================================
 # signal - RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃) - vcc                       // plain infix
-# RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pull([signal, vcc])                  // pull-up via the PullTie recipe
-# RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pull([enable, gnd])              // pull-down via the PullTie recipe
+# RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pull([signal, vcc])                  // pull-up via the PULL recipe
+# RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pull([enable, gnd])              // pull-down via the PULL recipe
 # vcc -> RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃) -> load                  // two-terminal part, default 1x2 shape placement
 # vout -> RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃) -> load
 # RES.POT(10kΩ, 50V, 0.1W, 20%).Divider(vcc, fb, gnd)

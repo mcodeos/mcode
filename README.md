@@ -376,7 +376,7 @@ Rules:
    `driver.VCC` / `driver.GND`). The kind is expressed by syntax; the name is a
    lowercase net label ([Naming Conventions §3](#3-func-params-are-net-names)).
 5. Two-terminal passives expose list-form helpers: CAP provides
-   `Cap([net1, net2])`; RES adds `Pull([node, supply])` (recipe `PullTie`).
+   `Cap([net1, net2])`; RES adds `Pull([node, supply])` (recipe `PULL`).
    Parts with a different topology (RES.POT, IND.CMC, RES.ARRAY) get dedicated
    functions and do not inherit the two-terminal helpers.
 6. func params never duplicate component params (COMPONENT_PARAM_FUNC_CONFLICT).
