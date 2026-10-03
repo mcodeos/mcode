@@ -468,6 +468,7 @@ enum PKG
     // -----------------------------------------------------------------
     // DFN / SON — Dual / Small Outline No-lead, two-sided
     // -----------------------------------------------------------------
+    WSON6_2X2,     // WSON 6-lead 2x2mm no-lead (TI DRV, e.g. TPS25200)
     DFN8_2X2,
     DFN8_3X3,
     DFN10_3X3,
