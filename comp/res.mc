@@ -185,7 +185,7 @@ component RES.POT(
         derating_note = _
     ]
 
-    func VoltageDivider(input, output, gnd)
+    func Divider(input, output, gnd)
     {
         [input, gnd] - this{1,3|2,3} - [output, gnd]
         return output
@@ -311,7 +311,7 @@ component RES.LDR(
 # RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pull([enable, gnd])              // pull-down via the PullTie recipe
 # vcc -> RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃) -> load                  // two-terminal part, default 1x2 shape placement
 # vout -> RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃) -> load
-# RES.POT(10kΩ, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
+# RES.POT(10kΩ, 50V, 0.1W, 20%).Divider(vcc, fb, gnd)
 # ntc_node -> RES.NTC(10kΩ, 3950, 5V, 5%) -> gnd
 # vin -> FUSE.PTC(500mA, 24V, 100mA) -> load
 # RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_SMD")

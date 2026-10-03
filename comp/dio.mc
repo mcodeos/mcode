@@ -73,7 +73,7 @@ component DIO.SCH(vfwd::UV.VOLT, vrev::UV.VOLT, imax::UV.AMP)
         2 = CATHODE      # Negative terminal
     ]
     
-    func FastRectifier(input, output)
+    func Rectify(input, output)
     {
         input - this.ANODE
         this.CATHODE - output
@@ -97,7 +97,7 @@ component DIO.ZEN(vz::UV.VOLT, ppeak::UV.WATT, tol::UV.PERCENT)
         2 = CATHODE      # Negative terminal
     ]
     
-    func VoltageRegulator(input, output, gnd)
+    func Regulate(input, output, gnd)
     {
         input - this.CATHODE
         this.ANODE - gnd
@@ -146,7 +146,7 @@ component DIO.PHOTO(resp::UV.RESPONSIVITY, idark::UV.AMP, srange::UV.LEN)
         2 = CATHODE      # Negative terminal
     ]
     
-    func LightSensor(vcc, output)
+    func Sense(vcc, output)
     {
         vcc - this.CATHODE
         this.ANODE - output
@@ -185,13 +185,13 @@ component DIO.BR(iavg::UV.AMP, vrrm::UV.VOLT, vfwd::UV.VOLT)
 # DIO(0.7V, 1000V, 1.0A).Rectifier(ac_signal, dc_output)
 
 # 2. Schottky diode for fast rectification
-# DIO.SCH(0.3V, 40V, 5.0A).FastRectifier(high_freq_ac, dc_output)
+# DIO.SCH(0.3V, 40V, 5.0A).Rectify(high_freq_ac, dc_output)
 
 # 3. Zener diode as voltage regulator
-# DIO.ZEN(5.1V, 0.5W, 5%).VoltageRegulator(unregulated_input, regulated_output, gnd)
+# DIO.ZEN(5.1V, 0.5W, 5%).Regulate(unregulated_input, regulated_output, gnd)
 
 # 4. TVS diode for surge protection
 # DIO.TVS(12V, 15V, 500W).SurgeProtector(sensitive_circuit, gnd)
 
 # 5. Photodiode as light sensor
-# light_signal = DIO.PHOTO(0.5A/W, 1nA, 850nm).LightSensor(5.0V, light_output)
+# light_signal = DIO.PHOTO(0.5A/W, 1nA, 850nm).Sense(5.0V, light_output)

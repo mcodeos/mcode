@@ -350,7 +350,7 @@ func Pull([node, supply])
     supply - this
 }
 
-func ColorIndicator(red_control, green_control, blue_control, gnd)
+func Color(red_control, green_control, blue_control, gnd)
 {
     red_control - this.RED_ANODE
     green_control - this.GREEN_ANODE
@@ -372,7 +372,7 @@ Rules:
    reuse (`return net1, net2`). `return this` returns the instance and enables
    method chaining: `D_STATUS.ConnectAnode(A).ConnectCathode(GND)`.
 4. Parameters are net names, buses (`[net1, net2]`), or interface-typed
-   objects for complex drivers (`func Illumination(driver::DC())` - binds
+   objects for complex drivers (`func Light(driver::DC())` - binds
    `driver.VCC` / `driver.GND`). The kind is expressed by syntax; the name is a
    lowercase net label ([Naming Conventions §3](#3-func-params-are-net-names)).
 5. Two-terminal passives expose list-form helpers: CAP provides
@@ -418,8 +418,8 @@ for the call site:
 # CAP.MLCC(100nF, 50V, 10%).Cap([vcc, gnd])
 # RES.SMD(470Ω, 50V, 0.125W, 5%).Pull([enable, gnd])
 # IND.POWER(47μH, 3A, 4A, 0.05Ω) l1
-# DIO.SCH(0.3V, 40V, 5A).FastRectifier(high_freq_ac, dc_output)
-# RES.POT(10kΩ, 50V, 0.1W, 20%).VoltageDivider(vcc, fb, gnd)
+# DIO.SCH(0.3V, 40V, 5A).Rectify(high_freq_ac, dc_output)
+# RES.POT(10kΩ, 50V, 0.1W, 20%).Divider(vcc, fb, gnd)
 # R_PULL::RES(10kΩ, 50V).Pull([button_in, v3v3])
 ```
 

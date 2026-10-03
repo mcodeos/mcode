@@ -45,7 +45,7 @@ component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP)
         4 = COMMON_CATHODE   # Common negative terminal
     ]
     
-    func ColorIndicator(red_control, green_control, blue_control, gnd)
+    func Color(red_control, green_control, blue_control, gnd)
     {
         red_control - this.RED_ANODE
         green_control - this.GREEN_ANODE
@@ -71,7 +71,7 @@ component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
         2 = CATHODE          # Negative terminal
     ]
     
-    func IRTransmitter(driver::DC())
+    func Transmit(driver::DC())
     {
         driver.VCC - this.ANODE
         this.CATHODE - driver.GND
@@ -95,7 +95,7 @@ component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT)
         2 = CATHODE          # Negative terminal
     ]
     
-    func Illumination(driver::DC())
+    func Light(driver::DC())
     {
         driver.VCC - this.ANODE
         this.CATHODE - driver.GND
@@ -108,10 +108,10 @@ component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT)
 # LED(2.2V, 20mA, 520nm).Indicator([vcc, gnd])
 
 # 2. RGB LED for color indication
-# LED.RGB(2.0V, 3.2V, 3.2V, 20mA).ColorIndicator(red_pwm, green_pwm, blue_pwm, gnd)
+# LED.RGB(2.0V, 3.2V, 3.2V, 20mA).Color(red_pwm, green_pwm, blue_pwm, gnd)
 
 # 3. Infrared LED for remote control
-# LED.IR(1.2V, 100mA, 940nm).IRTransmitter(ir_driver)
+# LED.IR(1.2V, 100mA, 940nm).Transmit(ir_driver)
 
 # 4. High power LED for illumination
-# LED.HP(3.2V, 1.0A, 3.2W).Illumination(led_driver)
+# LED.HP(3.2V, 1.0A, 3.2W).Light(led_driver)
