@@ -13,10 +13,10 @@
 // =============================================================================
 recipe PULL
 {
-    func Pull([node, supply])
+    func Pull([node, net])
     {
         node - this.1
-        supply - this.2
+        net - this.2
     }
 }
 
