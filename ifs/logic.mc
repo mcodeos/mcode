@@ -1,15 +1,19 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-#
-# Logic gate interfaces (U206): one interface = one gate's member topology.
-# Member names follow the 74-family data-book gate names (A/B/C/Y); the
-# default logical name equals the member name, so plain adoptions need no
-# rename braces. Inverting outputs carry the `_` prefix on the member
-# (`_AB`, `_A`) while the logical name stays `Y`. Electrical properties
-# (drive, hysteresis, voltage window) are device-intrinsic and live on the
-# component side, never here. VCC/GND are not gate members (A3); package
-# power rows adopt ::DC directly.
+//
+// Logic gate interfaces: one interface = one gate's member topology.
+// Member names follow the classic data-book gate names (A/B/C/Y); the
+// default logical name equals the member name, so plain adoptions need no
+// rename braces. Inverting outputs carry the `_` prefix on the member
+// (`_AB`, `_A`) while the logical name stays `Y`. Electrical properties
+// (drive, hysteresis, voltage window) are device-intrinsic and live on the
+// component side, never here. VCC/GND are not gate members; package power
+// rows adopt ::DC directly.
+
+// LOGIC.AND - Logic AND Gate Standard Definition
+// Core Rule: Two inputs, one output; the output is driven high only when
+//            every input is high.
 
 interface LOGIC.AND
 {
@@ -20,6 +24,10 @@ interface LOGIC.AND
     ]
 }
 
+// LOGIC.OR - Logic OR Gate Standard Definition
+// Core Rule: Two inputs, one output; the output is driven high when at
+//            least one input is high.
+
 interface LOGIC.OR
 {
     pins = [
@@ -29,6 +37,10 @@ interface LOGIC.OR
     ]
 }
 
+// LOGIC.NOT - Logic Inverter (NOT Gate) Standard Definition
+// Core Rule: One input, one inverting output; the output is the logical
+//            inverse of the input.
+
 interface LOGIC.NOT
 {
     pins = [
@@ -36,6 +48,10 @@ interface LOGIC.NOT
         out _A = Y @class(digital), "Logic output (inverting)"
     ]
 }
+
+// LOGIC.NAND - Logic NAND Gate Standard Definition
+// Core Rule: Two inputs, one inverting output; the output is driven low
+//            only when every input is high.
 
 interface LOGIC.NAND
 {
@@ -46,9 +62,12 @@ interface LOGIC.NAND
     ]
 }
 
-// Fan-in variants: lane count differs, so each is its own dotted family
-// point (S3 R-CV3), not a parameter. Representatives: .3 = 74HC10,
-// .4 = 74HC20, .8 = 74HC30.
+// LOGIC.NAND.3 - Logic NAND Gate (3-input) Standard Definition
+// Core Rule: Three inputs, one inverting output; the output is driven low
+//            only when every input is high.
+// Note: lane count is the variant identity (a dotted family point), not a
+//       parameter.
+
 interface LOGIC.NAND.3
 {
     pins = [
@@ -58,6 +77,10 @@ interface LOGIC.NAND.3
         out _AB = Y @class(digital), "Logic output (inverting)"
     ]
 }
+
+// LOGIC.NAND.4 - Logic NAND Gate (4-input) Standard Definition
+// Core Rule: Four inputs, one inverting output; the output is driven low
+//            only when every input is high.
 
 interface LOGIC.NAND.4
 {
@@ -69,6 +92,10 @@ interface LOGIC.NAND.4
         out _AB = Y @class(digital), "Logic output (inverting)"
     ]
 }
+
+// LOGIC.NAND.8 - Logic NAND Gate (8-input) Standard Definition
+// Core Rule: Eight inputs, one inverting output; the output is driven low
+//            only when every input is high.
 
 interface LOGIC.NAND.8
 {
@@ -85,6 +112,10 @@ interface LOGIC.NAND.8
     ]
 }
 
+// LOGIC.NOR - Logic NOR Gate Standard Definition
+// Core Rule: Two inputs, one inverting output; the output is driven low
+//            when at least one input is high.
+
 interface LOGIC.NOR
 {
     pins = [
@@ -94,6 +125,10 @@ interface LOGIC.NOR
     ]
 }
 
+// LOGIC.XOR - Logic Exclusive-OR Gate Standard Definition
+// Core Rule: Two inputs, one output; the output is driven high when the
+//            inputs differ.
+
 interface LOGIC.XOR
 {
     pins = [
@@ -102,6 +137,10 @@ interface LOGIC.XOR
         out AB = Y @class(digital), "Logic output"
     ]
 }
+
+// LOGIC.XNOR - Logic Exclusive-NOR Gate Standard Definition
+// Core Rule: Two inputs, one inverting output; the output is driven high
+//            when the inputs are equal.
 
 interface LOGIC.XNOR
 {

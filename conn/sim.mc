@@ -1,11 +1,10 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// SIM — SIM card socket (ISO 7816 contact map, sequential pad numbering)
-// ---------------------------------------------------------------------------------------------
-// Contact names carry the ISO 7816-2 C-codes; the C4/C8 contacts of the 8-pad
-// map are absent on 6-pad sockets, so pads are numbered sequentially 1..6.
+// SIM.SOCKET - SIM card socket on the ISO 7816 contact map Component Definition
+// Core Rule: Contact names carry the ISO 7816-2 C-codes; the C4/C8 contacts of
+// the 8-pad map are absent on 6-pad sockets, so pads are numbered
+// sequentially 1..6.
 
 component SIM.SOCKET()
 {
@@ -29,6 +28,6 @@ component SIM.SOCKET()
     ]
 }
 
-# Usage Examples:
-# SIM.SOCKET() sim1
-# sim1.IO -> modem.SIM_IO
+// Usage Examples:
+// SIM.SOCKET() sim1
+// sim1.IO -> modem.SIM_IO

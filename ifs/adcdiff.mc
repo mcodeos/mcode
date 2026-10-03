@@ -1,13 +1,15 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ADC.DIFF (Differential ADC) Standard Definition
-// Core Rule: Differential analog-to-digital converter interface for high-precision measurements
-// Differential Input: Measures the voltage difference between P (positive) and N (negative) inputs
-// Advantage: Rejects common-mode noise, improves signal-to-noise ratio
-// Applications: Sensor measurements, audio, industrial control systems
-// 2-wire (P/N): the ground reference is the analog ground domain, shared
-// through the power supply (DC interface), same as UART.TTL / I2C / SPI.
+// ADC.DIFF - Differential ADC Input Interface Standard Definition
+// Core Rule: Differential analog measurement pair (P/N): the converter
+//            reads the voltage difference between the legs, rejecting
+//            common-mode noise and improving signal-to-noise ratio. The
+//            ground reference is the analog ground domain, shared through
+//            the power supply (DC interface) — no ground member here.
+// Device Definition: TRANSMITTER = sensor or signal source driving the
+//                    pair,
+//                    RECEIVER = ADC converter sampling the pair.
 
 interface ADC.DIFF(role)
 {
@@ -23,8 +25,8 @@ interface ADC.DIFF(role)
     // signal; the P/N spellings are the naming convention, and the first
     // member is leg A.
     // The @class(analog) row attribute is the library-default signal class,
-    // same as ADC.SINGLE: adopting components inherit it and may override by
-    // ordinal.
+    // same as ADC.SINGLE: adopting components inherit it and may override
+    // by ordinal.
     pins = [
         1 = P @class(analog) @pair(p), "Positive Input"   // Positive differential input
         2 = N @class(analog) @pair(p), "Negative Input"   // Negative differential input

@@ -1,11 +1,13 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-# Basic Antenna Component
-# Generic antenna with fundamental parameters
-# The antenna port carries @class(radio) as the library-default signal class
-# (radio is a subtype of analog: an analog-class expectation still accepts a
-# radio-class line, and a radio expectation rejects an analog line).
+// ANT - Generic Antenna Component Definition
+// Core Rule: converts between conducted RF on its port and radiated waves;
+// characterized by frequency, gain, and feed impedance.
+// Note: the antenna port carries @class(radio) as the library-default signal
+// class (radio is a subtype of analog: an analog-class expectation still
+// accepts a radio-class line, and a radio expectation rejects an analog line).
+
 component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Antenna"
@@ -20,8 +22,10 @@ component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 }
 
-# Whip Antenna
-# Common telescoping antenna for handheld devices
+// ANT.WHIP - Whip Antenna Component Definition
+// Core Rule: monopole over the surrounding ground; single RF port, no ground
+// pin on the part.
+
 component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Whip Antenna"
@@ -37,8 +41,10 @@ component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 }
 
-# Patch Antenna
-# Flat antenna commonly used in wireless devices
+// ANT.PATCH - Patch Antenna Component Definition
+// Core Rule: radiating element that requires a ground plane (separate GND
+// pin); polarization is a design choice.
+
 component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Patch Antenna"
@@ -55,8 +61,10 @@ component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 }
 
-# Dipole Antenna
-# Balanced antenna with two conductive elements
+// ANT.DIPOLE - Dipole Antenna Component Definition
+// Core Rule: balanced two-element radiator fed at the center; single RF port
+// on the part, length tied to the operating frequency.
+
 component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Dipole Antenna"
@@ -72,8 +80,10 @@ component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 }
 
-# Helical Antenna
-# Spiral antenna for circular polarization
+// ANT.HELICAL - Helical Antenna Component Definition
+// Core Rule: spiral radiator for circular polarization; requires a ground
+// pin, with the number of turns as a structural parameter.
+
 component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Helical Antenna"
@@ -90,8 +100,10 @@ component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 }
 
-# Log Periodic Antenna
-# Wideband antenna with logarithmic periodic structure
+// ANT.LOGPERIODIC - Log-Periodic Antenna Component Definition
+// Core Rule: logarithmically periodic element structure gives near-constant
+// gain across a wide band, bounded by the start and end frequencies.
+
 component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB, impd::UV.OHM)
 {
     name = "Log Periodic Antenna"
@@ -107,14 +119,13 @@ component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB, impd::UV.OHM)
     ]
 }
 
-# Usage Examples:
-# The antenna port is a single RF pin; wire it straight to the radio's
-# antenna terminal. Application-specific wrappers (HandheldRadio etc.)
-# were demo call sites promoted to API shape and retired in U189.
-# ANT(2.4GHz, 2.1dBi, 50Ω) ant1
-# rf_out -> ant1.ANT
-# ANT.WHIP(433MHz, 1.5dBi, 50Ω) whp1
-# trx.ANT -> whp1.ANT
-# ANT.PATCH(5.8GHz, 3.2dBi, 50Ω) pat1
-# wifi_module.ANT -> pat1.ANT
-# pat1.GND -> board_gnd
+// Usage Examples:
+// The antenna port is a single RF pin; wire it straight to the radio's
+// antenna terminal.
+// ANT(2.4GHz, 2.1dBi, 50Ω) ant1
+// rf_out -> ant1.ANT
+// ANT.WHIP(433MHz, 1.5dBi, 50Ω) whp1
+// trx.ANT -> whp1.ANT
+// ANT.PATCH(5.8GHz, 3.2dBi, 50Ω) pat1
+// wifi_module.ANT -> pat1.ANT
+// pat1.GND -> board_gnd

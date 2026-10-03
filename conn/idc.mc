@@ -1,15 +1,12 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// IDC Ribbon Cable Socket Definitions
-// ---------------------------------------------------------------------------------------------
-// Insulation-displacement socket for flat ribbon cable, two rows, even contact
-// count. Contact numbering follows the ribbon: odd row 1..n, even row n+1..2n
-// as printed on standard ribbon shrouds. Physical face = counted plain pins,
-// no interface binding (U193 physical-socket ruling).
+// IDC - Two-row insulation-displacement socket for flat ribbon cable Component Definition
+// Core Rule: Physical face = counted plain pins, no interface binding: the
+// contact is a physical socket, not an electrical signal face. Contact
+// numbering follows the ribbon: odd row 1..n, even row n+1..2n as printed on
+// standard ribbon shrouds.
 
-// IDC Ribbon Cable Socket
 component IDC(pincnt::INT)
 {
     name = "IDC Ribbon Cable Socket"

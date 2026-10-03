@@ -1,13 +1,11 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// SD — SD card socket (full-size pad map; microSD shares the same pad roles)
-// ---------------------------------------------------------------------------------------------
-// Pad numbers and roles follow the SD card contact map (SD Association).
-// Signal pad names mirror the SDIO interface members (ifs/sdio.mc) so a socket
-// wired to an SDIO Host maps 1:1 without an interface binding on the component
-// face (the `::` binding face carries known debt, U183).
+// SD.SOCKET - Full-size SD card socket with card-detect switch Component Definition
+// Core Rule: Pad numbers and roles follow the standard SD card contact map;
+// signal pad names mirror the SDIO interface members position for position,
+// so a socket wired to an SDIO Host maps 1:1 without an interface binding on
+// the component face. microSD shares the same pad roles.
 
 component SD.SOCKET()
 {
@@ -37,7 +35,7 @@ component SD.SOCKET()
     ]
 }
 
-# Usage Examples:
-# SD.SOCKET() sd1
-# sd1.CLK -> sdio_host.CLK
-# sd1.CD1 -> mc_gpio.card_detect
+// Usage Examples:
+// SD.SOCKET() sd1
+// sd1.CLK -> sdio_host.CLK
+// sd1.CD1 -> mc_gpio.card_detect

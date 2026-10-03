@@ -1,12 +1,13 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// S/PDIF (Sony/Philips Digital Interface) Standard Definition
-// Core Rule: single-wire consumer digital audio link, biphase-mark coded
-// Physical media: 75 Ohm coax (with ground through the DC/power interface) or
-// optical (TOSLINK; the optical module sits on the device face, this interface
-// stays electrical)
-// Applications: DAC links, TV / amplifier digital audio, S/PDIF passthrough
+// SPDIF - Consumer Digital Audio Serial Link Interface Standard Definition
+// Core Rule: Single-wire unidirectional biphase-mark coded digital audio.
+//            Physical media is 75 Ohm coax (ground shared through the
+//            power interface) or optical (the optical module sits on the
+//            device face; this interface stays electrical).
+// Device Definition: TRANSMITTER = the audio source driving the link,
+//                    RECEIVER = the audio sink decoding it.
 
 interface SPDIF(role)
 {

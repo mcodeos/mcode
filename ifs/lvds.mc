@@ -1,13 +1,14 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// LVDS (Low-Voltage Differential Signaling) Standard Definition
-// Core Rule: generic low-voltage differential link: one clock pair plus data pairs
-// Canonical face: 1 clock pair + 4 data pairs (use a subset and leave the rest unconnected)
-// Differential Pair: every pair 1st = positive (P/N convention, same as CLK.DIFF)
-// 10-wire: ground reference is shared through the power supply (DC interface),
-// same as ADC.DIFF / UART.TTL / CLK.DIFF (no ground member here)
-// Applications: panel links, FPGA-to-FPGA high-speed data, serializer/deserializer links
+// LVDS - Low-Voltage Differential Signaling Link Interface Standard Definition
+// Core Rule: Generic low-voltage differential link: one clock pair plus
+//            four data pairs; use a subset and leave the rest
+//            unconnected. Every pair is positive-first (P/N naming
+//            convention). The ground reference is shared through the
+//            power supply (DC interface) — no ground member here.
+// Device Definition: DRIVER = serializer/driver driving every pair,
+//                    RECEIVER = deserializer sampling them.
 
 interface LVDS(role)
 {

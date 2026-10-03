@@ -1,10 +1,10 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-# Test Point — industry standard "TP" (TP1, TP2 ... on schematics/PCB)
-#
-# A test point is a single pin: one instance per net tap.
-#   TP1::TP()   -> one test point
+// TP - Single-Pin Test Point Component Definition
+// Core Rule: one instance per net tap; the single pin is a pure measurement
+// tap and carries no electrical function of its own.
+
 component TP()
 {
     name = "Test Point"
@@ -15,7 +15,7 @@ component TP()
     ]
 }
 
-# Usage Examples:
-# TP() probe_3v3
-# vcc_3v3 -> probe_3v3.TP
-# TP() probe_gnd
+// Usage Examples:
+// TP() probe_3v3
+// vcc_3v3 -> probe_3v3.TP
+// TP() probe_gnd

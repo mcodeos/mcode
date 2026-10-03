@@ -1,11 +1,8 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Wire-to-Board Connector Definitions
-// ---------------------------------------------------------------------------------------------
+// WTB.BASIC - Generic wire-to-board connector Component Definition
 
-// Basic Wire-to-Board Connector
 component WTB.BASIC(count::INT)
 {
     name = "Wire-to-Board Connector"
@@ -22,7 +19,8 @@ component WTB.BASIC(count::INT)
     ]
 }
 
-// JST XH Series Connector (Commonly used in electronics)
+// WTB.JST_XH - 2.5mm-pitch wire-to-board connector, XH family Component Definition
+
 component WTB.JST_XH(count::INT)
 {
     name = "JST XH Connector"
@@ -40,7 +38,8 @@ component WTB.JST_XH(count::INT)
     ]
 }
 
-// Molex KK Series Connector
+// WTB.MOLEX_KK - 2.54mm-pitch wire-to-board connector, KK family Component Definition
+
 component WTB.MOLEX_KK(count::INT)
 {
     name = "Molex KK Connector"
@@ -58,7 +57,8 @@ component WTB.MOLEX_KK(count::INT)
     ]
 }
 
-// Dupont Connector (Breadboard Compatible)
+// WTB.DUPONT - 2.54mm-pitch single-row wire-to-board connector (breadboard compatible) Component Definition
+
 component WTB.DUPONT(count::INT)
 {
     name = "Dupont Connector"

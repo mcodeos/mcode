@@ -1,18 +1,15 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Inductor Component Definitions
-// Aligned with RES / CAP design convention
-// construction uses string tag, no enum
-// Part metadata: partno / package / manufacturer moved out of spec (top-level)
-// spec only contains electrical parameters
-// Naming: rated_current = thermal rating; sat_current = saturation current (power inductor only)
-// ---------------------------------------------------------------------------------------------
+// Note: construction uses a string tag (no enum). Part metadata (partno /
+// package / manufacturer) is top-level; spec carries electrical parameters
+// only. rated_current is the thermal rating; sat_current is the saturation
+// current (power inductors only).
 
-// =============================================================================
-// Generic two-terminal inductor (unbound package)
-// =============================================================================
+// IND - Generic Two-Terminal Inductor Component Definition
+// Core Rule: V = L dI/dt between the terminals; carries the rated thermal
+// current and a DC winding resistance.
+
 component IND(
     ind::UV.IND,
     irated::UV.AMP,
@@ -41,9 +38,10 @@ component IND(
     ]
 }
 
-// =============================================================================
-// SMD Inductor
-// =============================================================================
+// IND.SMD - Surface Mount Inductor Component Definition
+// Core Rule: V = L dI/dt with SMD-mount construction; rated thermal current
+// and DCR apply.
+
 component IND.SMD(
     ind::UV.IND,
     irated::UV.AMP,
@@ -72,9 +70,10 @@ component IND.SMD(
     ]
 }
 
-// =============================================================================
-// THT Inductor
-// =============================================================================
+// IND.THT - Through-Hole Inductor Component Definition
+// Core Rule: V = L dI/dt with THT-mount construction; rated thermal current
+// and DCR apply.
+
 component IND.THT(
     ind::UV.IND,
     irated::UV.AMP,
@@ -103,9 +102,10 @@ component IND.THT(
     ]
 }
 
-// =============================================================================
-// Power Inductor (DC-DC, add saturation current)
-// =============================================================================
+// IND.POWER - Power Inductor Component Definition
+// Core Rule: inductor for converter service — adds the saturation current
+// limit; beyond it the inductance collapses regardless of the thermal rating.
+
 component IND.POWER(
     ind::UV.IND,
     irated::UV.AMP,
@@ -136,9 +136,10 @@ component IND.POWER(
     ]
 }
 
-// =============================================================================
-// HF Inductor (RF, add self-resonant frequency)
-// =============================================================================
+// IND.HF - High-Frequency / RF Inductor Component Definition
+// Core Rule: usable only below the self-resonant frequency (SRF), where the
+// winding capacitance turns the inductor resonant.
+
 component IND.HF(
     ind::UV.IND,
     irated::UV.AMP,
@@ -169,9 +170,10 @@ component IND.HF(
     ]
 }
 
-// =============================================================================
-// Ferrite Bead (not inductor: impedance, no inductance param)
-// =============================================================================
+// IND.FB - Ferrite Bead Component Definition
+// Core Rule: lossy high-frequency impedance, not an inductor — specified by
+// impedance at a test frequency, with no inductance parameter.
+
 component IND.FB(
     impd::UV.OHM,
     irated::UV.AMP,
@@ -198,9 +200,11 @@ component IND.FB(
     ]
 }
 
-// =============================================================================
-// Common Mode Choke (4-pin, topology different → independent component)
-// =============================================================================
+// IND.CMC - Common Mode Choke Component Definition
+// Core Rule: two windings on one core — high impedance to common-mode
+// currents, low impedance to differential currents; four-pin topology,
+// modeled as an independent component.
+
 component IND.CMC(
     ind::UV.IND,
     irated::UV.AMP,
@@ -242,12 +246,11 @@ component IND.CMC(
     }
 }
 
-# =============================================================================
-# Usage Examples
-# =============================================================================
-# IND(100μH, 1A, ±10%, 0.1Ω): nodeA -> IND(100μH, 1A, ±10%, 0.1Ω) -> nodeB        // two-terminal part, default 1x2 shape placement
-# IND.SMD(47μH, 2A, ±10%, 0.08Ω): sw_node -> IND.SMD(47μH, 2A, ±10%, 0.08Ω) -> ldo_in
-# IND.POWER(47μH, 3A, 4A, ±20%, 0.05Ω): sw -> IND.POWER(47μH, 3A, 4A, ±20%, 0.05Ω) -> out
-# IND.HF(10μH, 0.5A, 50MHz, ±5%, 0.2Ω): rf_in -> IND.HF(10μH, 0.5A, 50MHz, ±5%, 0.2Ω) -> filter_out
-# IND.FB(100Ω, 1A, 100MHz): io_line -> IND.FB(100Ω, 1A, 100MHz) -> soc_pin
-# IND.CMC(100μH, 2A, 100Ω, ±20%, 100MHz).CommonModeSuppress(line_in, line_out, ret_in, ret_out)
+// Usage Examples:
+// =============================================================================
+// IND(100μH, 1A, ±10%, 0.1Ω): nodeA -> IND(100μH, 1A, ±10%, 0.1Ω) -> nodeB        // two-terminal part, default 1x2 shape placement
+// IND.SMD(47μH, 2A, ±10%, 0.08Ω): sw_node -> IND.SMD(47μH, 2A, ±10%, 0.08Ω) -> ldo_in
+// IND.POWER(47μH, 3A, 4A, ±20%, 0.05Ω): sw -> IND.POWER(47μH, 3A, 4A, ±20%, 0.05Ω) -> out
+// IND.HF(10μH, 0.5A, 50MHz, ±5%, 0.2Ω): rf_in -> IND.HF(10μH, 0.5A, 50MHz, ±5%, 0.2Ω) -> filter_out
+// IND.FB(100Ω, 1A, 100MHz): io_line -> IND.FB(100Ω, 1A, 100MHz) -> soc_pin
+// IND.CMC(100μH, 2A, 100Ω, ±20%, 100MHz).CommonModeSuppress(line_in, line_out, ret_in, ret_out)

@@ -1,19 +1,15 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Capacitor Component Definitions — Full Production Library
-// ---------------------------------------------------------------------------------------------
-// Scoped enum: values are directly accessible (bare) inside component CAP / CAP.*
-// Outside, use CAP.X7R, CAP.MLCC, etc.
-// NOTE: This enum mixes three logical groups; do NOT cross-group assign:
-// 1) Dielectric | 2) Construction | 3) SafetyClass
-// Future major version: split into CAP_DIELECTRIC / CAP_CONSTRUCTION / CAP_SAFETY_CLASS
+// Scoped enum: values are directly accessible (bare) inside component CAP /
+// CAP.*. Outside, use CAP.X7R, CAP.MLCC, etc.
+// Note: the enum mixes three logical groups — 1) Dielectric 2) Construction
+// 3) SafetyClass — do NOT cross-group assign.
 
 enum CAP
 {
     // ── Dielectric (MLCC temperature characteristic codes) ──
-    C0G,        // NPO legacy name removed; document alias only
+    C0G,        // NPO is a legacy alias of the same dielectric class
     X7R,
     X7S,
     X7U,
@@ -52,17 +48,13 @@ enum CAP
     SC_Y2,
 }
 
-// =============================================================================
-// CAP_DECOUPLE recipe (U317 reversal, 2026-10-03): the decouple method lives
-// here, one definition for the whole CAP family — the pre-U317 11 per-class
-// copies are not coming back. Set formal names the entry pair's roles
-// ([hot, ret]; domain rail-pair law); the flat single-statement body keeps the
-// decouple entry one drawing unit (B10) and lands polarized `\+` (pin 1) on
-// the first-named node automatically. The column-vector return is load-bearing:
-// return-shape law (vec-dianlu.md §7.7) reads it as the bridge (one cap across
-// the entry pair); an implicit `return this` row face would read per-lane.
-// Lane form: io33 => CAP(100nF, ...).Cap(_) -> [VDD, GND]
-// =============================================================================
+// CAP_DECOUPLE - Shared Decouple Recipe for the CAP Family
+// One decouple method serves every CAP class. The formal names the entry
+// pair's roles ([hot, ret]); the flat single-statement body keeps the decouple
+// entry one drawing unit and lands polarized `\+` (pin 1) on the first-named
+// node automatically. The column-vector return is load-bearing: it reads as
+// the bridge (one cap across the entry pair); an implicit `return this` row
+// face would read per-lane.
 recipe CAP_DECOUPLE
 {
     func Cap([hot, ret])
@@ -72,10 +64,11 @@ recipe CAP_DECOUPLE
     }
 }
 
-// =============================================================================
-// Generic Capacitor (BASE)
-// Lint rule: use CAP.MLCC / CAP.ELEC etc preferred.
-// =============================================================================
+// CAP - Generic Capacitor Component Definition
+// Core Rule: stores charge Q = C·V between the terminals; the dielectric and
+// construction selections fix the electrical family (the enum groups must not
+// be cross-assigned).
+
 component CAP(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -112,9 +105,10 @@ component CAP(
 
 }
 
-// =============================================================================
-// Electrolytic Capacitor (Polarized)
-// =============================================================================
+// CAP.ELEC - Electrolytic Capacitor (Polarized) Component Definition
+// Core Rule: polarized aluminum-oxide capacitor — anode must sit at or above
+// cathode potential; wet vs polymer construction stays open at BOM stage.
+
 component CAP.ELEC(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -148,9 +142,10 @@ component CAP.ELEC(
 
 }
 
-// =============================================================================
-// MLCC Ceramic Capacitor (non-polarized)
-// =============================================================================
+// CAP.MLCC - Multilayer Ceramic Capacitor (Non-Polarized) Component Definition
+// Core Rule: non-polarized ceramic capacitor; the dielectric class (X7R, X5R,
+// C0G, ...) fixes the temperature characteristic and drift behavior.
+
 component CAP.MLCC(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -185,9 +180,10 @@ component CAP.MLCC(
 
 }
 
-// =============================================================================
-// Disc ceramic capacitor (non-MLCC disk ceramic)
-// =============================================================================
+// CAP.DISC - Disc Ceramic Capacitor (Non-MLCC) Component Definition
+// Core Rule: non-polarized single-layer disk ceramic; common high-voltage,
+// low-cost service (defaults to C0G).
+
 component CAP.DISC(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -222,9 +218,11 @@ component CAP.DISC(
 
 }
 
-// =============================================================================
-// Tantalum Capacitor (Polarized)
-// =============================================================================
+// CAP.TANT - Tantalum Capacitor (Polarized) Component Definition
+// Core Rule: polarized tantalum-pentoxide capacitor — anode must sit at or
+// above cathode potential; wet vs polymer construction stays open at BOM
+// stage.
+
 component CAP.TANT(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -258,9 +256,10 @@ component CAP.TANT(
 
 }
 
-// =============================================================================
-// Niobium Capacitor (Polarized)
-// =============================================================================
+// CAP.NIOB - Niobium Capacitor (Polarized) Component Definition
+// Core Rule: polarized niobium-pentoxide capacitor — anode must sit at or
+// above cathode potential.
+
 component CAP.NIOB(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -294,9 +293,10 @@ component CAP.NIOB(
 
 }
 
-// =============================================================================
-// Film Capacitor (non-polarized, general purpose)
-// =============================================================================
+// CAP.FILM - Film Capacitor (Non-Polarized) Component Definition
+// Core Rule: non-polarized plastic-film capacitor; the film dielectric
+// (PP/PET/PC/PS/PEN) sets tolerance, stability, and self-healing behavior.
+
 component CAP.FILM(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -331,9 +331,10 @@ component CAP.FILM(
 
 }
 
-// =============================================================================
-// Mica Capacitor (non-polarized, high freq / precision)
-// =============================================================================
+// CAP.MICA - Mica Capacitor (Non-Polarized) Component Definition
+// Core Rule: mica dielectric gives high stability and low loss at high
+// frequency and precision service.
+
 component CAP.MICA(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -367,10 +368,10 @@ component CAP.MICA(
 
 }
 
-// =============================================================================
-// X/Y Safety Capacitor (EMI filter, non-polarized)
-// IMPORTANT: volt argument = AC RMS rating, not DC voltage
-// =============================================================================
+// CAP.SAFETY - X/Y Safety Capacitor (EMI Filter, Non-Polarized) Component Definition
+// Core Rule: certified for fail-safe EMI service across the mains; the volt
+// formal is the AC RMS rating, not a DC voltage.
+
 component CAP.SAFETY(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -407,10 +408,11 @@ component CAP.SAFETY(
 
 }
 
-// =============================================================================
-// Supercap / EDLC (polarized, low voltage, high capacity)
-// Note: EDLC is treated as dielectric+construction by convention, not classical dielectric
-// =============================================================================
+// CAP.SC - Supercapacitor / EDLC (Polarized) Component Definition
+// Core Rule: electric-double-layer storage — farad-scale capacitance at low
+// voltage, polarized; EDLC doubles as dielectric and construction by
+// convention, not as a classical dielectric.
+
 component CAP.SC(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -444,9 +446,10 @@ component CAP.SC(
 
 }
 
-// =============================================================================
-// Trim / Variable Capacitor (non-polarized, adjustable)
-// =============================================================================
+// CAP.TRIM - Trimmer / Variable Capacitor (Non-Polarized) Component Definition
+// Core Rule: mechanically adjustable capacitance; the cap formal is the
+// nominal (maximum) value.
+
 component CAP.TRIM(
     cap::UV.CAP,
     volt::UV.VOLT,
@@ -480,25 +483,23 @@ component CAP.TRIM(
 
 }
 
-# =============================================================================
-# Usage Examples (U317 reversal, 2026-10-03)
-# The family decouple method is back as the CAP_DECOUPLE recipe (one body,
-# adopted by all 11 classes). Two spellings, same netlist:
-#   lane form   — io33 => CAP(100nF, 50V, ±10%, X7R).Cap(_) -> [vcc, gnd]
-#                 (entry pair feeds the `_` slot; one cap across the pair,
-#                 tail zip-ties the pair to the rails — one drawing unit)
-#   infix chain — plain series, the lane form's byte-identical expansion.
-# Scalar spellings are honest errors now: Cap(vdd) = E4180 (width), bare _
-# without a `=>` prefix = E4176. Polarized parts land `\+` (pin 1) on the
-# first-named node in both spellings.
-# =============================================================================
-# vcc - CAP.MLCC(100nF, 50V, ±10%, X7R) - gnd
-# line - CAP.DISC(1000pF, 1kV, ±10%, C0G) - gnd
-# vcc - CAP.ELEC(100μF, 16V, ±10%) - gnd
-# vdd - CAP.TANT(10μF, 10V, ±10%) - gnd
-# io - CAP.NIOB(4.7μF, 6.3V, ±20%) - gnd
-# audio_in - CAP.FILM(1μF, 63V, ±5%, POLYESTER) - audio_gnd
-# rf_node - CAP.MICA(100pF, 500V, ±5%) - gnd
-# line - CAP.SAFETY(22nF, 275VAC, ±10%, POLYPROPYLENE, SC_X2) - pe
-# backup - CAP.SC(1F, 2.7V, ±20%) - gnd
-# tank - CAP.TRIM(30pF, 50V, ±10%) - gnd
+// Usage Examples:
+// The family decouple method is back as the CAP_DECOUPLE recipe (one body,
+// adopted by all 11 classes). Two spellings, same netlist:
+//   lane form   — io33 => CAP(100nF, 50V, ±10%, X7R).Cap(_) -> [vcc, gnd]
+//                 (entry pair feeds the `_` slot; one cap across the pair,
+//                 tail zip-ties the pair to the rails — one drawing unit)
+//   infix chain — plain series, the lane form's byte-identical expansion.
+// Scalar spellings are honest errors now: Cap(vdd) = E4180 (width), bare _
+// without a `=>` prefix = E4176. Polarized parts land `\+` (pin 1) on the
+// first-named node in both spellings.
+// vcc - CAP.MLCC(100nF, 50V, ±10%, X7R) - gnd
+// line - CAP.DISC(1000pF, 1kV, ±10%, C0G) - gnd
+// vcc - CAP.ELEC(100μF, 16V, ±10%) - gnd
+// vdd - CAP.TANT(10μF, 10V, ±10%) - gnd
+// io - CAP.NIOB(4.7μF, 6.3V, ±20%) - gnd
+// audio_in - CAP.FILM(1μF, 63V, ±5%, POLYESTER) - audio_gnd
+// rf_node - CAP.MICA(100pF, 500V, ±5%) - gnd
+// line - CAP.SAFETY(22nF, 275VAC, ±10%, POLYPROPYLENE, SC_X2) - pe
+// backup - CAP.SC(1F, 2.7V, ±20%) - gnd
+// tank - CAP.TRIM(30pF, 50V, ±10%) - gnd

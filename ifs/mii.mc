@@ -1,9 +1,14 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// MII — Media Independent Interface (IEEE 802.3 clause 22), with the reduced-pin sibling RMII
-// ---------------------------------------------------------------------------------------------
+// MII - Media Independent Interface Standard Definition
+// Core Rule: Nibble-wide MAC-to-PHY data bus. Both clocks are sourced by
+//            the PHY (TX_CLK/RX_CLK are PHY outputs, 25MHz at 100M,
+//            2.5MHz at 10M) and the MAC samples data to them. TX_ER
+//            (optional) propagates transmit errors; CRS/COL are the
+//            half-duplex carrier sense / collision detect.
+// Device Definition: MAC = media access controller (in the MCU/SoC),
+//                    PHY = physical layer device.
 
 interface MII(role)
 {
@@ -11,15 +16,7 @@ interface MII(role)
     mode = ["full duplex", "half duplex"]  // CRS/COL carry meaning in half duplex
     maxdistance = 0.1m  // PCB trace only
     maxspeed = [2.5MHz@0.1m, 25MHz@0.1m]  // 10BASE-T / 100BASE-TX nibble clock
-    voltage = [1.8V, 2.5V, 3.3V]  // I/O ring follows VDDIO; variable 1.6V-3.6V per DS00002164B p.13
-
-    // IEEE 802.3 clause 22 — the nibble-wide MAC-to-PHY data bus.
-    // Core Rule: synchronous parallel data, both clocks sourced by the PHY
-    // (TX_CLK/RX_CLK are outputs at the PHY, 25MHz at 100M, 2.5MHz at 10M —
-    // directions page-verified against DS00002164B §3.4.1 p.25).
-    // Device Definition: MAC = media access controller (in the MCU/SoC), PHY = physical layer device.
-    // TX_ER (clause 22 optional) propagates transmit errors; CRS/COL are
-    // half-duplex carriers (carrier sense / collision detect).
+    voltage = [1.8V, 2.5V, 3.3V]  // I/O ring follows VDDIO
 
     pins = [
         1 = TX_CLK @class(digital), "Transmit Clock (PHY drives)"      // 25MHz / 2.5MHz continuous
@@ -28,7 +25,7 @@ interface MII(role)
         4 = TXD2 @class(digital), "Transmit Data Bit 2"
         5 = TXD3 @class(digital), "Transmit Data Bit 3"
         6 = TX_EN @class(digital), "Transmit Enable"
-        7 = TX_ER @class(digital), "Transmit Error (optional)"         // clause 22 optional signal
+        7 = TX_ER @class(digital), "Transmit Error (optional)"         // optional signal
         8 = RX_CLK @class(digital), "Receive Clock (PHY drives)"       // recovered or reference-derived
         9 = RXD0 @class(digital), "Receive Data Bit 0"                 // MAC samples to RX_CLK
         10 = RXD1 @class(digital), "Receive Data Bit 1"
@@ -87,9 +84,15 @@ interface MII(role)
     }
 }
 
-// ---------------------------------------------------------------------------------------------
-// RMII — Reduced Media Independent Interface (RMII Consortium specification)
-// ---------------------------------------------------------------------------------------------
+// RMII - Reduced Media Independent Interface Standard Definition
+// Core Rule: Reduced 2-bit data bus on one continuous 50MHz REF_CLK
+//            (±50ppm) sourced by the MAC/system side and consumed by the
+//            PHY as an input; both directions sample to it. CRS_DV
+//            multiplexes carrier sense into the receive path, asserting
+//            asynchronously on carrier and deasserting synchronous to
+//            REF_CLK. RX_ER is optional at the MAC.
+// Device Definition: MAC = media access controller,
+//                    PHY = physical layer device.
 
 interface RMII(role)
 {
@@ -97,16 +100,7 @@ interface RMII(role)
     mode = ["full duplex", "half duplex"]  // CRS_DV multiplexes carrier sense into the receive path
     maxdistance = 0.1m  // PCB trace only
     maxspeed = [50MHz@0.1m]  // fixed 50MHz REF_CLK, both directions sampled to it
-    voltage = [1.8V, 2.5V, 3.3V]  // I/O ring follows VDDIO; variable 1.6V-3.6V per DS00002164B p.13
-
-    // RMII Consortium specification — 2-bit data bus, single shared clock.
-    // Core Rule: one continuous 50MHz REF_CLK (±50ppm, DS00002164B Table 5-10
-    // p.64) drives both directions; the MAC/system side sources it and the PHY
-    // consumes it as an input (on LAN8710A it multiplexes onto XTAL1/CLKIN,
-    // Table 3-2 p.26 — directions page-verified against §3.4.2 p.25).
-    // Device Definition: MAC = media access controller, PHY = physical layer device.
-    // RX_ER is optional at the MAC (transceiver-required, DS note 3-2);
-    // CRS_DV asynchronously asserts on carrier, deasserts synchronous to REF_CLK.
+    voltage = [1.8V, 2.5V, 3.3V]  // I/O ring follows VDDIO
 
     pins = [
         1 = REF_CLK @class(digital), "Reference Clock 50MHz (system drives)"  // continuous, shared by both directions

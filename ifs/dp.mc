@@ -1,13 +1,14 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// DP (DisplayPort) Standard Definition
-// Core Rule: packetized video/audio main link plus a separate auxiliary channel
-// Main Link: 1 / 2 / 4 lanes of AC-coupled differential pairs, 2.7 / 5.4 / 8.1 Gbps per lane
-// Auxiliary Channel: bidirectional half-duplex differential pair (AUX +/-)
-// HPD: single-ended hot-plug detect, sink-driven
-// Differential Pair: all pairs 1st = positive (P/N convention, same as CLK.DIFF)
-// Applications: GPU / SoC display output, embedded DP (eDP) panels
+// DP - DisplayPort Main Link Interface Standard Definition
+// Core Rule: Packetized video/audio main link of 1 / 2 / 4 AC-coupled
+//            differential lanes (2.7 / 5.4 / 8.1 Gbps per lane) plus a
+//            bidirectional half-duplex auxiliary (AUX) pair and a
+//            single-ended, sink-driven hot-plug detect (HPD). All pairs
+//            are positive-first (P/N naming convention).
+// Device Definition: SOURCE = GPU / SoC display output,
+//                    SINK = display panel receiver.
 
 interface DP(role)
 {

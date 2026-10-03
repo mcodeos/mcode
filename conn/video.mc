@@ -1,11 +1,11 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Video Connector Definitions
-// ---------------------------------------------------------------------------------------------
+// VIDEO.HDMI - HDMI connector Component Definition
+// Core Rule: Three TMDS differential pairs (data 0-2) plus a TMDS clock pair,
+// each with its own shield; DDC (SCL/SDA), CEC, HPD, and a +5V feed for the
+// sink-side side channel.
 
-// HDMI Connector
 component VIDEO.HDMI()
 {
     name = "HDMI Connector"
@@ -39,7 +39,10 @@ component VIDEO.HDMI()
     ]
 }
 
-// DisplayPort Connector
+// VIDEO.DISPLAYPORT - DisplayPort connector Component Definition
+// Core Rule: Four main-link differential lanes plus an AUX configuration lane,
+// HPD, and a +3.3V feed.
+
 component VIDEO.DISPLAYPORT()
 {
     name = "DisplayPort Connector"
@@ -72,7 +75,10 @@ component VIDEO.DISPLAYPORT()
     ]
 }
 
-// VGA Connector (D-sub 15-pin)
+// VIDEO.VGA - Analog VGA connector (D-sub 15-pin) Component Definition
+// Core Rule: Three single-ended analog video lines (red/green/blue) each with
+// its own ground, separate sync grounds, HSYNC/VSYNC, and an I2C DDC pair.
+
 component VIDEO.VGA()
 {
     name = "VGA Connector"
@@ -104,7 +110,10 @@ component VIDEO.VGA()
     ]
 }
 
-// DVI Connector
+// VIDEO.DVI - DVI digital video connector Component Definition
+// Core Rule: TMDS differential pairs for data and clock (single link) with a
+// second set of pairs when link_type is dual; DDC clock/data and a +5V feed.
+
 component VIDEO.DVI()
 {
     name = "DVI Connector"

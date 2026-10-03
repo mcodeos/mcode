@@ -1,15 +1,18 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// MIPI — DSI (display) and CSI (camera) D-PHY packet links
-// ---------------------------------------------------------------------------------------------
 // Both faces share the D-PHY shape: one differential clock pair plus data
 // pairs; 1 / 2 / 4 data lanes are used and the rest stay unconnected.
-// Differential Pair: every pair 1st = positive (P/N convention, same as CLK.DIFF).
-// Ground reference rides the power supply (DC interface), no ground member.
+// Every pair is positive-first (P/N convention, same as CLK.DIFF); the
+// ground reference rides the power supply (DC interface), no ground member.
 
-// MIPI.DSI — Display Serial Interface (host to display)
+// MIPI.DSI - Display Serial Interface (D-PHY) Standard Definition
+// Core Rule: One differential clock pair plus 1 / 2 / 4 data lanes from
+//            host to display (video mode; command-mode replies ride the
+//            same lanes inbound).
+// Device Definition: HOST = SoC display controller driving every lane,
+//                    DISPLAY = display panel receiving.
+
 interface MIPI.DSI(role)
 {
     topology = "point to point"
@@ -65,7 +68,12 @@ interface MIPI.DSI(role)
     }
 }
 
-// MIPI.CSI — Camera Serial Interface (camera to host)
+// MIPI.CSI - Camera Serial Interface (D-PHY) Standard Definition
+// Core Rule: One differential clock pair plus 1 / 2 / 4 data lanes from
+//            camera sensor to host ISP, the same D-PHY shape as MIPI.DSI.
+// Device Definition: SENSOR = camera sensor driving every lane,
+//                    HOST = SoC ISP sampling them.
+
 interface MIPI.CSI(role)
 {
     topology = "point to point"

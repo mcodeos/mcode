@@ -1,15 +1,10 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Resistor Component Definitions
-// No enum; construction uses plain string tag
-// Tolerance: integer percentage omit .0, only keep decimal when needed
-// ---------------------------------------------------------------------------------------------
+// Note: construction uses a plain string tag (no enum). Tolerance: integer
+// percentage omits .0; keep decimals only when needed.
 
-// =============================================================================
-// Generic 2-pin fixed resistor (allow direct instantiation)
-// =============================================================================
+// PULL - Shared Pull-Up / Pull-Down Recipe
 recipe PULL
 {
     func Pullup([node, hot])
@@ -24,6 +19,10 @@ recipe PULL
         ret - this.2
     }
 }
+
+// RES - Generic Two-Terminal Fixed Resistor Component Definition
+// Core Rule: obeys Ohm's law between the terminals; dissipation limited to
+// the rated power, value drift bounded by the temperature coefficient.
 
 component RES(
     rs::UV.OHM,
@@ -56,9 +55,10 @@ component RES(
 
 }
 
-// =============================================================================
-// SMD Fixed Resistor (Standard Chip)
-// =============================================================================
+// RES.SMD - Surface Mount Fixed Resistor Component Definition
+// Core Rule: standard chip resistor — Ohm's law with SMD-mount construction
+// tag.
+
 component RES.SMD(
     rs::UV.OHM,
     volt::UV.VOLT,
@@ -90,9 +90,11 @@ component RES.SMD(
 
 }
 
-// =============================================================================
-// SMD Power Resistor
-// =============================================================================
+// RES.SMD_POWER - Surface Mount Power Resistor Component Definition
+// Core Rule: chip construction rated for substantially higher dissipation
+// than a standard chip resistor; thermal pad/derating governs the usable
+// power.
+
 component RES.SMD_POWER(
     rs::UV.OHM,
     volt::UV.VOLT,
@@ -123,9 +125,10 @@ component RES.SMD_POWER(
     ]
 }
 
-// =============================================================================
-// THT Fixed Resistor
-// =============================================================================
+// RES.THT - Through-Hole Fixed Resistor Component Definition
+// Core Rule: axial through-hole resistor — Ohm's law with THT-mount
+// construction tag.
+
 component RES.THT(
     rs::UV.OHM,
     volt::UV.VOLT,
@@ -157,9 +160,10 @@ component RES.THT(
 
 }
 
-// =============================================================================
-// Potentiometer (3-terminal variable resistor)
-// =============================================================================
+// RES.POT - Potentiometer Component Definition
+// Core Rule: three-terminal variable resistor — the wiper (pin 2) taps the
+// element between the two ends, supporting divider or rheostat mode.
+
 component RES.POT(
     rs::UV.OHM,
     volt::UV.VOLT,
@@ -204,9 +208,10 @@ component RES.POT(
     }
 }
 
-// =============================================================================
-// NTC Thermistor
-// =============================================================================
+// RES.NTC - NTC Thermistor Component Definition
+// Core Rule: resistance falls with temperature following the beta
+// characteristic; used for temperature sensing and inrush limiting.
+
 component RES.NTC(
     rs::UV.OHM,
     beta::INT,
@@ -238,9 +243,12 @@ component RES.NTC(
     ]
 }
 
-// =============================================================================
-// Resistor Array — Independent component, NO single-resistor funcs
-// =============================================================================
+// RES.ARRAY - Resistor Array Component Definition
+// Core Rule: independent multi-channel resistor network, modeled separately
+// from discrete resistors.
+// Note: no single-resistor pull-up/pull-down helpers; series placement uses
+// the default 1x2 shape. Channels get two pins each (CH1T1, CH1T2, CH2T1, ...).
+
 component RES.ARRAY(
     rs::UV.OHM,
     volt::UV.VOLT,
@@ -271,13 +279,12 @@ component RES.ARRAY(
         rohs = _
         derating_note = _
     ]
-    // No pull-up/pull-down helpers here; series placement uses default 1×2 shape
-    // Extend with dedicated channel binding functions later if needed
 }
 
-// =============================================================================
-// LDR — Light Dependent Resistor (photoresistor)
-// =============================================================================
+// RES.LDR - Light Dependent Resistor (Photoresistor) Component Definition
+// Core Rule: resistance falls with illuminance, bounded by the dark
+// resistance.
+
 component RES.LDR(
     rlight::UV.OHM,
     rdark::UV.OHM,
@@ -305,16 +312,15 @@ component RES.LDR(
     ]
 }
 
-# =============================================================================
-# Usage Examples
-# =============================================================================
-# signal - RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃) - vcc                       // plain infix
-# RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pullup([signal, vcc])                  // pull-up via the PULL recipe
-# RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pulldown([enable, gnd])              // pull-down via the PULL recipe
-# vcc -> RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃) -> load                  // two-terminal part, default 1x2 shape placement
-# vout -> RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃) -> load
-# RES.POT(10kΩ, 50V, 0.1W, 20%).Divider(vcc, fb, gnd)
-# ntc_node -> RES.NTC(10kΩ, 3950, 5V, 5%) -> gnd
-# vin -> FUSE.PTC(500mA, 24V, 100mA) -> load
-# RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_SMD")
-# RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_THT")
+// Usage Examples:
+// =============================================================================
+// signal - RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃) - vcc                       // plain infix
+// RES(10kΩ, 50V, 0.125W, 5%, 100ppm/℃).Pullup([signal, vcc])                  // pull-up via the PULL recipe
+// RES.SMD(470Ω, 50V, 0.125W, 5%, 100ppm/℃).Pulldown([enable, gnd])              // pull-down via the PULL recipe
+// vcc -> RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃) -> load                  // two-terminal part, default 1x2 shape placement
+// vout -> RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃) -> load
+// RES.POT(10kΩ, 50V, 0.1W, 20%).Divider(vcc, fb, gnd)
+// ntc_node -> RES.NTC(10kΩ, 3950, 5V, 5%) -> gnd
+// vin -> FUSE.PTC(500mA, 24V, 100mA) -> load
+// RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_SMD")
+// RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_THT")

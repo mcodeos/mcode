@@ -1,7 +1,13 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// MOST (Media Oriented Systems Transport)
+// MOST - Media Oriented Systems Transport Ring Interface Standard Definition
+// Core Rule: Ring-topology multimedia network: frames circulate past
+//            every node and each node relays in and out; one of the two
+//            media members (optical or electrical) is in use.
+// Device Definition: MASTER = ring timing master / control node,
+//                    SLAVE = audio/video node on the ring.
+
 interface MOST(role)
 {
     topology = "ring"
@@ -9,12 +15,6 @@ interface MOST(role)
     maxdistance = 40m
     maxspeed = [22.5Mbps, 50Mbps, 150Mbps]
     voltage = 3.3V
-
-    // MOST Standard Definition
-    // Core Rule: High-speed multimedia network for in-vehicle entertainment systems
-    // MOST Level Spec: Optical or electrical signaling
-    // Device Definition: MASTER = Controls the bus, SLAVE = Audio/Video device
-    // Applications: In-car infotainment, navigation, audio/video distribution
 
     pins = [
         1 = OPT @class(digital), "Optical"    // Optical fiber connection

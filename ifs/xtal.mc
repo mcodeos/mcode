@@ -1,28 +1,22 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// XTAL Interface Definition
-// ---------------------------------------------------------------------------------------------
-
-// XTAL interface: the passive resonator face (two-terminal crystal / ceramic
-// resonator). The role pair is a circuit-identity pair, not a signal direction
-// pair: Oscillator hosts the sustaining amplifier (MCU XIN/XOUT, RTC OSC
-// pins), Resonator is the passive piezoelectric body. No Transmitter/Receiver
-// wording (in a Pierce loop the drive comes from the MCU internal inverter;
-// the crystal transmits nothing) and no direction words (passive leaf law).
-// ERC / sim / DRC judgments anchor on the roles: both ends of a resonator must
-// land on one Oscillator instance, and a Resonator has exactly one Oscillator
-// (U200; mcd/doc/ee/xtal-oscillator-design.md). The `peer = ROLE(1)` on both
-// roles is that law made declarative for the flat ERC gate (6054): one adoption
-// lane of a one-peer role must reach one peer instance across its terminals —
-// a resonator body wired X1 onto one MCU and X2 onto another is a torn pairing
-// each of whose nets passes the point-to-point count. Roles that declare
-// nothing pair unrestricted.
-// The @class(analog) row attribute is the library-default signal class:
-// adopting components inherit it and may override by ordinal.
-// Active oscillator modules do NOT adopt this face; their clock output adopts
-// the single-ended CLK interface (ifs/clk.mc).
+// XTAL - Passive Crystal/Resonator Interface Standard Definition
+// Core Rule: The passive resonator face (two-terminal crystal / ceramic
+//            resonator). The role pair is a circuit-identity pair, not a
+//            signal direction pair: OSCILLATOR hosts the sustaining
+//            amplifier (the drive comes from its internal inverter; the
+//            crystal transmits nothing), RESONATOR is the passive
+//            piezoelectric body. Both ends of a resonator must land on
+//            one OSCILLATOR instance, and a RESONATOR has exactly one
+//            OSCILLATOR — `peer = ROLE(1)` on both roles makes that
+//            law declarative. No Transmitter/Receiver wording and no
+//            direction words (passive leaf).
+// Device Definition: OSCILLATOR = the amplifier host (MCU XIN/XOUT, RTC
+//                    OSC pins),
+//                    RESONATOR = the crystal / ceramic resonator body.
+// Note: active oscillator modules do not adopt this face; their clock
+//       output adopts the single-ended CLK interface.
 
 interface XTAL(role)
 {

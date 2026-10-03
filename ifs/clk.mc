@@ -1,17 +1,17 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// CLK (Single-Ended Clock) Standard Definition
-// Core Rule: One-wire unidirectional clock line
-// 1 wire: the ground reference is shared through the power supply (DC
-// interface), same as CLK.DIFF / ADC.SINGLE / UART.TTL (no ground member
-// here).
-// Family: CLK.DIFF (ifs/clkdiff.mc) covers the differential clock pair; CLK
-// covers the single-ended line. Roles follow CLK.DIFF's Transmitter/Receiver
-// naming -- this face is genuinely unidirectional, so the direction pair is
-// the right pair here, unlike XTAL's circuit-identity pair (U200 §3).
-// Applications: active oscillator module outputs (OSC), clock distribution,
-// external clock input pins of SoCs / MCUs.
+// CLK - Single-Ended Clock Interface Standard Definition
+// Core Rule: One-wire unidirectional clock line; the ground reference is
+//            shared through the power supply (DC interface), so the face
+//            has no ground member. This family covers the single-ended
+//            line (the differential clock pair is CLK.DIFF); the face is
+//            genuinely unidirectional, unlike the XTAL circuit-identity
+//            pair.
+// Device Definition: TRANSMITTER = clock generator (active oscillator
+//                    module output or clock driver),
+//                    RECEIVER = clock consumer (SoC, FPGA, or MCU clock
+//                    input).
 
 interface CLK(role)
 {

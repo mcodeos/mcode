@@ -1,12 +1,11 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// NETTIE — net bridge (two pads shorted by copper; keeps two nets distinct on
-// paper while forcing them to the same copper, e.g. power sampling points,
-// controlled net merging). The short is physical, not a connection statement:
-// the two terminals stay separately addressable.
-// ---------------------------------------------------------------------------------------------
+// NETTIE - Two-Terminal Net Bridge Component Definition
+// Core Rule: the two pads are shorted by copper on the part, so two nets stay
+// distinct on paper while being forced to the same copper (power sampling
+// points, controlled net merging). The short is physical, not a connection
+// statement: the two terminals stay separately addressable.
 
 component NETTIE()
 {
@@ -25,7 +24,7 @@ component NETTIE()
     ]
 }
 
-# Usage Examples:
-# NETTIE() tie1
-# reg_out -> tie1.A
-# tie1.B -> sample_point
+// Usage Examples:
+// NETTIE() tie1
+// reg_out -> tie1.A
+// tie1.B -> sample_point

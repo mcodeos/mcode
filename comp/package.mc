@@ -1,23 +1,23 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-# Naming convention (JEDEC / IPC standard, see package-catalog doc):
-#   1. Base family name is glued to the pin count — `DIP8`, `QFN48`,
-#      `LQFP100`. Putting an underscore between family and pin count
-#      (`QFN_8`, `DIP_16`) is a deprecated form and is not used here.
-#   2. When the same pin count ships in multiple body sizes, the body
-#      size is appended after an underscore: `QFN20_4X4`, `QFN20_5X5`,
-#      `LQFP48_7X7`, `DFN8_3X3`.
-#   3. Family prefix modifiers (T/TSSOP, V/VQFN, W/WQFN, U/UQFN, HV/HVQFN,
-#      EP/exposed pad) are part of the family name and do NOT take a
-#      separator before the pin count: `VQFN16_3X3`, `UQFN8_2X2`.
-#   4. Where JEDEC uses a hyphen inside the family name (`SOT-23`,
-#      `TO-220`, `TSOP-I`, `SC-70`) the hyphen is replaced by an
-#      underscore so the identifier is parser-legal: `SOT_23_3`,
-#      `TO_220`, `TSOP_I48`, `SC_70_3`.
-#   5. All identifiers are upper-case, including the dimension
-#      separator x (written X) and unit suffixes (3X3, 10X16MM);
-#      datasheet prose may use any case.
+// Naming convention (JEDEC / IPC package naming):
+//   1. Base family name is glued to the pin count — `DIP8`, `QFN48`,
+//      `LQFP100`. Putting an underscore between family and pin count
+//      (`QFN_8`, `DIP_16`) is a deprecated form and is not used here.
+//   2. When the same pin count ships in multiple body sizes, the body
+//      size is appended after an underscore: `QFN20_4X4`, `QFN20_5X5`,
+//      `LQFP48_7X7`, `DFN8_3X3`.
+//   3. Family prefix modifiers (T/TSSOP, V/VQFN, W/WQFN, U/UQFN, HV/HVQFN,
+//      EP/exposed pad) are part of the family name and do NOT take a
+//      separator before the pin count: `VQFN16_3X3`, `UQFN8_2X2`.
+//   4. Where JEDEC uses a hyphen inside the family name (`SOT-23`,
+//      `TO-220`, `TSOP-I`, `SC-70`) the hyphen is replaced by an
+//      underscore so the identifier is parser-legal: `SOT_23_3`,
+//      `TO_220`, `TSOP_I48`, `SC_70_3`.
+//   5. All identifiers are upper-case, including the dimension
+//      separator x (written X) and unit suffixes (3X3, 10X16MM);
+//      datasheet prose may use any case.
 
 enum PKG
 {
@@ -273,7 +273,7 @@ enum PKG
     SC_70_6,       // SC-70, 6-lead
     SC_88A,        // SC-88A (SOT-363 footprint)
 
-    // SMD power packages (JEDEC TO-252 / TO-263 / Vishay PowerPAK / QFN)
+    // SMD power packages (JEDEC TO-252 / TO-263 / power SO-8 / QFN)
     DPAK,                 // TO-252 (DPAK), 3-lead
     D2PAK,                // TO-263 (D2PAK), 3-lead
     TO_252,               // JEDEC TO-252 alias
@@ -281,8 +281,8 @@ enum PKG
     TO_220_SMD,           // SMD version of TO-220
     TO_251,               // JEDEC TO-251 (3-lead IPAK)
     TO_262,               // JEDEC TO-262 (3-lead I2PAK)
-    POWERPAK_SO8,         // Vishay PowerPAK SO-8
-    POWERPAK_8X8,         // Vishay PowerPAK 8x8
+    POWERPAK_SO8,         // low-inductance SO-8 power footprint
+    POWERPAK_8X8,         // low-inductance 8x8 power footprint
 
     // ----------------------------------------------------------------
     // Through-hole discrete transistors / MOSFETs (JEDEC TO family)
@@ -292,8 +292,8 @@ enum PKG
     TO_220,     // Most common power transistor footprint
     TO_220_3,   // TO-220, 3-lead (standard)
     TO_220_4,   // TO-220, 4-lead (e.g. some linear regulators)
-    TO_220_5,   // TO-220, 5-lead (e.g. LM2596, LM7805-style regulators)
-    TO_220_7,   // TO-220, 7-lead (e.g. LM317HV, dual MOSFETs)
+    TO_220_5,   // TO-220, 5-lead (e.g. buck-converter and linear-regulator styles)
+    TO_220_7,   // TO-220, 7-lead (e.g. adjustable regulators, dual MOSFETs)
     TO_220FP,   // TO-220 Full Pack (insulated tab)
     TO_3,       // Large metal-can power
     TO_3P,      // TO-3P plastic power
@@ -316,10 +316,10 @@ enum PKG
     // -----------------------------------------------------------------
     DIP4,        // 4-pin (optocoupler, small SSR, rectifier bridges)
     DIP6,        // 6-pin
-    DIP8,        // 8-pin (e.g. NE555, LM741, ATtiny DIP)
+    DIP8,        // 8-pin (e.g. timers, op-amps, small MCUs)
     DIP10,
     DIP12,
-    DIP14,       // 14-pin (e.g. 74LS00, LM324)
+    DIP14,       // 14-pin (e.g. quad logic gates, quad op-amps)
     DIP16,       // 16-pin
     DIP18,
     DIP20,
@@ -355,8 +355,8 @@ enum PKG
     SIP9,
     SIP10,
     SIP12,
-    // Multiwatt — staggered in-line power package with metal tab (ST naming)
-    MULTIWATT15,   // 15-lead staggered in-line with heat tab (e.g. L298N; tab = a GND pin)
+    // Multiwatt — staggered in-line power package with metal tab
+    MULTIWATT15,   // 15-lead staggered in-line with heat tab (tab = a GND pin)
     ZIP10,
     ZIP16,
     ZIP24,
@@ -383,14 +383,14 @@ enum PKG
     // -----------------------------------------------------------------
     SOIC4,
     SOIC6,
-    SOIC8,        // e.g. TL072, MAX232
+    SOIC8,        // e.g. dual op-amps, RS232 transceivers
     SOIC10,
     SOIC12,
     SOIC14,
-    SOIC16,       // e.g. 74HC595, MAX485
-    SOIC16_NB,    // narrow body 300 mil (SOIC16 NB, e.g. NSI8140N0)
-    SOIC16_WB,    // wide body 450 mil (SOIC16 WB, e.g. NSI8140W0)
-    PG_DSO_36,    // Infineon PG-DSO-36 (e.g. TLE7368)
+    SOIC16,       // e.g. shift registers, RS485 transceivers
+    SOIC16_NB,    // narrow body 300 mil (SOIC16 NB)
+    SOIC16_WB,    // wide body 450 mil (SOIC16 WB)
+    PG_DSO_36,    // PG-DSO-36 body
     SOIC18,
     SOIC20,
     SOIC24,
@@ -419,7 +419,7 @@ enum PKG
     SSOP56,
 
     // MSOP — Mini Small-Outline Package
-    // Also marketed as MiniSOIC (TI nomenclature). Same body as SSOP but
+    // Also marketed as MiniSOIC. Same body as SSOP but
     // with fewer pins for a given outline size.
     MSOP8,
     MSOP10,
@@ -492,7 +492,7 @@ enum PKG
     UDFN8,
 
     // USON — ultra-thin SON (smaller than SON, typically < 0.5 mm body)
-    USON6,        // e.g. TI DRY (SN74LVC1G175DRY)
+    USON6,        // e.g. single-gate logic (DRY-style outline)
     USON8,
     USON10,
     USON12,
@@ -558,10 +558,10 @@ enum PKG
     HVQFN16,
     HVQFN24,
     HVQFN32,
-    HWQFN24,      // NXP HWQFN24 (heatsink W-QFN, e.g. PCA9555HF)
+    HWQFN24,      // HWQFN24 (heatsink W-QFN)
 
     // MLF — MicroLeadFrame, Japanese vendor equivalent of QFN
-    // (Microchip / ON Semi naming convention)
+    // (some vendors' naming convention)
     MLF8,
     MLF16,
     MLF20,
@@ -647,7 +647,7 @@ enum PKG
     // Family overview:
     //   PBGA = Plastic BGA, CBGA = Ceramic BGA, FBGA = Fine-pitch BGA,
     //   nFBGA = Next-generation fine-pitch BGA, FCBGA = Flip-chip BGA.
-    //   Generic bare BGA tokens cover the catalog doc example list.
+    //   Generic bare BGA tokens cover the un-suffixed generic bodies.
 
     // CBGA — Ceramic BGA (high reliability, CTE-matched to ceramic PCB)
     CBGA48,
@@ -678,7 +678,7 @@ enum PKG
     PBGA256,
     PBGA384,
 
-    // Generic BGA tokens (catalog doc example list)
+    // Generic BGA tokens (un-suffixed generic bodies)
     BGA128,
     BGA256,
 
@@ -697,8 +697,8 @@ enum PKG
     LGA2066,
 
     // CSP / WLCSP — wafer-level / chip-scale packages
-    DSBGA6,     // TI die-size BGA, 6 bumps
-    DSBGA8,     // TI die-size BGA, 8 bumps
+    DSBGA6,     // die-size BGA, 6 bumps
+    DSBGA8,     // die-size BGA, 8 bumps
     WCSP12,     // Wafer-level CSP, 12 bumps
     UCSP16,     // Micro-CSP, 16 bumps
     FCCSP20,    // Flip-chip CSP, 20 balls
@@ -708,7 +708,7 @@ enum PKG
     // -----------------------------------------------------------------
     TO_268,     // D3PAK (TO-268), 3-lead
     TO_277,     // 4-lead SMD power
-    LFPAK33,    // Nexperia LFPAK33
+    LFPAK33,    // LFPAK33
     LFPAK56,
     LFPAK88,
 
@@ -814,7 +814,7 @@ enum PKG
     // Speakers & buzzers
     // =================================================================
     SPEAKER_PHB2AWB,   // Specific speaker footprint
-    PIEZO_SOUNDER_D12_2,   // 2-pin radial piezo sounder, 12.2mm dia x 6.5mm, 12.7mm pin pitch (e.g. TDK PS1240P02BT)
+    PIEZO_SOUNDER_D12_2,   // 2-pin radial piezo sounder, 12.2mm dia x 6.5mm, 12.7mm pin pitch
 
     // =================================================================
     // Fuses
@@ -851,6 +851,6 @@ enum PKG
     TEST_POINT
 }
 
-# Usage Examples:
-# package = PKG.SOT_223      // set on any component
-# package = PKG.SOT_23_5
+// Usage Examples:
+// package = PKG.SOT_223      // set on any component
+// package = PKG.SOT_23_5

@@ -9,7 +9,7 @@
 pub use ./ifs/ifs.mc
 pub use ./conn/conn.mc
 
-// import metas (declarations only, meta-system-design.md ruling 12)
+// import metas (declarations only)
 pub use ./meta.mc
 
 // import files

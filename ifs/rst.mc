@@ -1,33 +1,23 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// RST (Reset) Interface Standard Definition
-// Core Rule: reset / power-on-reset control line between a reset source
-// (supervisor, RC timer, debugger, pushbutton driver) and reset bodies
-// (MCU NRST, peripheral RESET inputs). Active-low on most parts; polarity
-// stays a datasheet fact of the adopting pin's description, not the face.
-// Identity comes from adoption only (no name inference): a `TRST`-style pin
-// inside a debug port belongs to the DBG family boundary, not here, and the
-// `@barrier(reset)` of RELAY.LATCH is a relay-coil role, same word different
-// family (mcd/doc/ee/reset-intent-design.md -- this face is that doc's
-// "first domino", the library-side reset role pair).
-// Pairing law: a reset net is one source driving N bodies, so the SOURCE
-// peer declaration is count-less (`peer = ROLE`, unrestricted -- the
-// ADC.SINGLE / DAC / CAN precedent); the RECEIVER side carries the
-// exact-one bound (`peer = SOURCE(1)`) -- the undershoot half of the
-// pairing law, live since b4511.
-// Judges anchored on these roles (reset-intent-design §2), both live as of
-// b4550: overshoot is the exclusive-peer/role-peer/connection-time trio
-// (E6054/E6061/E4121, the exact-one bound is what arms them); the orphan
-// undershoot is E6063 IFACE_PEER_UNREACHED -- a RECEIVER whose whole merged
-// conductor holds no SOURCE endpoint and no non-family terminal at all (an
-// RC-only reset network is a legal reset source: its resistor and
-// capacitor terminals are the structure witness). POR-supervisor existence
-// rides the same code at conductor grain; a per-domain census waits for
-// domain objects. The SUP/SUP.WDG supervisor family (mclibs/power/sup.mc)
-// is the SOURCE side's first corpus.
-// Applications: MCU NRST/RESET pins, supervisor/watchdog outputs, manual
-// reset circuits, shared reset buses
+// RST - Reset Control Interface Standard Definition
+// Core Rule: Reset / power-on-reset control line between reset sources
+//            (supervisor, RC timer, debugger, pushbutton driver) and reset
+//            bodies (MCU NRST, peripheral RESET inputs). A reset net is
+//            one source driving N bodies: the SOURCE peer declaration is
+//            count-less (`peer = RECEIVER`, unrestricted); the RECEIVER
+//            side carries the exact-one bound (`peer = SOURCE(1)`).
+//            Active-low on most parts; polarity stays a datasheet fact of
+//            the adopting pin's description, not the face. Identity comes
+//            from adoption only (no name inference): a `TRST`-style pin
+//            inside a debug port belongs to the debug family, not here,
+//            and the `@barrier(reset)` of a relay coil is a relay-coil
+//            role, same word different family.
+// Device Definition: SOURCE = reset source (supervisor, RC timer,
+//                    debugger, pushbutton driver),
+//                    RECEIVER = reset body (MCU NRST, peripheral RESET
+//                    input).
 
 interface RST(role)
 {
@@ -36,6 +26,12 @@ interface RST(role)
     maxdistance = 0.5m
     voltage = [1.8V, 3.3V, 5V]
 
+    // ERC anchors on these roles: overshoot is checked by the
+    // exclusive-peer/role-peer/connection-time trio (the exact-one bound
+    // arms them); a RECEIVER whose whole merged conductor holds no SOURCE
+    // endpoint and no non-family terminal at all is an orphan. An RC-only
+    // reset network is a legal reset source: its resistor and capacitor
+    // terminals are the non-family terminals that count.
     pins = [
         1 = RST @class(digital)   // Reset line (datasheet nRST/RESET/NRST)
     ]
@@ -60,5 +56,5 @@ interface RST(role)
 // Example usage:
 // MCU side (dedicated bidirectional reset pin):
 //     io 7 = RST::RST(RECEIVER), ["NRST"]
-// Supervisor / reset-controller side (see mclibs/power/sup.mc):
+// Supervisor / reset-controller side:
 //     out 2 = RST::RST(SOURCE), ["RESET"]

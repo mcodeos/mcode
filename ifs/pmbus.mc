@@ -1,13 +1,15 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// PMBus Standard Definition
-// Core Rule: power-management bus on an SMBus base (I2C variant family, same
-// shape precedent as I2C.SMBUS) with the power-specific additions:
-// SMBALERT becomes the power ALERT line, plus the CONTROL line that enables /
-// sequences power converters
-// Applications: VRM / point-of-load converters, hot-swap controllers, power
-// supply telemetry and sequencing
+// PMBUS - Power Management Bus Interface Standard Definition
+// Core Rule: Power-management bus on an SMBus-shaped base (open-drain,
+//            multi-point, external pullups) with the power additions: the
+//            ALERT line slaves use to request attention, and the CONTROL
+//            line that enables / sequences power converters.
+// Device Definition: HOST = system manager (sources SCL, sequences the
+//                    converters),
+//                    SLAVE = power device (converter, hot-swap
+//                    controller) reporting telemetry.
 
 interface PMBUS(role)
 {

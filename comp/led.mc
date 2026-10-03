@@ -1,8 +1,11 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-# Basic LED Component
-# Generic light-emitting diode with fundamental parameters
+// LED - Indicator Light-Emitting Diode Component Definition
+// Core Rule: forward-biased junction emits light at the rated wavelength;
+// forward voltage sets the dropper/budget, forward current sets the
+// brightness and must be limited externally.
+
 component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
 {
     name = "LED"
@@ -25,8 +28,11 @@ component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
     }
 }
 
-# RGB LED
-# Light-emitting diode with red, green, and blue channels
+// LED.RGB - Three-Channel RGB LED Component Definition
+// Core Rule: three independent emitters (red, green, blue anodes) sharing one
+// common cathode; each channel has its own forward voltage and needs its own
+// current limit.
+
 component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP)
 {
     name = "RGB LED"
@@ -54,8 +60,10 @@ component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP)
     }
 }
 
-# Infrared LED
-# Light-emitting diode for infrared radiation
+// LED.IR - Infrared LED Component Definition
+// Core Rule: forward-biased junction emits in the infrared band; driven in
+// pulsed or continuous mode by an external current limit.
+
 component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
 {
     name = "Infrared LED"
@@ -78,8 +86,10 @@ component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
     }
 }
 
-# High Power LED
-# Light-emitting diode for high brightness applications
+// LED.HP - High Power LED Component Definition
+// Core Rule: high-current emitter rated by dissipated power — thermal
+// management (heatsinking, derating) governs the drive level.
+
 component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT)
 {
     name = "High Power LED"
@@ -102,15 +112,15 @@ component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT)
     }
 }
 
-# Usage Examples:
-# 1. Basic LED as indicator
-# LED(2.2V, 20mA, 520nm).Indicator([vcc, gnd])
+// Usage Examples:
+// 1. Basic LED as indicator
+// LED(2.2V, 20mA, 520nm).Indicator([vcc, gnd])
 
-# 2. RGB LED for color indication
-# LED.RGB(2.0V, 3.2V, 3.2V, 20mA).Color(red_pwm, green_pwm, blue_pwm, gnd)
+// 2. RGB LED for color indication
+// LED.RGB(2.0V, 3.2V, 3.2V, 20mA).Color(red_pwm, green_pwm, blue_pwm, gnd)
 
-# 3. Infrared LED for remote control
-# LED.IR(1.2V, 100mA, 940nm).Transmit(ir_driver)
+// 3. Infrared LED for remote control
+// LED.IR(1.2V, 100mA, 940nm).Transmit(ir_driver)
 
-# 4. High power LED for illumination
-# LED.HP(3.2V, 1.0A, 3.2W).Light(led_driver)
+// 4. High power LED for illumination
+// LED.HP(3.2V, 1.0A, 3.2W).Light(led_driver)

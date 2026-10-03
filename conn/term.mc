@@ -1,14 +1,11 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Terminal Block (barrier block) Definitions
-// ---------------------------------------------------------------------------------------------
-// Screw-terminal wire-to-board family: one pole per position, numbered left to
-// right as seen from the wire side. Physical face = counted plain pins, no
-// interface binding (U193 physical-socket ruling).
+// TERM.BLOCK - Screw terminal block (barrier block), one pole per position Component Definition
+// Core Rule: Physical face = counted plain pins, no interface binding: the
+// contact is a physical socket, not an electrical signal face. Positions are
+// numbered left to right as seen from the wire side.
 
-// Screw Terminal Block
 component TERM.BLOCK(positions::INT)
 {
     name = "Screw Terminal Block"

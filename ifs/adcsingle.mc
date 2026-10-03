@@ -1,14 +1,17 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ADC.SINGLE (Single-Ended Analog Input) Standard Definition
-// Core Rule: One-wire single-ended analog voltage input
-// 1 wire: the reference is the analog ground domain, shared through the
-// power supply (DC interface), same as ADC.DIFF / UART.TTL / I2C / SPI
-// (Decision Record 2, spec/19 §9 -- no ground member here).
-// The @class(analog) row attribute is the library-default signal class:
-// adopting components inherit it and may override by ordinal.
-// Applications: sensor adoption (analog sensors), audio line-in, control loops
+// ADC.SINGLE - Single-Ended Analog Input Interface Standard Definition
+// Core Rule: One-wire single-ended analog voltage input; the reference is
+//            the analog ground domain, shared through the power supply
+//            (DC interface), so the face has no ground member. The
+//            @class(analog) row attribute is the library-default signal
+//            class: adopting components inherit it and may override by
+//            ordinal.
+// Device Definition: TRANSMITTER = sensor or signal source driving the
+//                    line,
+//                    RECEIVER = ADC converter or analog front-end
+//                    sampling it.
 
 interface ADC.SINGLE(role)
 {

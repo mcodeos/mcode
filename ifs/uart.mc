@@ -1,6 +1,20 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
+// UART.TTL - UART Interface (TTL levels) Standard Definition
+// Core Rule: Point-to-point full-duplex serial link over a crossed data
+//            pair (ordinal k on the two sides is the same wire: TX <->
+//            RX); ground is shared through the power domain, no ground
+//            member. Level windows are device truth — they belong on the
+//            component's own pin rows (or a protocol-fixed row like
+//            RS-232), and the role names stay level-free.
+// Device Definition: DCE = data communications equipment
+//                    (cross-connects to DTE),
+//                    DTE = data terminal equipment.
+// Note: the RELAY role is the cable conductor view — it inherits the
+//       role-less table and selects no endpoint role; a cable module
+//       states its crossing or straight join in the body.
+
 interface UART.TTL(role)
 {
     topology = "point to point"
@@ -11,17 +25,8 @@ interface UART.TTL(role)
     receiver = ["0V ~ 1.8V", "0V ~ 3.3V", "0V ~ 5V"]
     output = ["0V ~ 1.8V", "0V ~ 3.3V", "0V ~ 5V"]
 
-    // UART.TTL Standard Definition
-    // Core Rule: Point-to-point serial communication using TTL voltage levels
-    // 2-wire (TX/RX), GND shared through power domain — same as I2C/SPI
-    // TTL Level Spec:
-    //   1.8V TTL: High = 1.2V ~ 1.8V (Logic 1), Low = 0V ~ 0.4V (Logic 0)
-    //   3.3V TTL: High = 2V ~ 3.3V (Logic 1), Low = 0V ~ 0.8V (Logic 0)
-    //   5V TTL: High = 2V ~ 5V (Logic 1), Low = 0V ~ 0.8V (Logic 0)
-    // Device Definition: DCE = Data Communications Equipment, DTE = Data Terminal Equipment
-
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
-    // (conductor-view-design.md R-CV1). Mediated devices and module ports bind
+    //. Mediated devices and module ports bind
     // role-less and take their shape from this table; the role tables below
     // carry the named views: the data pair crosses by position (TX <-> RX).
     pins = [
@@ -29,10 +34,7 @@ interface UART.TTL(role)
         2 = _ @class(digital) // RX <-> TX
     ]
 
-    // DCE role: cross-connects to DTE. Level windows are device truth — they
-    // belong on the component's own pin rows (or a protocol-fixed row like
-    // RS-232), and ERC judges them per net (E4124); the role name stays
-    // level-free.
+
     role DCE {
         name = "UART.TTL DCE"
         pins = [
@@ -52,7 +54,7 @@ interface UART.TTL(role)
         peer = DCE(1)
     }
 
-    // Relay face (iface-peer-cardinality-design.md §4): the cable's conductor
+    // Relay face: the cable's conductor
     // view — inherits the role-less table above (2 anonymous lanes) and
     // selects no endpoint role. A cable module binds
     // `io a::UART.TTL(RELAY)` on each end and states its crossing or
@@ -62,6 +64,15 @@ interface UART.TTL(role)
     }
 }
 
+// UART.RS232.3 - RS-232 Interface (3-pin: TX/RX/GND) Standard Definition
+// Core Rule: DTE <-> DCE cross-connect for data/handshake pins,
+//            direct-connect for status pins and ground. High = +3V ~ +15V
+//            (logic 0), low = -15V ~ -3V (logic 1); ground carries no
+//            level parameter (signal reference). Each DCE role pairs with
+//            the matching DTE role.
+// Device Definition: DCE = data communications equipment,
+//                    DTE = data terminal equipment.
+
 interface UART.RS232.3(role)
 {
     topology = "point to point"
@@ -70,16 +81,11 @@ interface UART.RS232.3(role)
     receiver = ±15V
     output = ±25V
 
-    // EIA-RS-232C Standard Pin Definition - 3-Pin (Basic Transmit & Receive Only)
-    // Core Rule: DTE ↔ DCE - Cross-connect for data/handshake/flow control pins, direct-connect for status pins & GND
-    // RS232 Level Spec: High = +3V ~ +15V (Logic 0), Low = -15V ~ -3V (Logic 1), GND = no level param (signal reference)
-    // Device Definition: DCE = Data Communications Equipment (central/peripheral device), DTE = Data Terminal Equipment (master/terminal device)
-    // Peer Rule: Each DCE role is paired with the corresponding DTE role, mutual peer association for standard matching
     // Variant note: RS232 splits into per-variant interfaces (.3/.5/.9) — the
-    // variants share a name family, not a conductor view (conductor-view-design.md R-CV3)
+    // variants share a name family, not a conductor view
 
     // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
-    // (conductor-view-design.md R-CV1)
+    //
     pins = [
         1 = _ @class(digital) // RXD <-> TXD
         2 = _ @class(digital) // TXD <-> RXD
@@ -107,6 +113,15 @@ interface UART.RS232.3(role)
     }
 }
 
+// UART.RS232.5 - RS-232 Interface (5-pin: TX/RX + RTS/CTS) Standard Definition
+// Core Rule: DTE <-> DCE cross-connect for data/handshake/flow-control
+//            pins, direct-connect for status pins and ground; the 5-pin
+//            member adds RTS/CTS hardware flow control. High = +3V ~ +15V
+//            (logic 0), low = -15V ~ -3V (logic 1). Each DCE role pairs
+//            with the matching DTE role.
+// Device Definition: DCE = data communications equipment,
+//                    DTE = data terminal equipment.
+
 interface UART.RS232.5(role)
 {
     topology = "point to point"
@@ -115,14 +130,9 @@ interface UART.RS232.5(role)
     receiver = ±15V
     output = ±25V
 
-    // EIA-RS-232C Standard Pin Definition - 5-Pin (TX/RX + RTS/CTS Hardware Flow Control)
-    // Core Rule: DTE ↔ DCE - Cross-connect for data/handshake/flow control pins, direct-connect for status pins & GND
-    // RS232 Level Spec: High = +3V ~ +15V (Logic 0), Low = -15V ~ -3V (Logic 1), GND = no level param (signal reference)
-    // Device Definition: DCE = Data Communications Equipment (central/peripheral device), DTE = Data Terminal Equipment (master/terminal device)
-    // Peer Rule: Each DCE role is paired with the corresponding DTE role, mutual peer association for standard matching
 
     // Role-less conductor view: 5 anonymous lanes, ordinal = wire identity
-    // (conductor-view-design.md R-CV1)
+    //
     pins = [
         1 = _ @class(digital) // RXD <-> TXD
         2 = _ @class(digital) // TXD <-> RXD
@@ -156,6 +166,17 @@ interface UART.RS232.5(role)
     }
 }
 
+// UART.RS232.9 - RS-232 Interface (9-pin full function) Standard Definition
+// Core Rule: DTE <-> DCE cross-connect for data/handshake/flow-control
+//            pins, direct-connect for status pins and ground; the
+//            full-function member. High = +3V ~ +15V (logic 0), low =
+//            -15V ~ -3V (logic 1). Each DCE role pairs with the matching
+//            DTE role.
+// Device Definition: DCE = data communications equipment,
+//                    DTE = data terminal equipment.
+// Note: an interface modeling a specific physical connector mirrors that
+//       connector's numbering — this 9-pin face mirrors the DE-9.
+
 interface UART.RS232.9(role)
 {
     topology = "point to point"
@@ -164,14 +185,9 @@ interface UART.RS232.9(role)
     receiver = ±15V
     output = ±25V
 
-    // EIA-RS-232C Standard Pin Definition - 9-Pin (EIA-RS-232C Standard Full Function Version)
-    // Core Rule: DTE ↔ DCE - Cross-connect for data/handshake/flow control pins, direct-connect for status pins & GND
-    // RS232 Level Spec: High = +3V ~ +15V (Logic 0), Low = -15V ~ -3V (Logic 1), GND = no level param (signal reference)
-    // Device Definition: DCE = Data Communications Equipment (central/peripheral device), DTE = Data Terminal Equipment (master/terminal device)
-    // Peer Rule: Each DCE role is paired with the corresponding DTE role, mutual peer association for standard matching
 
     // Role-less conductor view: 9 anonymous lanes, ordinal = wire identity
-    // (conductor-view-design.md R-CV1)
+    //
     pins = [
         1 = _ @class(digital) // DCD
         2 = _ @class(digital) // RXD <-> TXD
@@ -184,8 +200,8 @@ interface UART.RS232.9(role)
         9 = _ @class(digital) // RI
     ]
 
-    role DCE {  // RS232.9 DCE - EIA-RS-232C full function
-        name = "RS232.9 DCE (EIA-RS-232C)"
+    role DCE {  // RS232.9 DCE - full function
+        name = "RS232.9 DCE"
         pins = [
             out 1 = DCD @class(digital),  "Data Carrier Detect", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]   // Direct connect to DTE Pin1 DCD, status indicator
             in 2 = RXD @class(digital),  "Receive Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]          // Cross-connect to DTE Pin2 TXD, core data receive
@@ -200,8 +216,8 @@ interface UART.RS232.9(role)
         peer = DTE(1)  // Paired with terminal device DTE
     }
 
-    role DTE {  // RS232.9 DTE - EIA-RS-232C full function
-        name = "RS232.9 DTE (EIA-RS-232C)"
+    role DTE {  // RS232.9 DTE - full function
+        name = "RS232.9 DTE"
         pins = [
             in 1 = DCD @class(digital),  "Data Carrier Detect", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]   // Direct connect to DCE Pin1 DCD, status indicator
             out 2 = TXD @class(digital),  "Transmit Data", voltage:[low:-15V ~ -3V, high:+3V ~ +15V]         // Cross-connect to DCE Pin2 RXD, core data transmit
@@ -217,6 +233,16 @@ interface UART.RS232.9(role)
     }
 }
 
+// UART.RS422 - RS-422 Interface Standard Definition
+// Core Rule: Balanced differential pair (A/B) for noise immunity,
+//            multi-drop with one transmitter driving and multiple
+//            receivers listening; high = +2V ~ +6V (logic 1), low = -6V ~
+//            -2V (logic 0).
+// Device Definition: TRANSMITTER = drives the A/B pair,
+//                    RECEIVER = receives it.
+// Note: the 2-wire variant (A/B only, no GND) is UART.RS422.2 — the
+//       variants share a name family, not a conductor view.
+
 interface UART.RS422(role)
 {
     topology = "multi-point"
@@ -226,22 +252,15 @@ interface UART.RS422(role)
     receiver = ±7V
     output = ±5V
 
-    // EIA-RS-422 Standard Definition
-    // Core Rule: Balanced differential signaling for noise immunity, multi-point capability (1 transmitter, multiple receivers)
-    // RS422 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: TRANSMITTER = drives the A/B pair, RECEIVER = receives it
-    // Variant note: the 2-wire variant (A/B only, no GND) is UART.RS422.2 — the
-    // variants share a name family, not a conductor view (conductor-view-design.md R-CV3)
 
     // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
-    // (conductor-view-design.md R-CV1)
+    //
     pins = [
         1 = _ @class(digital) // A
         2 = _ @class(digital) // B
         3 = _ // GND
     ]
 
-    // -------------------------- RS422 Transmitter --------------------------
     role TRANSMITTER {  // Sends balanced differential signals
         name = "RS422 Transmitter"
         pins = [
@@ -252,7 +271,6 @@ interface UART.RS422(role)
         peer = RECEIVER  // Paired with RS422 Receiver
     }
 
-    // -------------------------- RS422 Receiver --------------------------
     role RECEIVER {  // Receives balanced differential signals
         name = "RS422 Receiver"
         pins = [
@@ -264,6 +282,15 @@ interface UART.RS422(role)
     }
 }
 
+// UART.RS422.2 - RS-422 Interface (2-wire: A/B only) Standard Definition
+// Core Rule: Balanced differential pair (A/B) for noise immunity,
+//            multi-drop with one transmitter driving and multiple
+//            receivers listening; no ground member (same-cabinet use,
+//            ground shared through the power domain). High = +2V ~ +6V
+//            (logic 1), low = -6V ~ -2V (logic 0).
+// Device Definition: TRANSMITTER = drives the A/B pair,
+//                    RECEIVER = receives it.
+
 interface UART.RS422.2(role)
 {
     topology = "multi-point"
@@ -273,13 +300,9 @@ interface UART.RS422.2(role)
     receiver = ±7V
     output = ±5V
 
-    // EIA-RS-422 Standard Definition - 2-Wire variant (A/B only, no GND), same-cabinet use
-    // Core Rule: Balanced differential signaling for noise immunity, multi-point capability (1 transmitter, multiple receivers)
-    // RS422 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: TRANSMITTER = drives the A/B pair, RECEIVER = receives it
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
-    // (conductor-view-design.md R-CV1)
+    //
     pins = [
         1 = _ @class(digital) // A
         2 = _ @class(digital) // B
@@ -304,6 +327,13 @@ interface UART.RS422.2(role)
     }
 }
 
+// UART.RS423 - RS-423 Interface Standard Definition
+// Core Rule: Unbalanced differential pair, point-to-point only (one
+//            transmitter, one receiver); high = +2V ~ +6V (logic 1), low
+//            = -6V ~ -2V (logic 0).
+// Device Definition: DCE = data communications equipment,
+//                    DTE = data terminal equipment.
+
 interface UART.RS423(role)
 {
     topology = "point to point"
@@ -313,13 +343,9 @@ interface UART.RS423(role)
     receiver = ±7V
     output = ±5V
 
-    // EIA-RS-423 Standard Definition
-    // Core Rule: Unbalanced differential signaling, point-to-point only (1 transmitter, 1 receiver)
-    // RS423 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: DCE = Data Communications Equipment, DTE = Data Terminal Equipment
 
     // Role-less conductor view: 5 anonymous lanes, ordinal = wire identity
-    // (conductor-view-design.md R-CV1)
+    //
     pins = [
         1 = _ @class(digital) // RXD <-> TXD
         2 = _ @class(digital) // TXD <-> RXD
@@ -328,7 +354,6 @@ interface UART.RS423(role)
         5 = _ @class(digital) // CTS <-> RTS
     ]
 
-    // -------------------------- RS423 DCE --------------------------
     role DCE {  // RS423 DCE - Data Communications Equipment
         name = "RS423 DCE"
         pins = [
@@ -341,7 +366,6 @@ interface UART.RS423(role)
         peer = DTE(1)  // Paired with RS423 DTE
     }
 
-    // -------------------------- RS423 DTE --------------------------
     role DTE {  // RS423 DTE - Data Terminal Equipment
         name = "RS423 DTE"
         pins = [
@@ -355,6 +379,16 @@ interface UART.RS423(role)
     }
 }
 
+// UART.RS449 - RS-449 Interface Standard Definition
+// Core Rule: Enhanced serial interface with higher speed and distance,
+//            supporting both balanced and unbalanced signaling; primary
+//            and secondary channel data/handshake pins. This table is
+//            functional order by design — it models the functional
+//            standard, not a specific connector's numbering, so the
+//            37-pin numbering is not mirrored.
+// Device Definition: DCE = data communications equipment,
+//                    DTE = data terminal equipment.
+
 interface UART.RS449(role)
 {
     topology = "point to point"
@@ -364,18 +398,9 @@ interface UART.RS449(role)
     receiver = ±7V
     output = ±5V
 
-    // EIA-RS-449 Standard Definition
-    // Core Rule: Enhanced RS232 with higher speed and distance, supports both balanced and unbalanced signaling
-    // RS449 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: DCE = Data Communications Equipment, DTE = Data Terminal Equipment
-    // Connector: 37-pin (primary) or 9-pin (secondary)
-    // Pin-order law: an interface that models a specific physical connector
-    // mirrors that connector's numbering (RS232.9 = DE-9; USB; SDIO). RS449
-    // models the functional standard, not the ISO 4902 connector, so this
-    // table is functional order by design - the 37-pin numbering is not mirrored.
 
     // Role-less conductor view: 16 anonymous lanes, ordinal = wire identity
-    // (conductor-view-design.md R-CV1)
+    //
     pins = [
         1 = _ @class(digital) // SD <-> RD
         2 = _ @class(digital) // RD <-> SD
@@ -395,7 +420,6 @@ interface UART.RS449(role)
         16 = _    // CD2 <-> DR2 (secondary @class(digital), optional)
     ]
 
-    // -------------------------- RS449 DCE --------------------------
     role DCE {  // RS449 DCE - Data Communications Equipment
         name = "RS449 DCE"
         pins = [
@@ -422,7 +446,6 @@ interface UART.RS449(role)
         peer = DTE(1)  // Paired with RS449 DTE
     }
 
-    // -------------------------- RS449 DTE --------------------------
     role DTE {  // RS449 DTE - Data Terminal Equipment
         name = "RS449 DTE"
         pins = [
@@ -450,6 +473,16 @@ interface UART.RS449(role)
     }
 }
 
+// UART.RS485.3 - RS-485 Interface (3-wire: A/B/GND) Standard Definition
+// Core Rule: Multi-point balanced differential bus (up to 32 nodes) with
+//            the ground member as the third wire; high = +2V ~ +6V on one
+//            leg against -6V ~ -2V on the other, and inverted on B.
+// Device Definition: MASTER = controls the bus,
+//                    SLAVE = responds to master.
+// Note: the common 2-wire variant (A/B only, no GND) is the base family
+//       name UART.RS485 — the variants share a name family, not a
+//       conductor view.
+
 interface UART.RS485.3(role)
 {
     topology = "multi-point"
@@ -459,24 +492,15 @@ interface UART.RS485.3(role)
     receiver = ±7V
     output = ±5V
 
-    // EIA/TI-RS-485 Standard Definition
-    // Core Rule: Multi-point balanced differential signaling, supports multiple nodes on a single bus
-    // RS485 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: MASTER = Controls the bus, SLAVE = Responds to master
-    // Bus Configuration: 1 master, multiple slaves (up to 32 nodes)
-    // Variant note: the common 2-wire variant (A/B only, no GND) is the base
-    // family name UART.RS485; this 3-wire member (A/B + GND) is UART.RS485.3 — the
-    // variants share a name family, not a conductor view (conductor-view-design.md R-CV3).
 
     // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
-    // (conductor-view-design.md R-CV1)
+    //
     pins = [
         1 = _ @class(digital) // A
         2 = _ @class(digital) // B
         3 = _ // GND
     ]
 
-    // -------------------------- RS485 Master --------------------------
     role MASTER {  // RS485 Master - Controls the bus
         name = "RS485 Master"
         pins = [
@@ -487,7 +511,6 @@ interface UART.RS485.3(role)
         peer = SLAVE  // Paired with RS485 Slave
     }
 
-    // -------------------------- RS485 Slave --------------------------
     role SLAVE {  // RS485 Slave - Responds to master
         name = "RS485 Slave"
         pins = [
@@ -499,6 +522,14 @@ interface UART.RS485.3(role)
     }
 }
 
+// UART.RS485 - RS-485 Interface (2-wire: A/B only) Standard Definition
+// Core Rule: Multi-point balanced differential bus (up to 32 nodes) over
+//            the A/B pair only, no ground member (same-cabinet use).
+// Device Definition: MASTER = controls the bus,
+//                    SLAVE = responds to master.
+// Note: the base family name is the 2-wire form; the 3-wire member
+//       (A/B + GND) is UART.RS485.3.
+
 interface UART.RS485(role)
 {
     topology = "multi-point"
@@ -508,16 +539,9 @@ interface UART.RS485(role)
     receiver = ±7V
     output = ±5V
 
-    // EIA/TI-RS-485 Standard Definition - 2-Wire variant (A/B only, no GND), same-cabinet use
-    // Variant note: the base family name UART.RS485 is the common 2-wire form; the
-    // 3-wire member (A/B + GND) is UART.RS485.3.
-    // Core Rule: Multi-point balanced differential signaling, supports multiple nodes on a single bus
-    // RS485 Level Spec: High = +2V ~ +6V (Logic 1), Low = -6V ~ -2V (Logic 0)
-    // Device Definition: MASTER = Controls the bus, SLAVE = Responds to master
-    // Bus Configuration: 1 master, multiple slaves (up to 32 nodes)
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
-    // (conductor-view-design.md R-CV1)
+    //
     pins = [
         1 = _ @class(digital) // A
         2 = _ @class(digital) // B

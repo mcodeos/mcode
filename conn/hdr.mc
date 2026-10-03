@@ -1,15 +1,14 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Header (HDR) Component Definitions
-// ---------------------------------------------------------------------------------------------
-// Naming: the family separator is the dot, as everywhere else in the library
-// (HDR.1X4, not HDR_1x4); face names are all-uppercase (the parametric row
-// count is spelled 1X4). The generic faces carry the formals; the concrete
-// faces below are fixed-size variants in the IEC.C8/C14 style.
+// Header (HDR) component definitions
+// Note: naming - the family separator is the dot, as everywhere else in the
+// library (HDR.1X4, not HDR_1x4); face names are all-uppercase (the
+// parametric row count is spelled 1X4). The generic faces carry the formals;
+// the concrete faces are fixed-size variants in the IEC.C8/C14 style.
 
-// Single-row Header
+// HDR.SINGLE - Parametric single-row header Component Definition
+
 component HDR.SINGLE(cols::INT)
 {
     name = "Single-row Header"
@@ -26,7 +25,9 @@ component HDR.SINGLE(cols::INT)
     ]
 }
 
-// Multi-row Header
+// HDR.MULTI - Parametric multi-row header Component Definition
+// Core Rule: Pin numbering is row-major, R1C1, R1C2, ... R2C1, R2C2, ...
+
 component HDR.MULTI(rows::INT, cols::INT)
 {
     name = "Multi-row Header"
@@ -47,7 +48,8 @@ component HDR.MULTI(rows::INT, cols::INT)
 // Common Standard Headers
 // Single-row Headers (1X1 to 1X20, complete series)
 
-// 1x1 Header
+// HDR.1X1 - Fixed 1x1 single-row header (1 pin) Component Definition
+
 component HDR.1X1()
 {
     name = "1x1 Header"
@@ -63,7 +65,8 @@ component HDR.1X1()
     ]
 }
 
-// 1x2 Header
+// HDR.1X2 - Fixed 1x2 single-row header (2 pins) Component Definition
+
 component HDR.1X2()
 {
     name = "1x2 Header"
@@ -79,7 +82,8 @@ component HDR.1X2()
     ]
 }
 
-// 1x3 Header
+// HDR.1X3 - Fixed 1x3 single-row header (3 pins) Component Definition
+
 component HDR.1X3()
 {
     name = "1x3 Header"
@@ -95,7 +99,8 @@ component HDR.1X3()
     ]
 }
 
-// 1x4 Header
+// HDR.1X4 - Fixed 1x4 single-row header (4 pins) Component Definition
+
 component HDR.1X4()
 {
     name = "1x4 Header"
@@ -111,7 +116,8 @@ component HDR.1X4()
     ]
 }
 
-// 1x5 Header
+// HDR.1X5 - Fixed 1x5 single-row header (5 pins) Component Definition
+
 component HDR.1X5()
 {
     name = "1x5 Header"
@@ -127,7 +133,8 @@ component HDR.1X5()
     ]
 }
 
-// 1x6 Header
+// HDR.1X6 - Fixed 1x6 single-row header (6 pins) Component Definition
+
 component HDR.1X6()
 {
     name = "1x6 Header"
@@ -143,7 +150,8 @@ component HDR.1X6()
     ]
 }
 
-// 1x7 Header
+// HDR.1X7 - Fixed 1x7 single-row header (7 pins) Component Definition
+
 component HDR.1X7()
 {
     name = "1x7 Header"
@@ -159,7 +167,8 @@ component HDR.1X7()
     ]
 }
 
-// 1x8 Header
+// HDR.1X8 - Fixed 1x8 single-row header (8 pins) Component Definition
+
 component HDR.1X8()
 {
     name = "1x8 Header"
@@ -175,7 +184,8 @@ component HDR.1X8()
     ]
 }
 
-// 1x9 Header
+// HDR.1X9 - Fixed 1x9 single-row header (9 pins) Component Definition
+
 component HDR.1X9()
 {
     name = "1x9 Header"
@@ -191,7 +201,8 @@ component HDR.1X9()
     ]
 }
 
-// 1x10 Header
+// HDR.1X10 - Fixed 1x10 single-row header (10 pins) Component Definition
+
 component HDR.1X10()
 {
     name = "1x10 Header"
@@ -207,7 +218,8 @@ component HDR.1X10()
     ]
 }
 
-// 1x11 Header
+// HDR.1X11 - Fixed 1x11 single-row header (11 pins) Component Definition
+
 component HDR.1X11()
 {
     name = "1x11 Header"
@@ -223,7 +235,8 @@ component HDR.1X11()
     ]
 }
 
-// 1x12 Header
+// HDR.1X12 - Fixed 1x12 single-row header (12 pins) Component Definition
+
 component HDR.1X12()
 {
     name = "1x12 Header"
@@ -239,7 +252,8 @@ component HDR.1X12()
     ]
 }
 
-// 1x13 Header
+// HDR.1X13 - Fixed 1x13 single-row header (13 pins) Component Definition
+
 component HDR.1X13()
 {
     name = "1x13 Header"
@@ -255,7 +269,8 @@ component HDR.1X13()
     ]
 }
 
-// 1x14 Header
+// HDR.1X14 - Fixed 1x14 single-row header (14 pins) Component Definition
+
 component HDR.1X14()
 {
     name = "1x14 Header"
@@ -271,7 +286,8 @@ component HDR.1X14()
     ]
 }
 
-// 1x15 Header
+// HDR.1X15 - Fixed 1x15 single-row header (15 pins) Component Definition
+
 component HDR.1X15()
 {
     name = "1x15 Header"
@@ -287,7 +303,8 @@ component HDR.1X15()
     ]
 }
 
-// 1x16 Header
+// HDR.1X16 - Fixed 1x16 single-row header (16 pins) Component Definition
+
 component HDR.1X16()
 {
     name = "1x16 Header"
@@ -303,7 +320,8 @@ component HDR.1X16()
     ]
 }
 
-// 1x17 Header
+// HDR.1X17 - Fixed 1x17 single-row header (17 pins) Component Definition
+
 component HDR.1X17()
 {
     name = "1x17 Header"
@@ -319,7 +337,8 @@ component HDR.1X17()
     ]
 }
 
-// 1x18 Header
+// HDR.1X18 - Fixed 1x18 single-row header (18 pins) Component Definition
+
 component HDR.1X18()
 {
     name = "1x18 Header"
@@ -335,7 +354,8 @@ component HDR.1X18()
     ]
 }
 
-// 1x19 Header
+// HDR.1X19 - Fixed 1x19 single-row header (19 pins) Component Definition
+
 component HDR.1X19()
 {
     name = "1x19 Header"
@@ -351,7 +371,8 @@ component HDR.1X19()
     ]
 }
 
-// 1x20 Header
+// HDR.1X20 - Fixed 1x20 single-row header (20 pins) Component Definition
+
 component HDR.1X20()
 {
     name = "1x20 Header"
@@ -369,7 +390,8 @@ component HDR.1X20()
 
 // Dual-row Headers (2X2 to 2X10, complete series)
 
-// 2x2 Header
+// HDR.2X2 - Fixed 2x2 dual-row header (4 pins) Component Definition
+
 component HDR.2X2()
 {
     name = "2x2 Header"
@@ -386,7 +408,8 @@ component HDR.2X2()
     ]
 }
 
-// 2x3 Header
+// HDR.2X3 - Fixed 2x3 dual-row header (6 pins) Component Definition
+
 component HDR.2X3()
 {
     name = "2x3 Header"
@@ -403,7 +426,8 @@ component HDR.2X3()
     ]
 }
 
-// 2x4 Header
+// HDR.2X4 - Fixed 2x4 dual-row header (8 pins) Component Definition
+
 component HDR.2X4()
 {
     name = "2x4 Header"
@@ -420,7 +444,8 @@ component HDR.2X4()
     ]
 }
 
-// 2x5 Header
+// HDR.2X5 - Fixed 2x5 dual-row header (10 pins) Component Definition
+
 component HDR.2X5()
 {
     name = "2x5 Header"
@@ -437,7 +462,8 @@ component HDR.2X5()
     ]
 }
 
-// 2x6 Header
+// HDR.2X6 - Fixed 2x6 dual-row header (12 pins) Component Definition
+
 component HDR.2X6()
 {
     name = "2x6 Header"
@@ -454,7 +480,8 @@ component HDR.2X6()
     ]
 }
 
-// 2x7 Header
+// HDR.2X7 - Fixed 2x7 dual-row header (14 pins) Component Definition
+
 component HDR.2X7()
 {
     name = "2x7 Header"
@@ -471,7 +498,8 @@ component HDR.2X7()
     ]
 }
 
-// 2x8 Header
+// HDR.2X8 - Fixed 2x8 dual-row header (16 pins) Component Definition
+
 component HDR.2X8()
 {
     name = "2x8 Header"
@@ -488,7 +516,8 @@ component HDR.2X8()
     ]
 }
 
-// 2x9 Header
+// HDR.2X9 - Fixed 2x9 dual-row header (18 pins) Component Definition
+
 component HDR.2X9()
 {
     name = "2x9 Header"
@@ -505,7 +534,8 @@ component HDR.2X9()
     ]
 }
 
-// 2x10 Header
+// HDR.2X10 - Fixed 2x10 dual-row header (20 pins) Component Definition
+
 component HDR.2X10()
 {
     name = "2x10 Header"

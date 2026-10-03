@@ -1,11 +1,8 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Circular Connector Definitions
-// ---------------------------------------------------------------------------------------------
+// CIRC.BASIC - Generic circular connector Component Definition
 
-// Basic Circular Connector
 component CIRC.BASIC(pin_count::INT)
 {
     name = "Circular Connector"
@@ -22,7 +19,8 @@ component CIRC.BASIC(pin_count::INT)
     ]
 }
 
-// MIL-SPEC Circular Connector (MS Connector)
+// CIRC.MIL_SPEC - Military-specification circular connector Component Definition
+
 component CIRC.MIL_SPEC(pin_count::INT)
 {
     name = "MIL-SPEC Circular Connector"
@@ -40,7 +38,10 @@ component CIRC.MIL_SPEC(pin_count::INT)
     ]
 }
 
-// BNC Connector (RF Coaxial Connector)
+// CIRC.BNC - RF coaxial connector (bayonet coupling) Component Definition
+// Core Rule: Two-contact coaxial face - center conductor carries the RF signal,
+// outer ground shield is the return and exposed electrode.
+
 component CIRC.BNC(impedance::STRING)
 {
     name = "BNC Connector"
@@ -58,7 +59,10 @@ component CIRC.BNC(impedance::STRING)
     ]
 }
 
-// SMA Connector (RF Coaxial Connector)
+// CIRC.SMA - RF coaxial connector (threaded coupling) Component Definition
+// Core Rule: Two-contact coaxial face - center conductor carries the RF signal,
+// outer ground shield is the return and exposed electrode.
+
 component CIRC.SMA(impedance::STRING)
 {
     name = "SMA Connector"
@@ -76,17 +80,20 @@ component CIRC.SMA(impedance::STRING)
     ]
 }
 
-// U.FL Micro RF Coaxial Receptacle (a.k.a. IPEX / IPX MHF1 compatible)
+// CIRC.UFL - Micro RF coaxial receptacle for board-level antenna exit Component Definition
+// Core Rule: 50-ohm two-contact coaxial face - center conductor (RF) plus
+// ground shell; mates with the matching micro RF plug.
+
 component CIRC.UFL()
 {
     name = "U.FL RF Coaxial Connector"
-    description = "U.FL (IPEX MHF1 compatible) micro RF coaxial receptacle"
+    description = "U.FL micro RF coaxial receptacle"
 
     spec = [
         type = "U.FL"
         impedance = "50Ω"
         application = "Board-level RF exit: WiFi / BT / cellular module antenna port"
-        mate = _ // [U.FL plug, IPEX MHF1 plug]
+        mate = _ // [U.FL plug, matching micro RF plug]
     ]
 
     pins = [
@@ -95,7 +102,10 @@ component CIRC.UFL()
     ]
 }
 
-// MHF4 Micro RF Coaxial Receptacle (smaller sibling of U.FL)
+// CIRC.MHF4 - Smaller-profile micro RF coaxial receptacle for board-level antenna exit Component Definition
+// Core Rule: 50-ohm two-contact coaxial face - center conductor (RF) plus
+// ground shell; mates with the matching micro RF plug.
+
 component CIRC.MHF4()
 {
     name = "MHF4 RF Coaxial Connector"

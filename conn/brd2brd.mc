@@ -1,11 +1,8 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Board-to-Board Connector Definitions
-// ---------------------------------------------------------------------------------------------
+// CONN.B2B - Generic board-to-board connector Component Definition
 
-// Basic Board-to-Board Connector
 component CONN.B2B(pincnt::INT)
 {
     name = "Board-to-Board Connector"
@@ -22,7 +19,8 @@ component CONN.B2B(pincnt::INT)
     ]
 }
 
-// Mezzanine Connector (High Density)
+// CONN.MEZZANINE - High-density mezzanine (stacked-board) connector Component Definition
+
 component CONN.MEZZANINE(pincnt::INT)
 {
     name = "Mezzanine Connector"
@@ -39,8 +37,9 @@ component CONN.MEZZANINE(pincnt::INT)
     ]
 }
 
-// DIN 41612 Connector (rectangular board-to-board standard, common in
-// industrial equipment; form factor C = 96-pin, B = 64-pin, A = 32-pin)
+// CONN.DIN41612 - DIN 41612 rectangular board-to-board connector Component Definition
+// Note: form factor C = 96-pin, B = 64-pin, A = 32-pin.
+
 component CONN.DIN41612(pincnt::INT)
 {
     name = "DIN 41612 Connector"

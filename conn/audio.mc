@@ -1,12 +1,9 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Audio Connector Definitions
-// ---------------------------------------------------------------------------------------------
+// AUDIO.TRS_35MM - 3.5mm TRS audio jack (headphone jack), configuration-parameterized Component Definition
+// Note: pin layout varies by configuration - stereo, mono, or headset.
 
-// 3.5mm TRS Connector (Headphone Jack)
-// configuration: Connector configuration (stereo, mono, headset)
 component AUDIO.TRS_35MM(config::STRING)
 {
     name = "3.5mm TRS Connector"
@@ -44,7 +41,8 @@ component AUDIO.TRS_35MM(config::STRING)
         ]
 }
 
-// 2.5mm TRS Connector
+// AUDIO.TRS_25MM - 2.5mm TRS audio jack, 3-conductor (tip/ring/sleeve) Component Definition
+
 component AUDIO.TRS_25MM()
 {
     name = "2.5mm TRS Connector"
@@ -63,7 +61,8 @@ component AUDIO.TRS_25MM()
     ]
 }
 
-// RCA Connector (Phono Connector)
+// AUDIO.RCA - Single-channel phono audio connector (center pin + shield) Component Definition
+
 component AUDIO.RCA()
 {
     name = "RCA Connector"
@@ -79,8 +78,10 @@ component AUDIO.RCA()
     ]
 }
 
-// XLR Connector
-// pin_count: Number of pins (3, 4, or 5)
+// AUDIO.XLR - Balanced audio connector, 3/4/5-pin variants Component Definition
+// Note: pin_count selects the layout: 3 = audio only, 4 = audio + DC power,
+// 5 = audio + bipolar DC power.
+
 component AUDIO.XLR(pincnt::INT)
 {
     name = "XLR Connector"
@@ -115,7 +116,8 @@ component AUDIO.XLR(pincnt::INT)
         error("AUDIO.XLR: pincnt must be 3, 4, or 5, got " + pincnt)
 }
 
-// Speakon Connector (Professional Audio)
+// AUDIO.SPEAKON - Professional loudspeaker connector, 4- or 8-pole Component Definition
+
 component AUDIO.SPEAKON(pincnt::INT)
 {
     name = "Speakon Connector"
@@ -135,7 +137,8 @@ component AUDIO.SPEAKON(pincnt::INT)
         error("AUDIO.SPEAKON: pincnt must be 4 or 8, got " + pincnt)
 }
 
-// Banana Plug Connector (Speaker Terminals)
+// AUDIO.BANANA_PLUG - Single-conductor banana plug for speaker terminals Component Definition
+
 component AUDIO.BANANA_PLUG()
 {
     name = "Banana Plug Connector"

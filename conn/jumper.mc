@@ -1,11 +1,10 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// JUMPER — configuration jumper header and solder bridge
-// ---------------------------------------------------------------------------------------------
+// JUMPER - Configuration jumper header (n pins, closed pairwise by a jumper cap) Component Definition
+// Core Rule: The cap closes pins (2k-1, 2k); an odd trailing pin (e.g.
+// JUMPER(3)) stays open as the standard "2 closed + 1 spare" form.
 
-// Jumper header (n pins on a 2.54mm grid, closed pairwise by a jumper cap)
 component JUMPER(n::INT)
 {
     name = "Jumper Header"
@@ -21,11 +20,10 @@ component JUMPER(n::INT)
     pins = [
         1:n = 1:n
     ]
-    // Pairing convention: the cap closes pins (2k-1, 2k); an odd trailing pin
-    // (e.g. JUMPER(3)) stays open as the standard "2 closed + 1 spare" form.
 }
 
-// Solder bridge (two pads shorted by solder for configuration)
+// JUMPER.BRIDGE - Two-pad solder bridge for board-level configuration Component Definition
+
 component JUMPER.BRIDGE()
 {
     name = "Solder Bridge"
@@ -42,9 +40,9 @@ component JUMPER.BRIDGE()
     ]
 }
 
-# Usage Examples:
-# JUMPER(2) boot_sel1
-# boot_sel1.1 -> boot_mode
-# boot_sel1.2 -> gnd
-# JUMPER.BRIDGE() term_bridge1
-# term_bridge1.A -> can_bus_l
+// Usage Examples:
+// JUMPER(2) boot_sel1
+// boot_sel1.1 -> boot_mode
+// boot_sel1.2 -> gnd
+// JUMPER.BRIDGE() term_bridge1
+// term_bridge1.A -> can_bus_l

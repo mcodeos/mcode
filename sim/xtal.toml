@@ -1,6 +1,6 @@
-# Model profile cards -- XTAL world (mcd/doc/sim/worldmodel-design.md §7 W3).
+# Model profile cards -- XTAL world.
 #
-# One card per adopted role face; the role anchors the model split (U201):
+# One card per adopted role face; the role anchors the model split:
 # the crystal DAE belongs to the Resonator body, the sustaining amplifier
 # to the Oscillator side. Cards are curated data, read by consumers
 # read-only -- no solver semantics live here. A parameter the library does
@@ -16,7 +16,7 @@ schema = 1
 # The passive piezoelectric body: two-terminal crystal DAE (motional arm
 # Lm/Cm/Rm in series, shunt Cp). `consumes` names the spec the derive reads;
 # `load_capacitance` is deliberately absent -- the load caps belong to the
-# oscillation loop, i.e. the Oscillator side (U200 ownership ruling), not to
+# oscillation loop, i.e. the Oscillator side by ownership law, not to
 # the resonator body, even though the crystal part's datasheet lists them.
 [[card]]
 key = "XTAL::Resonator"
@@ -51,8 +51,7 @@ key = "XTAL::Oscillator"
 tier = "boundary"
 model = "sustaining_amplifier"
 boundary_on = ["X1", "X2"]
-# load_capacitance resolves from the paired Resonator part's spec (U200
-# ownership), not from the adopting part; negative_resistance is the
+# load_capacitance resolves from the paired Resonator part's spec, not from the adopting part; negative_resistance is the
 # datasheet fact a host-A amplifier model would consume.
 missing = ["negative_resistance", "load_capacitance"]
 assumptions = ["linear-region", "nominal-only", "starts-and-sustains"]

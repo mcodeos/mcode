@@ -155,8 +155,8 @@ resolves it, so it cannot become an enum or a bareword (real orderable codes
 contain `-`, `/`, `.`). Rules:
 
 1. Copy the exact orderable code as the datasheet prints it — case, hyphens,
-   slashes, delivery/temperature suffixes included (`SGM2019-3.3YN5G/TR`,
-   `SAK-TC275TP-64F200N-DC`). Never invent aliases, never mangle `-`/`/`
+   slashes, delivery/temperature suffixes included (`AAA1111-3.3YN5G/TR`,
+   `BBB-CC2222TP-64F200N-DC`). Never invent aliases, never mangle `-`/`/`
    into `_` (that mangling law is for PKG member names only).
 2. One partno per concrete variant; an abstract base never sets `partno`.
 3. When one file serves several orderables, `partno` is a constructor
@@ -225,7 +225,7 @@ component CAP(cap::UV.CAP, volt::UV.VOLT, tol::UV.PERCENT, diel, cons)
    character, written before the magnitude, as in `tol::UV.PERCENT = ±10%`).
    The plus/minus marker is a magnitude marker, not an arithmetic operator.
 6. BOM fields never appear as formals (Rule A).
-7. A same-name `func` (e.g. `func GD25Q32E(...)`) declares the actual
+7. A same-name `func` (e.g. `func SPIFLASH(...)`) declares the actual
    construction arity and overrides class-level params for call sites; the two
    are never mixed (COMPONENT_PARAM_FUNC_CONFLICT).
 8. Instances may omit required formals: the instance is still created - a
@@ -363,7 +363,7 @@ func Color(red_control, green_control, blue_control, gnd)
 Rules:
 
 1. A `func` named after the component class is the construction func and
-   defines the construction arity (`func GD25Q32E(...)`); otherwise class-level
+   defines the construction arity (`func SPIFLASH(...)`); otherwise class-level
    params are authoritative. The two never overlap.
 2. Inside a func, `this` is the instance. Pins are reached with `this.PIN_NAME`
    or `this{PIN_ID}`; bare pin names also work. A chain `net1 - this - net2`

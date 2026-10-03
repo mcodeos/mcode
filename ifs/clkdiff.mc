@@ -1,14 +1,14 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// CLK.DIFF (Differential Clock Pair) Standard Definition
-// Core Rule: Two-wire differential clock for reference/system clocking
-// Differential Pair: the two rows tagged @pair(clk) are the two legs of one
-// clock pair; the P/N spellings are the naming convention, same as ADC.DIFF.
-// 2-wire: the ground reference is shared through the power supply (DC
-// interface), same as ADC.DIFF / UART.TTL / I2C / SPI (Decision Record 2,
-// spec/19 §9 -- no ground member here).
-// Applications: refclk distribution, SYSCLK between clock generators and SoCs
+// CLK.DIFF - Differential Clock Pair Interface Standard Definition
+// Core Rule: Two-wire differential clock for reference/system clocking;
+//            the two rows tagged @pair(clk) are the two legs of one pair
+//            (P/N naming convention). The ground reference is shared
+//            through the power supply (DC interface) — no ground member
+//            here.
+// Device Definition: TRANSMITTER = clock generator or oscillator,
+//                    RECEIVER = clock consumer (SoC, FPGA).
 
 interface CLK.DIFF(role)
 {

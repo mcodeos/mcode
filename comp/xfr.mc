@@ -1,25 +1,10 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-# ---------------------------------------------------------------------------------------------
-# Transformer Components
-# ---------------------------------------------------------------------------------------------
+// XFR - Generic Transformer Component Definition
+// Core Rule: galvanically isolated windings coupled magnetically — voltage
+// scales with the turns ratio, power transfers at the rated capacity.
 
-# This file defines various transformer components for electrical and electronic circuits.
-
-# Components included:
-
-# - XFR: Basic transformer with primary and secondary windings
-# - XFR.POWER: Power transformer with frequency specification
-# - XFR.AUDIO: Audio transformer with impedance matching
-# - XFR.ISO: Isolation transformer with isolation voltage rating
-# - XFR.CT: Center-tapped transformer with center tap on secondary winding
-# Basic Transformer Component
-# Generic transformer with primary and secondary windings
-# Parameters:
-# - vpri: Primary voltage rating
-# - vsec: Secondary voltage rating
-# - prated: Power rating
 component XFR(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT)
 {
     name = "Transformer"
@@ -35,8 +20,12 @@ component XFR(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT)
         4 = SECONDARY\- @barrier(sec)
     ]
 }
-# Power Transformer Component
-# Transformer designed for power supply applications
+
+// XFR.POWER - Power Transformer Component Definition
+// Core Rule: mains-frequency power transfer — the core is rated for a
+// specified line frequency; running below it drives the core into
+// saturation.
+
 component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq::UV.HZ)
 {
     name = "Power Transformer"
@@ -53,13 +42,12 @@ component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq::UV.HZ)
         4 = SECONDARY\- @barrier(sec)
     ]
 }
-# Audio Transformer Component
-# Transformer designed for audio applications with impedance matching
-# Parameters:
-# - zpri: Primary impedance
-# - zsec: Secondary impedance
-# - prated: Power rating
-# - fresp: Frequency response
+
+// XFR.AUDIO - Audio Transformer Component Definition
+// Core Rule: impedance-matching transformer — primary and secondary
+// impedances are the design quantities, with a specified flat frequency
+// response band.
+
 component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, fresp::STRING)
 {
     name = "Audio Transformer"
@@ -76,13 +64,11 @@ component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, fresp::STRING)
         4 = SECONDARY\- @barrier(sec)
     ]
 }
-# Isolation Transformer Component
-# Transformer designed for electrical isolation between circuits
-# Parameters:
-# - vpri: Primary voltage rating
-# - vsec: Secondary voltage rating
-# - viso: Isolation voltage rating
-# - prated: Power rating
+
+// XFR.ISO - Isolation Transformer Component Definition
+// Core Rule: 1:1-class windings whose purpose is the isolation barrier
+// itself, rated to a specified isolation voltage.
+
 component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::UV.WATT)
 {
     name = "Isolation Transformer"
@@ -99,12 +85,11 @@ component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::UV.WATT)
         4 = SECONDARY\- @barrier(sec)
     ]
 }
-# Center-Tapped Transformer Component
-# Transformer with center tap on secondary winding for split voltage applications
-# Parameters:
-# - vpri: Primary voltage rating
-# - vsec: Secondary voltage rating
-# - prated: Power rating
+
+// XFR.CT - Center-Tapped Transformer Component Definition
+// Core Rule: secondary winding carries a center tap, giving two half
+// windings for split-supply or full-wave rectifier use.
+
 component XFR.CT(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT)
 {
     name = "Center Tapped Transformer"
@@ -122,8 +107,8 @@ component XFR.CT(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT)
     ]
 }
 
-# Usage Examples:
-# XFR.POWER(230V, 12V, 10W, 50Hz) t1
-# XFR.ISO(120V, 120V, 4kV, 5W) t2
-# XFR.AUDIO(600Ω, 8Ω, 2W, "20Hz~20kHz") t3
-# XFR.CT(230V, 6V, 3W) t4
+// Usage Examples:
+// XFR.POWER(230V, 12V, 10W, 50Hz) t1
+// XFR.ISO(120V, 120V, 4kV, 5W) t2
+// XFR.AUDIO(600Ω, 8Ω, 2W, "20Hz~20kHz") t3
+// XFR.CT(230V, 6V, 3W) t4

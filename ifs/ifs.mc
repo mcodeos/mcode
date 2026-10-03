@@ -27,8 +27,8 @@ pub use ./usb.mc        // USB interface
 pub use ./pcm.mc        // PCM interface
 pub use ./can.mc        // CAN interface
 pub use ./ethernet.mc   // Ethernet interface
-pub use ./mii.mc        // MII / RMII interfaces (IEEE 802.3 clause 22, RMII Consortium)
-pub use ./mdio.mc       // MDIO interface (IEEE 802.3 clause 22/45 serial management)
+pub use ./mii.mc        // MII / RMII interfaces
+pub use ./mdio.mc       // MDIO interface (PHY serial management)
 pub use ./dp.mc         // DisplayPort interface
 pub use ./lvds.mc       // LVDS interface (clock + 4 data pairs)
 pub use ./mipi.mc       // MIPI DSI / CSI interfaces (D-PHY)

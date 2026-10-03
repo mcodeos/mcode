@@ -1,18 +1,15 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-# Universal Serial Bus
+// Universal Serial Bus connector sockets
 
-// ---------------------------------------------------------------------------------------------
-// USB Connector Definitions
-// ---------------------------------------------------------------------------------------------
-// Based on interface definitions in ifs/usb.mc.
-// Layer avoidance: the bare form names (USB.TYPEA, USB.MINIB, USB.C, ...) belong to the
-// interface layer; connector components carry the SOCK_ prefix (USB.SOCK_TYPEA, ...).
-// Pin maps follow the USB-IF physical pin book (2 = D-, 3 = D+; Standard-A receptacle
-// receives on SSRX 5/6; Standard-B receptacle transmits on SSTX 5/6; Type-B has no ID pin).
+// Note: layer avoidance - the bare form names (USB.TYPEA, USB.MINIB, USB.C,
+// ...) belong to the interface layer; connector components carry the SOCK_
+// prefix (USB.SOCK_TYPEA, ...).
 
-// USB 2.0 Type A Connector
+// USB.SOCK_TYPEA - USB 2.0 Type A connector Component Definition
+// Core Rule: Pin map follows the standard USB pin assignment: 1 = VBUS, 2 = D-, 3 = D+, 4 = GND.
+
 component USB.SOCK_TYPEA()
 {
     name = "USB 2.0 Type A Connector"
@@ -32,7 +29,9 @@ component USB.SOCK_TYPEA()
     ]
 }
 
-// USB 2.0 Type B Connector
+// USB.SOCK_TYPEB - USB 2.0 Type B connector Component Definition
+// Core Rule: Same 4-pin USB 2.0 map as USB.SOCK_TYPEA (1 = VBUS, 2 = D-, 3 = D+, 4 = GND); no ID pin.
+
 component USB.SOCK_TYPEB()
 {
     name = "USB 2.0 Type B Connector"
@@ -52,8 +51,10 @@ component USB.SOCK_TYPEB()
     ]
 }
 
-// USB 2.0 Mini Type B Connector (abstract base for real-part variants)
-// Mini-USB socket pin book: 5 wires (VBUS/D-/D+/ID/GND) + 2 ground + 2 shield
+// USB.SOCK_MINIB - USB 2.0 Mini Type B connector, abstract base for real-part variants Component Definition
+// Core Rule: Mini-USB socket pin map: 5 signal wires (VBUS/D-/D+/ID/GND)
+// plus 2 extra ground pins and 2 exposed shield electrodes.
+
 abstract component USB.SOCK_MINIB()
 {
     name = "USB 2.0 Mini Type B Connector"
@@ -74,7 +75,9 @@ abstract component USB.SOCK_MINIB()
     ]
 }
 
-// USB 2.0 Micro Type B Connector
+// USB.SOCK_MICROB - USB 2.0 Micro Type B connector Component Definition
+// Core Rule: 5-pin Micro-B map (VBUS/D-/D+/ID/GND); the ID pin carries OTG role identification.
+
 component USB.SOCK_MICROB()
 {
     name = "USB 2.0 Micro Type B Connector"
@@ -95,10 +98,11 @@ component USB.SOCK_MICROB()
     ]
 }
 
-// ---------------------------------------------------------------------------------------------
-// USB 3.x Connectors
-// ---------------------------------------------------------------------------------------------
-// USB 3.x Type A Connector (Standard-A receptacle: host side)
+// USB3.SOCK_TYPEA - USB 3.x Standard-A receptacle (host side) Component Definition
+// Core Rule: USB 2.0 pins kept for backward compatibility plus two SuperSpeed
+// pairs and a ground drain; a host receptacle receives on SSRX 5/6 and
+// transmits on SSTX 8/9.
+
 component USB3.SOCK_TYPEA()
 {
     name = "USB 3.x Type A Connector"
@@ -126,7 +130,10 @@ component USB3.SOCK_TYPEA()
     ]
 }
 
-// USB 3.x Type B Connector (Standard-B receptacle: device side, 9 pins, no ID pin)
+// USB3.SOCK_TYPEB - USB 3.x Standard-B receptacle (device side, 9 pins) Component Definition
+// Core Rule: USB 2.0 pins kept for backward compatibility, no ID pin; a device
+// receptacle transmits on SSTX 5/6 and receives on SSRX 8/9.
+
 component USB3.SOCK_TYPEB()
 {
     name = "USB 3.x Type B Connector"
@@ -154,7 +161,11 @@ component USB3.SOCK_TYPEB()
     ]
 }
 
-// USB 3.x Micro B Connector
+// USB3.SOCK_MICROB - USB 3.x Micro B connector Component Definition
+// Core Rule: Micro-B 5-pin USB 2.0 map extended with a SuperSpeed TX pair, RX
+// pair, and ground drain; a device receptacle transmits on SSTX 6/7 and
+// receives on SSRX 9/10.
+
 component USB3.SOCK_MICROB()
 {
     name = "USB 3.x Micro B Connector"
@@ -183,10 +194,10 @@ component USB3.SOCK_MICROB()
     ]
 }
 
-// ---------------------------------------------------------------------------------------------
-// USB-C Connector
-// ---------------------------------------------------------------------------------------------
-// USB-C Connector: A1-B12 numbering, same system as the USB.C interface
+// USB.SOCK_C - USB Type C connector Component Definition
+// Core Rule: Reversible double-row contact face with A1-B12 numbering, the
+// same system as the USB.C interface.
+
 component USB.SOCK_C()
 {
     name = "USB Type C Connector"
@@ -230,9 +241,7 @@ component USB.SOCK_C()
     ]
 }
 
-// ---------------------------------------------------------------------------------------------
 // Usage Examples
-// ---------------------------------------------------------------------------------------------
 // 1. USB 2.0 Type A connector
 
 // USB.SOCK_TYPEA()

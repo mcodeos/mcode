@@ -1,7 +1,13 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// FlexRay
+// FLEXRAY - FlexRay Automotive Bus Interface Standard Definition
+// Core Rule: Deterministic, fault-tolerant time-triggered automotive bus
+//            over two redundant differential channels (A/B); nodes
+//            time-share the medium, driving their own slot and listening
+//            on every other slot.
+// Device Definition: NODE = any FlexRay node (peer-equal time-share).
+
 interface FLEXRAY(role)
 {
     topology = "star"
@@ -9,12 +15,6 @@ interface FLEXRAY(role)
     maxdistance = 10m
     maxspeed = [10Mbps]
     voltage = 5V
-
-    // FlexRay Standard Definition
-    // Core Rule: Deterministic, fault-tolerant communication for automotive applications
-    // FlexRay Level Spec: Differential signaling, dual-channel redundancy
-    // Device Definition: Node = Any device on the FlexRay bus
-    // Applications: Automotive drive-by-wire systems, brake-by-wire, steering systems
 
     pins = [
         1 = CH_A\+ @class(digital), "Channel A Positive"    // Positive differential signal for channel A

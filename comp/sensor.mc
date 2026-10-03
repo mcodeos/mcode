@@ -1,17 +1,17 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-# Sensor components
-#
-# Output mode is expressed by interface adoption (pin-expectation v0.3):
-# the construction parameter selects WHICH interface set the sensor adopts,
-# and the adopted interface carries the mode identity -- the analog variant
-# adopts ADC.SINGLE as Transmitter (the sensor is the signal source; the
-# @class(analog) lane default rides the adoption path), the digital variants
-# adopt I2C / SPI as Slave. Expectations follow the adopted interface's
-# defaults; board-side row attributes refine per pin. Bare rows are kept only
-# for mode-less pins (HEATER). Former "digital" output_type value retired:
-# it had no resolvable pairing identity (only the named buses do).
+// Sensor output mode is expressed by interface adoption: the construction
+// parameter (otype) selects WHICH interface set the sensor adopts, and the
+// adopted interface carries the mode identity. The analog variant adopts
+// ADC.SINGLE as Transmitter (the sensor is the signal source); the digital
+// variants adopt I2C / SPI as Slave. Expectations follow the adopted
+// interface's defaults; board-side row attributes refine per pin. Bare rows
+// are kept only for mode-less pins (HEATER).
+
+// SENSOR.TEMP - Temperature Sensor Component Definition
+// Core Rule: measures ambient temperature over the specified range and
+// accuracy; output mode set by interface adoption.
 
 component SENSOR.TEMP(otype::STRING, range::STRING, acc::STRING)
 {
@@ -37,6 +37,11 @@ component SENSOR.TEMP(otype::STRING, range::STRING, acc::STRING)
             2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
+
+// SENSOR.HUMIDITY - Humidity Sensor Component Definition
+// Core Rule: measures relative humidity over the specified range and
+// accuracy; output mode set by interface adoption.
+
 component SENSOR.HUMIDITY(otype::STRING, range::STRING, acc::STRING)
 {
     name = "Humidity Sensor"
@@ -61,6 +66,11 @@ component SENSOR.HUMIDITY(otype::STRING, range::STRING, acc::STRING)
             2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
+
+// SENSOR.PRESSURE - Pressure Sensor Component Definition
+// Core Rule: measures absolute or gauge pressure over the specified range
+// and accuracy; output mode set by interface adoption.
+
 component SENSOR.PRESSURE(otype::STRING, range::STRING, acc::STRING)
 {
     name = "Pressure Sensor"
@@ -85,6 +95,11 @@ component SENSOR.PRESSURE(otype::STRING, range::STRING, acc::STRING)
             2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
+
+// SENSOR.LIGHT - Ambient Light Sensor Component Definition
+// Core Rule: measures illuminance over the specified spectral range with the
+// given sensitivity; output mode set by interface adoption.
+
 component SENSOR.LIGHT(otype::STRING, range::STRING, sens::STRING)
 {
     name = "Light Sensor"
@@ -109,6 +124,11 @@ component SENSOR.LIGHT(otype::STRING, range::STRING, sens::STRING)
             2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
+
+// SENSOR.PROX - Proximity Sensor Component Definition
+// Core Rule: detects target presence within the detection range, with the
+// given response time; output mode set by interface adoption.
+
 component SENSOR.PROX(otype::STRING, range::STRING, rtime::UV.TIME)
 {
     name = "Proximity Sensor"
@@ -133,6 +153,11 @@ component SENSOR.PROX(otype::STRING, range::STRING, rtime::UV.TIME)
             2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
+
+// SENSOR.MOTION - Motion Sensor Component Definition
+// Core Rule: detects movement within the detection range at the given
+// sensitivity; output mode set by interface adoption.
+
 component SENSOR.MOTION(otype::STRING, range::STRING, sens::STRING)
 {
     name = "Motion Sensor"
@@ -157,6 +182,11 @@ component SENSOR.MOTION(otype::STRING, range::STRING, sens::STRING)
             2 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
+
+// SENSOR.GAS - Gas Sensor Component Definition
+// Core Rule: detects the target gas at the given sensitivity; the sensing
+// element needs a heater supply, so a HEATER pin exists in every mode.
+
 component SENSOR.GAS(otype::STRING, gas::STRING, sens::STRING)
 {
     name = "Gas Sensor"
@@ -184,6 +214,11 @@ component SENSOR.GAS(otype::STRING, gas::STRING, sens::STRING)
             3 = AOUT::ADC.SINGLE(TRANSMITTER)
         ]
 }
+
+// SENSOR.ACCEL - Accelerometer Component Definition
+// Core Rule: measures acceleration over the specified range with the given
+// sensitivity; analog mode exposes X/Y/Z outputs separately.
+
 component SENSOR.ACCEL(otype::STRING, range::STRING, sens::STRING)
 {
     name = "Accelerometer"
@@ -210,6 +245,11 @@ component SENSOR.ACCEL(otype::STRING, range::STRING, sens::STRING)
             4 = AOUTZ::ADC.SINGLE(TRANSMITTER)
         ]
 }
+
+// SENSOR.GYRO - Gyroscope Component Definition
+// Core Rule: measures angular rate over the specified range with the given
+// sensitivity; analog mode exposes X/Y/Z outputs separately.
+
 component SENSOR.GYRO(otype::STRING, range::STRING, sens::STRING)
 {
     name = "Gyroscope"
@@ -236,6 +276,11 @@ component SENSOR.GYRO(otype::STRING, range::STRING, sens::STRING)
             4 = AOUTZ::ADC.SINGLE(TRANSMITTER)
         ]
 }
+
+// SENSOR.MAG - Magnetometer Component Definition
+// Core Rule: measures magnetic field over the specified range with the given
+// sensitivity; analog mode exposes X/Y/Z outputs separately.
+
 component SENSOR.MAG(otype::STRING, range::STRING, sens::STRING)
 {
     name = "Magnetometer"
@@ -263,9 +308,9 @@ component SENSOR.MAG(otype::STRING, range::STRING, sens::STRING)
         ]
 }
 
-# Usage Examples:
-# SENSOR.TEMP("I2C", "-40~125C", "±0.5C") ts
-# SENSOR.HUMIDITY("I2C", "0~100RH", "±2RH") rhs
-# SENSOR.PRESSURE("I2C", "300~1100hPa", "±1hPa") baro
-# SENSOR.ACCEL("SPI", "±2g", "0.01g") acc
-# SENSOR.MAG("I2C", "±8gauss", "5mG") mag
+// Usage Examples:
+// SENSOR.TEMP("I2C", "-40~125C", "±0.5C") ts
+// SENSOR.HUMIDITY("I2C", "0~100RH", "±2RH") rhs
+// SENSOR.PRESSURE("I2C", "300~1100hPa", "±1hPa") baro
+// SENSOR.ACCEL("SPI", "±2g", "0.01g") acc
+// SENSOR.MAG("I2C", "±8gauss", "5mG") mag

@@ -1,11 +1,17 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-# Universal Serial Bus
-
-// ---------------------------------------------------------------------------------------------
-// USB Base Interface
-// ---------------------------------------------------------------------------------------------
+// USB - Universal Serial Bus 2.0 Interface Standard Definition
+// Core Rule: A half-duplex differential data pair (D-/D+) plus a 5V VBUS
+//            power pair borrowed from the DC interface; host and device
+//            time-share the data pair. Speeds from Low (1.5Mbps) through
+//            Full (12Mbps) to High (480Mbps).
+// Device Definition: HOST = the controlling host (asserts VBUS, drives
+//                    the bus),
+//                    DEVICE = the peripheral device.
+// Note: the RELAY role is the cable conductor view — it takes the base
+//       pin table and selects no endpoint role; a cable module binds it
+//       on each end and states its crossing or straight join in the body.
 
 interface USB(role)
 {
@@ -15,12 +21,6 @@ interface USB(role)
     maxspeed = [1.5Mbps@5m, 12Mbps@5m, 480Mbps@3m]
     voltage = 5V
     current = 500mA  // Default current (USB 2.0)
-
-    // USB (Universal Serial Bus) Standard Definition
-    // Core Rule: Universal serial bus for connecting peripherals to computers
-    // USB Level Spec: Differential signaling, D+ and D- lines
-    // Device Definition: HOST = Controls the bus, PERIPHERAL = Peripheral device
-    // Versions: USB 1.1 (Low/Full Speed), USB 2.0 (High Speed), USB 3.0 (SuperSpeed)
 
     pins = [
         [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
@@ -44,7 +44,7 @@ interface USB(role)
         peer = HOST(1)
     }
 
-    // Relay face (iface-peer-cardinality-design.md §4): the cable's conductor
+    // Relay face: the cable's conductor
     // view — takes the interface's base pin table and selects no endpoint
     // role. A cable module binds `io a::USB(RELAY)` on each end and states
     // its crossing or straight join in the body.
@@ -53,11 +53,13 @@ interface USB(role)
     }
 }
 
-// ---------------------------------------------------------------------------------------------
-// USB 2.0 Variants
-// ---------------------------------------------------------------------------------------------
+// USB.TYPEA - USB 2.0 Type-A Connector Interface Standard Definition
+// Core Rule: Same electrical law as USB (half-duplex D-/D+ pair plus 5V
+//            VBUS power); the rectangular receptacle typically hosting
+//            the host side.
+// Device Definition: HOST = the controlling host,
+//                    DEVICE = the peripheral device.
 
-// USB 2.0 Type A Connector
 interface USB.TYPEA(role)
 {
     topology = "point to point"
@@ -93,7 +95,13 @@ interface USB.TYPEA(role)
 
 }
 
-// USB 2.0 Type B Connector
+// USB.TYPEB - USB 2.0 Type-B Connector Interface Standard Definition
+// Core Rule: Same electrical law as USB (half-duplex D-/D+ pair plus 5V
+//            VBUS power); the squarish receptacle typically hosting the
+//            peripheral side.
+// Device Definition: HOST = the controlling host,
+//                    DEVICE = the peripheral device.
+
 interface USB.TYPEB(role)
 {
     topology = "point to point"
@@ -129,7 +137,13 @@ interface USB.TYPEB(role)
 
 }
 
-// USB 2.0 Mini Type B Connector
+// USB.MINIB - USB 2.0 Mini Type-B Connector Interface Standard Definition
+// Core Rule: Same electrical law as USB over the mini form factor, plus
+//            the OTG ID pin: the plug grounds it and the device-side
+//            cable sense reads the role.
+// Device Definition: HOST = the OTG/host side (reads the grounded ID),
+//                    DEVICE = the peripheral device.
+
 interface USB.MINIB(role)
 {
     topology = "point to point"
@@ -168,7 +182,13 @@ interface USB.MINIB(role)
 
 }
 
-// USB 2.0 Micro Type B Connector
+// USB.MICROB - USB 2.0 Micro Type-B Connector Interface Standard Definition
+// Core Rule: Same electrical law as USB over the micro form factor, plus
+//            the OTG ID pin: the plug grounds it and the device-side
+//            cable sense reads the role.
+// Device Definition: HOST = the OTG/host side (reads the grounded ID),
+//                    DEVICE = the peripheral device.
+
 interface USB.MICROB(role)
 {
     topology = "point to point"
@@ -207,11 +227,15 @@ interface USB.MICROB(role)
 
 }
 
-// ---------------------------------------------------------------------------------------------
-// USB 3.x Variants
-// ---------------------------------------------------------------------------------------------
+// USB3.TYPEA - USB 3.x Type-A Connector Interface Standard Definition
+// Core Rule: USB 2.0 pins for backward compatibility plus two
+//            SuperSpeed differential pairs and a GND_DRAIN return; the
+//            Standard-A receptacle is the host side, so the host receives
+//            on SSRX and transmits on SSTX.
+// Device Definition: HOST = the SuperSpeed host (transmits on SSTX,
+//                    receives on SSRX),
+//                    DEVICE = the SuperSpeed peripheral.
 
-// USB 3.x Type A Connector
 interface USB3.TYPEA(role)
 {
     topology = "point to point"
@@ -266,7 +290,15 @@ interface USB3.TYPEA(role)
 
 }
 
-// USB 3.x Type B Connector
+// USB3.TYPEB - USB 3.x Type-B Connector Interface Standard Definition
+// Core Rule: USB 2.0 pins for backward compatibility plus two
+//            SuperSpeed differential pairs and a GND_DRAIN return; the
+//            Standard-B receptacle is the device side, so the device
+//            transmits on SSTX and receives on SSRX.
+// Device Definition: HOST = the SuperSpeed host (transmits on SSTX,
+//                    receives on SSRX),
+//                    DEVICE = the SuperSpeed peripheral.
+
 interface USB3.TYPEB(role)
 {
     topology = "point to point"
@@ -321,7 +353,15 @@ interface USB3.TYPEB(role)
 
 }
 
-// USB 3.x Micro B Connector
+// USB3.MICROB - USB 3.x Micro Type-B Connector Interface Standard Definition
+// Core Rule: USB 2.0 pins (including the OTG ID cable-sense pin) plus
+//            two SuperSpeed differential pairs and a GND_DRAIN return;
+//            the Micro-B receptacle is the device side, so the device
+//            transmits on SSTX and receives on SSRX.
+// Device Definition: HOST = the SuperSpeed host (transmits on SSTX,
+//                    receives on SSRX),
+//                    DEVICE = the SuperSpeed peripheral.
+
 interface USB3.MICROB(role)
 {
     topology = "point to point"
@@ -379,11 +419,15 @@ interface USB3.MICROB(role)
 
 }
 
-// ---------------------------------------------------------------------------------------------
-// USB-C Connector
-// ---------------------------------------------------------------------------------------------
+// USB.C - USB Type-C Connector Interface Standard Definition
+// Core Rule: Reversible 24-pin face at Power Delivery voltages: one USB
+//            2.0 lane under the same member names on both plug rows
+//            (only one row live at a time by plug orientation), four
+//            SuperSpeed pairs, the CC1/CC2 configuration channel, and two
+//            sideband (SBU) pins.
+// Device Definition: HOST = the host / dual-role side,
+//                    DEVICE = the peripheral / dual-role side.
 
-// USB-C Connector (24 pins)
 interface USB.C(role)
 {
     topology = "point to point"
@@ -403,9 +447,9 @@ interface USB.C(role)
         A4 = VBUS, "Power"           // +5V power (Power Delivery capable)
         A5 = CC1 @class(digital), "Configuration Channel 1"  // Configuration channel
         // The USB 2.0 lane exists on both sides under the same member names:
-        // two @pair groups are declared (U205③ ruled 2026-09-23) and the
-        // name-level consumer resolves them to one pair — only one side is
-        // live at a time (plug orientation).
+        // two @pair groups are declared and the name-level consumer
+        // resolves them to one pair — only one side is live at a time
+        // (plug orientation).
         A6 = USB2_D\+ @pair(dA) @class(digital), "USB 2.0 Data Positive"  // USB 2.0 positive data line (A side)
         A7 = USB2_D\- @pair(dA) @class(digital), "USB 2.0 Data Negative"  // USB 2.0 negative data line (A side)
         A8 = SBU1 @class(digital), "Sideband Use 1"  // Sideband use pin
@@ -433,7 +477,7 @@ interface USB.C(role)
     features = [
         "Reversible plug orientation",
         "Power Delivery (up to 100W)",
-        "Alternate Mode (DisplayPort, HDMI, Thunderbolt)",
+        "Alternate Mode (other display protocols over the connector)",
         "Dual Role Device (DRD) capability"
     ]
 
@@ -500,9 +544,13 @@ interface USB.C(role)
 
 }
 
-// ---------------------------------------------------------------------------------------------
-// USB Data Interface
-// ---------------------------------------------------------------------------------------------
+// USB.DATA - USB Data-Only Interface Standard Definition
+// Core Rule: The USB data pair alone (no power members): the data face
+//            for modules, hub legs, and device internals; host and device
+//            time-share the half-duplex pair.
+// Device Definition: HOST = the controlling host,
+//                    DEVICE = the peripheral device.
+
 interface USB.DATA(role)
 {
     topology = "point to point"
@@ -538,9 +586,14 @@ interface USB.DATA(role)
 
 }
 
-// ---------------------------------------------------------------------------------------------
-// USB 3.x SuperSpeed Transmit Interface
-// ---------------------------------------------------------------------------------------------
+// USB3.TX - USB 3.x SuperSpeed Transmit Pair Interface Standard Definition
+// Core Rule: One SuperSpeed differential transmit pair; the @pair match
+//            slot records the intra-pair length tolerance as a
+//            requirement — the tooling records it and the layout tool and
+//            bench judge it.
+// Device Definition: HOST = the transmit end that drives the pair,
+//                    DEVICE = the peer end that reads it.
+
 interface USB3.TX(role)
 {
     topology = "point to point"
@@ -578,9 +631,14 @@ interface USB3.TX(role)
 
 }
 
-// ---------------------------------------------------------------------------------------------
-// USB 3.x SuperSpeed Receive Interface
-// ---------------------------------------------------------------------------------------------
+// USB3.RX - USB 3.x SuperSpeed Receive Pair Interface Standard Definition
+// Core Rule: One SuperSpeed differential receive pair; the @pair match
+//            slot records the intra-pair length tolerance as a
+//            requirement — the tooling records it and the layout tool and
+//            bench judge it.
+// Device Definition: HOST = the receive end that reads the pair,
+//                    DEVICE = the peer end that drives it.
+
 interface USB3.RX(role)
 {
     topology = "point to point"

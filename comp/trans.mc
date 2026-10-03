@@ -1,11 +1,10 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// TRANS — Bipolar Junction Transistors (BJT)
-// ---------------------------------------------------------------------------------------------
+// TRANS - Generic Bipolar Junction Transistor (BJT) Component Definition
+// Core Rule: current-controlled device — a small base current drives a
+// collector current larger by the current gain hFE.
 
-# Bipolar Junction Transistor (BJT) Component
 component TRANS(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
 {
     name = "Bipolar Junction Transistor"
@@ -23,7 +22,10 @@ component TRANS(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
     ]
 }
 
-# NPN Transistor Component
+// TRANS.NPN - NPN Transistor Component Definition
+// Core Rule: conducts when the base is driven above the emitter (base current
+// flows into the base; collector sits at the higher potential).
+
 component TRANS.NPN(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
 {
     name = "NPN Transistor"
@@ -41,7 +43,10 @@ component TRANS.NPN(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
     ]
 }
 
-# PNP Transistor Component
+// TRANS.PNP - PNP Transistor Component Definition
+// Core Rule: conducts when the base is pulled below the emitter (base current
+// flows out of the base; emitter sits at the higher potential).
+
 component TRANS.PNP(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
 {
     name = "PNP Transistor"
@@ -59,7 +64,11 @@ component TRANS.PNP(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
     ]
 }
 
-# Darlington Transistor Component
+// TRANS.DARLINGTON - Darlington Pair Transistor Component Definition
+// Core Rule: two BJT stages cascaded on one die — current gain is the product
+// of the two stages; doubled base-emitter voltage drop and higher saturation
+// voltage.
+
 component TRANS.DARLINGTON(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
 {
     name = "Darlington Transistor"
@@ -77,11 +86,10 @@ component TRANS.DARLINGTON(vce::UV.VOLT, ic::UV.AMP, hfe::INT)
     ]
 }
 
-// ---------------------------------------------------------------------------------------------
-// TRANS — Other Transistor-like Devices (IGBT, SCR, TRIAC)
-// ---------------------------------------------------------------------------------------------
+// TRANS.IGBT - Insulated Gate Bipolar Transistor Component Definition
+// Core Rule: MOSFET-style insulated gate controls a bipolar conduction path —
+// voltage-driven input with the low saturation voltage of a bipolar device.
 
-# IGBT Component
 component TRANS.IGBT(vce::UV.VOLT, ic::UV.AMP)
 {
     name = "IGBT"
@@ -98,7 +106,11 @@ component TRANS.IGBT(vce::UV.VOLT, ic::UV.AMP)
     ]
 }
 
-# SCR Component
+// TRANS.SCR - Silicon Controlled Rectifier Component Definition
+// Core Rule: latches on when gate current is injected while forward biased and
+// stays conducting until the anode current falls below the holding level;
+// blocks in reverse.
+
 component TRANS.SCR(vrrm::UV.VOLT, it::UV.AMP)
 {
     name = "SCR"
@@ -115,7 +127,11 @@ component TRANS.SCR(vrrm::UV.VOLT, it::UV.AMP)
     ]
 }
 
-# TRIAC Component
+// TRANS.TRIAC - TRIAC Component Definition
+// Core Rule: bidirectional latching switch — gate triggering in either
+// polarity turns on conduction in either direction until the current drops
+// below the holding level.
+
 component TRANS.TRIAC(vdrm::UV.VOLT, it::UV.AMP)
 {
     name = "TRIAC"
@@ -132,8 +148,8 @@ component TRANS.TRIAC(vdrm::UV.VOLT, it::UV.AMP)
     ]
 }
 
-# Usage Examples:
-# TRANS.NPN(40V, 200mA, 100) q1
-# TRANS.DARLINGTON(100V, 8A, 1000) q3
-# TRANS.IGBT(600V, 20A) q4
-# TRANS.SCR(800V, 12A) scr1
+// Usage Examples:
+// TRANS.NPN(40V, 200mA, 100) q1
+// TRANS.DARLINGTON(100V, 8A, 1000) q3
+// TRANS.IGBT(600V, 20A) q4
+// TRANS.SCR(800V, 12A) scr1

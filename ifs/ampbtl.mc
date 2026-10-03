@@ -1,15 +1,14 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// AMP.BTL (Bridge-Tied-Load Audio Output) Standard Definition
-// Core Rule: Two anti-phase single-ended outputs drive both ends of one load
-// Bridge Drive: N is the anti-phase leg of P, so the load sees P - N swing
-// Difference from ADC.DIFF: this is a power drive pair, not a measurement
-// pair; the receiver is a passive load (speaker, haptic actuator)
-// Applications: speaker drivers, class-AB/class-D audio amplifiers
-// 2-wire (P/N): no ground reference of its own; the load floats across the
-// pair and each leg may carry its own ESD return, same ground domain rules
-// as ADC.DIFF.
+// AMP.BTL - Bridge-Tied-Load Audio Output Interface Standard Definition
+// Core Rule: Two anti-phase single-ended legs drive both ends of one
+//            load — N is the anti-phase leg of P, so the load sees the
+//            P - N swing. A power drive pair, not a measurement pair: the
+//            receiver is a passive load, the load floats across the pair,
+//            and each leg may carry its own ESD return.
+// Device Definition: TRANSMITTER = amplifier BTL output stage,
+//                    RECEIVER = passive load (speaker, haptic actuator).
 
 interface AMP.BTL(role)
 {

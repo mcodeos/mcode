@@ -1,7 +1,14 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// LIN (Local Interconnect Network)
+// LIN - Local Interconnect Network Bus Interface Standard Definition
+// Core Rule: Low-cost single-wire (plus ground) multi-point bus at 12V
+//            for vehicle body electronics; the master controls the
+//            schedule and both sides time-share the wire, either one
+//            driving a response slot.
+// Device Definition: MASTER = controls the bus schedule,
+//                    SLAVE = body-electronics node.
+
 interface LIN(role)
 {
     topology = "multi-point"
@@ -9,12 +16,6 @@ interface LIN(role)
     maxdistance = 40m
     maxspeed = [20kbps]
     voltage = 12V
-
-    // LIN Standard Definition
-    // Core Rule: Low-cost, low-speed serial communication for automotive body electronics
-    // LIN Level Spec: Single wire with ground reference
-    // Device Definition: MASTER = Controls the bus, SLAVE = Body electronics module
-    // Applications: Power windows, door locks, seat controls, lighting
 
     pins = [
         1 = LIN @class(digital), "Data"    // Single wire data line

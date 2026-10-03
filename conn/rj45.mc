@@ -1,14 +1,11 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// RJ45 — Ethernet physical jacks (8P8C line receptacle, magjack with magnetics)
-// ---------------------------------------------------------------------------------------------
-// Pin names mirror the ETHERNET interface members (ifs/ethernet.mc) position for
+// RJ45.JACK - Plain 8P8C Ethernet receptacle (MDI face, 10/100/1000BASE-T) Component Definition
+// Core Rule: Pin names mirror the ETHERNET interface members position for
 // position, so a jack wired to an ETHERNET Host maps 1:1 without an interface
-// binding on the component face (the `::` binding face carries known debt, U183).
+// binding on the component face.
 
-// Plain 8P8C RJ45 receptacle (MDI face, 10/100/1000BASE-T)
 component RJ45.JACK()
 {
     name = "RJ45 Jack"
@@ -34,11 +31,12 @@ component RJ45.JACK()
     ]
 }
 
-// Magjack: RJ45 with integrated magnetics (canonical 10/100BASE-T board face).
-// Board-side face of a single-port 10/100 magjack: the two PHY-side pairs, both
-// center taps, the shared internal 75 Ohm Bob Smith termination point, and the
-// chassis/shield electrode. GbE magjacks (4 pairs + 4 taps) wait for a real
-// sample part (mcpub binding route) instead of a speculative generic face.
+// RJ45.MAGJACK - RJ45 jack with integrated 10/100BASE-T magnetics Component Definition
+// Core Rule: Board-side face of a single-port 10/100 magjack: the two PHY-side
+// pairs, both center taps, the shared internal 75 Ohm termination point, and
+// the chassis/shield electrode. GbE magjacks (4 pairs + 4 taps) are not
+// modeled here.
+
 component RJ45.MAGJACK()
 {
     name = "RJ45 Magjack"
@@ -60,13 +58,13 @@ component RJ45.MAGJACK()
         4 = RD\- @pair(rd), "Receive pair negative (PHY side)"
         5 = TCT, "Transmit center tap"
         6 = RCT, "Receive center tap"
-        7 = TERM, "Internal 75 Ohm termination point (Bob Smith network)"
+        7 = TERM, "Internal 75 Ohm termination point (internal 75 Ohm termination network)"
         8 = CHGND @exposed(esd_contact), "Chassis / shield electrode"
     ]
 }
 
-# Usage Examples:
-# RJ45.JACK() eth_jack1
-# eth_jack1.TD\+ -> phy1.TD\+
-# RJ45.MAGJACK() mag1
-# mag1.TD\+ -> phy1.TX_P
+// Usage Examples:
+// RJ45.JACK() eth_jack1
+// eth_jack1.TD\+ -> phy1.TD\+
+// RJ45.MAGJACK() mag1
+// mag1.TD\+ -> phy1.TX_P

@@ -1,7 +1,10 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-# Optocoupler components
+// OPTO - Generic Optocoupler Component Definition
+// Core Rule: signal crosses the isolation barrier optically — input LED and
+// output photodetector share no galvanic path up to the isolation voltage.
+
 component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT)
 {
     name = "Optocoupler"
@@ -17,6 +20,11 @@ component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT)
         4 = OUTPUT\- @barrier(output)
     ]
 }
+
+// OPTO.TRANS - Transistor-Output Optocoupler Component Definition
+// Core Rule: phototransistor output; the current transfer ratio (CTR) sets
+// how much output current a given input LED current can sustain.
+
 component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT)
 {
     name = "Transistor Output Optocoupler"
@@ -33,6 +41,11 @@ component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT)
         4 = EMITTER @barrier(output)
     ]
 }
+
+// OPTO.TRIAC - Triac-Output Optocoupler Component Definition
+// Core Rule: photosensitive triac output drives AC loads; holding current
+// keeps the output on until the load current crosses zero.
+
 component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP)
 {
     name = "Triac Output Optocoupler"
@@ -49,6 +62,11 @@ component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP)
         4 = MT2 @barrier(output)
     ]
 }
+
+// OPTO.PV - Photovoltaic-Output Optocoupler Component Definition
+// Core Rule: the output side is a photovoltaic generator — LED input light
+// produces an isolated floating voltage source rather than a switched current.
+
 component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT)
 {
     name = "Photovoltaic Optocoupler"
@@ -64,6 +82,11 @@ component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT)
         4 = OUTPUT\- @barrier(output)
     ]
 }
+
+// OPTO.LOGIC - Logic-Gate Output Optocoupler Component Definition
+// Core Rule: integrated receiver restores the signal to a logic level on the
+// output side; the propagation delay bounds the achievable signalling rate.
+
 component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME)
 {
     name = "Logic Output Optocoupler"
@@ -81,8 +104,8 @@ component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME)
     ]
 }
 
-# Usage Examples:
-# OPTO.TRANS(10mA, 50mA, 3750V, 50%) oc1      // transistor output
-# OPTO.LOGIC(10mA, 8mA, 2500V, 10us) ol1      // logic-gate output
-# OPTO.TRIAC(10mA, 220V, 2500V, 5mA) ot1      // triac driver
-# OPTO.PV(10mA, 5V, 2500V) opv                // photovoltaic output
+// Usage Examples:
+// OPTO.TRANS(10mA, 50mA, 3750V, 50%) oc1      // transistor output
+// OPTO.LOGIC(10mA, 8mA, 2500V, 10us) ol1      // logic-gate output
+// OPTO.TRIAC(10mA, 220V, 2500V, 5mA) ot1      // triac driver
+// OPTO.PV(10mA, 5V, 2500V) opv                // photovoltaic output

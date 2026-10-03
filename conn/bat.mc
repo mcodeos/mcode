@@ -1,11 +1,10 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// BAT — battery holder (mechanical contact face; the cell itself is a DC.BAT source)
-// ---------------------------------------------------------------------------------------------
+// BAT.HOLDER - Coin-cell battery holder (RTC backup and similar) Component Definition
+// Core Rule: Mechanical contact face only; the cell itself is a DC.BAT source.
+// Pins bind the DC interface: pin 1 positive contact, pin 2 negative contact.
 
-// Coin-cell holder (RTC backup and similar)
 component BAT.HOLDER()
 {
     name = "Battery Holder"
@@ -22,7 +21,7 @@ component BAT.HOLDER()
     ]
 }
 
-# Usage Examples:
-# BAT.HOLDER() rtc_bat1
-# rtc_bat1.1 -> rtc_vbak        // pin 1 = "+" contact
-# rtc_bat1.2 -> gnd             // pin 2 = "-" contact
+// Usage Examples:
+// BAT.HOLDER() rtc_bat1
+// rtc_bat1.1 -> rtc_vbak        // pin 1 = "+" contact
+// rtc_bat1.2 -> gnd             // pin 2 = "-" contact

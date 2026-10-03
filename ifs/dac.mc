@@ -1,7 +1,14 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// DAC
+// DAC - Digital-to-Analog Converter Output Interface Standard Definition
+// Core Rule: Single-ended analog output whose voltage is proportional to
+//            the digital value written; the ground reference rides the
+//            power supply (no ground member on the face).
+// Device Definition: TRANSMITTER = the DAC analog output stage,
+//                    RECEIVER = the analog input it feeds (amp, ADC,
+//                    filter).
+
 interface DAC(role)
 {
     topology = "point to point"
@@ -11,13 +18,6 @@ interface DAC(role)
     voltage = [3.3V, 5V]
     output_range = 0V ~ voltage
     resolution = [8bit,10bit,12bit,16bit]
-
-    // DAC (Digital-to-Analog Converter) Standard Definition
-    // Core Rule: Converts digital values to analog voltage
-    // DAC Level Spec: Output voltage proportional to digital input
-    // Device Definition: TRANSMITTER = the DAC analog output stage,
-    //                    RECEIVER = the analog input it feeds (amp, ADC, filter)
-    // Applications: Audio output, signal generation, motor control
 
     pins = [
         1 = OUT @class(analog), "Analog Output"    // Analog output voltage

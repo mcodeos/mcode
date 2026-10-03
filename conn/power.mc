@@ -1,11 +1,10 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// ---------------------------------------------------------------------------------------------
-// Power Connector Definitions
-// ---------------------------------------------------------------------------------------------
+// POWER.DC_JACK - DC barrel power jack Component Definition
+// Core Rule: Two-contact DC face - center pin positive or negative per the
+// polarity parameter, outer sleeve the opposite rail.
 
-// DC Power Jack (Barrel Connector)
 component POWER.DC_JACK(polarity::STRING)
 {
     name = "DC Power Jack"
@@ -23,7 +22,8 @@ component POWER.DC_JACK(polarity::STRING)
     ]
 }
 
-// XT60 Connector (Commonly used in RC models)
+// POWER.XT60 - 60 A two-pole DC power connector (RC models) Component Definition
+
 component POWER.XT60()
 {
     name = "XT60 Connector"
@@ -41,7 +41,8 @@ component POWER.XT60()
     ]
 }
 
-// XT30 Connector (Smaller version of XT60)
+// POWER.XT30 - 30 A two-pole DC power connector, smaller sibling of POWER.XT60 (RC models) Component Definition
+
 component POWER.XT30()
 {
     name = "XT30 Connector"
@@ -59,7 +60,8 @@ component POWER.XT30()
     ]
 }
 
-// Deans T Connector (Commonly used in RC models)
+// POWER.DEANS_T - 40 A two-pole T-form DC power connector (RC models) Component Definition
+
 component POWER.DEANS_T()
 {
     name = "Deans T Connector"
@@ -77,7 +79,8 @@ component POWER.DEANS_T()
     ]
 }
 
-// Anderson Powerpole Connector
+// POWER.ANDERSON - Modular multi-pole DC power connector, quantity pole pairs Component Definition
+
 component POWER.ANDERSON(quantity::INT = 1)
 {
     name = "Anderson Powerpole Connector"
@@ -94,7 +97,9 @@ component POWER.ANDERSON(quantity::INT = 1)
     ]
 }
 
-// ATX Power Connector (Computer Power Supply)
+// POWER.ATX - Computer power supply connector, type-parameterized Component Definition
+// Note: type selects the pin map - main (24-pin), cpu, pcie, sata, or molex.
+
 component POWER.ATX(type::STRING)
 {
     name = "ATX Power Connector"

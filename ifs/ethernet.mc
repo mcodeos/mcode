@@ -1,7 +1,13 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
-// Ethernet
+// ETHERNET - Ethernet Twisted-Pair Interface Standard Definition
+// Core Rule: Four twisted pairs on the 8-pin face. At 10/100M the TD pair
+//            and RD pair cross between host and switch port; at gigabit
+//            and above all four pairs are bidirectional.
+// Device Definition: HOST = network end device (MAC/PHY),
+//                    SWITCH = switch port.
+
 interface ETHERNET(role)
 {
     topology = "star"
@@ -9,12 +15,6 @@ interface ETHERNET(role)
     maxdistance = 100m
     maxspeed = [10Mbps, 100Mbps, 1Gbps, 10Gbps]
     voltage = 3.3V
-
-    // Ethernet Standard Definition
-    // Core Rule: Twisted pair or fiber optic network interface
-    // Ethernet Level Spec: Differential signaling over twisted pair, optical signaling over fiber
-    // Device Definition: HOST = Network device, SWITCH = Network switch
-    // Versions: 10BASE-T, 100BASE-TX, 1000BASE-T, 10GBASE-T
 
     pins = [
         1 = TD\+ @class(digital), "Transmit Data Positive"    // Positive transmit data
