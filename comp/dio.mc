@@ -4,13 +4,13 @@
 
 # Basic Diode Component
 # Generic diode with fundamental parameters
-component DIO(vfwd::UV.VOLT, vrev::UV.VOLT, imax::UV.AMP)
+component DIO(vfwd::UV.VOLT, vrev::UV.VOLT, irated::UV.AMP)
 {
     name = "Diode"
     spec = [
         forward_voltage = vfwd
         reverse_voltage = vrev
-        rated_current = imax
+        rated_current = irated
     ]
     
     pins = [
@@ -59,13 +59,13 @@ component DIO.ESD_ARRAY(rating::UV.VOLT)
 
 # Schottky Diode
 # Fast switching diode with low forward voltage drop
-component DIO.SCH(vfwd::UV.VOLT, vrev::UV.VOLT, imax::UV.AMP)
+component DIO.SCH(vfwd::UV.VOLT, vrev::UV.VOLT, irated::UV.AMP)
 {
     name = "Schottky Diode"
     spec = [
         forward_voltage = vfwd
         reverse_voltage = vrev
-        rated_current = imax
+        rated_current = irated
     ]
     
     pins = [
@@ -83,12 +83,12 @@ component DIO.SCH(vfwd::UV.VOLT, vrev::UV.VOLT, imax::UV.AMP)
 
 # Zener Diode
 # Voltage regulating diode that operates in reverse bias
-component DIO.ZEN(vz::UV.VOLT, ppeak::UV.WATT, tol::UV.PERCENT)
+component DIO.ZEN(vz::UV.VOLT, prated::UV.WATT, tol::UV.PERCENT)
 {
     name = "Zener Diode"
     spec = [
         zener_voltage = vz
-        power_rated = ppeak
+        power_rated = prated
         tolerance = tol
     ]
     

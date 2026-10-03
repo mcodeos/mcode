@@ -82,30 +82,30 @@ component AUDIO.RCA()
 
 // XLR Connector
 // pin_count: Number of pins (3, 4, or 5)
-component AUDIO.XLR(pin_count::INT)
+component AUDIO.XLR(pincnt::INT)
 {
     name = "XLR Connector"
-    description = "XLR audio connector, " + string(pin_count) + " pins"
+    description = "XLR audio connector, " + string(pincnt) + " pins"
     
     spec = [
         type = "XLR"
-        pin_count = pin_count
+        pin_count = pincnt
         gender = _ // [male, female]
     ]
     
-    if pin_count == 3
+    if pincnt == 3
         pins = [
             1 = GND @exposed(esd_contact), "Ground"
             2 = Hot, "Hot"
             3 = Cold, "Cold"
         ]
-    else if pin_count == 4
+    else if pincnt == 4
         pins = [
             [4,1] = [Power,GND]::DC(), ["Power","Ground"]
             2 = Hot, "Hot"
             3 = Cold, "Cold"
         ]
-    else if pin_count == 5
+    else if pincnt == 5
         pins = [
             [4,5] = [Power\+,Power\-]::DC(), ["Power+","Power-"]
             1 = GND @exposed(esd_contact), "Ground"
@@ -113,18 +113,18 @@ component AUDIO.XLR(pin_count::INT)
             3 = Cold, "Cold"
         ]
     else
-        error("AUDIO.XLR: pin_count must be 3, 4, or 5, got " + pin_count)
+        error("AUDIO.XLR: pincnt must be 3, 4, or 5, got " + pincnt)
 }
 
 // Speakon Connector (Professional Audio)
-component AUDIO.SPEAKON(pin_count::INT)
+component AUDIO.SPEAKON(pincnt::INT)
 {
     name = "Speakon Connector"
     description = "Speakon professional audio connector"
 
     spec = [
         type = "Speakon"
-        pin_count = pin_count // [4, 8]
+        pin_count = pincnt // [4, 8]
         application = "Professional Audio"
     ]
 
@@ -132,8 +132,8 @@ component AUDIO.SPEAKON(pin_count::INT)
         1:pin_count = 1:pin_count
     ]
 
-    if pin_count != 4 && pin_count != 8
-        error("AUDIO.SPEAKON: pin_count must be 4 or 8, got " + pin_count)
+    if pincnt != 4 && pincnt != 8
+        error("AUDIO.SPEAKON: pincnt must be 4 or 8, got " + pincnt)
 }
 
 // Banana Plug Connector (Speaker Terminals)

@@ -11,13 +11,13 @@
 // no interface binding (U193 physical-socket ruling).
 
 // IDC Ribbon Cable Socket
-component IDC(pin_count::INT)
+component IDC(pincnt::INT)
 {
     name = "IDC Ribbon Cable Socket"
     description = "Two-row insulation-displacement ribbon cable socket"
 
     spec = [
-        pin_count = pin_count // [10, 14, 16, 20, 26, 34, 40, 50, 64]
+        pin_count = pincnt // [10, 14, 16, 20, 26, 34, 40, 50, 64]
         pitch = 2.54mm
         keying = _ // [shrouded box, notch, key slot]
         rohs = _

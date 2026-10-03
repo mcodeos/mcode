@@ -721,9 +721,9 @@ enum PKG
     // -----------------------------------------------------------------
     // Special / advanced packages (RF, multi-chip, system-in-package)
     // -----------------------------------------------------------------
-    SIP4,        // System-in-Package, 4-pin interface
-    SIP8,
-    SIP16,
+    SIP_PKG4,    // System-in-Package, 4-pin interface (SIP<n> is the single in-line family above)
+    SIP_PKG8,
+    SIP_PKG16,
     MCM,         // Multi-Chip Module
     AIP,         // Antenna-in-Package (mmWave RF)
     COB,         // Chip-on-Board

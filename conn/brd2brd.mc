@@ -7,13 +7,13 @@
 // ---------------------------------------------------------------------------------------------
 
 // Basic Board-to-Board Connector
-component CONN.B2B(pin_count::INT)
+component CONN.B2B(pincnt::INT)
 {
     name = "Board-to-Board Connector"
     description = "Board-to-board connector"
 
     spec = [
-        pin_count = pin_count // [2, 4, 6, 8, 10, 12, 16, 20, 24, 28, 32, 40]
+        pin_count = pincnt // [2, 4, 6, 8, 10, 12, 16, 20, 24, 28, 32, 40]
         pitch = _ // [0.5mm, 0.65mm, 0.8mm, 1.0mm, 1.27mm, 2.0mm]
         stack_height = _ // [0.5mm, 1.0mm, 1.5mm, 2.0mm, 2.5mm, 3.0mm, 4.0mm, 5.0mm]
     ]
@@ -24,13 +24,13 @@ component CONN.B2B(pin_count::INT)
 }
 
 // Mezzanine Connector (High Density)
-component CONN.MEZZANINE(pin_count::INT)
+component CONN.MEZZANINE(pincnt::INT)
 {
     name = "Mezzanine Connector"
     description = "High-density mezzanine connector"
 
     spec = [
-        pin_count = pin_count // [10, 20, 30, 40, 50, 60, 80, 100]
+        pin_count = pincnt // [10, 20, 30, 40, 50, 60, 80, 100]
         pitch = _ // [0.3mm, 0.4mm, 0.5mm, 0.65mm, 0.8mm]
         stack_height = _ // [0.5mm, 1.0mm, 1.5mm, 2.0mm, 2.5mm, 3.0mm]
     ]
@@ -42,15 +42,15 @@ component CONN.MEZZANINE(pin_count::INT)
 
 // DIN 41612 Connector (rectangular board-to-board standard, common in
 // industrial equipment; form factor C = 96-pin, B = 64-pin, A = 32-pin)
-component CONN.DIN41612(pin_count::INT)
+component CONN.DIN41612(pincnt::INT)
 {
     name = "DIN 41612 Connector"
-    description = "DIN 41612 board-to-board connector, " + pin_count + " pins"
+    description = "DIN 41612 board-to-board connector, " + pincnt + " pins"
     
     spec = [
         standard = "DIN 41612"
         size = _ // [1, 2, 3]
-        pin_count = pin_count
+        pin_count = pincnt
     ]
     
     pins = [

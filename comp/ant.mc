@@ -30,7 +30,7 @@ component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM)
         frequency = freq // [433MHz, 868MHz, 900MHz, 2.4GHz]
         gain = gain // [1dBi, 1.5dBi, 2dBi]
         impedance = impd // [50Ω, 75Ω]
-        wave_length = _ // [0.1m, 0.2m, 0.3m]
+        wavelength = _ // [0.1m, 0.2m, 0.3m]
     ]
 
     pins = [

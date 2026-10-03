@@ -9,7 +9,7 @@ component FUSE(irated::UV.AMP, vrated::UV.VOLT, spd::STRING)
     spec = [
         rated_current = irated // [0.1A, 0.5A, 1A, 2A, 5A, 10A, 20A]
         voltage = vrated // [5V, 12V, 24V, 120V, 240V]
-        type = spd // [fast, slow, medium]
+        speed_rating = spd // [fast, slow, medium]
     ]
     pins = [
         1 = 1
@@ -22,7 +22,7 @@ component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, spd::STRING)
     spec = [
         rated_current = irated // [0.1A, 0.5A, 1A, 2A, 5A]
         voltage = vrated // [5V, 12V, 24V, 120V]
-        type = spd // [fast, slow, medium]
+        speed_rating = spd // [fast, slow, medium]
     ]
     pins = [
         1 = 1
@@ -36,7 +36,7 @@ component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP, spd::STR
         rated_current = irated
         voltage = vrated
         breaking_capacity = ibreak
-        type = spd // [fast, slow, medium]
+        speed_rating = spd // [fast, slow, medium]
     ]
     pins = [
         1 = 1
@@ -49,7 +49,7 @@ component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, spd::STRING)
     spec = [
         rated_current = irated // [0.5A, 1A, 2A, 5A, 10A]
         voltage = vrated // [12V, 24V, 120V, 240V]
-        type = spd // [fast, slow, medium]
+        speed_rating = spd // [fast, slow, medium]
     ]
     pins = [
         1 = 1

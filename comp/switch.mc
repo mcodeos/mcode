@@ -66,13 +66,13 @@ component SWITCH.BUTTON
 }
 
 # DIP Switch Component (independent SPST slides; formal = total pin count)
-component SWITCH.DIP(pin_count::INT)
+component SWITCH.DIP(pincnt::INT)
 {
     name = "DIP Switch"
-    description = "DIP switch with " + pins + " pins, independent SPST slides"
+    description = "DIP switch with " + pincnt + " pins, independent SPST slides"
 
     spec = [
-        pin_count = pin_count
+        pin_count = pincnt
         pitch = _ // [2.54mm]
         style = _ // [slide, rotary]
         mount = _ // [through-hole, surface-mount]

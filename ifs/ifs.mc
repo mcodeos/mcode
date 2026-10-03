@@ -12,6 +12,7 @@ pub use ./stepdir.mc    // STEPDIR stepper control interface
 pub use ./onewire.mc    // OneWire interface
 pub use ./xtal.mc       // XTAL interface for crystal oscillators
 pub use ./rst.mc        // RST reset control interface (reset source / reset bodies)
+pub use ./isolation.mc  // ISOLATION galvanic-isolation barrier face
 pub use ./dc.mc         // DC power supply interface
 pub use ./vref.mc       // VREF voltage reference interface
 pub use ./ac.mc         // AC mains power interface (single-phase)

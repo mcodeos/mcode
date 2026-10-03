@@ -197,9 +197,9 @@ component RES.POT(
         return output
     }
 
-    func Rheostat([net_a, net_b])
+    func Rheostat([end_a, end_b])
     {
-        net_a - this{1|2} - net_b
+        end_a - this{1|2} - end_b
         // Pin3 floating
         return net_b
     }
@@ -249,7 +249,7 @@ component RES.ARRAY(
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP,
     chcount::INT,
-    mount::STRING
+    cons::STRING
 )
 {
     name = "Resistor Array"
@@ -271,7 +271,7 @@ component RES.ARRAY(
         temp_min = _
         temp_max = _
         channel_count = chcount
-        construction = mount
+        construction = cons
         rohs = _
         derating_note = _
     ]
