@@ -201,7 +201,7 @@ component RES.POT(
     {
         end_a - this{1|2} - end_b
         // Pin3 floating
-        return net_b
+        return end_b
     }
 }
 
@@ -256,10 +256,7 @@ component RES.ARRAY(
     description = "Multi-channel integrated resistor network; separate model from discrete resistor"
 
     pins = [
-        1 = 1
-        2 = 2
-        3 = 3
-        4 = 4
+        1 : 2*chcount = CH[1:chcount]T[1:2]    // 2 pins per channel: CH1T1, CH1T2, CH2T1, ...
     ]
 
     spec = [
