@@ -1,6 +1,6 @@
-# Copyright (c) 2026 MCode
-#
+# Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
+
 #
 # Logic gate interfaces (U206): one interface = one gate's member topology.
 # Member names follow the 74-family data-book gate names (A/B/C/Y); the
