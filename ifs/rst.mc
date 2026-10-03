@@ -12,15 +12,21 @@
 // `@barrier(reset)` of RELAY.LATCH is a relay-coil role, same word different
 // family (mcd/doc/ee/reset-intent-design.md -- this face is that doc's
 // "first domino", the library-side reset role pair).
-// Pairing law: a reset net is one source driving N bodies, so the peer
-// declarations are count-less (`peer = ROLE`, unrestricted -- the
-// ADC.SINGLE / DAC / CAN precedent). Inline per-role cardinality
-// (`peer = SOURCE(1)` on bodies) lands with the iface-peer-cardinality
-// inline form (CIMP U351); tighten there, not here, when it lands.
-// Future judges anchored on these roles (reset-intent-design §2, candidates):
-// chain reachability (every body reaches exactly one source) and POR
-// supervisor existence. There is no supervisor/POR component family in the
-// libraries yet -- a SOURCE adopter does not exist in the corpus.
+// Pairing law: a reset net is one source driving N bodies, so the SOURCE
+// peer declaration is count-less (`peer = ROLE`, unrestricted -- the
+// ADC.SINGLE / DAC / CAN precedent); the RECEIVER side carries the
+// exact-one bound (`peer = SOURCE(1)`) -- the undershoot half of the
+// pairing law, live since b4511.
+// Judges anchored on these roles (reset-intent-design §2), both live as of
+// b4550: overshoot is the exclusive-peer/role-peer/connection-time trio
+// (E6054/E6061/E4121, the exact-one bound is what arms them); the orphan
+// undershoot is E6063 IFACE_PEER_UNREACHED -- a RECEIVER whose whole merged
+// conductor holds no SOURCE endpoint and no non-family terminal at all (an
+// RC-only reset network is a legal reset source: its resistor and
+// capacitor terminals are the structure witness). POR-supervisor existence
+// rides the same code at conductor grain; a per-domain census waits for
+// domain objects. The SUP/SUP.WDG supervisor family (mclibs/power/sup.mc)
+// is the SOURCE side's first corpus.
 // Applications: MCU NRST/RESET pins, supervisor/watchdog outputs, manual
 // reset circuits, shared reset buses
 
@@ -55,5 +61,5 @@ interface RST(role)
 // Example usage:
 // MCU side (dedicated bidirectional reset pin):
 //     io 7 = RST::RST(RECEIVER), ["NRST"]
-// Supervisor / reset-controller side (when such parts join the libraries):
+// Supervisor / reset-controller side (see mclibs/power/sup.mc):
 //     out 2 = RST::RST(SOURCE), ["RESET"]
