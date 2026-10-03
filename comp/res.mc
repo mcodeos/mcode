@@ -66,7 +66,7 @@ component RES.SMD(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-)
+) :: PULL
 {
     name = "SMD Resistor"
     description = "Surface mount two-terminal fixed resistor"
@@ -100,7 +100,7 @@ component RES.SMD_POWER(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-)
+) :: PULL
 {
     name = "SMD Power Resistor"
     description = "Surface mount high-power two-terminal resistor"
@@ -133,7 +133,7 @@ component RES.THT(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-)
+) :: PULL
 {
     name = "Through Hole Resistor"
     description = "Axial through-hole two-terminal fixed resistor"
@@ -214,7 +214,7 @@ component RES.NTC(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-)
+) :: PULL
 {
     name = "NTC Thermistor"
     description = "Negative temperature coefficient thermistor"
@@ -248,7 +248,7 @@ component RES.ARRAY(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP,
-    chcount::INT,
+    channels::INT,
     cons::STRING
 )
 {
@@ -256,7 +256,7 @@ component RES.ARRAY(
     description = "Multi-channel integrated resistor network; separate model from discrete resistor"
 
     pins = [
-        1 : 2*chcount = CH[1:chcount]T[1:2]    // 2 pins per channel: CH1T1, CH1T2, CH2T1, ...
+        1 : 2*channels = CH[1:channels]T[1:2]    // 2 pins per channel: CH1T1, CH1T2, CH2T1, ...
     ]
 
     spec = [
@@ -267,7 +267,7 @@ component RES.ARRAY(
         temp_coeff = tc
         temp_min = _
         temp_max = _
-        channel_count = chcount
+        channel_count = channels
         construction = cons
         rohs = _
         derating_note = _
@@ -284,7 +284,7 @@ component RES.LDR(
     rdark::UV.OHM,
     volt::UV.VOLT,
     tol::UV.PERCENT
-)
+) :: PULL
 {
     name = "LDR Photoresistor"
     description = "Light dependent resistor, resistance falls with illuminance"

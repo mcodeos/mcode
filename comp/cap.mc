@@ -54,6 +54,26 @@ enum CAP
 }
 
 // =============================================================================
+// CAP_DECOUPLE recipe (U317 reversal, 2026-10-03): the decouple method lives
+// here, one definition for the whole CAP family — the pre-U317 11 per-class
+// copies are not coming back. Set formal names the entry pair's roles
+// ([hot, ret]; domain rail-pair law); the flat single-statement body keeps the
+// decouple entry one drawing unit (B10) and lands polarized `\+` (pin 1) on
+// the first-named node automatically. The column-vector return is load-bearing:
+// return-shape law (vec-dianlu.md §7.7) reads it as the bridge (one cap across
+// the entry pair); an implicit `return this` row face would read per-lane.
+// Lane form: io33 => CAP(100nF, ...).Cap(_) -> [VDD, GND]
+// =============================================================================
+recipe CAP_DECOUPLE
+{
+    func Cap([hot, ret])
+    {
+        hot - this - ret
+        return [hot, ret]
+    }
+}
+
+// =============================================================================
 // Generic Capacitor (BASE)
 // Lint rule: use CAP.MLCC / CAP.ELEC etc preferred.
 // =============================================================================
@@ -64,7 +84,7 @@ component CAP(
 
     diel = CAP.X7R,
     cons = CAP.MLCC
-)
+) :: CAP_DECOUPLE
 {
     name = "Capacitor"
     description = "General Capacitor"
@@ -100,7 +120,7 @@ component CAP.ELEC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-)
+) :: CAP_DECOUPLE
 {
     name = "Electrolytic Capacitor"
     description = "Polarized aluminum electrolytic / polymer aluminum capacitor"
@@ -137,7 +157,7 @@ component CAP.MLCC(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.X7R
-)
+) :: CAP_DECOUPLE
 {
     name = "MLCC Capacitor"
     description = "Multilayer Ceramic Capacitor (MLCC), non-polarized"
@@ -174,7 +194,7 @@ component CAP.DISC(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.C0G
-)
+) :: CAP_DECOUPLE
 {
     name = "Disc Ceramic Capacitor"
     description = "Non-MLCC disk ceramic capacitor; common high-voltage low-cost"
@@ -210,7 +230,7 @@ component CAP.TANT(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-)
+) :: CAP_DECOUPLE
 {
     name = "Tantalum Capacitor"
     description = "Polarized tantalum / polymer tantalum capacitor"
@@ -246,7 +266,7 @@ component CAP.NIOB(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-)
+) :: CAP_DECOUPLE
 {
     name = "Niobium Capacitor"
     description = "Polarized niobium pentoxide capacitor"
@@ -283,7 +303,7 @@ component CAP.FILM(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.POLYPROPYLENE
-)
+) :: CAP_DECOUPLE
 {
     name = "Film Capacitor"
     description = "Non-polarized film capacitor (PP/PET/PC/PS/PEN)"
@@ -319,7 +339,7 @@ component CAP.MICA(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-)
+) :: CAP_DECOUPLE
 {
     name = "Mica Capacitor"
     description = "Mica dielectric capacitor, high stability / high frequency"
@@ -358,7 +378,7 @@ component CAP.SAFETY(
     tol::UV.PERCENT,
     diel = CAP.POLYPROPYLENE,
     cls = CAP.SC_X2
-)
+) :: CAP_DECOUPLE
 {
     name = "Safety Capacitor X/Y"
     description = "EMI safety capacitor (X1/X2 / Y1/Y2); volt = AC RMS rating"
@@ -396,7 +416,7 @@ component CAP.SC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-)
+) :: CAP_DECOUPLE
 {
     name = "Supercapacitor / EDLC"
     description = "Electric Double Layer Capacitor, polarized"
@@ -432,7 +452,7 @@ component CAP.TRIM(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-)
+) :: CAP_DECOUPLE
 {
     name = "Trimmer Capacitor"
     description = "Adjustable trimmer / variable capacitor; cap = nominal/max capacitance"
@@ -462,9 +482,16 @@ component CAP.TRIM(
 }
 
 # =============================================================================
-# Usage Examples
-# Two-terminal wiring is a plain infix chain; the per-member `Cap` funcs are
-# retired (U317). Polarized parts land `\+` on the first-named node.
+# Usage Examples (U317 reversal, 2026-10-03)
+# The family decouple method is back as the CAP_DECOUPLE recipe (one body,
+# adopted by all 11 classes). Two spellings, same netlist:
+#   lane form   — io33 => CAP(100nF, 50V, ±10%, X7R).Cap(_) -> [vcc, gnd]
+#                 (entry pair feeds the `_` slot; one cap across the pair,
+#                 tail zip-ties the pair to the rails — one drawing unit)
+#   infix chain — plain series, the lane form's byte-identical expansion.
+# Scalar spellings are honest errors now: Cap(vdd) = E4180 (width), bare _
+# without a `=>` prefix = E4176. Polarized parts land `\+` (pin 1) on the
+# first-named node in both spellings.
 # =============================================================================
 # vcc - CAP.MLCC(100nF, 50V, ±10%, X7R) - gnd
 # line - CAP.DISC(1000pF, 1kV, ±10%, C0G) - gnd
