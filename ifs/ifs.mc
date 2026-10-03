@@ -9,6 +9,7 @@
 pub use ./gpio.mc       // GPIO interface
 pub use ./pwm.mc        // PWM interface (PWM, PWM.H6)
 pub use ./stepdir.mc    // STEPDIR stepper control interface
+pub use ./enc.mc        // ENC incremental quadrature encoder interface (2-phase A/B)
 pub use ./onewire.mc    // OneWire interface
 pub use ./xtal.mc       // XTAL interface for crystal oscillators
 pub use ./rst.mc        // RST reset control interface (reset source / reset bodies)

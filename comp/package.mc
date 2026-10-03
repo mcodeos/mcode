@@ -791,7 +791,7 @@ enum PKG
     SENSOR_SMD,        // SMD sensor
     SENSOR_DIP_3PIN,   // 3-pin through-hole (e.g. linear temp sensor)
     SENSOR_DIP_4PIN,
-
+    ENC_RAD5,          // 5-lead radial through-hole incremental rotary encoder (11mm metal shaft family)
     // =================================================================
     // Microphones
     // =================================================================
