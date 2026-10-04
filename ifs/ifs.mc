@@ -16,6 +16,8 @@ pub use ./isolation.mc  // ISOLATION galvanic-isolation barrier face
 pub use ./dc.mc         // DC power supply interface
 pub use ./vref.mc       // VREF voltage reference interface
 pub use ./ac.mc         // AC mains power interface (single-phase)
+pub use ./cmp.mc        // CMP voltage comparator interfaces (compare input, CMP.OUT result)
+pub use ./lvd.mc        // LVD low-voltage detection interfaces (monitored rail, LVD.OUT alarm)
 
 // Communication Interfaces
 pub use ./uart.mc       // UART interfaces (TTL, RS232, RS422, RS423, RS449, RS485)
