@@ -665,6 +665,7 @@ enum PKG
     FBGA144,
     FBGA169,
     FBGA256,
+    FBGA292,
 
     // nFBGA — Next-generation fine-pitch BGA (smaller ball pitch than FBGA)
     NFBGA64,

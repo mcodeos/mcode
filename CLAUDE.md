@@ -71,6 +71,31 @@ instead of producing very long one-line strings — the grammar accepts
 multi-line strings. Continuation lines start at column 0: indentation
 would become part of the string value.
 
+## Promise-alignment law (mandatory)
+
+Align the promise level of the carrier with the meaning at hand.
+Under-promising: identity exists but is written bare (same-family
+per-member wiring, functional pins left un-adopted) — peer/cardinality
+and ERC checks are lost. Over-promising: identity fabricated where none
+exists (chip-wide mega-interfaces). The maxim: merge shape wherever
+shape can merge (bus); never drop identity where identity exists
+(interface) — an interface is not the opposite of a bus, it is a bus
+with its promises maxed out.
+
+Wherever a bus can carry the meaning, write the bus. Declarations take
+range slices over per-item lists; batch wiring is one vector statement
+over the pattern (`K[1:44] - (A[1:44] + B[1:44])`), never N expanded
+copies. Expansion is not a style choice: it erases the bus semantics
+(one element-wise group wiring becomes N unrelated nets) and multiplies
+the lines a reader must diff against the pattern. Two sides carrying the
+same adopted interface family connect as one whole-family statement
+(members zip by the family; peer/cardinality checks hang on it) —
+per-member wiring is the expansion form, legal only for genuine shape
+differences: cross-family name mapping, partial fan-out, misalignment.
+The only legal expansion is a genuine shape difference — an exception
+member gets its own statement beside the vector one, chosen by shape,
+not by count.
+
 ## File header law (mandatory)
 
 Every `.mc` file **opens with** this exact 2-line template — and nothing else
