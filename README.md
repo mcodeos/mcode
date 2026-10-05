@@ -431,8 +431,28 @@ is the first thing a user reads to learn how to use the component.
 ```bash
 ./cp.sh                 # install the library into ~/.mcode/mcode
 mcc parse <file>.mc --lib mcode --pass1 --pass2
-export MCC_SYSTEM_ROOT="$(cd .. && pwd)"   # point at the repo when hacking locally
 ```
+
+### Hacking the library locally
+
+`MCC_SYSTEM_ROOT` is the mcc **data root** — where installs, caches and daemon
+logs live. Pointing it at this repo's parent directory makes mcc search the
+sibling checkout for `mcode` (which is what local hacking wants), but it also
+relocates the whole data root into the workspace:
+
+```bash
+# Works, but relocates the data root: the daemon writes logs/ and config/,
+# the parse cache writes cache/, into <workspace>/ — never do this outside a
+# throwaway workspace.
+export MCC_SYSTEM_ROOT="$(cd .. && pwd)"
+
+# Clean alternative: install the hacked library and keep ~/.mcode as the
+# data root.
+./cp.sh
+```
+
+A search-only override (resolve the checkout without relocating the data
+root) is planned. Until it lands, prefer `./cp.sh`.
 
 ## Decision Records
 
