@@ -435,24 +435,22 @@ mcc parse <file>.mc --lib mcode --pass1 --pass2
 
 ### Hacking the library locally
 
-`MCC_SYSTEM_ROOT` is the mcc **data root** — where installs, caches and daemon
-logs live. Pointing it at this repo's parent directory makes mcc search the
-sibling checkout for `mcode` (which is what local hacking wants), but it also
-relocates the whole data root into the workspace:
+To make mcc resolve this checkout directly, point `MCC_LIB_ROOT` at its parent
+directory. `MCC_LIB_ROOT` is the mcc **library search root** — it only steers
+where `use`/`--lib`/project dependencies look for libraries. Installs, caches
+and daemon logs stay under the normal data root (`MCC_SYSTEM_ROOT` or
+`~/.mcode`):
 
 ```bash
-# Works, but relocates the data root: the daemon writes logs/ and config/,
-# the parse cache writes cache/, into <workspace>/ — never do this outside a
-# throwaway workspace.
-export MCC_SYSTEM_ROOT="$(cd .. && pwd)"
-
-# Clean alternative: install the hacked library and keep ~/.mcode as the
-# data root.
-./cp.sh
+export MCC_LIB_ROOT="$(cd .. && pwd)"    # mcc finds ./mcode next to the checkout
+mcc parse comp/cap.mc --lib mcode --pass1 --pass2
 ```
 
-A search-only override (resolve the checkout without relocating the data
-root) is planned. Until it lands, prefer `./cp.sh`.
+`MCC_SYSTEM_ROOT`, by contrast, relocates the whole data root: pointing it at
+the workspace makes the daemon write `logs/` and `config/`, and the parse
+cache write `cache/`, into the workspace. Do not use it for local hacking;
+prefer `MCC_LIB_ROOT` (or `./cp.sh` to install the hacked library while
+keeping the data root where it belongs).
 
 ## Decision Records
 
