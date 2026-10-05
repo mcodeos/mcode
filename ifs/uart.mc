@@ -565,3 +565,56 @@ interface UART.RS485(role)
         peer = MASTER
     }
 }
+
+// UART.TTL.4 - UART Interface (TTL levels, 4-wire: TX/RX + RTS/CTS)
+// Standard Definition
+// Core Rule: Point-to-point full-duplex serial link over a crossed data
+//            pair plus a crossed hardware flow-control pair (ordinal k on
+//            the two sides is the same wire: TX <-> RX, RTS <-> CTS);
+//            ground is shared through the power domain, no ground member.
+// Device Definition: DCE = data communications equipment
+//                    (cross-connects to DTE),
+//                    DTE = data terminal equipment.
+// Note: the base data-only face is UART.TTL — the variants share a name
+//       family, not a conductor view.
+
+interface UART.TTL.4(role)
+{
+    topology = "point to point"
+    mode = ["full duplex"]
+    maxdistance = 15m
+    maxspeed = [9.6kbps@15m, 115.2kbps@5m, 1Mbps@1m]
+    voltage = [1.8V,3.3V,5V]
+    receiver = ["0V ~ 1.8V", "0V ~ 3.3V", "0V ~ 5V"]
+    output = ["0V ~ 1.8V", "0V ~ 3.3V", "0V ~ 5V"]
+
+    // Role-less conductor view: 4 anonymous lanes, ordinal = wire identity
+    pins = [
+        1 = _ @class(digital) // TX <-> RX
+        2 = _ @class(digital) // RX <-> TX
+        3 = _ @class(digital) // RTS <-> CTS
+        4 = _ @class(digital) // CTS <-> RTS
+    ]
+
+    role DCE {
+        name = "UART.TTL.4 DCE"
+        pins = [
+            out 1 = TX @class(digital), "Transmit"                     // Cross-connect to DTE RX
+            in 2 = RX @class(digital), "Receive"                       // Cross-connect to DTE TX
+            in 3 = RTS @class(digital), "Request To Send (from DTE)"   // Cross-connect to DTE RTS
+            out 4 = CTS @class(digital), "Clear To Send (to DTE)"      // Cross-connect to DTE CTS
+        ]
+        peer = DTE(1)
+    }
+
+    role DTE {
+        name = "UART.TTL.4 DTE"
+        pins = [
+            in 1 = RX @class(digital), "Receive"                       // Cross-connect to DCE TX
+            out 2 = TX @class(digital), "Transmit"                     // Cross-connect to DCE RX
+            out 3 = RTS @class(digital), "Request To Send"             // Cross-connect to DCE CTS
+            in 4 = CTS @class(digital), "Clear To Send"                // Cross-connect to DCE RTS
+        ]
+        peer = DCE(1)
+    }
+}

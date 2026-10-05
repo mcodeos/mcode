@@ -41,3 +41,47 @@ interface CAN(role)
         peer = NODE
     }
 }
+
+// CAN.TTL - CAN Controller/Transceiver Link (TTL levels) Standard Definition
+// Core Rule: Point-to-point serial link between one CAN controller and
+//            its transceiver: the controller hands the transmit bit stream
+//            to the transceiver (TXD) and takes the bus bit stream back
+//            (RXD). Arbitration and bit timing stay in the controller;
+//            the transceiver only translates levels, so the link itself
+//            is single-ended TTL and carries no bus state. The bus face
+//            (CAN_H/CAN_L) is the CAN interface, not this link.
+// Device Definition: CTRL = CAN controller (bit timing, arbitration),
+//                    XCVR = bus transceiver (level translation only).
+
+interface CAN.TTL(role)
+{
+    topology = "point to point"
+    mode = ["full duplex"]
+    maxdistance = 0.5m
+    maxspeed = [1Mbps@0.5m, 500kbps@1m]
+    voltage = [3.3V, 5V]
+
+    // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
+    pins = [
+        1 = _ @class(digital) // TXD <-> TXD
+        2 = _ @class(digital) // RXD <-> RXD
+    ]
+
+    role CTRL {
+        name = "CAN.TTL Controller"
+        pins = [
+            out 1 = TXD @class(digital), "Transmit bit stream to transceiver"
+            in 2 = RXD @class(digital), "Receive bus bit stream from transceiver"
+        ]
+        peer = XCVR
+    }
+
+    role XCVR {
+        name = "CAN.TTL Transceiver"
+        pins = [
+            in 1 = TXD @class(digital), "Transmit bit stream from controller"
+            out 2 = RXD @class(digital), "Bus bit stream to controller"
+        ]
+        peer = CTRL
+    }
+}
