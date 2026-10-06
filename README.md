@@ -303,7 +303,7 @@ pins = [
     1 = 1, "Term 1"                    // numeric name + description
     1 = \+ , "Anode"                   // polarity marker (polarized parts)
     io [1:4] = GPIO[0:3]               // direction prefix + range -> indexed names
-    ps 6 = GND                         // power-supply pin
+    psnk [6, 21] = [VDD, GND]::DC(3.3V)   // power pair ([hot, ret])
     1:cols = R[1:rows]C[1:cols]        // dynamic ranges from parameters
     1:4 = DC2{VDD, GND}                // bus grouping
     1:2 = UART0::UART.TTL(DCE)         // interface binding with role
@@ -312,8 +312,9 @@ pins = [
 
 Rules:
 
-1. Physical id is an integer, a range `1:n`, or a list `[7,8]`; ids are unique
-   and non-overlapping (overlap is checked).
+1. Physical id is an integer, a range `1:n`, or a list `[7,8]`; ids must be
+   unique and non-overlapping. Generic duplicate-number diagnostics are not
+   yet implemented; a pin split across interface rows is reported (E3193).
 2. Logical names are the wiring contract used at call sites
    (`R.ANODE`, `U_SENSOR.VCC`). Pin names are written in ALL CAPS
    ([Naming Conventions §4](#4-pin-names-are-all-caps)). Prefer family
@@ -322,8 +323,8 @@ Rules:
 3. Polarity / phase markers: `\+` and `\-` mark a polarized or phased terminal
    (`1 = \+ , "Anode"`, `1 = PRIMARY\+`).
 4. Direction prefixes (a bare identifier before the range) classify a pin:
-   `io`, `in`, `out`, `ps` (power supply). `io [1:4] = GPIO[0:3]` declares a
-   4-bit GPIO port.
+   `io`, `in`, `out`, and the power words `psrc`/`psnk`/`psbi`.
+   `io [1:4] = GPIO[0:3]` declares a 4-bit GPIO port.
 5. `NC` as a name marks a not-connected pin; a name starting with `_` marks an
    active-low signal.
 6. Ranges may be parameter-driven (`1:cols = R[1:rows]C[1:cols]`) and are
@@ -483,7 +484,8 @@ readable while the instance is still created when formals are omitted.
    interface member.
 2. An interface member is a signal line on the physical connector or bus. A
    power / reference pin (e.g. a dedicated analog-ground reference) is modeled
-   as a `ps` / `DC` power pin on the component, not as an interface signal pin.
+   as a `psnk`/`psrc`/`psbi` row with the `DC` interface on the component,
+   not as an interface signal pin.
 3. An interface definition only carries GND when the interface physically
    includes a ground wire: bus / connector interfaces such as `CAN`, `LIN`,
    `FlexRay`, `PCM`, `USB` (VBUS/GND via `DC`), debug headers (`SWIM`, `ICD`),
