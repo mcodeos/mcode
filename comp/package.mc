@@ -299,6 +299,7 @@ enum PKG
     TO_3P,      // TO-3P plastic power
     TO_3PL,     // TO-3PL (long-lead variant)
     TO_247,     // High-current power (e.g. IRFP)
+    TO_247_3,   // TO-247, 3-lead (standard)
     TO_247_4,   // TO-247, 4-lead (e.g. some IGBTs)
     TO_264,     // High-power plastic
     TO_39,      // Metal-can small-signal
@@ -480,6 +481,13 @@ enum PKG
     DFN24_5X5,
     DFN32_6X6,
 
+    // Generic DFN (pin count only — accept any body size)
+    DFN8,
+    DFN16,
+    DFN20,
+    DFN24,
+    DFN32,
+
     // TDFN — thin DFN (0.5 mm max thickness)
     TDFN8_2X3,
 
@@ -487,6 +495,7 @@ enum PKG
     SON10,
     SON12,
     SON16,
+    SON16_4X4,    // SON 16-lead, 4x4 mm body (sized form)
     SON20,
 
     // uDFN — ultra-thin DFN (0.4 mm pitch, ultra-low body, hand-portable)
@@ -533,6 +542,10 @@ enum PKG
     QFN64_10X10,
 
     // VQFN — Very-thin QFN (low-profile)
+    // Generic VQFN (pin count only — accept any body size)
+    VQFN16,
+    VQFN20,
+    // Body-size-specific VQFN variants
     VQFN16_3X3,
     VQFN20_4X4,
     VQFN24_5X5,
