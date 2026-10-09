@@ -34,40 +34,49 @@ component LDO(volt::UV.VOLT, curr::UV.AMP, vdrop::UV.VOLT, iq::UV.AMP)
         3 = VOUT           # Regulated output
     ]
 
-    // build-time constraint face (parses today)
+    // build-time constraint face
     require volt <= 6V
     require curr <= 500mA
 
-    // Verification-face specimen — comment-gated until the meta / claim /
-    // bench / assert productions land (same gating discipline as meta/).
-    // Judgment vocabulary: covers / leq / in_env / voc.
-    //
-    // judgment-time asserts (one row per line in the verdict ledger):
-    // assert covers(demand: [3.287V..3.313V], supply: [3.287V..3.313V])
-    // assert in_env(temp: -40C..125C, vin: 2.3V..6V)
-    //
-    // L1 in-code regression claims (static windows):
-    // claim at voltage { 3.3V, tolerance: ±0.4% }
-    // claim under dropout { max: 178mV, at: 250mA }
-    // claim under quiescent { max: 1.6uA }
-    //
-    // L3 bench (excitation needed; startup numbers illustrative):
-    // bench ldo_startup {
-    //     drive vin.ramp(to: 3.3V, over: 10us)
-    //     probe vout
-    //     scenario startup {
-    //         analysis: tran 200us
-    //         assert vout.settle_time(±2%) <= 1ms
-    //     }
-    // }
-    //
-    // custom judge (pure: same input, same verdict, no IO):
-    // meta {
-    //     fn domain_cut(demand, supply) -> verdict {
-    //         in_env(temp: -40C..125C) ? leq(demand, 2%) : leq(demand, 3%)
-    //     }
-    // }
+    // judgment-time asserts — one row per line in the verdict ledger
+    // (the verdict consumer lands with the judgment batch). The meta
+    // judge vocabulary (covers / leq / in_env / voc) and the L3 scenario
+    // face (drive / probe / scenario) stay comment-gated until their
+    // batches; the static regression rows host in the file-tail bench
+    // block below (claims only host inside a block).
+    assert volt in [2.3V ~ 6V]
+    assert vdrop <= 300mV
+    assert iq <= 100uA
 }
+
+// In-code regression: static claim rows over the specimen numbers
+// (bench / case / claim host at top level; threat only inside a case body).
+bench ldo_static {
+    case dc {
+        claim at voltage { value: 3.3V, tolerance: ±0.4% }
+        claim under dropout { max: 178mV }
+        claim under quiescent { max: 1.6uA }
+    }
+}
+
+// L3 bench (excitation needed; startup numbers illustrative) — gated until
+// the L3 scenario batch:
+// bench ldo_startup {
+//     drive vin.ramp(to: 3.3V, over: 10us)
+//     probe vout
+//     scenario startup {
+//         analysis: tran 200us
+//         assert vout.settle_time(±2%) <= 1ms
+//     }
+// }
+//
+// custom judge (pure: same input, same verdict, no IO) — gated until the
+// meta batch:
+// meta {
+//     fn domain_cut(demand, supply) -> verdict {
+//         in_env(temp: -40C..125C) ? leq(demand, 2%) : leq(demand, 3%)
+//     }
+// }
 
 // Usage Examples:
 // This file defines the LDO component (the DC power interface is declared
