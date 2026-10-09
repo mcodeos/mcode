@@ -8,6 +8,7 @@ pub use ./dio.mc
 pub use ./fet.mc
 pub use ./fuse.mc
 pub use ./ind.mc
+pub use ./ldo.mc
 pub use ./led.mc
 pub use ./nettie.mc
 pub use ./opto.mc
