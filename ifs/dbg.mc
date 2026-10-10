@@ -32,11 +32,11 @@ interface DBG.JTAG(role)
     role TAP {  // Test Access Port - Target device being tested/debugged
         name = "JTAG TAP"
         pins = [
-            in 1 = TDI @class(digital), "Test Data Input", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Data input to the device
-            out 2 = TDO @class(digital), "Test Data Output", voltage:[low:0V ~ 0.8V, high:2V ~ 5V] // Data output from the device
-            3 = TCK @class(digital), "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]           // Clock signal for synchronization
-            4 = TMS @class(digital), "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]     // Controls the state machine
-            5 = _TRST @class(digital), "Test Reset (datasheet TRST)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
+            in 1 = TDI @class(digital), "Test Data Input"  // Data input to the device
+            out 2 = TDO @class(digital), "Test Data Output" // Data output from the device
+            3 = TCK @class(digital), "Test Clock"           // Clock signal for synchronization
+            4 = TMS @class(digital), "Test Mode Select"     // Controls the state machine
+            5 = _TRST @class(digital), "Test Reset (datasheet TRST)"          // Optional reset signal
         ]
         peer = HOST
     }
@@ -44,11 +44,11 @@ interface DBG.JTAG(role)
     role HOST {  // JTAG Host - Debugger/programmer (the TAP controller lives in the target)
         name = "JTAG Host"
         pins = [
-            out 1 = TDI @class(digital), "Test Data Input", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as the TAP's input
-            in 2 = TDO @class(digital), "Test Data Output", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as the TAP's output
-            3 = TCK @class(digital), "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]           // Clock signal for synchronization
-            4 = TMS @class(digital), "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]     // Controls the state machine
-            5 = _TRST @class(digital), "Test Reset (datasheet TRST)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]          // Optional reset signal
+            out 1 = TDI @class(digital), "Test Data Input"  // Same wire as the TAP's input
+            in 2 = TDO @class(digital), "Test Data Output"  // Same wire as the TAP's output
+            3 = TCK @class(digital), "Test Clock"           // Clock signal for synchronization
+            4 = TMS @class(digital), "Test Mode Select"     // Controls the state machine
+            5 = _TRST @class(digital), "Test Reset (datasheet TRST)"          // Optional reset signal
         ]
         peer = TAP
     }
@@ -70,8 +70,8 @@ interface DBG.JTAG.2(role)
     voltage = [1.8V,3.3V,5V]
 
     pins = [
-        1 = TCK @class(digital), "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Clock signal for synchronization
-        2 = TMS @class(digital), "Test Mode Select / Bidirectional Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Mode select + multiplexed TDI/TDO
+        1 = TCK @class(digital), "Test Clock"  // Clock signal for synchronization
+        2 = TMS @class(digital), "Test Mode Select / Bidirectional Data"  // Mode select + multiplexed TDI/TDO
     ]
 
     role TAP {  // Test Access Port - Target device being tested/debugged
@@ -100,8 +100,8 @@ interface DBG.DAP(role)
     voltage = [1.8V,3.3V,5V]
 
     pins =[
-        1 = DAP0 @class(digital), "Debug Access Port 0", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        2 = DAP1 @class(digital), "Debug Access Port 1", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        1 = DAP0 @class(digital), "Debug Access Port 0"
+        2 = DAP1 @class(digital), "Debug Access Port 1"
     ]
     
     role HOST {
@@ -131,9 +131,9 @@ interface DBG.DAP.PU(role)
 
     // 3 pin unidir
     pins = [
-        1 = DAP0 @class(digital), "Debug Access Port 0", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        2 = DAP1 @class(digital), "Debug Access Port 1", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        3 = DAP2 @class(digital), "Debug Access Port 2", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        1 = DAP0 @class(digital), "Debug Access Port 0"
+        2 = DAP1 @class(digital), "Debug Access Port 1"
+        3 = DAP2 @class(digital), "Debug Access Port 2"
     ]
 
     role HOST {
@@ -163,9 +163,9 @@ interface DBG.DAP.WM(role)
 
     // 3 Pin wide mode
     pins = [
-        1 = DAP0 @class(digital), "Debug Access Port 0", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        2 = DAP1 @class(digital), "Debug Access Port 1", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        3 = DAP2 @class(digital), "Debug Access Port 2", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        1 = DAP0 @class(digital), "Debug Access Port 0"
+        2 = DAP1 @class(digital), "Debug Access Port 1"
+        3 = DAP2 @class(digital), "Debug Access Port 2"
     ]
 
     role HOST {
@@ -200,9 +200,9 @@ interface DBG.CMSISDAP(role)
     // SWDIO,SWCLK,_RST; DBG.ICD PGED,PGEC). With no data lane here, the
     // clock precedes the mode select to match.
     pins = [
-        1 = TCK @class(digital), "Test Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        2 = TMS @class(digital), "Test Mode Select", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        3 = _RST @class(digital), "Reset (datasheet nRST)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        1 = TCK @class(digital), "Test Clock"
+        2 = TMS @class(digital), "Test Mode Select"
+        3 = _RST @class(digital), "Reset (datasheet nRST)"
     ]
     
     role HOST {
@@ -231,10 +231,10 @@ interface DBG.SWD(role)
     voltage = [1.8V,3.3V,5V]
 
     pins = [
-        1 = SWDIO @class(digital), "Serial Wire Debug Input/Output", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        2 = SWCLK @class(digital), "Serial Wire Debug Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        3 = _RST @class(digital), "Reset (datasheet nRST)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        4 = VREF @class(digital), "Reference Voltage", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        1 = SWDIO @class(digital), "Serial Wire Debug Input/Output"
+        2 = SWCLK @class(digital), "Serial Wire Debug Clock"
+        3 = _RST @class(digital), "Reset (datasheet nRST)"
+        4 = VREF @class(digital), "Reference Voltage"
     ]
     
     role HOST {
@@ -263,8 +263,8 @@ interface DBG.SWIM(role)
     voltage = [3.3V,5V]
 
     pins = [
-        1 = SWIM @class(digital), "Single Wire Interface Module", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        2 = _RST @class(digital), "Reset (datasheet NRST)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        1 = SWIM @class(digital), "Single Wire Interface Module"
+        2 = _RST @class(digital), "Reset (datasheet NRST)"
         3 = GND, "Ground"
     ]
 
@@ -294,9 +294,9 @@ interface DBG.ICD(role)
     voltage = [3.3V,5V]
 
     pins = [
-        1 = PGED @class(digital), "Program/Debug Enable", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        2 = PGEC @class(digital), "Program/Debug Clock", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-        3 = _MCLR @class(digital), "Master Clear (datasheet MCLR overbar)", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+        1 = PGED @class(digital), "Program/Debug Enable"
+        2 = PGEC @class(digital), "Program/Debug Clock"
+        3 = _MCLR @class(digital), "Master Clear (datasheet MCLR overbar)"
     ]
     
     role HOST {
@@ -338,8 +338,8 @@ interface DBG.UARTBOOT(role)
     role HOST {
         name = "UART Bootloader Host"
         pins = [
-            out 1 = TXD @class(digital), "Transmit Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
-            in 2 = RXD @class(digital), "Receive Data", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]
+            out 1 = TXD @class(digital), "Transmit Data"
+            in 2 = RXD @class(digital), "Receive Data"
             3 = GND, "Ground"
         ]
         peer = TARGET(1)
@@ -348,8 +348,8 @@ interface DBG.UARTBOOT(role)
     role TARGET {
         name = "UART Bootloader Target"
         pins = [
-            in 1 = RXD @class(digital), "Receive Data, from the host TXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]  // Same wire as ordinal 1
-            out 2 = TXD @class(digital), "Transmit Data, to the host RXD", voltage:[low:0V ~ 0.8V, high:2V ~ 5V]   // Same wire as ordinal 2
+            in 1 = RXD @class(digital), "Receive Data, from the host TXD"  // Same wire as ordinal 1
+            out 2 = TXD @class(digital), "Transmit Data, to the host RXD"   // Same wire as ordinal 2
             3 = GND, "Ground"
         ]
         peer = HOST(1)

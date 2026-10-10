@@ -23,23 +23,23 @@ interface USB(role)
     current = 500mA  // Default current (USB 2.0)
 
     pins = [
-        [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]
+        [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+        [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
     ]
     
     role HOST {
         name = "USB Host"
         pins = [
-            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
         ]
         peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
         pins = [
-            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
         ]
         peer = HOST(1)
     }
@@ -72,23 +72,23 @@ interface USB.TYPEA(role)
     description = "Standard rectangular connector, typically used on hosts"
     
     pins = [
-        [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]
+        [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+        [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
     ]
 
     role HOST {
         name = "USB Host"
         pins = [
-            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
         ]
         peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
         pins = [
-            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
         ]
         peer = HOST(1)
     }
@@ -114,23 +114,23 @@ interface USB.TYPEB(role)
     description = "Squarish connector, typically used on devices"
     
     pins = [
-        [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]
+        [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+        [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
     ]
 
     role HOST {
         name = "USB Host"
         pins = [
-            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
         ]
         peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
         pins = [
-            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
         ]
         peer = HOST(1)
     }
@@ -156,16 +156,16 @@ interface USB.MINIB(role)
     description = "Smaller connector for portable devices"
     
     pins = [
-        [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]
+        [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
+        [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
         4 = ID @class(digital), "ID"                // Identification pin (for OTG)
     ]
 
     role HOST {
         name = "USB Host"
         pins = [
-            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
             in 4 = ID @class(digital), "ID"                // Cable sense: the plug grounds it (OTG)
         ]
         peer = DEVICE(1)
@@ -173,8 +173,8 @@ interface USB.MINIB(role)
     role DEVICE {
         name = "USB Device"
         pins = [
-            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
             in 4 = ID @class(digital), "ID"                // Cable sense: the plug grounds it (OTG)
         ]
         peer = HOST(1)
@@ -201,16 +201,16 @@ interface USB.MICROB(role)
     description = "Even smaller connector for mobile devices"
     
     pins = [
-        [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]
+        [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
+        [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
         4 = ID @class(digital), "ID"                // Identification pin (for OTG)
     ]
 
     role HOST {
         name = "USB Host"
         pins = [
-            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
             in 4 = ID @class(digital), "ID"                // Cable sense: the plug grounds it (OTG)
         ]
         peer = DEVICE(1)
@@ -218,8 +218,8 @@ interface USB.MICROB(role)
     role DEVICE {
         name = "USB Device"
         pins = [
-            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
             in 4 = ID @class(digital), "ID"                // Cable sense: the plug grounds it (OTG)
         ]
         peer = HOST(1)
@@ -249,8 +249,8 @@ interface USB3.TYPEA(role)
     
     pins = [
         // USB 2.0 pins (backward compatibility)
-        [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]
+        [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+        [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
 
         // USB 3.x additional pins (Standard-A receptacle is the host side:
         // the host receives on SSRX 5/6 and transmits on SSTX 8/9)
@@ -264,8 +264,8 @@ interface USB3.TYPEA(role)
     role HOST {
         name = "USB Host"
         pins = [
-            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
             in 5 = SSRX\- @pair(ssrx) @class(digital), "SuperSpeed RX Negative"  // The host receives on SSRX
             in 6 = SSRX\+ @pair(ssrx) @class(digital), "SuperSpeed RX Positive"
             7 = GND_DRAIN, "Ground Drain"        // Ground drain
@@ -277,8 +277,8 @@ interface USB3.TYPEA(role)
     role DEVICE {
         name = "USB Device"
         pins = [
-            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
             out 5 = SSRX\- @pair(ssrx) @class(digital), "SuperSpeed RX Negative"  // The device transmits on these wires
             out 6 = SSRX\+ @pair(ssrx) @class(digital), "SuperSpeed RX Positive"
             7 = GND_DRAIN, "Ground Drain"        // Ground drain
@@ -312,8 +312,8 @@ interface USB3.TYPEB(role)
     
     pins = [
         // USB 2.0 pins (backward compatibility)
-        [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]
+        [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+        [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
 
         // USB 3.x additional pins (Standard-B receptacle is the device side:
         // the device transmits on SSTX 5/6 and receives on SSRX 8/9)
@@ -327,8 +327,8 @@ interface USB3.TYPEB(role)
     role HOST {
         name = "USB Host"
         pins = [
-            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
             in 5 = SSTX\- @pair(sstx) @class(digital), "SuperSpeed TX Negative"  // The device transmits on SSTX
             in 6 = SSTX\+ @pair(sstx) @class(digital), "SuperSpeed TX Positive"
             7 = GND_DRAIN, "Ground Drain"        // Ground drain
@@ -340,8 +340,8 @@ interface USB3.TYPEB(role)
     role DEVICE {
         name = "USB Device"
         pins = [
-            [1,4] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
             out 5 = SSTX\- @pair(sstx) @class(digital), "SuperSpeed TX Negative"  // The device transmits on SSTX
             out 6 = SSTX\+ @pair(sstx) @class(digital), "SuperSpeed TX Positive"
             7 = GND_DRAIN, "Ground Drain"        // Ground drain
@@ -375,8 +375,8 @@ interface USB3.MICROB(role)
     
     pins = [
         // USB 2.0 pins (backward compatibility)
-        [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-        [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]
+        [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
+        [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
         4 = ID @class(digital), "ID"                // Identification pin (for OTG)
         
         // USB 3.x additional pins (Micro-B receptacle is the device side:
@@ -391,8 +391,8 @@ interface USB3.MICROB(role)
     role HOST {
         name = "USB Host"
         pins = [
-            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
             in 4 = ID @class(digital), "ID"                // Cable sense: the plug grounds it (OTG)
             in 6 = SSTX\- @pair(sstx) @class(digital), "SuperSpeed TX Negative"  // The device transmits on SSTX
             in 7 = SSTX\+ @pair(sstx) @class(digital), "SuperSpeed TX Positive"
@@ -405,8 +405,8 @@ interface USB3.MICROB(role)
     role DEVICE {
         name = "USB Device"
         pins = [
-            [1,5] = [VBUS, GND]::DC(5V), ["Power", "Ground"]
-            io [2,3] = [D\-,D\+] @pair(d) @class(digital), ["Data Negative", "Data Positive"]  // Half duplex: host and device time-share the pair
+            [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
+            io [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"  // Half duplex: host and device time-share the pair
             in 4 = ID @class(digital), "ID"                // Cable sense: the plug grounds it (OTG)
             out 6 = SSTX\- @pair(sstx) @class(digital), "SuperSpeed TX Negative"  // The device transmits on SSTX
             out 7 = SSTX\+ @pair(sstx) @class(digital), "SuperSpeed TX Positive"

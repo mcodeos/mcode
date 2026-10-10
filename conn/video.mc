@@ -34,7 +34,7 @@ component VIDEO.HDMI()
         14 = RESERVED, "Reserved"
         15 = SCL, "SCL"
         16 = SDA, "SDA"
-        [18,17] = [P5V,GND]::DC(5V), ["+5V Power","DDC/CEC Ground"]
+        [18,17] = [P5V,GND]::DC(5V), "+5V Power / DDC/CEC Ground"
         19 = HPD, "Hot Plug Detect"
     ]
 }
@@ -70,7 +70,7 @@ component VIDEO.DISPLAYPORT()
         13 = AUX_P @pair(aux), "Configuration Data Lane (P)"
         14 = AUX_N @pair(aux), "Configuration Data Lane (N)"
         15 = HPD, "Hot Plug Detect"
-        [16,17] = [P3V3,GND]::DC(3.3V), ["+3.3V Power","Ground"]
+        [16,17] = [P3V3,GND]::DC(3.3V), "+3.3V Power / Ground"
         18 = RESERVED, "Reserved"
     ]
 }
@@ -145,7 +145,7 @@ component VIDEO.DVI()
         17 = HPD, "Hot Plug Detect"
         18 = DDC_SCL, "DDC Clock"
         19 = DDC_SDA, "DDC Data"
-        [20,21] = [P5V,GND]::DC(5V), ["+5V Power","Ground"]
+        [20,21] = [P5V,GND]::DC(5V), "+5V Power / Ground"
     ]
 }
 

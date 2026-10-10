@@ -24,7 +24,7 @@ component SD.SOCKET()
     pins = [
         1 = DAT3, "Data 3 / card select in SPI mode"   // card pad 1
         2 = CMD, "Command / response line"             // card pad 2
-        [4,3] = [VDD,VSS]::DC(), ["Card supply","Ground return"]   // card pads 4, 3
+        [4,3] = [VDD,VSS]::DC(), "Card supply / Ground return"   // card pads 4, 3
         6 = VSS, "Ground return"                       // card pad 6
         5 = CLK, "Clock (host generated)"              // card pad 5
         7 = DAT0, "Data 0"                             // card pad 7

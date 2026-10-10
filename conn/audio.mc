@@ -101,13 +101,13 @@ component AUDIO.XLR(pincnt::INT)
         ]
     else if pincnt == 4
         pins = [
-            [4,1] = [Power,GND]::DC(), ["Power","Ground"]
+            [4,1] = [Power,GND]::DC(), "Power / Ground"
             2 = Hot, "Hot"
             3 = Cold, "Cold"
         ]
     else if pincnt == 5
         pins = [
-            [4,5] = [Power\+,Power\-]::DC(), ["Power+","Power-"]
+            [4,5] = [Power\+,Power\-]::DC(), "Power+ / Power-"
             1 = GND @exposed(esd_contact), "Ground"
             2 = Hot, "Hot"
             3 = Cold, "Cold"

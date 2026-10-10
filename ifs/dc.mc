@@ -21,18 +21,18 @@ interface DC(volt::UV.VOLT) // DC Power Supply Interface
 
     if (volt < 0V)
         pins = [
-            1 = "VCC" + canon(volt), "DC power negative", voltage:volt
-            2 = GND, "DC power ground", voltage:0.0V
+            1 = "VCC" + canon(volt), "DC power negative"
+            2 = GND, "DC power ground"
         ]
     else if (volt > 0V)
         pins = [
-            1 = "VCC" + canon(volt), "DC power positive", voltage:volt
-            2 = GND, "DC power ground", voltage:0.0V
+            1 = "VCC" + canon(volt), "DC power positive"
+            2 = GND, "DC power ground"
         ]
     else
         pins = [
-            1 = VCC, "DC power positive", voltage:volt
-            2 = GND, "DC power ground", voltage:0.0V
+            1 = VCC, "DC power positive"
+            2 = GND, "DC power ground"
         ]
 
 }

@@ -18,7 +18,7 @@ component POWER.DC_JACK(polarity::STRING)
     ]
     
     pins = [
-        [1,2] = [VCC,GND]::DC(), ["Center Pin","Outer Sleeve"]
+        [1,2] = [VCC,GND]::DC(), "Center Pin / Outer Sleeve"
     ]
 }
 
@@ -37,7 +37,7 @@ component POWER.XT60()
     ]
     
     pins = [
-        [1,2] = [VCC,GND]::DC(), ["Positive","Negative"]
+        [1,2] = [VCC,GND]::DC(), "Positive / Negative"
     ]
 }
 
@@ -56,7 +56,7 @@ component POWER.XT30()
     ]
     
     pins = [
-        [1,2] = [VCC,GND]::DC(), ["Positive","Negative"]
+        [1,2] = [VCC,GND]::DC(), "Positive / Negative"
     ]
 }
 
@@ -75,7 +75,7 @@ component POWER.DEANS_T()
     ]
     
     pins = [
-        [1,2] = [VCC,GND]::DC(), ["Positive","Negative"]
+        [1,2] = [VCC,GND]::DC(), "Positive / Negative"
     ]
 }
 

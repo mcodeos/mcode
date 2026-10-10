@@ -22,7 +22,7 @@ component IEC.C14()
     ]
 
     pins = [
-        [1,2] = [L,N]::AC.1P(), ["Line","Neutral"]
+        [1,2] = [L,N]::AC.1P(), "Line / Neutral"
         3 = PE @role(protective), "Protective earth"
     ]
 }
@@ -44,7 +44,7 @@ component IEC.C8()
     ]
 
     pins = [
-        [1,2] = [L,N]::AC.1P(), ["Line","Neutral"]
+        [1,2] = [L,N]::AC.1P(), "Line / Neutral"
     ]
 }
 

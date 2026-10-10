@@ -23,8 +23,8 @@ interface VREF(volt::UV.VOLT) // Voltage Reference Interface
     voltage = volt
 
     pins = [
-        1 = REF @role(quiet), "Voltage reference", voltage:volt
-        2 = RET @role(quiet), "Reference return", voltage:0.0V
+        1 = REF @role(quiet), "Voltage reference"
+        2 = RET @role(quiet), "Reference return"
     ]
 
 }
