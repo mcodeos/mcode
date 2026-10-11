@@ -443,6 +443,15 @@ enum PKG
     TSSOP56,
     TSSOP64,
 
+    // HTSSOP — Heat-Slug Thin Shrink Small-Outline (TI PowerPAD), exposed
+    // die-pad under the body; pin count per JEDEC MO-153 family sizing
+    HTSSOP16,
+    HTSSOP20,
+    HTSSOP24,
+    HTSSOP28,
+    HTSSOP38,
+    HTSSOP48,
+
     // VSOP — Very Small-Outline Package (ultra-thin)
     VSOP8,
     VSOP16,
