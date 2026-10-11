@@ -45,7 +45,7 @@ enum CAP
     SC_X1,
     SC_X2,
     SC_Y1,
-    SC_Y2,
+    SC_Y2
 }
 
 // CAP_DECOUPLE - Shared Decouple Recipe for the CAP Family
