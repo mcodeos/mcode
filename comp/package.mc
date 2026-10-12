@@ -606,6 +606,10 @@ enum PKG
     LQFP128,
     LQFP144,
 
+    // HTQFP — Thermally-enhanced QFP (TI PowerPAD quad flat; e.g. TI PHP
+    // package = HTQFP-PowerPAD, 0.5 mm pitch, exposed die-pad under body)
+    HTQFP48,
+
     // Body-size-specific LQFP variants
     LQFP32_7X7,
     LQFP48_7X7,
