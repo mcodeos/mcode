@@ -5,3 +5,4 @@ target
 # (render_projection.md / known_missing.md) - never commit
 baseline/
 build/
+.DS_Store
