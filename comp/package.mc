@@ -451,6 +451,7 @@ enum PKG
     HTSSOP28,
     HTSSOP38,
     HTSSOP48,
+    HTSSOP56,
 
     // VSOP — Very Small-Outline Package (ultra-thin)
     VSOP8,
