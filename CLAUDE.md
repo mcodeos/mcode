@@ -26,7 +26,7 @@ evidence trail lives in the mcpub packs, not here.
 ## No cross-repo or internal-design references (mandatory)
 
 This repo is a standalone public library: it must not reference, mention,
-or depend on any other repo — no `mcpub` pointers, no `mclibs`/`mcd`
+or depend on any other repo — no `mcpub` pointers, no `mcfam`/`mcd`
 mentions, no paths into sibling projects. It must also not cite internal
 design material: no design documents, no design clauses or rulings
 ("ruling 12" style), no issue/decision numbers (`b4532` style), no

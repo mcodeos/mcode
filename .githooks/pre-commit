@@ -42,8 +42,8 @@ refbad=0
 while IFS= read -r f; do
     case "$f" in */libs/*|CLAUDE.md|README.md) continue ;; esac
     [ -f "$f" ] || continue
-    if grep -nE 'mcpub|\bmclibs\b|\bmcd\b|\bb[0-9]{4}\b|\brulings?[ -]?[0-9]+|§|\bU[0-9]{3}\b|[a-zA-Z0-9_-]+\.(md|rs)\b' "$f" >/dev/null 2>&1; then
-        grep -nE 'mcpub|\bmclibs\b|\bmcd\b|\bb[0-9]{4}\b|\brulings?[ -]?[0-9]+|§|\bU[0-9]{3}\b|[a-zA-Z0-9_-]+\.(md|rs)\b' "$f" | sed "s|^|FAIL ref: $f:|"
+    if grep -nE 'mcpub|\bmcfam\b|\bmcd\b|\bb[0-9]{4}\b|\brulings?[ -]?[0-9]+|§|\bU[0-9]{3}\b|[a-zA-Z0-9_-]+\.(md|rs)\b' "$f" >/dev/null 2>&1; then
+        grep -nE 'mcpub|\bmcfam\b|\bmcd\b|\bb[0-9]{4}\b|\brulings?[ -]?[0-9]+|§|\bU[0-9]{3}\b|[a-zA-Z0-9_-]+\.(md|rs)\b' "$f" | sed "s|^|FAIL ref: $f:|"
         refbad=1
     fi
 done < <(git ls-files '*.mc' '*.toml' '*.md')
