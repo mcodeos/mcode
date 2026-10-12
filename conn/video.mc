@@ -32,8 +32,7 @@ component VIDEO.HDMI()
         12 = TMDS_CK\- @pair(clk), "TMDS Clock-"
         13 = CEC, "CEC"
         14 = RESERVED, "Reserved"
-        15 = SCL, "SCL"
-        16 = SDA, "SDA"
+        [15, 16] = I2C{SCL, SDA}::I2C(), "DDC I2C bus (EDID channel to the sink)"
         [18,17] = [P5V,GND]::DC(5V), "+5V Power / DDC/CEC Ground"
         19 = HPD, "Hot Plug Detect"
     ]
@@ -103,10 +102,9 @@ component VIDEO.VGA()
         9 = KEY, "Key (No Pin)"
         10 = GND_S, "Sync Ground"
         11 = RESERVED, "Reserved"
-        12 = SDA, "SDA (I2C)"
+        [15, 12] = I2C{SCL, SDA}::I2C(), "DDC I2C bus (EDID channel to the host)"
         13 = HSYNC, "Horizontal Sync"
         14 = VSYNC, "Vertical Sync"
-        15 = SCL, "SCL (I2C)"
     ]
 }
 
