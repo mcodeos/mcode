@@ -156,3 +156,45 @@ interface MOST.COAX(role)
         name = "MOST Coaxial Relay"
     }
 }
+
+// MOST.FOT - MOST Fiber-Optic Transceiver Copper Interface Standard Definition
+// Core Rule: The two-line board-level copper face between a MOST optical
+//            network interface controller and its fiber-optic transceiver
+//            module: one lane each way, the controller's transmit lane
+//            landing on the transceiver's receive-data pin and the
+//            transceiver's transmit-data pin feeding the controller's
+//            receive lane (crossed naming, DCE/DTE form). Keep the run
+//            short with an unbroken ground reference; series termination
+//            sits at the driving end of each lane.
+// Device Definition: NIC = the MOST network interface controller,
+//                    FOT = the fiber-optic transceiver module.
+
+interface MOST.FOT(role)
+{
+    topology = "point to point"
+    mode = ["full duplex"]
+    voltage = 3.3V
+
+    pins = [
+        1 = _ @class(digital)    // NIC TX <-> FOT RX data
+        2 = _ @class(digital)    // FOT TX data <-> NIC RX
+    ]
+
+    role NIC {
+        name = "MOST NIC Copper Face"
+        pins = [
+            out 1 = TX @class(digital), "Transmit - drives the RX-data pin of the FOT"
+            in 2 = RX @class(digital), "Receive - reads the TX-data pin of the FOT"
+        ]
+        peer = FOT(1)
+    }
+
+    role FOT {
+        name = "MOST Transceiver Copper Face"
+        pins = [
+            in 1 = RX @class(digital), "RX data - the lane the NIC drives"
+            out 2 = TX @class(digital), "TX data - the lane the NIC reads"
+        ]
+        peer = NIC(1)
+    }
+}
