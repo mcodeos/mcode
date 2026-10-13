@@ -35,6 +35,7 @@ pub use ./dp.mc         // DisplayPort interface
 pub use ./lvds.mc       // LVDS interface (clock + 4 data pairs)
 pub use ./mipi.mc       // MIPI DSI / CSI interfaces (D-PHY)
 pub use ./spdif.mc      // S/PDIF interface
+pub use ./rfdiff.mc     // RF_DIFF interface (differential RF port pair)
 pub use ./pmbus.mc      // PMBus interface
 
 // Analog Interfaces
