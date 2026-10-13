@@ -42,6 +42,7 @@ pub use ./adcdiff.mc    // ADC.DIFF interface
 pub use ./adcsingle.mc  // ADC.SINGLE interface (single-ended analog input)
 pub use ./dac.mc        // DAC interface
 pub use ./ampbtl.mc     // AMP.BTL interface
+pub use ./loop.mc       // LOOP interface (analog current loop, 4-20mA class)
 
 // Clock Interfaces
 pub use ./clkdiff.mc    // CLK.DIFF interface (differential clock pair)
