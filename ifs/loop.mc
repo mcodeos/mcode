@@ -26,17 +26,10 @@ interface LOOP(role) // Analog current loop interface (4-20mA class)
 {
     topology = "point to point"
     mode = ["unidirectional"]
-    maxdistance = 1km   // generic face cap; cable drop is absorbed by the
-                        // transmitter compliance window against the loop
-                        // supply, no datasheet cap
-    maxspeed = [10kHz]  // generic face cap; dynamic response is set by the
-                        // loop capacitance; the HART overlay sits at
-                        // 1200/2200Hz, far below it
-    voltage = [12V, 24V, 36V]   // loop supply nominals; performance window
-                                // to 40V, abs max 44V (XTR111 class)
-    current = [4mA, 20mA]       // canonical family range (live zero to full
-                                // scale); 0-20mA and 5-25mA variants exist,
-                                // sources up to 32mA (XTR111 class)
+
+    // Electrical contract data (loop supply windows, distance/speed caps,
+    // family range numbers) rides the interface electrical recipe face;
+    // this definition carries structure only.
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     pins = [
