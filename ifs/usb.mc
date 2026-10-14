@@ -17,10 +17,12 @@ interface USB(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 5m
-    maxspeed = [1.5Mbps@5m, 12Mbps@5m, 480Mbps@3m]
-    voltage = 5V
-    current = 500mA  // Default current (USB 2.0)
+
+    // Electrical contract data (rate, receiver/driver windows) rides the
+    // USB.ELEC recipe face (302 3.2); the VBUS/GND power face rides the
+    // DC.ELEC / DC.SINK recipe faces (the CAN.ELEC supply-tier routing
+    // law). The cable-length tier retired with the interface param gate;
+    // this definition carries structure only.
 
     pins = [
         [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
@@ -64,13 +66,12 @@ interface USB.TYPEA(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 5m
-    maxspeed = [1.5Mbps@5m, 12Mbps@5m, 480Mbps@3m]
-    voltage = 5V
-    current = 500mA  // USB 2.0 current
-    name = "USB 2.0 Type A"
-    description = "Standard rectangular connector, typically used on hosts"
-    
+
+    // Electrical contract data rides the USB.ELEC recipe face (302 3.2);
+    // the VBUS/GND power face rides the DC.ELEC / DC.SINK recipe faces.
+    // Same electrical law as the USB base class (the variant ruling); this
+    // definition carries structure only.
+
     pins = [
         [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
         [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
@@ -106,13 +107,12 @@ interface USB.TYPEB(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 5m
-    maxspeed = [1.5Mbps@5m, 12Mbps@5m, 480Mbps@3m]
-    voltage = 5V
-    current = 500mA  // USB 2.0 current
-    name = "USB 2.0 Type B"
-    description = "Squarish connector, typically used on devices"
-    
+
+    // Electrical contract data rides the USB.ELEC recipe face (302 3.2);
+    // the VBUS/GND power face rides the DC.ELEC / DC.SINK recipe faces.
+    // Same electrical law as the USB base class (the variant ruling); this
+    // definition carries structure only.
+
     pins = [
         [1,4] = [VBUS, GND]::DC(5V), "Power / Ground"
         [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
@@ -148,13 +148,12 @@ interface USB.MINIB(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 5m
-    maxspeed = [1.5Mbps@5m, 12Mbps@5m, 480Mbps@3m]
-    voltage = 5V
-    current = 500mA  // USB 2.0 current
-    name = "USB 2.0 Mini Type B"
-    description = "Smaller connector for portable devices"
-    
+
+    // Electrical contract data rides the USB.ELEC recipe face (302 3.2);
+    // the VBUS/GND power face rides the DC.ELEC / DC.SINK recipe faces.
+    // Same electrical law as the USB base class (the variant ruling); this
+    // definition carries structure only.
+
     pins = [
         [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
         [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
@@ -193,13 +192,12 @@ interface USB.MICROB(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 5m
-    maxspeed = [1.5Mbps@5m, 12Mbps@5m, 480Mbps@3m]
-    voltage = 5V
-    current = 500mA  // USB 2.0 current
-    name = "USB 2.0 Micro Type B"
-    description = "Even smaller connector for mobile devices"
-    
+
+    // Electrical contract data rides the USB.ELEC recipe face (302 3.2);
+    // the VBUS/GND power face rides the DC.ELEC / DC.SINK recipe faces.
+    // Same electrical law as the USB base class (the variant ruling); this
+    // definition carries structure only.
+
     pins = [
         [1,5] = [VBUS, GND]::DC(5V), "Power / Ground"
         [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
@@ -555,9 +553,10 @@ interface USB.DATA(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxspeed = [1.5Mbps, 12Mbps, 480Mbps]
-    name = "USB Data Interface"
-    description = "USB data interface with differential signaling"
+
+    // Electrical contract data (rate, receiver/driver windows) rides the
+    // USB.ELEC recipe face (302 3.2); this definition carries structure
+    // only.
 
     // The two rows tagged @pair(d) are the two legs of one differential
     // signal; the +/- spellings are the naming convention (same as

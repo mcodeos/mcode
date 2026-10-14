@@ -76,9 +76,12 @@ interface UART.RS232.3(role)
 {
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
-    maxdistance = 15m
-    receiver = ±15V
-    output = ±25V
+
+    // Electrical contract data (rate, receiver logic thresholds and absolute
+    // input window, driver output window) rides the UART.RS232.3.ELEC recipe
+    // face (302 3.2); this definition carries structure only. The cable-length
+    // tier retired with the interface param gate (no sample datasheet states a
+    // rate-vs-length derating).
 
     // Variant note: RS232 splits into per-variant interfaces (.3/.5/.9) — the
     // variants share a name family, not a conductor view
@@ -126,10 +129,11 @@ interface UART.RS232.5(role)
 {
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
-    maxdistance = 15m
-    receiver = ±15V
-    output = ±25V
 
+    // Electrical contract data rides the UART.RS232.5.ELEC recipe face
+    // (302 3.2); this definition carries structure only. The cable-length
+    // tier retired with the interface param gate (no sample datasheet states
+    // a rate-vs-length derating).
 
     // Role-less conductor view: 5 anonymous lanes, ordinal = wire identity
     //
@@ -182,10 +186,11 @@ interface UART.RS232.9(role)
 {
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
-    maxdistance = 15m
-    receiver = ±15V
-    output = ±25V
 
+    // Electrical contract data rides the UART.RS232.9.ELEC recipe face
+    // (302 3.2); this definition carries structure only. The cable-length
+    // tier retired with the interface param gate (no sample datasheet states
+    // a rate-vs-length derating).
 
     // Role-less conductor view: 9 anonymous lanes, ordinal = wire identity
     //
