@@ -493,10 +493,13 @@ interface UART.RS485.3(role)
 {
     topology = "multi-point"
     mode = ["half duplex"]
-    maxdistance = 1200m
-    maxspeed = [100kbps@1200m, 1Mbps@100m, 10Mbps@10m]
-    receiver = ±7V
-    output = ±5V
+    // Electrical contract data (rate, receiver thresholds and common-mode
+    // window, driver differential output window) rides the UART.RS485.ELEC
+    // recipe face (302 3.2); this definition carries structure only. The
+    // 3-wire member shares the base class electrical contract (the variant
+    // ruling) — only the conductor view differs (GND as the third wire).
+    // The cable-length rate derating tiers retired with the interface param
+    // gate (no sample datasheet states a rate-vs-length derating table).
 
 
     // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
@@ -540,10 +543,11 @@ interface UART.RS485(role)
 {
     topology = "multi-point"
     mode = ["half duplex"]
-    maxdistance = 1200m
-    maxspeed = [100kbps@1200m, 1Mbps@100m, 10Mbps@10m]
-    receiver = ±7V
-    output = ±5V
+    // Electrical contract data (rate, receiver thresholds and common-mode
+    // window, driver differential output window) rides the UART.RS485.ELEC
+    // recipe face (302 3.2); this definition carries structure only. The
+    // cable-length rate derating tiers retired with the interface param
+    // gate (no sample datasheet states a rate-vs-length derating table).
 
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
