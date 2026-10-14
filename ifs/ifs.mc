@@ -46,6 +46,11 @@ pub use ./dac.mc        // DAC interface
 pub use ./ampbtl.mc     // AMP.BTL interface
 pub use ./loop.mc       // LOOP interface (analog current loop, 4-20mA class)
 
+// Discrete Device Interfaces
+pub use ./fet.mc        // FET field-effect transistor terminal interface (G/D/S)
+pub use ./bjt.mc        // BJT bipolar junction transistor terminal interface (B/C/E)
+pub use ./ret.mc        // RET resistor-equipped transistor terminal interface (IN/OUT/GND)
+
 // Clock Interfaces
 pub use ./clkdiff.mc    // CLK.DIFF interface (differential clock pair)
 pub use ./clk.mc        // CLK interface (single-ended clock)
