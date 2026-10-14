@@ -9,14 +9,15 @@
 enum CAP
 {
     // ── Dielectric (MLCC temperature characteristic codes) ──
-    C0G,        // NPO is a legacy alias of the same dielectric class
+    C0G,        // NP0 ("NPO" legacy spelling) is the same class; JIS twin CH
     X7R,
     X7S,
     X7U,
     X5R,
     Y5V,
-    X8R,        // automotive high-temp MLCC
-    U2J,        // high-voltage MLCC, low drift, power supply common
+    X8R,        // automotive high-temp MLCC (-55...+150 C)
+    X5F,        // disc ceramic class 2 (-25...+85 C)
+    U2J,        // high-voltage MLCC, low drift; JIS twin 7U
 
     // ── Dielectric (oxide / film / special) ──
     ALUMINUM_OXIDE,
@@ -24,8 +25,8 @@ enum CAP
     NIOBIUM_PENTOXIDE,
     POLYESTER,          // PET
     POLYPROPYLENE,      // PP
-    POLYCARBONATE,      // PC
-    POLYSTYRENE,        // PS
+    POLYCARBONATE,      // PC; legacy/EOL (industry sells replacement series)
+    POLYSTYRENE,        // PS; legacy/EOL (no active production)
     PEN,                // Polyethylene Naphthalate
     MICA,
     EDLC,               // Electric Double Layer (Supercap, special: acts as type, not classical dielectric)
@@ -74,7 +75,7 @@ recipe CAP
     require = [
         electrical = [
             capacitance = Capacitance, desc: "rated capacitance"
-            voltage     = Voltage, desc: "rated voltage"
+            voltage     = Voltage, desc: "rated voltage (DC; category / surge / AC faces have their own option columns)"
             tolerance   = Ratio, desc: "capacitance tolerance class"
             polarized   = Flag, desc: "polarity face for DRC/BOM (polarized parts land the anode on the first-named node)"
         ]
@@ -84,17 +85,26 @@ recipe CAP
         build = [
             dielectric   = Words, desc: "dielectric class (MLCC temperature codes, oxide/film/special; EDLC doubles as construction by convention)"
             construction = Words, desc: "construction class (MLCC, DISC_CERAMIC, FILM, WET_ALUMINUM, POLYMER_ALUMINUM, ...)"
+            temp_coeff   = Words, desc: "temperature coefficient code (class 1: C0G 0±30 ppm/°C, mica letter codes F/E/C; class 2 codes ride the dielectric word)"
         ]
         engineering = [
-            esr           = Resistance, desc: "equivalent series resistance"
-            ripple_rated  = Current, desc: "rated ripple current"
-            temp_min      = Temperature, desc: "operating temperature low bound"
-            temp_max      = Temperature, desc: "operating temperature high bound"
-            life_hours    = Time, desc: "rated life at rated conditions"
-            safety_class  = Words, desc: "EMI safety class (X1/X2/Y1/Y2)"
-            certification = Words, desc: "safety agency certification (UL / ENEC etc.)"
-            rohs          = Flag, desc: "RoHS conformity"
-            derating_note = Words, desc: "derating guidance note"
+            esr              = Resistance, desc: "equivalent series resistance (ohms; measurement condition goes on a fill row, e.g. @100 kHz)"
+            tan_delta        = Ratio, desc: "dissipation factor tanδ (Q = 1/tanδ; condition = fill row, e.g. @1 kHz)"
+            leakage          = Current, desc: "leakage current at rated voltage (DCL; EDLC leakage)"
+            insulation_res   = Resistance, desc: "insulation resistance (the per-capacitance MΩ·µF form reads as a time constant)"
+            ripple_rated     = Current, desc: "rated ripple current (at stated frequency/temperature; EDLC reads continuous/peak current)"
+            temp_min         = Temperature, desc: "operating temperature low bound"
+            temp_max         = Temperature, desc: "operating temperature high bound"
+            life_hours       = Time, desc: "rated life (endurance) at rated conditions"
+            shelf_life       = Time, desc: "shelf life at upper category temperature (aluminum electrolytics)"
+            cycle_life       = Ratio, desc: "rated charge/discharge cycles (EDLC)"
+            voltage_category = Voltage, desc: "category voltage at upper category temperature (polar electrolytics: e.g. 2/3 of rated at 125 °C)"
+            voltage_surge    = Voltage, desc: "surge voltage, non-repetitive (typically 1.15× rated)"
+            voltage_ac       = Voltage, desc: "AC voltage class rating (safety X/Y caps, film AC face)"
+            safety_class     = Words, desc: "EMI safety class (X1/X2/Y1/Y2)"
+            certification    = Words, desc: "safety agency certification (UL / ENEC etc.)"
+            rohs             = Flag, desc: "RoHS conformity"
+            derating_note    = Words, desc: "derating guidance note"
         ]
     ]
 
@@ -133,11 +143,20 @@ component CAP(
         dielectric = diel
         construction = cons
         polarized = false       // unified polarity flag for DRC/BOM
+        temp_coeff = _
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = _
         safety_class = SC_NONE
         rohs = _                // RoHS / RoHS-exempt
         derating_note = _       // derating guidance note
@@ -169,11 +188,20 @@ component CAP.ELEC(
         dielectric = ALUMINUM_OXIDE
         construction = _        // wet vs polymer: BOM-stage decision
         polarized = true
+        temp_coeff = _
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = _
         safety_class = SC_NONE
         rohs = _
         derating_note = _
@@ -206,11 +234,20 @@ component CAP.MLCC(
         dielectric = diel
         construction = MLCC
         polarized = false
+        temp_coeff = _
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = _
         safety_class = SC_NONE
         rohs = _
         derating_note = _
@@ -243,11 +280,20 @@ component CAP.DISC(
         dielectric = diel
         construction = DISC_CERAMIC
         polarized = false
+        temp_coeff = _
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = _
         safety_class = SC_NONE
         rohs = _
         derating_note = _
@@ -280,11 +326,20 @@ component CAP.TANT(
         dielectric = TANTALUM_PENTOXIDE
         construction = _        // wet vs polymer: BOM-stage decision
         polarized = true
+        temp_coeff = _
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = _
         safety_class = SC_NONE
         rohs = _
         derating_note = _
@@ -316,11 +371,20 @@ component CAP.NIOB(
         dielectric = NIOBIUM_PENTOXIDE
         construction = NIOBIUM
         polarized = true
+        temp_coeff = _
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = _
         safety_class = SC_NONE
         rohs = _
         derating_note = _
@@ -353,11 +417,20 @@ component CAP.FILM(
         dielectric = diel
         construction = FILM
         polarized = false
+        temp_coeff = _
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = _
         safety_class = SC_NONE
         rohs = _
         derating_note = _
@@ -389,11 +462,20 @@ component CAP.MICA(
         dielectric = MICA
         construction = MICA
         polarized = false
+        temp_coeff = _          // mica letter codes: F / E / C (ppm/°C)
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = _
         safety_class = SC_NONE
         rohs = _
         derating_note = _
@@ -422,16 +504,25 @@ component CAP.SAFETY(
 
     spec = [
         capacitance = cap
-        voltage = volt
+        voltage = volt          // the volt formal is the AC RMS rating here
         tolerance = tol
         dielectric = diel
         construction = FILM
         polarized = false
+        temp_coeff = _
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = volt       // AC class face: 275/305 VAC class spelling
         safety_class = cls
         certification = _       // UL / ENEC etc.
         rohs = _
@@ -465,11 +556,20 @@ component CAP.SC(
         dielectric = EDLC
         construction = EDLC
         polarized = true
+        temp_coeff = _
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _          // EDLC face: charge/discharge cycle rating
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = _
         safety_class = SC_NONE
         rohs = _
         derating_note = _
@@ -501,11 +601,20 @@ component CAP.TRIM(
         dielectric = _
         construction = _
         polarized = false
+        temp_coeff = _
         esr = _
+        tan_delta = _
+        leakage = _
+        insulation_res = _
         ripple_rated = _
         temp_min = _
         temp_max = _
         life_hours = _
+        shelf_life = _
+        cycle_life = _
+        voltage_category = _
+        voltage_surge = _
+        voltage_ac = _
         safety_class = SC_NONE
         rohs = _
         derating_note = _
