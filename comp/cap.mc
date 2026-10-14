@@ -485,11 +485,20 @@ component CAP.TRIM(
 
 // Usage Examples:
 // The family decouple method is back as the CAP_DECOUPLE recipe (one body,
-// adopted by all 11 classes). Two spellings, same netlist:
+// adopted by all 11 classes). Two spellings, EQUIVALENT IN NETLIST ONLY:
 //   lane form   — io33 => CAP(100nF, 50V, ±10%, X7R).Cap(_) -> [vcc, gnd]
 //                 (entry pair feeds the `_` slot; one cap across the pair,
 //                 tail zip-ties the pair to the rails — one drawing unit)
-//   infix chain — plain series, the lane form's byte-identical expansion.
+//   infix chain — plain series, the lane form's netlist-level expansion.
+// THE SEMANTICS ARE NOT EQUIVALENT (semantic-encapsulation axioms A4/S7):
+// the lane form carries the trunk semantics down to viz, simulation and
+// statistics reconciliation; the infix form is plain wiring — skipped, and
+// behavior ERC ("every supply-domain entry shall have decoupling") can only
+// anchor on the named form. Decoupling/bypass caps are ALWAYS lane form.
+// Multi-stage trunks read strictly left to right — each stage's recipe eats
+// the current port pair, its returned pair feeds the next stage via `->`;
+// chaining two caps on one `=>` hop is the SAME stage (different semantics):
+//   [PWR, GND] => CAP(10uF,16V).Cap(_) -> [this.VIN, this.GND] => CAP(100nF,16V).Cap(_)
 // Scalar spellings are honest errors now: Cap(vdd) = E4180 (width), bare _
 // without a `=>` prefix = E4176. Polarized parts land `\+` (pin 1) on the
 // first-named node in both spellings.
