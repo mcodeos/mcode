@@ -64,13 +64,7 @@ enum CAP
 // per-lane.
 recipe CAP
 {
-    name = "CAP family container recipe"
     version = "1.0.0"
-
-    // Topology-promise tag (the behavior vocabulary's machine face): the
-    // lane form's decouple entry. The 6036 named face reads this tag on the
-    // resolved recipe def - the gate asks the tag, never the recipe name.
-    behavior = "decouple_entry"
 
     // Two-terminal entry pair. No candidate iface in mcode.ifs yet (the
     // passive two-terminal face is open) - bare row plus the pending
@@ -529,9 +523,8 @@ component CAP.TRIM(
 //   infix chain — plain series, the lane form's netlist-level expansion.
 // THE SEMANTICS ARE NOT EQUIVALENT (semantic-encapsulation axioms A4/S7):
 // the lane form carries the trunk semantics down to viz, simulation and
-// statistics reconciliation; the infix form is plain wiring — skipped, and
-// behavior ERC ("every supply-domain entry shall have decoupling") can only
-// anchor on the named form. Decoupling/bypass caps are ALWAYS lane form.
+// statistics reconciliation; the infix form is plain wiring — skipped.
+// Decoupling/bypass caps are ALWAYS lane form.
 // Multi-stage trunks read strictly left to right — each stage's recipe eats
 // the current port pair, its returned pair feeds the next stage via `->`;
 // chaining two caps on one `=>` hop is the SAME stage (different semantics):
