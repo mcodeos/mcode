@@ -51,13 +51,19 @@ component LDO(volt::UV.VOLT, curr::UV.AMP, vdrop::UV.VOLT, iq::UV.AMP)
 
 // In-code regression: static claim rows over the specimen numbers
 // (bench / case / claim host at top level; threat only inside a case body).
-bench ldo_static {
-    case dc {
-        claim at voltage { value: 3.3V, tolerance: ±0.4% }
-        claim under dropout { max: 178mV }
-        claim under quiescent { max: 1.6uA }
-    }
-}
+// Gated again: these rows spelled the pre-registry experimental vocabulary
+// (`at` / `under` as verbs); the closed statistic registry landed since and
+// case claims are now judged, so they read as unknown verbs. They return
+// spelled in the registry's own vocabulary — which has no bare-ceiling verb
+// yet (`pk`/`drop`/`pp` all demand a second key), so the rows wait rather
+// than masquerade.
+// bench ldo_static {
+//     case dc {
+//         claim at voltage { value: 3.3V, tolerance: ±0.4% }
+//         claim under dropout { max: 178mV }
+//         claim under quiescent { max: 1.6uA }
+//     }
+// }
 
 // L3 bench (excitation needed; startup numbers illustrative) — gated until
 // the L3 scenario batch:
