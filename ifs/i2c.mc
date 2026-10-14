@@ -16,10 +16,10 @@ interface I2C(role)
 {
     topology = "multi-point"
     mode = ["half duplex"]
-    maxdistance = 10m
-    maxspeed = [100kbps@10m, 400kbps@2m, 5Mbps@1m]
-    voltage = [1.8V,3.3V,5V]
-    pullup = 1kΩ ~ 10kΩ
+
+    // Electrical contract data (bus envelope: distance/speed caps, supply
+    // tiers, pullup convention) rides the I2C.ELEC recipe face (302 3.2);
+    // this definition carries structure only.
 
     // @drive(od): the I2C bus is open-drain with external pullups — every
     // node releases the line by driving high. A push-pull driver states

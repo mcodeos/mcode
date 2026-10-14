@@ -23,8 +23,10 @@ interface RST(role)
 {
     topology = "point to point"
     mode = ["input", "output"]
-    maxdistance = 0.5m
-    voltage = [1.8V, 3.3V, 5V]
+
+    // Electrical contract data (bus envelope: distance/speed caps, supply
+    // tiers) rides the RST.ELEC recipe face (302 3.2); this definition
+    // carries structure only.
 
     // ERC anchors on these roles: overshoot is checked by the
     // exclusive-peer/role-peer/connection-time trio (the exact-one bound

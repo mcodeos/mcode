@@ -18,9 +18,10 @@ interface SPI(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 10m
-    maxspeed = [10Mbps@10m, 25Mbps@2m, 50Mbps@1m]
-    voltage = [1.8V,3.3V,5V]
+
+    // Electrical contract data (bus envelope: distance/speed caps, supply
+    // tiers) rides the SPI.ELEC recipe face (302 3.2); this definition
+    // carries structure only.
 
     // Role tables declare each role's wiring order: ordinal k on the two
     // sides is the SAME wire, so the data pair crosses by position

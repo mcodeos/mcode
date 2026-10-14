@@ -16,9 +16,10 @@ interface GPIO(role)
 {
     topology = "point to point"
     mode = ["input", "output", "bidirectional"]
-    maxdistance = 0.1m
-    maxspeed = [100MHz]
-    voltage = [1.8V,3.3V,5V]
+
+    // Electrical contract data (bus envelope: distance/speed caps, supply
+    // tiers) rides the GPIO.ELEC recipe face (302 3.2); this definition
+    // carries structure only.
 
     // Member row electrical nature: a general-purpose GPIO pin is
     // push-pull by default; a device that drives a GPIO line open-drain

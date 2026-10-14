@@ -19,11 +19,10 @@ interface UART.TTL(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 15m
-    maxspeed = [9.6kbps@15m, 115.2kbps@5m, 1Mbps@1m]
-    voltage = [1.8V,3.3V,5V]
-    receiver = ["0V ~ 1.8V", "0V ~ 3.3V", "0V ~ 5V"]
-    output = ["0V ~ 1.8V", "0V ~ 3.3V", "0V ~ 5V"]
+
+    // Electrical contract data (bus envelope: distance/speed caps, supply
+    // tiers, receiver/output level windows) rides the UART.TTL.ELEC recipe
+    // face (302 3.2); this definition carries structure only.
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     //. Mediated devices and module ports bind
