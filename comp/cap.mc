@@ -64,7 +64,6 @@ enum CAP
 // per-lane.
 recipe CAP
 {
-    version = "1.0.0"
 
     // Two-terminal entry pair. No candidate iface in mcode.ifs yet (the
     // passive two-terminal face is open) - bare row plus the pending
