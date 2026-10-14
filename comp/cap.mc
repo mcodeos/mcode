@@ -48,19 +48,57 @@ enum CAP
     SC_Y2
 }
 
-// CAP_DECOUPLE - Shared Decouple Recipe for the CAP Family
-// One decouple method serves every CAP class. The formal names the entry
-// pair's roles ([hot, ret]); the flat single-statement body keeps the decouple
-// entry one drawing unit and lands polarized `\+` (pin 1) on the first-named
-// node automatically. The column-vector return is load-bearing: it reads as
-// the bridge (one cap across the entry pair); an implicit `return this` row
-// face would read per-lane.
-recipe CAP_DECOUPLE
+// CAP - the CAP family container recipe (capability-interface-model middle
+// container, one per family). Three loadings (340 s0.2): the io entry face,
+// the answer sheet (require/option shape only - the recipe never carries
+// values; ideal values live in the component bodies below via ctor/spec
+// defaults, actual values are filled by engineering parts from their
+// datasheets), and the wiring funcs. Adoption: `:: CAP`.
+// The formal names the entry pair's roles ([hot, ret]); the flat
+// single-statement body keeps the decouple entry one drawing unit and lands
+// a polarized part's anode (hot, pad 1) on the first-named node
+// automatically - the polarity ERC reads the spec flag plus the exposed
+// entry pair, the pad faces name no polarity word. The
+// column-vector return is load-bearing: it reads as the bridge (one cap
+// across the entry pair); an implicit `return this` row face would read
+// per-lane.
+recipe CAP
 {
-    // Behavior tag (registry book 302 3.5): this recipe's funcs materialize
-    // a decoupling entry across the declared pair - the ERC 6036
-    // satisfaction face asks this tag, never the recipe name.
-    behavior = "decouple_entry"
+    name = "CAP family container recipe"
+    version = "1.0.0"
+
+    // Two-terminal entry pair. No candidate iface in mcode.ifs yet (the
+    // passive two-terminal face is open) - bare row plus the pending
+    // account row, the settled transition form.
+    io TERM{hot, ret}
+    pending = "TERM{hot, ret}: no candidate iface in mcode.ifs yet (passive two-terminal entry face open)"
+
+    require = [
+        electrical = [
+            capacitance = Capacitance, desc: "rated capacitance"
+            voltage     = Voltage, desc: "rated voltage"
+            tolerance   = Ratio, desc: "capacitance tolerance class"
+            polarized   = Flag, desc: "polarity face for DRC/BOM (polarized parts land the anode on the first-named node)"
+        ]
+    ]
+
+    option = [
+        build = [
+            dielectric   = Words, desc: "dielectric class (MLCC temperature codes, oxide/film/special; EDLC doubles as construction by convention)"
+            construction = Words, desc: "construction class (MLCC, DISC_CERAMIC, FILM, WET_ALUMINUM, POLYMER_ALUMINUM, ...)"
+        ]
+        engineering = [
+            esr           = Resistance, desc: "equivalent series resistance"
+            ripple_rated  = Current, desc: "rated ripple current"
+            temp_min      = Temperature, desc: "operating temperature low bound"
+            temp_max      = Temperature, desc: "operating temperature high bound"
+            life_hours    = Time, desc: "rated life at rated conditions"
+            safety_class  = Words, desc: "EMI safety class (X1/X2/Y1/Y2)"
+            certification = Words, desc: "safety agency certification (UL / ENEC etc.)"
+            rohs          = Flag, desc: "RoHS conformity"
+            derating_note = Words, desc: "derating guidance note"
+        ]
+    ]
 
     func Cap([hot, ret])
     {
@@ -81,14 +119,13 @@ component CAP(
 
     diel = CAP.X7R,
     cons = CAP.MLCC
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "Capacitor"
     description = "General Capacitor"
 
     pins = [
-        1 = 1
-        2 = 2
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -118,14 +155,13 @@ component CAP.ELEC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "Electrolytic Capacitor"
     description = "Polarized aluminum electrolytic / polymer aluminum capacitor"
 
     pins = [
-        1 = \+ | ANODE, "Anode"
-        2 = \- | CATHODE, "Cathode"
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -156,14 +192,13 @@ component CAP.MLCC(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.X7R
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "MLCC Capacitor"
     description = "Multilayer Ceramic Capacitor (MLCC), non-polarized"
 
     pins = [
-        1 = 1, "Term 1"
-        2 = 2, "Term 2"
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -194,14 +229,13 @@ component CAP.DISC(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.C0G
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "Disc Ceramic Capacitor"
     description = "Non-MLCC disk ceramic capacitor; common high-voltage low-cost"
 
     pins = [
-        1 = 1, "Term 1"
-        2 = 2, "Term 2"
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -232,14 +266,13 @@ component CAP.TANT(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "Tantalum Capacitor"
     description = "Polarized tantalum / polymer tantalum capacitor"
 
     pins = [
-        1 = \+ , "Anode"
-        2 = \- , "Cathode"
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -269,14 +302,13 @@ component CAP.NIOB(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "Niobium Capacitor"
     description = "Polarized niobium pentoxide capacitor"
 
     pins = [
-        1 = \+ , "Anode"
-        2 = \- , "Cathode"
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -307,14 +339,13 @@ component CAP.FILM(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.POLYPROPYLENE
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "Film Capacitor"
     description = "Non-polarized film capacitor (PP/PET/PC/PS/PEN)"
 
     pins = [
-        1 = 1, "Term 1"
-        2 = 2, "Term 2"
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -344,14 +375,13 @@ component CAP.MICA(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "Mica Capacitor"
     description = "Mica dielectric capacitor, high stability / high frequency"
 
     pins = [
-        1 = 1, "Term 1"
-        2 = 2, "Term 2"
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -383,14 +413,13 @@ component CAP.SAFETY(
     tol::UV.PERCENT,
     diel = CAP.POLYPROPYLENE,
     cls = CAP.SC_X2
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "Safety Capacitor X/Y"
     description = "EMI safety capacitor (X1/X2 / Y1/Y2); volt = AC RMS rating"
 
     pins = [
-        1 = 1, "Term 1"
-        2 = 2, "Term 2"
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -422,14 +451,13 @@ component CAP.SC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "Supercapacitor / EDLC"
     description = "Electric Double Layer Capacitor, polarized"
 
     pins = [
-        1 = \+ , "Anode"
-        2 = \- , "Cathode"
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -459,14 +487,13 @@ component CAP.TRIM(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP_DECOUPLE
+) :: CAP
 {
     name = "Trimmer Capacitor"
     description = "Adjustable trimmer / variable capacitor; cap = nominal/max capacitance"
 
     pins = [
-        1 = 1, "Term 1"
-        2 = 2, "Term 2"
+        io [1, 2] = TERM{hot, ret}
     ]
 
     spec = [
@@ -489,7 +516,7 @@ component CAP.TRIM(
 }
 
 // Usage Examples:
-// The family decouple method is back as the CAP_DECOUPLE recipe (one body,
+// The family decouple method rides the CAP family container recipe (one body,
 // adopted by all 11 classes). Two spellings, EQUIVALENT IN NETLIST ONLY:
 //   lane form   — io33 => CAP(100nF, 50V, ±10%, X7R).Cap(_) -> [vcc, gnd]
 //                 (entry pair feeds the `_` slot; one cap across the pair,
@@ -505,8 +532,8 @@ component CAP.TRIM(
 // chaining two caps on one `=>` hop is the SAME stage (different semantics):
 //   [PWR, GND] => CAP(10uF,16V).Cap(_) -> [this.VIN, this.GND] => CAP(100nF,16V).Cap(_)
 // Scalar spellings are honest errors now: Cap(vdd) = E4180 (width), bare _
-// without a `=>` prefix = E4176. Polarized parts land `\+` (pin 1) on the
-// first-named node in both spellings.
+// without a `=>` prefix = E4176. Polarized parts land their anode (hot,
+// pad 1) on the first-named node in both spellings.
 // vcc - CAP.MLCC(100nF, 50V, ±10%, X7R) - gnd
 // line - CAP.DISC(1000pF, 1kV, ±10%, C0G) - gnd
 // vcc - CAP.ELEC(100μF, 16V, ±10%) - gnd
