@@ -15,11 +15,11 @@ interface CAN(role)
 {
     topology = "multi-point"
     mode = ["half duplex"]
-    maxdistance = 10km
-    maxspeed = [10kbps@10km, 125kbps@500m, 1Mbps@40m]
-    voltage = 5V
-    receiver = ±5V
-    output = ±5V
+
+    // Electrical contract data (bus rate tiers, common-mode window,
+    // differential input/output windows, receiver thresholds) rides the
+    // CAN.ELEC recipe face (302 3.2); this definition carries structure
+    // only.
 
     // The two rows tagged @pair(can) are the two legs of one differential
     // signal; the H/L spellings are the naming convention. The dominant state
@@ -57,9 +57,10 @@ interface CAN.TTL(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 0.5m
-    maxspeed = [1Mbps@0.5m, 500kbps@1m]
-    voltage = [3.3V, 5V]
+
+    // Electrical contract data (link rate tiers, logic level windows)
+    // rides the CAN.TTL.ELEC recipe face (302 3.2); this definition
+    // carries structure only.
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     pins = [
