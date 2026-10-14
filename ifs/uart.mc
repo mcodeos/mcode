@@ -588,11 +588,13 @@ interface UART.TTL.4(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 15m
-    maxspeed = [9.6kbps@15m, 115.2kbps@5m, 1Mbps@1m]
-    voltage = [1.8V,3.3V,5V]
-    receiver = ["0V ~ 1.8V", "0V ~ 3.3V", "0V ~ 5V"]
-    output = ["0V ~ 1.8V", "0V ~ 3.3V", "0V ~ 5V"]
+
+    // Electrical contract data rides the UART.TTL.ELEC recipe face (302 3.2)
+    // — same electrical law as the UART.TTL base class (the variant ruling),
+    // the member adds RTS/CTS flow-control wires only. The cable-length tier
+    // and its speed derating retired with the interface param gate; the
+    // supply tier is a per-part face (DC.SINK); this definition carries
+    // structure only.
 
     // Role-less conductor view: 4 anonymous lanes, ordinal = wire identity
     pins = [

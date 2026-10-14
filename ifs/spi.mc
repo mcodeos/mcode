@@ -73,9 +73,11 @@ interface SPI.3(role)
 {
     topology = "point to point"
     mode = ["half duplex"]  // Half duplex since using single data line
-    maxdistance = 10m
-    maxspeed = [10Mbps@10m, 25Mbps@2m, 50Mbps@1m]
-    voltage = [1.8V,3.3V,5V]
+
+    // Electrical contract data rides the SPI.ELEC recipe face (302 3.2) —
+    // same electrical law as the SPI base class (the variant ruling), only
+    // the conductor view differs. The cable-length tier retired with the
+    // interface param gate; this definition carries structure only.
 
     // Uses a single bidirectional data line instead of separate
     // MISO/MOSI.
@@ -119,9 +121,11 @@ interface SPI.QUAD(role)
 {
     topology = "point to point"
     mode = ["half duplex", "full duplex"]  // Dual/Quad modes
-    maxdistance = 0.1m  // PCB trace only
-    maxspeed = [133MHz@0.1m]  // Typical NOR flash interface speed
-    voltage = [1.8V, 3.3V]
+
+    // Electrical contract data rides the SPI.ELEC recipe face (302 3.2) —
+    // same electrical law as the SPI base class (the variant ruling), only
+    // the conductor view differs. The cable-length tier retired with the
+    // interface param gate; this definition carries structure only.
 
     pins = [
         1 = _CS @class(digital), "Chip Select"         // Slave select
@@ -175,9 +179,11 @@ interface SPI.WO(role)
 {
     topology = "point to point"
     mode = ["write-only"]  // The master writes; the slave has no data output
-    maxdistance = 10m
-    maxspeed = [10Mbps@10m, 25Mbps@2m, 50Mbps@1m]
-    voltage = [1.8V,3.3V,5V]
+
+    // Electrical contract data rides the SPI.ELEC recipe face (302 3.2) —
+    // same electrical law as the SPI base class (the variant ruling), only
+    // the conductor view differs. The cable-length tier retired with the
+    // interface param gate; this definition carries structure only.
 
     // Role-less conductor view: 3 anonymous
     // lanes, ordinal = wire identity. Wire 3 crosses SO <-> SI, so the view
