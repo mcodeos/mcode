@@ -67,6 +67,11 @@ recipe CAP
     name = "CAP family container recipe"
     version = "1.0.0"
 
+    // Topology-promise tag (the behavior vocabulary's machine face): the
+    // lane form's decouple entry. The 6036 named face reads this tag on the
+    // resolved recipe def - the gate asks the tag, never the recipe name.
+    behavior = "decouple_entry"
+
     // Two-terminal entry pair. No candidate iface in mcode.ifs yet (the
     // passive two-terminal face is open) - bare row plus the pending
     // account row, the settled transition form.
