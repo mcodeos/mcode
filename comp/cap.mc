@@ -57,6 +57,11 @@ enum CAP
 // face would read per-lane.
 recipe CAP_DECOUPLE
 {
+    // Behavior tag (registry book 302 3.5): this recipe's funcs materialize
+    // a decoupling entry across the declared pair - the ERC 6036
+    // satisfaction face asks this tag, never the recipe name.
+    behavior = "decouple_entry"
+
     func Cap([hot, ret])
     {
         hot - this - ret
