@@ -9,8 +9,5 @@
 pub use ./ifs/ifs.mc
 pub use ./conn/conn.mc
 
-// import metas (declarations only)
-pub use ./meta.mc
-
 // import files
 pub use ./comp/comp.mc

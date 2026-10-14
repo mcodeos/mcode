@@ -7,11 +7,6 @@
       "version": "0.0.0"
     },
     {
-      "name": "meta",
-      "path": "meta",
-      "version": "0.0.0"
-    },
-    {
       "name": "baseline",
       "path": "baseline",
       "version": "0.0.0"
