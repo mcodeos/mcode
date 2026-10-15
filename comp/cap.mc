@@ -66,11 +66,10 @@ enum CAP
 recipe CAP
 {
 
-    // Two-terminal entry pair. No candidate iface in mcode.ifs yet (the
-    // passive two-terminal face is open) - bare row plus the pending
-    // account row, the settled transition form.
+    // Two-terminal entry pair, adopted on the passive two-terminal face
+    // TERM: the pair spells [hot, ret] per the face's positional
+    // convention (pad 1 = the first-named node).
     io TERM{hot, ret}
-    pending = "TERM{hot, ret}: no candidate iface in mcode.ifs yet (passive two-terminal entry face open)"
 
     require = [
         electrical = [
@@ -143,23 +142,7 @@ component CAP(
         dielectric = diel
         construction = cons
         polarized = false       // unified polarity flag for DRC/BOM
-        temp_coeff = _
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = _
         safety_class = SC_NONE
-        rohs = _                // RoHS / RoHS-exempt
-        derating_note = _       // derating guidance note
     ]
 
 }
@@ -186,25 +169,8 @@ component CAP.ELEC(
         voltage = volt
         tolerance = tol
         dielectric = ALUMINUM_OXIDE
-        construction = _        // wet vs polymer: BOM-stage decision
-        polarized = true
-        temp_coeff = _
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = _
+        polarized = true        // construction (wet vs polymer) stays open at BOM stage
         safety_class = SC_NONE
-        rohs = _
-        derating_note = _
     ]
 
 }
@@ -234,23 +200,7 @@ component CAP.MLCC(
         dielectric = diel
         construction = MLCC
         polarized = false
-        temp_coeff = _
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = _
         safety_class = SC_NONE
-        rohs = _
-        derating_note = _
     ]
 
 }
@@ -280,23 +230,7 @@ component CAP.DISC(
         dielectric = diel
         construction = DISC_CERAMIC
         polarized = false
-        temp_coeff = _
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = _
         safety_class = SC_NONE
-        rohs = _
-        derating_note = _
     ]
 
 }
@@ -324,25 +258,8 @@ component CAP.TANT(
         voltage = volt
         tolerance = tol
         dielectric = TANTALUM_PENTOXIDE
-        construction = _        // wet vs polymer: BOM-stage decision
-        polarized = true
-        temp_coeff = _
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = _
+        polarized = true        // construction (wet vs polymer) stays open at BOM stage
         safety_class = SC_NONE
-        rohs = _
-        derating_note = _
     ]
 
 }
@@ -371,23 +288,7 @@ component CAP.NIOB(
         dielectric = NIOBIUM_PENTOXIDE
         construction = NIOBIUM
         polarized = true
-        temp_coeff = _
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = _
         safety_class = SC_NONE
-        rohs = _
-        derating_note = _
     ]
 
 }
@@ -417,23 +318,7 @@ component CAP.FILM(
         dielectric = diel
         construction = FILM
         polarized = false
-        temp_coeff = _
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = _
         safety_class = SC_NONE
-        rohs = _
-        derating_note = _
     ]
 
 }
@@ -462,23 +347,7 @@ component CAP.MICA(
         dielectric = MICA
         construction = MICA
         polarized = false
-        temp_coeff = _          // mica letter codes: F / E / C (ppm/°C)
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = _
         safety_class = SC_NONE
-        rohs = _
-        derating_note = _
     ]
 
 }
@@ -509,24 +378,8 @@ component CAP.SAFETY(
         dielectric = diel
         construction = FILM
         polarized = false
-        temp_coeff = _
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = volt       // AC class face: 275/305 VAC class spelling
+        voltage_ac = volt       // AC class face rides its own column
         safety_class = cls
-        certification = _       // UL / ENEC etc.
-        rohs = _
-        derating_note = _
     ]
 
 }
@@ -556,23 +409,7 @@ component CAP.SC(
         dielectric = EDLC
         construction = EDLC
         polarized = true
-        temp_coeff = _
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _          // EDLC face: charge/discharge cycle rating
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = _
         safety_class = SC_NONE
-        rohs = _
-        derating_note = _
     ]
 
 }
@@ -598,26 +435,8 @@ component CAP.TRIM(
         capacitance = cap
         voltage = volt
         tolerance = tol
-        dielectric = _
-        construction = _
-        polarized = false
-        temp_coeff = _
-        esr = _
-        tan_delta = _
-        leakage = _
-        insulation_res = _
-        ripple_rated = _
-        temp_min = _
-        temp_max = _
-        life_hours = _
-        shelf_life = _
-        cycle_life = _
-        voltage_category = _
-        voltage_surge = _
-        voltage_ac = _
+        polarized = false       // dielectric/construction stay open at BOM stage
         safety_class = SC_NONE
-        rohs = _
-        derating_note = _
     ]
 
 }
