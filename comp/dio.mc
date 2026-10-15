@@ -32,6 +32,7 @@ recipe DIO
             reverse_leakage = Current, desc: "reverse leakage current IR at the rated reverse voltage"
             junction_cap    = Capacitance, desc: "junction capacitance Cj at the stated bias (fill row, e.g. @0V, 1 MHz)"
             recovery_time   = Time, desc: "reverse recovery time trr (switching face)"
+            surge_current   = Current, desc: "non-repetitive peak surge current IFSM (8.3 ms half sine)"
         ]
     ]
 
@@ -51,20 +52,21 @@ recipe DIO.CLAMP
 
     require = [
         clamp = [
-            breakdown_voltage = Voltage, desc: "breakdown voltage (VZ at the test current for regulators; VBR for TVS; the working standoff for ESD steer classes)"
+            breakdown_voltage = Voltage, desc: "breakdown voltage (VZ at the test current for regulators; VBR at the test current for TVS/ESD)"
             polarized         = Flag, desc: "polarity fact for DRC/BOM (true for every class here)"
         ]
     ]
     option = [
         clamp = [
+            working_standoff = Voltage, desc: "reverse working standoff voltage VRWM/VWM (continuous operating voltage; the part-number voltage for TVS/ESD classes)"
             forward_voltage  = Voltage, desc: "forward voltage VF (conduction face)"
             reverse_leakage  = Current, desc: "reverse leakage IR below breakdown"
-            rated_current    = Current, desc: "steady-state forward current rating"
             clamping_voltage = Voltage, desc: "clamping voltage VC at the peak pulse current (TVS)"
             power_rated      = Power, desc: "steady-state dissipation rating (regulator face)"
             peak_power       = Power, desc: "peak pulse power rating (transient / ESD face)"
             tolerance        = Ratio, desc: "breakdown voltage tolerance grade (zener)"
             esd_rating       = Voltage, desc: "ESD withstand class voltage (IEC 61000-4-2 face)"
+            junction_cap     = Capacitance, desc: "junction capacitance Cj at the stated bias (line-loading face on protected nets)"
         ]
     ]
 
@@ -91,8 +93,9 @@ recipe DIO.PHOTO
     ]
     option = [
         optical = [
-            spectral_range = Length, desc: "spectral response range (wavelength bounds)"
-            junction_cap   = Capacitance, desc: "junction capacitance at the stated reverse bias (bandwidth face)"
+            spectral_range  = Length, desc: "spectral response range (wavelength bounds)"
+            peak_wavelength = Length, desc: "peak sensitivity wavelength (photosensitivity maximum)"
+            junction_cap    = Capacitance, desc: "junction capacitance at the stated reverse bias (bandwidth face)"
         ]
     ]
 
@@ -117,6 +120,12 @@ recipe DIO.BR
             polarized       = Flag, desc: "polarity fact for DRC/BOM (true; the DC+/DC- outputs carry the connectivity polarity)"
         ]
     ]
+    option = [
+        electrical = [
+            reverse_leakage = Current, desc: "reverse leakage current IR per element at the rated reverse voltage"
+            surge_current   = Current, desc: "non-repetitive peak surge current IFSM (8.3 ms half sine)"
+        ]
+    ]
 }
 
 // Multi-line ESD array: N signal lines steering to a common clamp
@@ -126,6 +135,12 @@ recipe DIO.ESD_ARRAY
     require = [
         clamp = [
             esd_rating = Voltage, desc: "ESD withstand class voltage (IEC 61000-4-2 face)"
+        ]
+    ]
+    option = [
+        clamp = [
+            working_standoff = Voltage, desc: "reverse working standoff voltage VRWM (the part-number voltage)"
+            junction_cap     = Capacitance, desc: "junction capacitance per line at the stated bias (line-loading face)"
         ]
     ]
 }
@@ -235,7 +250,7 @@ component DIO.ESD(
     ]
 
     spec = [
-        breakdown_voltage = rating
+        working_standoff = rating
         esd_rating = rating
         polarized = true
     ]
@@ -257,6 +272,7 @@ component DIO.ESD_ARRAY(
 
     spec = [
         esd_rating = rating
+        working_standoff = rating
     ]
 }
 
