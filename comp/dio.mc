@@ -30,9 +30,11 @@ recipe DIO
     option = [
         engineering = [
             reverse_leakage = Current, desc: "reverse leakage current IR at the rated reverse voltage"
-            junction_cap    = Capacitance, desc: "junction capacitance Cj at the stated bias (fill row, e.g. @0V, 1 MHz)"
+            junction_cap    = Capacitance, desc: "junction capacitance Cj/Ct/CD at the stated bias (fill row, e.g. @0V, 1 MHz)"
             recovery_time   = Time, desc: "reverse recovery time trr (switching face)"
             surge_current   = Current, desc: "non-repetitive peak surge current IFSM (8.3 ms half sine)"
+            peak_current    = Current, desc: "repetitive peak forward current IFRM (signal faces)"
+            power_rated     = Power, desc: "power dissipation rating PD (small-signal faces; power rectifiers state thermal resistance instead)"
         ]
     ]
 
@@ -63,10 +65,11 @@ recipe DIO.CLAMP
             reverse_leakage  = Current, desc: "reverse leakage IR below breakdown"
             clamping_voltage = Voltage, desc: "clamping voltage VC at the peak pulse current (TVS)"
             power_rated      = Power, desc: "steady-state dissipation rating (regulator face)"
-            peak_power       = Power, desc: "peak pulse power rating (transient / ESD face)"
+            peak_power       = Power, desc: "peak pulse power rating PPP/PPK/PPPM (transient / ESD face)"
             tolerance        = Ratio, desc: "breakdown voltage tolerance grade (zener)"
             esd_rating       = Voltage, desc: "ESD withstand class voltage (IEC 61000-4-2 face)"
-            junction_cap     = Capacitance, desc: "junction capacitance Cj at the stated bias (line-loading face on protected nets)"
+            peak_pulse_current = Current, desc: "peak pulse current IPP/IPPM at the clamping-voltage test condition"
+            junction_cap     = Capacitance, desc: "junction capacitance Cj/Ct/CD at the stated bias (line-loading face on protected nets)"
         ]
     ]
 
@@ -86,16 +89,21 @@ recipe DIO.PHOTO
 
     require = [
         optical = [
-            responsivity = Responsivity, desc: "generated current per incident power, at the stated wavelength"
-            dark_current = Current, desc: "leakage floor without illumination"
+            responsivity = Responsivity, desc: "generated current per incident power S (A/W), at the stated wavelength"
+            dark_current = Current, desc: "leakage floor without illumination ID/Iro"
             polarized    = Flag, desc: "polarity fact for DRC/BOM (true; reverse bias is the operating face)"
         ]
     ]
     option = [
         optical = [
-            spectral_range  = Length, desc: "spectral response range (wavelength bounds)"
-            peak_wavelength = Length, desc: "peak sensitivity wavelength (photosensitivity maximum)"
-            junction_cap    = Capacitance, desc: "junction capacitance at the stated reverse bias (bandwidth face)"
+            spectral_range        = Length, desc: "spectral response range (wavelength bounds; lambda / lambda0.1)"
+            peak_wavelength       = Length, desc: "peak sensitivity wavelength (photosensitivity maximum)"
+            junction_cap          = Capacitance, desc: "junction capacitance Cj/Ct/CD at the stated reverse bias (bandwidth face)"
+            short_circuit_current = Current, desc: "short-circuit photocurrent Isc/Ik at the stated illuminance (photovoltaic operating face)"
+            open_circuit_voltage  = Voltage, desc: "open-circuit photovoltage Vo at the stated irradiance (photovoltaic operating face)"
+            response_time         = Time, desc: "rise/fall time tr/tf at the stated load and wavelength"
+            shunt_resistance      = Resistance, desc: "shunt resistance Rsh at VR = 0 V (precision photometry face)"
+            half_angle            = Angle, desc: "angle of half sensitivity (radiation pattern face)"
         ]
     ]
 
