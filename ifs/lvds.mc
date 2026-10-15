@@ -14,9 +14,19 @@ interface LVDS(role)
 {
     topology = "point to point"
     mode = ["unidirectional"]
-    maxdistance = 0.5m
-    maxspeed = [400Mbps@0.5m, 1.6Gbps@0.1m]  // per pair, distance-limited
-    voltage = [1.8V, 2.5V, 3.3V]  // LVDS swing is ~350mV around this common-mode
+    // No interface electrical book: the LVDS standard contract (TIA/
+    // EIA-644 class -- differential swing 250~450 mV across the 100 ohm
+    // termination, driver offset centered on 1.2 V, receiver threshold
+    // margins plus/minus 100 mV) is already keyed at the recipe altitude
+    // in the IF.LVDS book's lvds group (v_od/v_os/v_th/r_term/z_l) --
+    // a second book on the same face would be the double book. The
+    // retired voltage row's classes (1.8/2.5/3.3 V) were the driver
+    // supply rails, not the signaling face -- the signaling is the
+    // ~350 mV swing on the 1.2 V offset, and the rails ride the DC
+    // faces. The retired distance row and the rate-at-distance spellings
+    // (400Mbps@0.5m, 1.6Gbps@0.1m) were board-routing folklore -- board
+    // practice coupled into the rows; the standard states electrical
+    // limits only.
 
     pins = [
         1 = CLK_P @pair(clk) @class(digital), "Differential clock positive"
