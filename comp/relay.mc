@@ -1,22 +1,56 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
+// RELAY container: the coil-driven contact family contract. Datasheet
+// evidence (5-sheet sample: SJ-M / Fujitsu A5W-K / Omron G3MB SSR /
+// Littelfuse SSR / HCR-5): every head is a full phrase (Nominal switching
+// capacity / NOMINAL COIL VOLTAGE / Contact ratings) with no symbol face -
+// columns stand on the model face. Coil resistance, pick-up/drop-out
+// voltages and operate times are extra corpus heads (305 candidate ledger).
+// Terminal faces stay on the classes (COIL bus / SSR ctrl-load / SET-RESET).
+
+recipe RELAY {
+    require = [
+        coil = [
+            coil_voltage = Voltage, desc: "nominal coil voltage (sheet heads: Nominal Voltage / NOMINAL COIL VOLTAGE - full phrase, no symbol face)"
+        ]
+        contact = [
+            contact_rating = Current, desc: "contact switching capacity, the current face (sheet heads: Nominal switching capacity / Max. switching current / Contact ratings)"
+        ]
+    ]
+}
+
+// RELAY.SSR container: the solid-state population - a control-side input
+// drives the electronic output switch; no coil (sheet head INPUT RATINGS /
+// OUTPUT RATINGS, full phrases).
+recipe RELAY.SSR {
+    require = [
+        input = [
+            control_voltage = Voltage, desc: "control-side input voltage (sheet head INPUT RATINGS Rated voltage / Operating voltage range)"
+        ]
+        output = [
+            load_voltage = Voltage, desc: "load-side voltage rating (sheet head Rated load voltage / Load voltage range)"
+            load_current = Current, desc: "load-side current rating (sheet head Load current; the surge face is a separate table row)"
+        ]
+    ]
+}
+
 // RELAY - Generic Relay Component Definition
 // Core Rule: coil-side energization (isolated barrier) magnetically switches
 // the contact side between COM-NO (open at rest) and COM-NC (closed at rest).
 
-component RELAY(icont::UV.AMP, vcoil::UV.VOLT)
-{
+component RELAY(icont::UV.AMP, vcoil::UV.VOLT) :: RELAY {
     name = "Relay"
     spec = [
         contact_rating = icont
-        coil_voltage = vcoil
+        coil_voltage   = vcoil
     ]
+
     pins = [
-        [1,2] = COIL{VCC,GND}::DC() @barrier(coil)
-        3 = NO @barrier(contact)
-        4 = COM @barrier(contact)
-        5 = NC @barrier(contact)
+        [1, 2] = COIL{VCC, GND}::DC() @barrier(coil)
+        3      = NO @barrier(contact)
+        4      = COM @barrier(contact)
+        5      = NC @barrier(contact)
     ]
 }
 
@@ -24,18 +58,18 @@ component RELAY(icont::UV.AMP, vcoil::UV.VOLT)
 // Core Rule: coil current creates the switching force; contacts spring back
 // to the rest position when the coil de-energizes.
 
-component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP)
-{
+component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
     name = "Electromagnetic Relay"
     spec = [
-        coil_voltage = vcoil
+        coil_voltage   = vcoil
         contact_rating = icont
     ]
+
     pins = [
-        [1,2] = COIL{VCC,GND}::DC() @barrier(coil)
-        3 = NO @barrier(contact)
-        4 = COM @barrier(contact)
-        5 = NC @barrier(contact)
+        [1, 2] = COIL{VCC, GND}::DC() @barrier(coil)
+        3      = NO @barrier(contact)
+        4      = COM @barrier(contact)
+        5      = NC @barrier(contact)
     ]
 }
 
@@ -43,14 +77,14 @@ component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP)
 // Core Rule: no moving parts and no coil — a control-side input drives an
 // electronic output switch across the isolation barrier.
 
-component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP)
-{
+component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP) :: RELAY.SSR {
     name = "Solid State Relay"
     spec = [
         control_voltage = vctrl
-        load_voltage = vload
-        load_current = iload
+        load_voltage    = vload
+        load_current    = iload
     ]
+
     pins = [
         1 = CTRL.VCC @barrier(ctrl)
         2 = CTRL.GND @barrier(ctrl)
@@ -63,17 +97,17 @@ component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP)
 // Core Rule: coil-driven reed contact, NO/COM only (no normally-closed
 // contact); low coil power, fast switching.
 
-component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP)
-{
+component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
     name = "Reed Relay"
     spec = [
-        coil_voltage = vcoil
+        coil_voltage   = vcoil
         contact_rating = icont
     ]
+
     pins = [
-        [1,2] = COIL{VCC,GND}::DC() @barrier(coil)
-        3 = NO @barrier(contact)
-        4 = COM @barrier(contact)
+        [1, 2] = COIL{VCC, GND}::DC() @barrier(coil)
+        3      = NO @barrier(contact)
+        4      = COM @barrier(contact)
     ]
 }
 
@@ -81,13 +115,13 @@ component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP)
 // Core Rule: two coils (set and reset); the contact state persists after the
 // pulse ends instead of springing back.
 
-component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP)
-{
+component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
     name = "Latching Relay"
     spec = [
-        coil_voltage = vcoil
+        coil_voltage   = vcoil
         contact_rating = icont
     ]
+
     pins = [
         1 = SET.VCC @barrier(set)
         2 = SET.GND @barrier(set)

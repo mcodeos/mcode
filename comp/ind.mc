@@ -6,6 +6,84 @@
 // only. rated_current is the thermal rating; sat_current is the saturation
 // current (power inductors only).
 
+// IND container: the wound-inductor family contract (general / SMD / THT /
+// power / HF populations). Datasheet evidence (7-sheet sample: Coilcraft
+// XAL / Mag Layers MMD / Sunltech SLO / Coilank ABG / Murata BLM18K / TDK
+// B82790 / Knowles A-series): Irms / Isat / DCR / Rdc / SRF all witnessed
+// as table symbols; inductance and tolerance heads are full words. The
+// operating-temperature heads are the range face (305) - temp_min/temp_max
+// stay unregistered.
+
+recipe IND {
+    require = [
+        electrical = [
+            inductance    = Inductance, desc: "rated inductance (sheet heads: Inductance (µH) / Inductance ±20% - full word, no symbol face)"
+            rated_current = Current, alias: [Irms], desc: "thermal current rating (sheet head Irms / Heat rating current, 20°C/40°C-rise classes)"
+            dcr           = Resistance, alias: [DCR, Rdc], desc: "DC winding resistance (sheet heads DCR (mΩ) / Rdc / DC Resistance)"
+            tolerance     = Ratio, desc: "inductance tolerance (letter codes M / Y / K are values, not symbols)"
+        ]
+    ]
+    option = [
+        build = [
+            construction  = Words, desc: "mount / construction class (SMD / THT; shielded-construction notes)"
+            temp_min      = Temperature, desc: "operating temperature low bound (sheet heads: Operating Temperature Range / Ambient temperature - range face, 305)"
+            temp_max      = Temperature, desc: "operating temperature high bound (see temp_min)"
+            rohs          = Flag, desc: "RoHS conformity"
+            derating_note = Words, desc: "derating guidance note"
+        ]
+        engineering = [
+            sat_current = Current, alias: [Isat], desc: "saturation current, the inductance-collapse limit (sheet head Isat / Saturation current; power population)"
+            srf         = Frequency, alias: [SRF], desc: "self-resonant frequency (sheet head SRF typ; HF population)"
+        ]
+    ]
+}
+
+// IND.FB container: the ferrite-bead population - lossy high-frequency
+// impedance specified at a test frequency, no inductance face (bead sheet
+// witness: Rated Current / DC Resistance / Impedance (at 100MHz)).
+recipe IND.FB {
+    require = [
+        electrical = [
+            impedance      = Resistance, desc: "lossy impedance at the stated test frequency (sheet head Impedance (at 100MHz/1GHz) - full word, no symbol face)"
+            rated_current  = Current, desc: "rated current (sheet head Rated Current - full phrase)"
+            test_frequency = Frequency, desc: "measurement frequency for the impedance value (sheet head Test frequency)"
+        ]
+    ]
+    option = [
+        build = [
+            construction  = Words, desc: "mount / construction class"
+            temp_min      = Temperature, desc: "operating temperature low bound (range face, 305)"
+            temp_max      = Temperature, desc: "operating temperature high bound"
+            rohs          = Flag, desc: "RoHS conformity"
+            derating_note = Words, desc: "derating guidance note"
+        ]
+    ]
+}
+
+// IND.CMC container: the common-mode-choke population - two windings on one
+// core (CMC sheets carry their own head family: LR / Lstray / IR / Rtyp;
+// the model keeps the two-winding contract faces).
+recipe IND.CMC {
+    require = [
+        electrical = [
+            inductance     = Inductance, desc: "winding inductance (CMC sheet head LR - full word face)"
+            rated_current  = Current, desc: "rated current (CMC sheet head IR (mA))"
+            impedance      = Resistance, desc: "common-mode impedance at the stated test frequency"
+            tolerance      = Ratio, desc: "inductance tolerance (letter codes are values, not symbols)"
+            test_frequency = Frequency, desc: "measurement frequency for the impedance value (sheet head Test frequency)"
+        ]
+    ]
+    option = [
+        build = [
+            construction  = Words, desc: "mount / construction class"
+            temp_min      = Temperature, desc: "operating temperature low bound (range face, 305)"
+            temp_max      = Temperature, desc: "operating temperature high bound"
+            rohs          = Flag, desc: "RoHS conformity"
+            derating_note = Words, desc: "derating guidance note"
+        ]
+    ]
+}
+
 // IND - Generic Two-Terminal Inductor Component Definition
 // Core Rule: V = L dI/dt between the terminals; carries the rated thermal
 // current and a DC winding resistance.
@@ -15,9 +93,8 @@ component IND(
     irated::UV.AMP,
     tol::UV.PERCENT,
     dcr::UV.OHM
-)
-{
-    name = "Inductor"
+) :: IND {
+    name        = "Inductor"
     description = "Generic two-terminal inductor"
 
     pins = [
@@ -26,14 +103,14 @@ component IND(
     ]
 
     spec = [
-        inductance = ind
+        inductance    = ind
         rated_current = irated
-        dcr = dcr
-        tolerance = tol
-        temp_min = _
-        temp_max = _
-        construction = _
-        rohs = _
+        dcr           = dcr
+        tolerance     = tol
+        temp_min      = _
+        temp_max      = _
+        construction  = _
+        rohs          = _
         derating_note = _
     ]
 }
@@ -47,9 +124,8 @@ component IND.SMD(
     irated::UV.AMP,
     tol::UV.PERCENT,
     dcr::UV.OHM
-)
-{
-    name = "SMD Inductor"
+) :: IND {
+    name        = "SMD Inductor"
     description = "Surface mount two-terminal inductor"
 
     pins = [
@@ -58,14 +134,14 @@ component IND.SMD(
     ]
 
     spec = [
-        inductance = ind
+        inductance    = ind
         rated_current = irated
-        dcr = dcr
-        tolerance = tol
-        temp_min = _
-        temp_max = _
-        construction = "SMD"
-        rohs = _
+        dcr           = dcr
+        tolerance     = tol
+        temp_min      = _
+        temp_max      = _
+        construction  = "SMD"
+        rohs          = _
         derating_note = _
     ]
 }
@@ -79,9 +155,8 @@ component IND.THT(
     irated::UV.AMP,
     tol::UV.PERCENT,
     dcr::UV.OHM
-)
-{
-    name = "Through Hole Inductor"
+) :: IND {
+    name        = "Through Hole Inductor"
     description = "Through-hole two-terminal inductor"
 
     pins = [
@@ -90,14 +165,14 @@ component IND.THT(
     ]
 
     spec = [
-        inductance = ind
+        inductance    = ind
         rated_current = irated
-        dcr = dcr
-        tolerance = tol
-        temp_min = _
-        temp_max = _
-        construction = "THT"
-        rohs = _
+        dcr           = dcr
+        tolerance     = tol
+        temp_min      = _
+        temp_max      = _
+        construction  = "THT"
+        rohs          = _
         derating_note = _
     ]
 }
@@ -112,9 +187,8 @@ component IND.POWER(
     isat::UV.AMP,
     tol::UV.PERCENT,
     dcr::UV.OHM
-)
-{
-    name = "Power Inductor"
+) :: IND {
+    name        = "Power Inductor"
     description = "Power inductor for DC-DC converters, with saturation current"
 
     pins = [
@@ -123,15 +197,15 @@ component IND.POWER(
     ]
 
     spec = [
-        inductance = ind
+        inductance    = ind
         rated_current = irated
-        sat_current = isat
-        dcr = dcr
-        tolerance = tol
-        temp_min = _
-        temp_max = _
-        construction = _
-        rohs = _
+        sat_current   = isat
+        dcr           = dcr
+        tolerance     = tol
+        temp_min      = _
+        temp_max      = _
+        construction  = _
+        rohs          = _
         derating_note = _
     ]
 }
@@ -146,9 +220,8 @@ component IND.HF(
     srf::UV.HZ,
     tol::UV.PERCENT,
     dcr::UV.OHM
-)
-{
-    name = "HF Inductor"
+) :: IND {
+    name        = "HF Inductor"
     description = "High-frequency / RF inductor with SRF"
 
     pins = [
@@ -157,15 +230,15 @@ component IND.HF(
     ]
 
     spec = [
-        inductance = ind
+        inductance    = ind
         rated_current = irated
-        srf = srf
-        dcr = dcr
-        tolerance = tol
-        temp_min = _
-        temp_max = _
-        construction = _
-        rohs = _
+        srf           = srf
+        dcr           = dcr
+        tolerance     = tol
+        temp_min      = _
+        temp_max      = _
+        construction  = _
+        rohs          = _
         derating_note = _
     ]
 }
@@ -178,9 +251,8 @@ component IND.FB(
     impd::UV.OHM,
     irated::UV.AMP,
     ftest::UV.HZ
-)
-{
-    name = "Ferrite Bead"
+) :: IND.FB {
+    name        = "Ferrite Bead"
     description = "Ferrite bead for high-frequency noise suppression"
 
     pins = [
@@ -189,14 +261,14 @@ component IND.FB(
     ]
 
     spec = [
-        impedance = impd
-        rated_current = irated
+        impedance      = impd
+        rated_current  = irated
         test_frequency = ftest
-        temp_min = _
-        temp_max = _
-        construction = _
-        rohs = _
-        derating_note = _
+        temp_min       = _
+        temp_max       = _
+        construction   = _
+        rohs           = _
+        derating_note  = _
     ]
 }
 
@@ -211,9 +283,8 @@ component IND.CMC(
     impd::UV.OHM,
     tol::UV.PERCENT,
     ftest::UV.HZ
-)
-{
-    name = "Common Mode Choke"
+) :: IND.CMC {
+    name        = "Common Mode Choke"
     description = "4-terminal common mode choke"
 
     pins = [
@@ -224,20 +295,19 @@ component IND.CMC(
     ]
 
     spec = [
-        inductance = ind
-        rated_current = irated
-        impedance = impd
-        tolerance = tol
+        inductance     = ind
+        rated_current  = irated
+        impedance      = impd
+        tolerance      = tol
         test_frequency = ftest
-        temp_min = _
-        temp_max = _
-        construction = _
-        rohs = _
-        derating_note = _
+        temp_min       = _
+        temp_max       = _
+        construction   = _
+        rohs           = _
+        derating_note  = _
     ]
 
-    func CommonModeSuppress(w1_in, w1_out, w2_in, w2_out)
-    {
+    func CommonModeSuppress(w1_in, w1_out, w2_in, w2_out) {
         w1_in - this{1}
         this{2} - w1_out
         w2_in - this{3}

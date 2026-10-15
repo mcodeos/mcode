@@ -1,18 +1,54 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
+// SWITCH container: the mechanical-switch family contract. Datasheet
+// evidence (3-sheet sample: Omron B3F tact / GANGYUAN tact / NKK GW slide):
+// no pin-count or pitch column exists in the corpus (part numbers carry the
+// variants); contact-form words (SPST-NO, Angle of Throw) witness the style
+// face; the electrical ratings heads (Rating (resistive load), Contact
+// resistance, Dielectric Strength) are extra corpus heads (305 candidate
+// ledger). The five no-parameter classes adopt this container as-is (option
+// faces only); the terminal faces stay on the classes.
+
+recipe SWITCH {
+    option = [
+        build = [
+            style = Words, desc: "contact form / actuator style (sheet heads: Contact form SPST-NO / Angle of Throw)"
+            mount = Words, desc: "mounting class (no corpus column witness - model face)"
+        ]
+    ]
+}
+
+// SWITCH.DIP container: the DIP-switch population - the total pin count is
+// the require face (the formal), pitch / style / mount are BOM faces. No
+// DIP-switch component sheet in the sampled corpus - columns stand on the
+// model face.
+recipe SWITCH.DIP {
+    require = [
+        build = [
+            pin_count = Count, desc: "total pin count (the formal; switch k joins pin k with pin pin_count+1-k)"
+        ]
+    ]
+    option = [
+        build = [
+            pitch = Length, desc: "pin pitch (2.54mm class)"
+            style = Words, desc: "slide / rotary actuation"
+            mount = Words, desc: "through-hole / surface-mount"
+        ]
+    ]
+}
+
 // SWITCH - Basic SPST Switch Component Definition
 // Core Rule: user-actuated open/close between COM and NO; no closed-at-rest
 // contact.
 
-component SWITCH
-{
-    name = "Basic Switch"
+component SWITCH :: SWITCH {
+    name        = "Basic Switch"
     description = "on/off switch with two terminals"
-    
+
     pins = [
         1 = COM, "Common terminal"
-        2 = NO , "Normally Open terminal"
+        2 = NO, "Normally Open terminal"
     ]
 }
 
@@ -20,16 +56,15 @@ component SWITCH
 // Core Rule: one actuation switches two independent poles (COM1-NO1,
 // COM2-NO2) together.
 
-component SWITCH.DOUBLE
-{
-    name = "Double Pole Switch"
+component SWITCH.DOUBLE :: SWITCH {
+    name        = "Double Pole Switch"
     description = "Double pole switch with four terminals"
-    
+
     pins = [
         1 = COM1, "Common terminal 1"
-        2 = NO1 , "Normally Open terminal 1"
+        2 = NO1, "Normally Open terminal 1"
         3 = COM2, "Common terminal 2"
-        4 = NO2 , "Normally Open terminal 2"
+        4 = NO2, "Normally Open terminal 2"
     ]
 }
 
@@ -37,43 +72,40 @@ component SWITCH.DOUBLE
 // Core Rule: the actuator selects which of NC / NO is connected to COM and
 // stays in that position without power.
 
-component SWITCH.TOGGLE
-{
-    name = "Toggle Switch"
+component SWITCH.TOGGLE :: SWITCH {
+    name        = "Toggle Switch"
     description = "Toggle switch with on/off positions"
-    
+
     pins = [
         1 = COM, "Common terminal"
-        2 = NO , "Normally Open terminal"
-        3 = NC , "Normally Closed terminal"
+        2 = NO, "Normally Open terminal"
+        3 = NC, "Normally Closed terminal"
     ]
 }
 
 // SWITCH.MOM - Momentary Switch Component Definition
 // Core Rule: contact closes only while actuated and opens on release.
 
-component SWITCH.MOM
-{
-    name = "Momentary Switch"
+component SWITCH.MOM :: SWITCH {
+    name        = "Momentary Switch"
     description = "Momentary push button switch"
 
     pins = [
         1 = COM, "Common terminal"
-        2 = NO , "Normally Open terminal"
+        2 = NO, "Normally Open terminal"
     ]
 }
 
 // SWITCH.BUTTON - Momentary Push Button Component Definition
 // Core Rule: momentary COM-NO closure while pressed (tact-switch style).
 
-component SWITCH.BUTTON
-{
-    name = "Momentary Push Button"
+component SWITCH.BUTTON :: SWITCH {
+    name        = "Momentary Push Button"
     description = "Momentary push button (tact switch) with common and normally-open terminals"
 
     pins = [
         1 = COM, "Common terminal"
-        2 = NO , "Normally Open terminal"
+        2 = NO, "Normally Open terminal"
     ]
 }
 
@@ -82,16 +114,14 @@ component SWITCH.BUTTON
 // Note: physical contact map — switch k joins pin k with pin (pin_count+1-k),
 // i.e. an 8-pin part shorts 1-8, 2-7, 3-6, 4-5 when closed.
 
-component SWITCH.DIP(pincnt::INT)
-{
-    name = "DIP Switch"
-    description = "DIP switch with " + pincnt + " pins, independent SPST slides"
-
-    spec = [
+component SWITCH.DIP(pincnt::INT) :: SWITCH.DIP {
+    name        = "DIP Switch"
+    description = "DIP switch with independent SPST slides (pin count on the spec face)"
+    spec        = [
         pin_count = pincnt
-        pitch = _ // [2.54mm]
-        style = _ // [slide, rotary]
-        mount = _ // [through-hole, surface-mount]
+        pitch     = _  // [2.54mm]
+        style     = _  // [slide, rotary]
+        mount     = _  // [through-hole, surface-mount]
     ]
 
     pins = [
