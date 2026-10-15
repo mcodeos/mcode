@@ -430,12 +430,14 @@ interface USB.C(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = [3m, 2m]  // Depending on speed
-    maxspeed = [5Gbps@3m, 10Gbps@2m]  // SuperSpeed and SuperSpeed+ (USB 3.1/3.2)
-    voltage = [5V, 9V, 12V, 15V, 20V]  // Power Delivery
-    current = [3A, 5A]  // Power Delivery
-    name = "USB Type C"
-    description = "Reversible USB Type C connector"
+
+    // Electrical contract data rides the recipe faces: the CC
+    // configuration-channel face rides USB.C.ELEC (302 3.2); the USB 2.0
+    // lane rides USB.ELEC and the SuperSpeed pairs stay open for the USB3
+    // leg; the VBUS power face rides the DC.ELEC / DC.SINK recipe faces
+    // (the CAN.ELEC supply-tier routing law). The cable-length tier
+    // retired with the interface param gate; this definition carries
+    // structure only.
     
     pins = [
         // Top row (A side)
@@ -469,14 +471,6 @@ interface USB.C(role)
         B10 = SSTX2\+ @pair(sstx2) @class(digital), "SuperSpeed TX2 Positive"  // SuperSpeed transmit pair 2 positive
         B11 = SSTX2\- @pair(sstx2) @class(digital), "SuperSpeed TX2 Negative"  // SuperSpeed transmit pair 2 negative
         B12 = GND, "Ground"           // Ground
-    ]
-    
-    // USB-C specific features
-    features = [
-        "Reversible plug orientation",
-        "Power Delivery (up to 100W)",
-        "Alternate Mode (other display protocols over the connector)",
-        "Dual Role Device (DRD) capability"
     ]
 
     role HOST {
