@@ -15,9 +15,19 @@ interface I2S(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 5m
-    maxspeed = [8Mbps@5m, 16Mbps@2m, 32Mbps@1m]
-    voltage = [1.8V,3.3V,5V]
+
+    // Corpus verdict (7 devices: WM8731/WM8960/ES8388/CS4344/INMP441/
+    // STM32F401 I2S peripheral/PCM1808): the retired rows carried no
+    // interface-level contract. Distance: zero witnesses corpus-wide
+    // (folklore). Speed: never stated as a distance function; the only
+    // figures are per-part (64xFs clocks, the STM32 42 MHz fMCK cap, the
+    // INMP441 3.2 MHz fSCK) - part spec faces. Voltage: no interface-level
+    // list exists - logic levels are quoted proportional to each chip's
+    // own supply (VIH 0.7xDBVDD / 0.7xIOVDD / 0.6xVA classes) and some
+    // carrying parts state no logic EC table at all (ES8388); supply
+    // windows ride the DC faces. No .ELEC book: zero all-sample keys
+    // exist on this face; the family recipe carries the pin-order law and
+    // the part spec faces carry the clocks.
 
     // Family pin-order law: control before data — clock, word select, then
     // the data lane (same principle as PCM's CLK, SYNC, IN, OUT).

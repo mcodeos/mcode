@@ -14,9 +14,17 @@ interface PCM(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 2m
-    maxspeed = [32Mbps@2m, 64Mbps@1m]
-    voltage = [1.8V,3.3V,5V]
+
+    // Corpus verdict (5 devices: TLV320AIC3104-Q1/TLV320AIC3204/CS42516/
+    // TLV320AIC1103/CS42518): the retired rows carried no interface-level
+    // contract. Distance: zero witnesses corpus-wide (folklore). Speed:
+    // rates are Fs multiples (32/64/128/256xFs) or the telecom 2.048 MHz
+    // PCMCLK - standard-derived or per-part, never a distance ladder;
+    // TDM is slot programmability (protocol face), not electrical.
+    // Voltage: logic levels are proportional to each chip's own rail
+    // (VIH 0.7xIOVDD / 0.7xVLS; the telecom part states VIH = VDD) -
+    // supply windows ride the DC faces. No .ELEC book: zero all-sample
+    // keys exist on this face.
 
     // Role-less conductor view: 5 named lanes, ordinal = wire identity
     // (every name is the same on both sides). No direction words here: the
