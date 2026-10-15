@@ -13,23 +13,22 @@ use ../ifs/dio
 // Recipes carry structure only; values live in ctor/spec defaults and at
 // the BOM layer.
 
-recipe DIO
-{
+recipe DIO {
     // Entry pair anchor; adopters bind [A, K]::DIO() (bare member names
     // render on the schematic).
     io DIO{A, K}
 
     require = [
         electrical = [
-            forward_voltage = Voltage, alias: [VF], desc: "forward voltage at the rated current"
+            forward_voltage = Voltage, alias: [VF, VFM], desc: "forward voltage at the rated current"
             reverse_voltage = Voltage, alias: [VRRM, VR], desc: "repetitive peak reverse voltage rating"
-            rated_current   = Current, desc: "average forward rectified current rating IF(AV)"
+            rated_current   = Current, alias: [IF(AV)], desc: "average forward rectified current rating (the IF(AV) spelling is the rectifier-family witness, registered per the paren-form clause of 305 law 3)"
             polarized       = Flag, desc: "polarity fact for DRC/BOM (true for every class here; the A/K entry names carry the connectivity polarity)"
         ]
     ]
     option = [
         engineering = [
-            reverse_leakage = Current, alias: [IR], desc: "reverse leakage current at the rated reverse voltage"
+            reverse_leakage = Current, alias: [IR, ID, IL], desc: "reverse leakage current at the rated reverse voltage"
             junction_cap    = Capacitance, alias: [Cj, Ct, CD], desc: "junction capacitance at the stated bias (fill row, e.g. @0V, 1 MHz)"
             recovery_time   = Time, alias: [trr], desc: "reverse recovery time (switching face)"
             surge_current   = Current, alias: [IFSM], desc: "non-repetitive peak surge current (8.3 ms half sine)"
@@ -39,8 +38,7 @@ recipe DIO
     ]
 
     // Series insertion, anode side first.
-    func Fwd([a, k])
-    {
+    func Fwd([a, k]) {
         a - this.A
         this.K - k
         return [a, k]
@@ -48,10 +46,8 @@ recipe DIO
 }
 
 // Reverse-breakdown clamp container.
-recipe DIO.CLAMP
-{
+recipe DIO.CLAMP {
     io DIO{A, K}
-
     require = [
         clamp = [
             breakdown_voltage = Voltage, alias: [VZ, VBR], desc: "breakdown voltage at the test current (zener: regulator operating point; TVS/ESD: rating face)"
@@ -60,22 +56,21 @@ recipe DIO.CLAMP
     ]
     option = [
         clamp = [
-            working_standoff = Voltage, alias: [VRWM, VWM], desc: "reverse working standoff voltage (continuous operating voltage; the part-number voltage for TVS/ESD classes)"
-            forward_voltage  = Voltage, alias: [VF], desc: "forward voltage (conduction face)"
-            reverse_leakage  = Current, alias: [IR], desc: "reverse leakage below breakdown"
-            clamping_voltage = Voltage, alias: [VC], desc: "clamping voltage at the peak pulse current (TVS)"
-            power_rated      = Power, alias: [PD], desc: "steady-state dissipation rating (regulator face)"
-            peak_power       = Power, alias: [PPP, PPK, PPPM], desc: "peak pulse power rating (transient / ESD face)"
-            tolerance        = Ratio, desc: "breakdown voltage tolerance grade (zener)"
-            esd_rating       = Voltage, desc: "ESD withstand class voltage (IEC 61000-4-2 face)"
+            working_standoff   = Voltage, alias: [VRWM, VWM], desc: "reverse working standoff voltage (continuous operating voltage; the part-number voltage for TVS/ESD classes)"
+            forward_voltage    = Voltage, alias: [VF, VFM], desc: "forward voltage (conduction face)"
+            reverse_leakage    = Current, alias: [IR, ID, IL], desc: "reverse leakage below breakdown"
+            clamping_voltage   = Voltage, alias: [VC, VCL], desc: "clamping voltage at the peak pulse current (TVS)"
+            power_rated        = Power, alias: [PD], desc: "steady-state dissipation rating (regulator face)"
+            peak_power         = Power, alias: [PPP, PPK, PPPM], desc: "peak pulse power rating (transient / ESD face)"
+            tolerance          = Ratio, desc: "breakdown voltage tolerance grade (zener)"
+            esd_rating         = Voltage, desc: "ESD withstand class voltage (IEC 61000-4-2 face)"
             peak_pulse_current = Current, alias: [IPP, IPPM], desc: "peak pulse current at the clamping-voltage test condition"
-            junction_cap     = Capacitance, alias: [Cj, Ct, CD], desc: "junction capacitance at the stated bias (line-loading face on protected nets)"
+            junction_cap       = Capacitance, alias: [Cj, Ct, CD], desc: "junction capacitance at the stated bias (line-loading face on protected nets)"
         ]
     ]
 
     // Shunt clamp: line into the cathode, anode to the reference.
-    func Clamp([line, ref])
-    {
+    func Clamp([line, ref]) {
         line - this.K
         this.A - ref
         return this
@@ -83,10 +78,8 @@ recipe DIO.CLAMP
 }
 
 // Photocurrent container.
-recipe DIO.PHOTO
-{
+recipe DIO.PHOTO {
     io DIO{A, K}
-
     require = [
         optical = [
             responsivity = Responsivity, alias: [S], desc: "generated current per incident power (A/W), at the stated wavelength"
@@ -108,8 +101,7 @@ recipe DIO.PHOTO
     ]
 
     // Reverse-bias hookup: bias into the cathode, anode is the readout.
-    func Sense([bias, sig])
-    {
+    func Sense([bias, sig]) {
         bias - this.K
         this.A - sig
         return sig
@@ -118,19 +110,18 @@ recipe DIO.PHOTO
 
 // Bridge rectifier composite; contact order = ~ + ~ - around the DIP-4
 // package.
-recipe DIO.BR
-{
+recipe DIO.BR {
     require = [
         electrical = [
             current_average = Current, desc: "average forward output current rating IO(AV)"
             voltage_reverse = Voltage, alias: [VRRM], desc: "repetitive peak reverse voltage"
-            forward_voltage = Voltage, alias: [VF], desc: "forward voltage per element at the rated current"
+            forward_voltage = Voltage, alias: [VF, VFM], desc: "forward voltage per element at the rated current"
             polarized       = Flag, desc: "polarity fact for DRC/BOM (true; the DC+/DC- outputs carry the connectivity polarity)"
         ]
     ]
     option = [
         electrical = [
-            reverse_leakage = Current, alias: [IR], desc: "reverse leakage current per element at the rated reverse voltage"
+            reverse_leakage = Current, alias: [IR, ID, IL], desc: "reverse leakage current per element at the rated reverse voltage"
             surge_current   = Current, alias: [IFSM], desc: "non-repetitive peak surge current (8.3 ms half sine)"
         ]
     ]
@@ -138,8 +129,7 @@ recipe DIO.BR
 
 // Multi-line ESD array: N signal lines steering to a common clamp
 // reference.
-recipe DIO.ESD_ARRAY
-{
+recipe DIO.ESD_ARRAY {
     require = [
         clamp = [
             esd_rating = Voltage, desc: "ESD withstand class voltage (IEC 61000-4-2 face)"
@@ -159,19 +149,18 @@ component DIO(
     vfwd::UV.VOLT,
     vrev::UV.VOLT,
     irated::UV.AMP
-) :: DIO
-{
+) :: DIO {
     name = "Diode"
 
     pins = [
-        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
     spec = [
         forward_voltage = vfwd
         reverse_voltage = vrev
-        rated_current = irated
-        polarized = true
+        rated_current   = irated
+        polarized       = true
     ]
 }
 
@@ -182,19 +171,18 @@ component DIO.SCH(
     vfwd::UV.VOLT,
     vrev::UV.VOLT,
     irated::UV.AMP
-) :: DIO
-{
+) :: DIO {
     name = "Schottky Diode"
 
     pins = [
-        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
     spec = [
         forward_voltage = vfwd
         reverse_voltage = vrev
-        rated_current = irated
-        polarized = true
+        rated_current   = irated
+        polarized       = true
     ]
 }
 
@@ -205,19 +193,18 @@ component DIO.ZEN(
     vz::UV.VOLT,
     prated::UV.WATT,
     tol::UV.PERCENT
-) :: DIO.CLAMP
-{
+) :: DIO.CLAMP {
     name = "Zener Diode"
 
     pins = [
-        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
     spec = [
         breakdown_voltage = vz
-        power_rated = prated
-        tolerance = tol
-        polarized = true
+        power_rated       = prated
+        tolerance         = tol
+        polarized         = true
     ]
 }
 
@@ -228,19 +215,18 @@ component DIO.TVS(
     vbr::UV.VOLT,
     vclamp::UV.VOLT,
     ppeak::UV.WATT
-) :: DIO.CLAMP
-{
+) :: DIO.CLAMP {
     name = "Transient Voltage Suppressor"
 
     pins = [
-        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
     spec = [
         breakdown_voltage = vbr
-        clamping_voltage = vclamp
-        peak_power = ppeak
-        polarized = true
+        clamping_voltage  = vclamp
+        peak_power        = ppeak
+        polarized         = true
     ]
 }
 
@@ -249,18 +235,17 @@ component DIO.TVS(
 // working face; rated by the working standoff / ESD withstand voltage.
 component DIO.ESD(
     rating::UV.VOLT
-) :: DIO.CLAMP
-{
+) :: DIO.CLAMP {
     name = "ESD Diode"
 
     pins = [
-        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
     spec = [
         working_standoff = rating
-        esd_rating = rating
-        polarized = true
+        esd_rating       = rating
+        polarized        = true
     ]
 }
 
@@ -269,17 +254,16 @@ component DIO.ESD(
 // topology.
 component DIO.ESD_ARRAY(
     rating::UV.VOLT
-) :: DIO.ESD_ARRAY
-{
+) :: DIO.ESD_ARRAY {
     name = "ESD Protection Diode Array"
 
     pins = [
-        io [1, 2] = [IO1, IO2]   # protected signal lines
-        3 = GND                  # clamp reference
+        io [1, 2] = [IO1, IO2]  # protected signal lines
+        3 = GND                 # clamp reference
     ]
 
     spec = [
-        esd_rating = rating
+        esd_rating       = rating
         working_standoff = rating
     ]
 }
@@ -291,19 +275,18 @@ component DIO.PHOTO(
     resp::UV.RESPONSIVITY,
     idark::UV.AMP,
     srange::UV.LEN
-) :: DIO.PHOTO
-{
+) :: DIO.PHOTO {
     name = "Photodiode"
 
     pins = [
-        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
     spec = [
-        responsivity = resp
-        dark_current = idark
+        responsivity   = resp
+        dark_current   = idark
         spectral_range = srange
-        polarized = true
+        polarized      = true
     ]
 }
 
@@ -313,23 +296,22 @@ component DIO.BR(
     iavg::UV.AMP,
     vrrm::UV.VOLT,
     vfwd::UV.VOLT
-) :: DIO.BR
-{
-    name = "Bridge Rectifier"
+) :: DIO.BR {
+    name        = "Bridge Rectifier"
     description = "Single-phase bridge rectifier, two AC inputs and two DC outputs"
 
     pins = [
-        1 = AC1         # AC input 1 (tilde terminal)
-        2 = DC\+        # Rectified positive output
-        3 = AC2         # AC input 2 (tilde terminal)
-        4 = DC\-        # Rectified negative output
+        1 = AC1   # AC input 1 (tilde terminal)
+        2 = DC\+  # Rectified positive output
+        3 = AC2   # AC input 2 (tilde terminal)
+        4 = DC\-  # Rectified negative output
     ]
 
     spec = [
         current_average = iavg
         voltage_reverse = vrrm
         forward_voltage = vfwd
-        polarized = true
+        polarized       = true
     ]
 }
 

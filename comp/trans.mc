@@ -70,13 +70,13 @@ recipe IGBT {
     require = [
         abs_max = [
             pin  = [GATE, COLLECTOR, EMITTER]
-            vces = Voltage(range), alias: [VCES, VCEO], desc: "collector-emitter blocking voltage rating (gate-emitter shorted), the absolute-maximum face"
-            ic   = Current, alias: [IC], desc: "continuous collector current rating, the absolute-maximum face"
+            vces = Voltage(range), alias: [VCES], desc: "collector-emitter blocking voltage rating (gate-emitter shorted), the absolute-maximum face; breakdown spelled BVCES on IGBT sheets"
+            ic   = Current, alias: [IC], desc: "continuous collector current rating, the absolute-maximum face; pulsed face: ICM/ICP"
         ]
     ]
     option = [
         conduction = [
-            vce_sat = Voltage, alias: [VCEsat], desc: "collector-emitter saturation voltage at the stated collector current and gate drive (VCE(sat) spellings)"
+            vce_sat = Voltage, alias: [VCE(sat)], desc: "collector-emitter saturation voltage at the stated collector current and gate drive; the sheet spelling is VCE(sat) with parens (no paren-free VCEsat witness in the sampled corpus)"
         ]
     ]
 }

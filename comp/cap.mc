@@ -1,5 +1,6 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
+
 use ../ifs/term
 
 // Scoped enum: values are directly accessible (bare) inside component CAP /
@@ -7,30 +8,29 @@ use ../ifs/term
 // Note: the enum mixes three logical groups — 1) Dielectric 2) Construction
 // 3) SafetyClass — do NOT cross-group assign.
 
-enum CAP
-{
+enum CAP {
     // ── Dielectric (MLCC temperature characteristic codes) ──
-    C0G,        // NP0 ("NPO" legacy spelling) is the same class; JIS twin CH
+    C0G,            // NP0 ("NPO" legacy spelling) is the same class; JIS twin CH
     X7R,
     X7S,
     X7U,
     X5R,
     Y5V,
-    X8R,        // automotive high-temp MLCC (-55...+150 C)
-    X5F,        // disc ceramic class 2 (-25...+85 C)
-    U2J,        // high-voltage MLCC, low drift; JIS twin 7U
+    X8R,            // automotive high-temp MLCC (-55...+150 C)
+    X5F,            // disc ceramic class 2 (-25...+85 C)
+    U2J,            // high-voltage MLCC, low drift; JIS twin 7U
 
     // ── Dielectric (oxide / film / special) ──
     ALUMINUM_OXIDE,
     TANTALUM_PENTOXIDE,
     NIOBIUM_PENTOXIDE,
-    POLYESTER,          // PET
-    POLYPROPYLENE,      // PP
-    POLYCARBONATE,      // PC; legacy/EOL (industry sells replacement series)
-    POLYSTYRENE,        // PS; legacy/EOL (no active production)
-    PEN,                // Polyethylene Naphthalate
+    POLYESTER,      // PET
+    POLYPROPYLENE,  // PP
+    POLYCARBONATE,  // PC; legacy/EOL (industry sells replacement series)
+    POLYSTYRENE,    // PS; legacy/EOL (no active production)
+    PEN,            // Polyethylene Naphthalate
     MICA,
-    EDLC,               // Electric Double Layer (Supercap, special: acts as type, not classical dielectric)
+    EDLC,           // Electric Double Layer (Supercap, special: acts as type, not classical dielectric)
 
     // ── Construction / cathode type ──
     WET_ALUMINUM,
@@ -39,7 +39,7 @@ enum CAP
     POLYMER_TANTALUM,
     NIOBIUM,
     MLCC,
-    DISC_CERAMIC,       // disk ceramic (non-MLCC)
+    DISC_CERAMIC,   // disk ceramic (non-MLCC)
     FILM,
 
     // ── Safety class (EMI X/Y) ──
@@ -68,9 +68,7 @@ enum CAP
 use ../ifs/term
 use ../ifs/pcap
 
-recipe CAP
-{
-
+recipe CAP {
     // Two-terminal entry pair, positional: the face carries no member
     // vocabulary, position is the only contract (pad 1 = the first
     // terminal). Components bind the pads to the passive two-terminal
@@ -79,33 +77,33 @@ recipe CAP
 
     require = [
         electrical = [
-            capacitance = Capacitance, desc: "rated capacitance"
-            voltage     = Voltage, desc: "rated voltage (DC; category / surge / AC faces have their own option columns)"
-            tolerance   = Ratio, desc: "capacitance tolerance class"
+            capacitance = Capacitance, alias: [Cap], desc: "rated capacitance (sheet heads: Capacitance / Rated Capacitance / Cap.(µF); the letter symbol C has no column witness in the sampled corpus)"
+            voltage     = Voltage, alias: [VR, RV], desc: "rated voltage (DC; AVX spells Rated Voltage (VR), TDK uses RV in the withstand clauses; category / surge / AC faces have their own option columns)"
+            tolerance   = Ratio, desc: "capacitance tolerance class (sheet heads: Capacitance Tolerance / Tolerance - same face as the canonical key, letter codes K/M are values not symbols)"
             polarized   = Flag, desc: "polarity fact for DRC/BOM (the polarized classes adopt CAP.POL, whose entry names the terminals; this flag stays the BOM/assembly face)"
         ]
     ]
 
     option = [
         build = [
-            dielectric   = Words, desc: "dielectric class (MLCC temperature codes, oxide/film/special; EDLC doubles as construction by convention)"
+            dielectric   = Words, desc: "dielectric class (MLCC temperature codes, oxide/film/special; EDLC doubles as construction by convention; the sheet head X7R Dielectric folds to the canonical key, no alias)"
             construction = Words, desc: "construction class (MLCC, DISC_CERAMIC, FILM, WET_ALUMINUM, POLYMER_ALUMINUM, ...)"
-            temp_coeff   = Words, desc: "temperature coefficient code (class 1: C0G 0±30 ppm/°C, mica letter codes F/E/C; class 2 codes ride the dielectric word)"
+            temp_coeff   = Words, alias: [TCC], desc: "temperature coefficient code (class 1: C0G 0±30 ppm/°C, mica letter codes F/E/C; class 2 codes ride the dielectric word; KEMET spells the symbol TCC inside the capacitance-change phrase, TDK uses T. C.)"
         ]
         engineering = [
-            esr              = Resistance, desc: "equivalent series resistance (ohms; measurement condition goes on a fill row, e.g. @100 kHz)"
-            tan_delta        = Ratio, desc: "dissipation factor tanδ (Q = 1/tanδ; condition = fill row, e.g. @1 kHz)"
-            leakage          = Current, desc: "leakage current at rated voltage (DCL; EDLC leakage)"
-            insulation_res   = Resistance, desc: "insulation resistance (the per-capacitance MΩ·µF form reads as a time constant)"
-            ripple_rated     = Current, desc: "rated ripple current (at stated frequency/temperature; EDLC reads continuous/peak current)"
-            temp_min         = Temperature, desc: "operating temperature low bound"
-            temp_max         = Temperature, desc: "operating temperature high bound"
-            life_hours       = Time, desc: "rated life (endurance) at rated conditions"
-            shelf_life       = Time, desc: "shelf life at upper category temperature (aluminum electrolytics)"
+            esr              = Resistance, alias: [ESR], desc: "equivalent series resistance (ohms; measurement condition goes on a fill row, e.g. @100 kHz; alu-electro sheets carry impedance Z and its temperature ratios instead - a candidate column, filed not minted)"
+            tan_delta        = Ratio, alias: [DF, Q], desc: "dissipation factor (DF on class-2 sheets; class-1 sheets spell Q - the reciprocal face, Q = 1/tanδ; the Greek tanδ spelling is not a lexable symbol and stays a desc note; condition = fill row, e.g. @1 kHz)"
+            leakage          = Current, alias: [DCL, IL], desc: "leakage current at rated voltage (DCL on tantalum/niobium sheets; IL in the AVX qualification tables; EDLC leakage)"
+            insulation_res   = Resistance, alias: [IR], desc: "insulation resistance (the per-capacitance MΩ·µF form reads as a time constant)"
+            ripple_rated     = Current, desc: "rated ripple current (at stated frequency/temperature; sampled alu-electro sheets always spell it out - Rated Ripple / Ripple Current - no symbol face to register; EDLC reads continuous/peak current)"
+            temp_min         = Temperature, desc: "operating temperature low bound (TDK splits the range into Min./Max. operating Temperature columns matching this pair; single-range sheets carry one Operating Temperature Range column - the range-face gap, filed in 305)"
+            temp_max         = Temperature, desc: "operating temperature high bound (see temp_min)"
+            life_hours       = Time, alias: [Endurance], desc: "rated life (endurance) at rated conditions (Endurance on nichicon/KEMET/AVX sheets)"
+            shelf_life       = Time, desc: "shelf life at upper category temperature (aluminum electrolytics; KEMET spells Storage Life on the qualification table)"
             cycle_life       = Ratio, desc: "rated charge/discharge cycles (EDLC)"
-            voltage_category = Voltage, desc: "category voltage at upper category temperature (polar electrolytics: e.g. 2/3 of rated at 125 °C)"
-            voltage_surge    = Voltage, desc: "surge voltage, non-repetitive (typically 1.15× rated)"
-            voltage_ac       = Voltage, desc: "AC voltage class rating (safety X/Y caps, film AC face)"
+            voltage_category = Voltage, alias: [VC], desc: "category voltage at upper category temperature (polar electrolytics: e.g. 2/3 of rated at 125 °C; AVX spells Category Voltage (VC))"
+            voltage_surge    = Voltage, alias: [VS], desc: "surge voltage, non-repetitive (typically 1.15× rated; AVX spells Surge Voltage (VS))"
+            voltage_ac       = Voltage, desc: "AC voltage class rating (safety X/Y caps, film AC face; sampled sheets witness only the Vrms unit in measurement conditions, no column symbol - no alias)"
             safety_class     = Words, desc: "EMI safety class (X1/X2/Y1/Y2)"
             certification    = Words, desc: "safety agency certification (UL / ENEC etc.)"
             rohs             = Flag, desc: "RoHS conformity"
@@ -113,8 +111,7 @@ recipe CAP
         ]
     ]
 
-    func Cap([hot, ret])
-    {
+    func Cap([hot, ret]) {
         hot - this - ret
         return [hot, ret]
     }
@@ -131,9 +128,7 @@ recipe CAP
 // the wiring func keeps the name/arity Cap([_, _]) so consumer call sites
 // survive unchanged - its first lane is the \+ terminal.
 
-recipe CAP.POL
-{
-
+recipe CAP.POL {
     // Two-terminal entry pair on the polarized-passive face: the group
     // form carries the sign words at the recipe's entry (the schematic pad
     // names stay the bare members - the adopters bind [\+, \-]::PCAP()).
@@ -141,33 +136,33 @@ recipe CAP.POL
 
     require = [
         electrical = [
-            capacitance = Capacitance, desc: "rated capacitance"
-            voltage     = Voltage, desc: "rated voltage (DC; category / surge / AC faces have their own option columns)"
-            tolerance   = Ratio, desc: "capacitance tolerance class"
+            capacitance = Capacitance, alias: [Cap], desc: "rated capacitance (sheet heads: Capacitance / Rated Capacitance / Cap.(µF); the letter symbol C has no column witness in the sampled corpus)"
+            voltage     = Voltage, alias: [VR, RV], desc: "rated voltage (DC; AVX spells Rated Voltage (VR), TDK uses RV in the withstand clauses; category / surge / AC faces have their own option columns)"
+            tolerance   = Ratio, desc: "capacitance tolerance class (sheet heads: Capacitance Tolerance / Tolerance - same face as the canonical key, letter codes K/M are values not symbols)"
             polarized   = Flag, desc: "polarity fact for DRC/BOM (true for every class on this recipe; the sign words live on the entry pair, not the flag)"
         ]
     ]
 
     option = [
         build = [
-            dielectric   = Words, desc: "dielectric class (MLCC temperature codes, oxide/film/special; EDLC doubles as construction by convention)"
+            dielectric   = Words, desc: "dielectric class (MLCC temperature codes, oxide/film/special; EDLC doubles as construction by convention; the sheet head X7R Dielectric folds to the canonical key, no alias)"
             construction = Words, desc: "construction class (MLCC, DISC_CERAMIC, FILM, WET_ALUMINUM, POLYMER_ALUMINUM, ...)"
-            temp_coeff   = Words, desc: "temperature coefficient code (class 1: C0G 0±30 ppm/°C, mica letter codes F/E/C; class 2 codes ride the dielectric word)"
+            temp_coeff   = Words, alias: [TCC], desc: "temperature coefficient code (class 1: C0G 0±30 ppm/°C, mica letter codes F/E/C; class 2 codes ride the dielectric word; KEMET spells the symbol TCC inside the capacitance-change phrase, TDK uses T. C.)"
         ]
         engineering = [
-            esr              = Resistance, desc: "equivalent series resistance (ohms; measurement condition goes on a fill row, e.g. @100 kHz)"
-            tan_delta        = Ratio, desc: "dissipation factor tanδ (Q = 1/tanδ; condition = fill row, e.g. @1 kHz)"
-            leakage          = Current, desc: "leakage current at rated voltage (DCL; EDLC leakage)"
-            insulation_res   = Resistance, desc: "insulation resistance (the per-capacitance MΩ·µF form reads as a time constant)"
-            ripple_rated     = Current, desc: "rated ripple current (at stated frequency/temperature; EDLC reads continuous/peak current)"
-            temp_min         = Temperature, desc: "operating temperature low bound"
-            temp_max         = Temperature, desc: "operating temperature high bound"
-            life_hours       = Time, desc: "rated life (endurance) at rated conditions"
-            shelf_life       = Time, desc: "shelf life at upper category temperature (aluminum electrolytics)"
+            esr              = Resistance, alias: [ESR], desc: "equivalent series resistance (ohms; measurement condition goes on a fill row, e.g. @100 kHz; alu-electro sheets carry impedance Z and its temperature ratios instead - a candidate column, filed not minted)"
+            tan_delta        = Ratio, alias: [DF, Q], desc: "dissipation factor (DF on class-2 sheets; class-1 sheets spell Q - the reciprocal face, Q = 1/tanδ; the Greek tanδ spelling is not a lexable symbol and stays a desc note; condition = fill row, e.g. @1 kHz)"
+            leakage          = Current, alias: [DCL, IL], desc: "leakage current at rated voltage (DCL on tantalum/niobium sheets; IL in the AVX qualification tables; EDLC leakage)"
+            insulation_res   = Resistance, alias: [IR], desc: "insulation resistance (the per-capacitance MΩ·µF form reads as a time constant)"
+            ripple_rated     = Current, desc: "rated ripple current (at stated frequency/temperature; sampled alu-electro sheets always spell it out - Rated Ripple / Ripple Current - no symbol face to register; EDLC reads continuous/peak current)"
+            temp_min         = Temperature, desc: "operating temperature low bound (TDK splits the range into Min./Max. operating Temperature columns matching this pair; single-range sheets carry one Operating Temperature Range column - the range-face gap, filed in 305)"
+            temp_max         = Temperature, desc: "operating temperature high bound (see temp_min)"
+            life_hours       = Time, alias: [Endurance], desc: "rated life (endurance) at rated conditions (Endurance on nichicon/KEMET/AVX sheets)"
+            shelf_life       = Time, desc: "shelf life at upper category temperature (aluminum electrolytics; KEMET spells Storage Life on the qualification table)"
             cycle_life       = Ratio, desc: "rated charge/discharge cycles (EDLC)"
-            voltage_category = Voltage, desc: "category voltage at upper category temperature (polar electrolytics: e.g. 2/3 of rated at 125 °C)"
-            voltage_surge    = Voltage, desc: "surge voltage, non-repetitive (typically 1.15× rated)"
-            voltage_ac       = Voltage, desc: "AC voltage class rating (safety X/Y caps, film AC face)"
+            voltage_category = Voltage, alias: [VC], desc: "category voltage at upper category temperature (polar electrolytics: e.g. 2/3 of rated at 125 °C; AVX spells Category Voltage (VC))"
+            voltage_surge    = Voltage, alias: [VS], desc: "surge voltage, non-repetitive (typically 1.15× rated; AVX spells Surge Voltage (VS))"
+            voltage_ac       = Voltage, desc: "AC voltage class rating (safety X/Y caps, film AC face; sampled sheets witness only the Vrms unit in measurement conditions, no column symbol - no alias)"
             safety_class     = Words, desc: "EMI safety class (X1/X2/Y1/Y2)"
             certification    = Words, desc: "safety agency certification (UL / ENEC etc.)"
             rohs             = Flag, desc: "RoHS conformity"
@@ -175,8 +170,7 @@ recipe CAP.POL
         ]
     ]
 
-    func Cap([pos, neg])
-    {
+    func Cap([pos, neg]) {
         pos - this - neg
         return [pos, neg]
     }
@@ -193,25 +187,23 @@ component CAP(
     tol::UV.PERCENT,
     diel = CAP.X7R,
     cons = CAP.MLCC
-) :: CAP
-{
-    name = "Capacitor"
+) :: CAP {
+    name        = "Capacitor"
     description = "General Capacitor"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [1, 2]::TERM()
     ]
 
     spec = [
-        capacitance = cap
-        voltage = volt
-        tolerance = tol
-        dielectric = diel
+        capacitance  = cap
+        voltage      = volt
+        tolerance    = tol
+        dielectric   = diel
         construction = cons
-        polarized = false       // unified polarity flag for DRC/BOM
+        polarized = false  // unified polarity flag for DRC/BOM
         safety_class = SC_NONE
     ]
-
 }
 
 // CAP.ELEC - Electrolytic Capacitor (Polarized) Component Definition
@@ -223,24 +215,22 @@ component CAP.ELEC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP.POL
-{
-    name = "Electrolytic Capacitor"
+) :: CAP.POL {
+    name        = "Electrolytic Capacitor"
     description = "Polarized aluminum electrolytic / polymer aluminum capacitor"
 
     pins = [
-        io [1, 2] = [\+, \-]::PCAP()   // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
+        io [1, 2] = [\+, \-]::PCAP()  // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
     spec = [
         capacitance = cap
-        voltage = volt
-        tolerance = tol
-        dielectric = ALUMINUM_OXIDE
-        polarized = true        // construction (wet vs polymer) stays open at BOM stage
+        voltage     = volt
+        tolerance   = tol
+        dielectric  = ALUMINUM_OXIDE
+        polarized = true  // construction (wet vs polymer) stays open at BOM stage
         safety_class = SC_NONE
     ]
-
 }
 
 // CAP.MLCC - Multilayer Ceramic Capacitor (Non-Polarized) Component Definition
@@ -252,25 +242,23 @@ component CAP.MLCC(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.X7R
-) :: CAP
-{
-    name = "MLCC Capacitor"
+) :: CAP {
+    name        = "MLCC Capacitor"
     description = "Multilayer Ceramic Capacitor (MLCC), non-polarized"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [1, 2]::TERM()
     ]
 
     spec = [
-        capacitance = cap
-        voltage = volt
-        tolerance = tol
-        dielectric = diel
+        capacitance  = cap
+        voltage      = volt
+        tolerance    = tol
+        dielectric   = diel
         construction = MLCC
-        polarized = false
+        polarized    = false
         safety_class = SC_NONE
     ]
-
 }
 
 // CAP.DISC - Disc Ceramic Capacitor (Non-MLCC) Component Definition
@@ -282,25 +270,23 @@ component CAP.DISC(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.C0G
-) :: CAP
-{
-    name = "Disc Ceramic Capacitor"
+) :: CAP {
+    name        = "Disc Ceramic Capacitor"
     description = "Non-MLCC disk ceramic capacitor; common high-voltage low-cost"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [1, 2]::TERM()
     ]
 
     spec = [
-        capacitance = cap
-        voltage = volt
-        tolerance = tol
-        dielectric = diel
+        capacitance  = cap
+        voltage      = volt
+        tolerance    = tol
+        dielectric   = diel
         construction = DISC_CERAMIC
-        polarized = false
+        polarized    = false
         safety_class = SC_NONE
     ]
-
 }
 
 // CAP.TANT - Tantalum Capacitor (Polarized) Component Definition
@@ -313,24 +299,22 @@ component CAP.TANT(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP.POL
-{
-    name = "Tantalum Capacitor"
+) :: CAP.POL {
+    name        = "Tantalum Capacitor"
     description = "Polarized tantalum / polymer tantalum capacitor"
 
     pins = [
-        io [1, 2] = [\+, \-]::PCAP()   // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
+        io [1, 2] = [\+, \-]::PCAP()  // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
     spec = [
         capacitance = cap
-        voltage = volt
-        tolerance = tol
-        dielectric = TANTALUM_PENTOXIDE
-        polarized = true        // construction (wet vs polymer) stays open at BOM stage
+        voltage     = volt
+        tolerance   = tol
+        dielectric  = TANTALUM_PENTOXIDE
+        polarized = true  // construction (wet vs polymer) stays open at BOM stage
         safety_class = SC_NONE
     ]
-
 }
 
 // CAP.NIOB - Niobium Capacitor (Polarized) Component Definition
@@ -342,25 +326,23 @@ component CAP.NIOB(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP.POL
-{
-    name = "Niobium Capacitor"
+) :: CAP.POL {
+    name        = "Niobium Capacitor"
     description = "Polarized niobium pentoxide capacitor"
 
     pins = [
-        io [1, 2] = [\+, \-]::PCAP()   // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
+        io [1, 2] = [\+, \-]::PCAP()  // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
     spec = [
-        capacitance = cap
-        voltage = volt
-        tolerance = tol
-        dielectric = NIOBIUM_PENTOXIDE
+        capacitance  = cap
+        voltage      = volt
+        tolerance    = tol
+        dielectric   = NIOBIUM_PENTOXIDE
         construction = NIOBIUM
-        polarized = true
+        polarized    = true
         safety_class = SC_NONE
     ]
-
 }
 
 // CAP.FILM - Film Capacitor (Non-Polarized) Component Definition
@@ -372,25 +354,23 @@ component CAP.FILM(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.POLYPROPYLENE
-) :: CAP
-{
-    name = "Film Capacitor"
+) :: CAP {
+    name        = "Film Capacitor"
     description = "Non-polarized film capacitor (PP/PET/PC/PS/PEN)"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [1, 2]::TERM()
     ]
 
     spec = [
-        capacitance = cap
-        voltage = volt
-        tolerance = tol
-        dielectric = diel
+        capacitance  = cap
+        voltage      = volt
+        tolerance    = tol
+        dielectric   = diel
         construction = FILM
-        polarized = false
+        polarized    = false
         safety_class = SC_NONE
     ]
-
 }
 
 // CAP.MICA - Mica Capacitor (Non-Polarized) Component Definition
@@ -401,25 +381,23 @@ component CAP.MICA(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP
-{
-    name = "Mica Capacitor"
+) :: CAP {
+    name        = "Mica Capacitor"
     description = "Mica dielectric capacitor, high stability / high frequency"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [1, 2]::TERM()
     ]
 
     spec = [
-        capacitance = cap
-        voltage = volt
-        tolerance = tol
-        dielectric = MICA
+        capacitance  = cap
+        voltage      = volt
+        tolerance    = tol
+        dielectric   = MICA
         construction = MICA
-        polarized = false
+        polarized    = false
         safety_class = SC_NONE
     ]
-
 }
 
 // CAP.SAFETY - X/Y Safety Capacitor (EMI Filter, Non-Polarized) Component Definition
@@ -431,27 +409,25 @@ component CAP.SAFETY(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.POLYPROPYLENE,
-    cls = CAP.SC_X2
-) :: CAP
-{
-    name = "Safety Capacitor X/Y"
+    cls  = CAP.SC_X2
+) :: CAP {
+    name        = "Safety Capacitor X/Y"
     description = "EMI safety capacitor (X1/X2 / Y1/Y2); volt = AC RMS rating"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [1, 2]::TERM()
     ]
 
     spec = [
         capacitance = cap
-        voltage = volt          // the volt formal is the AC RMS rating here
-        tolerance = tol
-        dielectric = diel
+        voltage = volt     // the volt formal is the AC RMS rating here
+        tolerance    = tol
+        dielectric   = diel
         construction = FILM
-        polarized = false
-        voltage_ac = volt       // AC class face rides its own column
+        polarized    = false
+        voltage_ac = volt  // AC class face rides its own column
         safety_class = cls
     ]
-
 }
 
 // CAP.SC - Supercapacitor / EDLC (Polarized) Component Definition
@@ -464,25 +440,23 @@ component CAP.SC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP.POL
-{
-    name = "Supercapacitor / EDLC"
+) :: CAP.POL {
+    name        = "Supercapacitor / EDLC"
     description = "Electric Double Layer Capacitor, polarized"
 
     pins = [
-        io [1, 2] = [\+, \-]::PCAP()   // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
+        io [1, 2] = [\+, \-]::PCAP()  // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
     spec = [
-        capacitance = cap
-        voltage = volt
-        tolerance = tol
-        dielectric = EDLC
+        capacitance  = cap
+        voltage      = volt
+        tolerance    = tol
+        dielectric   = EDLC
         construction = EDLC
-        polarized = true
+        polarized    = true
         safety_class = SC_NONE
     ]
-
 }
 
 // CAP.TRIM - Trimmer / Variable Capacitor (Non-Polarized) Component Definition
@@ -493,23 +467,21 @@ component CAP.TRIM(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP
-{
-    name = "Trimmer Capacitor"
+) :: CAP {
+    name        = "Trimmer Capacitor"
     description = "Adjustable trimmer / variable capacitor; cap = nominal/max capacitance"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [1, 2]::TERM()
     ]
 
     spec = [
         capacitance = cap
-        voltage = volt
-        tolerance = tol
-        polarized = false       // dielectric/construction stay open at BOM stage
+        voltage     = volt
+        tolerance   = tol
+        polarized = false  // dielectric/construction stay open at BOM stage
         safety_class = SC_NONE
     ]
-
 }
 
 // Usage Examples:
