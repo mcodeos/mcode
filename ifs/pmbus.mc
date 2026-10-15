@@ -15,10 +15,17 @@ interface PMBUS(role)
 {
     topology = "multi-point"
     mode = ["half duplex"]
-    maxdistance = 1m  // on-board / shelf
-    maxspeed = [100kbps@1m, 400kbps@0.5m]  // PMBus 100 kHz base, 400 kHz high speed
-    voltage = [3.3V]
-    pullup = 1kΩ ~ 10kΩ
+
+    // Electrical contract data rides the PMBUS.ELEC recipe face (302 3.2):
+    // the SMBus fixed family with a PMBus-specific clock face (10k-400k on
+    // the 1.1-era parts, to 1 MHz on the 1.3 claimants), fixed-absolute
+    // VIL 0.8 V, three-band VIH (2.1 V SMBus-literal vs lowered low-rail
+    // values), and sink tier tracking the claimed SMBus DC section -
+    // six-sample corpus on file. No distance key exists anywhere on the
+    // recipe face (zero of six sheets state one; the retired
+    // maxspeed/maxdistance tiers were folklore, forensics log). Supply
+    // tiers ride the DC supply faces; pull-up sizing is a system
+    // convention, not a device EC face.
 
     pins = [
         1 = SCL @class(digital), "Serial Clock"
