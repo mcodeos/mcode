@@ -13,6 +13,20 @@
 //       pin table and selects no endpoint role; a cable module binds it
 //       on each end and states its crossing or straight join in the body.
 
+// USB3 - SuperSpeed family. The lane contract (SSTX/SSRX differential
+// pairs) rides the USB3.ELEC recipe face; USB3.TX and USB3.RX are its two
+// mirror half-classes, and the connector classes (USB3.TYPEA/TYPEB/
+// MICROB) carry the lane pairs beside their USB 2.0 pair (which rides
+// USB.ELEC) - no connector book (the shared-contract law). The retired
+// envelope rows were folklore: no document states a physical cable limit
+// (the nearest witnesses are test-fixture and loss-budget prose), the
+// rate-at-distance form exists nowhere corpus-wide, and the 5V/900mA
+// VBUS face is connector/application convention that rides the DC faces.
+// The 90-ohm differential impedance is a board design conductor (layout
+// guideline sections everywhere, never a part EC row) and intra-pair
+// skew lives in the pins match slot; eye masks, equalization and ESD
+// stay out by the gap ledger (book head carries the corpus account).
+
 interface USB(role)
 {
     topology = "point to point"
@@ -233,17 +247,14 @@ interface USB.MICROB(role)
 // Device Definition: HOST = the SuperSpeed host (transmits on SSTX,
 //                    receives on SSRX),
 //                    DEVICE = the SuperSpeed peripheral.
+// Routing: the two SuperSpeed pairs ride USB3.ELEC; the USB 2.0 pair rides
+//           USB.ELEC; the VBUS 5V/900mA face is application convention and
+//           rides the DC faces.
 
 interface USB3.TYPEA(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 3m
-    maxspeed = [5Gbps@3m]  // SuperSpeed
-    voltage = 5V
-    current = 900mA  // USB 3.0 current
-    name = "USB 3.x Type A"
-    description = "USB 3.x Type A connector with additional SuperSpeed pins"
     
     pins = [
         // USB 2.0 pins (backward compatibility)
@@ -296,17 +307,13 @@ interface USB3.TYPEA(role)
 // Device Definition: HOST = the SuperSpeed host (transmits on SSTX,
 //                    receives on SSRX),
 //                    DEVICE = the SuperSpeed peripheral.
+// Routing: the two SuperSpeed pairs ride USB3.ELEC; the USB 2.0 pair rides
+//           USB.ELEC; the VBUS face rides the DC faces.
 
 interface USB3.TYPEB(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 3m
-    maxspeed = [5Gbps@3m]  // SuperSpeed
-    voltage = 5V
-    current = 900mA  // USB 3.0 current
-    name = "USB 3.x Type B"
-    description = "USB 3.x Type B connector with additional SuperSpeed pins"
     
     pins = [
         // USB 2.0 pins (backward compatibility)
@@ -359,17 +366,13 @@ interface USB3.TYPEB(role)
 // Device Definition: HOST = the SuperSpeed host (transmits on SSTX,
 //                    receives on SSRX),
 //                    DEVICE = the SuperSpeed peripheral.
+// Routing: the two SuperSpeed pairs ride USB3.ELEC; the USB 2.0 pair rides
+//           USB.ELEC; the VBUS face rides the DC faces.
 
 interface USB3.MICROB(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 3m
-    maxspeed = [5Gbps@3m]  // SuperSpeed
-    voltage = 5V
-    current = 900mA  // USB 3.0 current
-    name = "USB 3.x Micro B"
-    description = "USB 3.x Micro B connector with additional SuperSpeed pins"
     
     pins = [
         // USB 2.0 pins (backward compatibility)
@@ -586,14 +589,13 @@ interface USB.DATA(role)
 //            bench judge it.
 // Device Definition: HOST = the transmit end that drives the pair,
 //                    DEVICE = the peer end that reads it.
+// Routing: the lane face rides USB3.ELEC - TX is the transmit half-class,
+//           USB3.RX its receive mirror end; one book covers both.
 
 interface USB3.TX(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxspeed = [5Gbps]
-    name = "USB 3.x SuperSpeed Transmit Interface"
-    description = "USB 3.x SuperSpeed transmit interface"
     
     // The two rows tagged @pair(sstx) are the two legs of one differential
     // signal; the +/- spellings are the naming convention (same as USB3.RX
@@ -631,14 +633,13 @@ interface USB3.TX(role)
 //            bench judge it.
 // Device Definition: HOST = the receive end that reads the pair,
 //                    DEVICE = the peer end that drives it.
+// Routing: the lane face rides USB3.ELEC - RX is the receive half-class,
+//           the mirror end of USB3.TX; one book covers both.
 
 interface USB3.RX(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxspeed = [5Gbps]
-    name = "USB 3.x SuperSpeed Receive Interface"
-    description = "USB 3.x SuperSpeed receive interface"
 
     // The two rows tagged @pair(ssrx) are the two legs of one differential
     // signal; the +/- spellings are the naming convention (same as USB3.TX).
