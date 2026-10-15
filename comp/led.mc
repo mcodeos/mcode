@@ -16,14 +16,13 @@ component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
     ]
     
     pins = [
-        1 = ANODE            # Positive terminal
-        2 = CATHODE          # Negative terminal
+        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
     ]
     
     func Indicator([positive, negative]::DC())
     {
-        positive - this.ANODE
-        this.CATHODE - negative
+        positive - this.A
+        this.K - negative
         return this
     }
 }
@@ -74,14 +73,13 @@ component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
     ]
     
     pins = [
-        1 = ANODE            # Positive terminal
-        2 = CATHODE          # Negative terminal
+        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
     ]
     
     func Transmit(driver::DC())
     {
-        driver.VCC - this.ANODE
-        this.CATHODE - driver.GND
+        driver.VCC - this.A
+        this.K - driver.GND
         return this
     }
 }
@@ -100,14 +98,13 @@ component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT)
     ]
     
     pins = [
-        1 = ANODE            # Positive terminal
-        2 = CATHODE          # Negative terminal
+        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
     ]
     
     func Light(driver::DC())
     {
-        driver.VCC - this.ANODE
-        this.CATHODE - driver.GND
+        driver.VCC - this.A
+        this.K - driver.GND
         return this
     }
 }

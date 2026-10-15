@@ -15,8 +15,7 @@ component DIO(vfwd::UV.VOLT, vrev::UV.VOLT, irated::UV.AMP)
     ]
     
     pins = [
-        1 = ANODE        # Positive terminal
-        2 = CATHODE      # Negative terminal
+        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
     ]
 }
 
@@ -32,13 +31,12 @@ component DIO.ESD(rating::UV.VOLT)
     ]
     
     pins = [
-        1 = ANODE        # Positive terminal
-        2 = CATHODE      # Negative terminal
+        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
     ]
     
     func Protect([input, gnd])
     {
-        [input, gnd] - [this.CATHODE, this.ANODE]
+        [input, gnd] - [this.K, this.A]
         return [input, gnd]
     }
 }
@@ -74,14 +72,13 @@ component DIO.SCH(vfwd::UV.VOLT, vrev::UV.VOLT, irated::UV.AMP)
     ]
     
     pins = [
-        1 = ANODE        # Positive terminal
-        2 = CATHODE      # Negative terminal
+        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
     ]
     
     func Rectify(input, output)
     {
-        input - this.ANODE
-        this.CATHODE - output
+        input - this.A
+        this.K - output
         return this
     }
 }
@@ -101,15 +98,14 @@ component DIO.ZEN(vz::UV.VOLT, prated::UV.WATT, tol::UV.PERCENT)
     ]
     
     pins = [
-        1 = ANODE        # Positive terminal
-        2 = CATHODE      # Negative terminal
+        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
     ]
     
     func Regulate(input, output, gnd)
     {
-        input - this.CATHODE
-        this.ANODE - gnd
-        output - this.CATHODE
+        input - this.K
+        this.A - gnd
+        output - this.K
         return this
     }
 }
@@ -129,14 +125,13 @@ component DIO.TVS(vbr::UV.VOLT, vclamp::UV.VOLT, ppeak::UV.WATT)
     ]
     
     pins = [
-        1 = ANODE        # Positive terminal
-        2 = CATHODE      # Negative terminal
+        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
     ]
     
     func Protect(input, gnd)
     {
-        input - this.CATHODE
-        this.ANODE - gnd
+        input - this.K
+        this.A - gnd
         return this
     }
 }
@@ -156,14 +151,13 @@ component DIO.PHOTO(resp::UV.RESPONSIVITY, idark::UV.AMP, srange::UV.LEN)
     ]
     
     pins = [
-        1 = ANODE        # Positive terminal
-        2 = CATHODE      # Negative terminal
+        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
     ]
     
     func Sense(vcc, output)
     {
-        vcc - this.CATHODE
-        this.ANODE - output
+        vcc - this.K
+        this.A - output
         return output
     }
 }
