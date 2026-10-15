@@ -21,8 +21,13 @@ interface CMP(role)
 {
     topology = "point to point"
     mode = ["input"]
-    maxdistance = 0.5m
-    voltage = [1.8V, 3.3V, 5V]
+
+    // Electrical contract data rides the CMP recipe face (302 3.2): the
+    // comparator part-family book (input/cmode/timing/output/supply
+    // groups) carries the supply tiers (supply.v_sup / abs_max.v_sup) and
+    // the whole per-unit EC answer set. No distance key exists anywhere on
+    // the recipe face (zero of nine sheets state one; the retired
+    // maxdistance tier was folklore, forensics log).
 
     pins = [
         1 = IN @class(analog)   // Compare input (datasheet VCINx)
@@ -61,8 +66,11 @@ interface CMP.OUT(role)
 {
     topology = "point to point"
     mode = ["output"]
-    maxdistance = 0.5m
-    voltage = [1.8V, 3.3V, 5V]
+
+    // Same recipe routing as CMP: supply tiers ride the part supply face;
+    // the result wire is a digital output line, distance retires
+    // (zero corpus statements), and the output EC answer set (out_kind /
+    // vo_sw / i_out) lives on the recipe output group.
 
     pins = [
         1 = OUT @class(digital)   // Compare result (datasheet VCx_OUT)
