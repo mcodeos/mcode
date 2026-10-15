@@ -90,15 +90,15 @@ recipe DIO.PHOTO {
     ]
     option = [
         optical = [
-            spectral_range        = Length, desc: "spectral response range (wavelength bounds; lambda / lambda0.1 spellings)"
-            peak_wavelength       = Length, desc: "peak sensitivity wavelength (photosensitivity maximum; lambda-p)"
-            junction_cap          = Capacitance, alias: [Cj, Ct, CD], desc: "junction capacitance at the stated reverse bias (bandwidth face)"
-            short_circuit_current = Current, alias: [Isc, Ik], desc: "short-circuit photocurrent at the stated illuminance (photovoltaic operating face)"
-            open_circuit_voltage  = Voltage, alias: [Vo], desc: "open-circuit photovoltage at the stated irradiance (photovoltaic operating face)"
-            response_time         = Time, alias: [tr, tf], desc: "rise/fall time at the stated load and wavelength"
-            shunt_resistance      = Resistance, alias: [Rsh], desc: "shunt resistance at VR = 0 V (precision photometry face)"
+            spectral_range         = Length, desc: "spectral response range (wavelength bounds; lambda / lambda0.1 spellings)"
+            peak_wavelength        = Length, desc: "peak sensitivity wavelength (photosensitivity maximum; lambda-p)"
+            junction_cap           = Capacitance, alias: [Cj, Ct, CD], desc: "junction capacitance at the stated reverse bias (bandwidth face)"
+            short_circuit_current  = Current, alias: [Isc, Ik], desc: "short-circuit photocurrent at the stated illuminance (photovoltaic operating face)"
+            open_circuit_voltage   = Voltage, alias: [Vo], desc: "open-circuit photovoltage at the stated irradiance (photovoltaic operating face)"
+            response_time          = Time, alias: [tr, tf], desc: "rise/fall time at the stated load and wavelength"
+            shunt_resistance       = Resistance, alias: [Rsh], desc: "shunt resistance at VR = 0 V (precision photometry face)"
             noise_equivalent_power = Noise, alias: [NEP], desc: "noise equivalent power per root Hz at the stated wavelength (W/sqrt(Hz); the detector 1 SNR bandwidth face)"
-            half_angle            = Angle, desc: "angle of half sensitivity (radiation pattern face)"
+            half_angle             = Angle, desc: "angle of half sensitivity (radiation pattern face)"
         ]
     ]
 
@@ -261,7 +261,7 @@ abstract component DIO.ESD_ARRAY(
 
     pins = [
         io [1, 2] = [IO1, IO2]  # protected signal lines
-        3 = GND                 # clamp reference
+        3         = GND         # clamp reference
     ]
 
     spec = [
