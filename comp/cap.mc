@@ -50,20 +50,23 @@ enum CAP
     SC_Y2
 }
 
-// CAP - the CAP family container recipe (capability-interface-model middle
-// container, one per family). Three loadings (340 s0.2): the io entry face,
-// the answer sheet (require/option shape only - the recipe never carries
-// values; ideal values live in the component bodies below via ctor/spec
-// defaults, actual values are filled by engineering parts from their
-// datasheets), and the wiring funcs. Adoption: `:: CAP`.
-// The flat
-// single-statement body keeps the decouple entry one drawing unit and lands
-// a polarized part's anode (pad 1, the pair's first terminal) on the
-// first-named node automatically - the polarity ERC reads the spec flag
-// plus the pad pair's position, the pad faces name no polarity word. The
-// column-vector return is load-bearing: it reads as the bridge (one cap
+// CAP - the CAP family container recipe for the symmetric (non-polarized)
+// capacitor classes (capability-interface-model middle container). Three
+// loadings (340 s0.2): the io entry face, the answer sheet (require/option
+// shape only - the recipe never carries values; ideal values live in the
+// component bodies below via ctor/spec defaults, actual values are filled by
+// engineering parts from their datasheets), and the wiring funcs. Adoption:
+// `:: CAP`.
+// The flat single-statement body keeps the decouple entry one drawing unit.
+// The column-vector return is load-bearing: it reads as the bridge (one cap
 // across the entry pair); an implicit `return this` row face would read
 // per-lane.
+// Note: the polarized classes (ELEC/TANT/NIOB/SC) do NOT adopt this recipe -
+// polarity never rides implicit pad numbering. They adopt CAP.POL below,
+// whose entry pair names the terminals explicitly through the PCAP face.
+
+use ../ifs/term
+use ../ifs/pcap
 
 recipe CAP
 {
@@ -79,7 +82,7 @@ recipe CAP
             capacitance = Capacitance, desc: "rated capacitance"
             voltage     = Voltage, desc: "rated voltage (DC; category / surge / AC faces have their own option columns)"
             tolerance   = Ratio, desc: "capacitance tolerance class"
-            polarized   = Flag, desc: "polarity face for DRC/BOM (polarized parts land the anode on the first-named node)"
+            polarized   = Flag, desc: "polarity fact for DRC/BOM (the polarized classes adopt CAP.POL, whose entry names the terminals; this flag stays the BOM/assembly face)"
         ]
     ]
 
@@ -114,6 +117,68 @@ recipe CAP
     {
         hot - this - ret
         return [hot, ret]
+    }
+}
+
+// CAP.POL - the polarized CAP container recipe (capability-interface-model
+// middle container for the explicitly polarized capacitor classes). The entry
+// pair names its terminals through the PCAP face: \+ is the anode / positive
+// terminal, \- is the cathode / negative terminal - polarity is a model-layer
+// word, never an implicit pad number. The polarity ERC (B9) reads the sign
+// words right off the adopting pads (the components bind
+// [\+, \-]::PCAP(), so the pads carry the bare signs). The answer
+// sheet restates the CAP columns (grammar admits no recipe-level adoption);
+// the wiring func keeps the name/arity Cap([_, _]) so consumer call sites
+// survive unchanged - its first lane is the \+ terminal.
+
+recipe CAP.POL
+{
+
+    // Two-terminal entry pair on the polarized-passive face: the group
+    // form carries the sign words at the recipe's entry (the schematic pad
+    // names stay the bare members - the adopters bind [\+, \-]::PCAP()).
+    io PCAP{\+, \-}
+
+    require = [
+        electrical = [
+            capacitance = Capacitance, desc: "rated capacitance"
+            voltage     = Voltage, desc: "rated voltage (DC; category / surge / AC faces have their own option columns)"
+            tolerance   = Ratio, desc: "capacitance tolerance class"
+            polarized   = Flag, desc: "polarity fact for DRC/BOM (true for every class on this recipe; the sign words live on the entry pair, not the flag)"
+        ]
+    ]
+
+    option = [
+        build = [
+            dielectric   = Words, desc: "dielectric class (MLCC temperature codes, oxide/film/special; EDLC doubles as construction by convention)"
+            construction = Words, desc: "construction class (MLCC, DISC_CERAMIC, FILM, WET_ALUMINUM, POLYMER_ALUMINUM, ...)"
+            temp_coeff   = Words, desc: "temperature coefficient code (class 1: C0G 0±30 ppm/°C, mica letter codes F/E/C; class 2 codes ride the dielectric word)"
+        ]
+        engineering = [
+            esr              = Resistance, desc: "equivalent series resistance (ohms; measurement condition goes on a fill row, e.g. @100 kHz)"
+            tan_delta        = Ratio, desc: "dissipation factor tanδ (Q = 1/tanδ; condition = fill row, e.g. @1 kHz)"
+            leakage          = Current, desc: "leakage current at rated voltage (DCL; EDLC leakage)"
+            insulation_res   = Resistance, desc: "insulation resistance (the per-capacitance MΩ·µF form reads as a time constant)"
+            ripple_rated     = Current, desc: "rated ripple current (at stated frequency/temperature; EDLC reads continuous/peak current)"
+            temp_min         = Temperature, desc: "operating temperature low bound"
+            temp_max         = Temperature, desc: "operating temperature high bound"
+            life_hours       = Time, desc: "rated life (endurance) at rated conditions"
+            shelf_life       = Time, desc: "shelf life at upper category temperature (aluminum electrolytics)"
+            cycle_life       = Ratio, desc: "rated charge/discharge cycles (EDLC)"
+            voltage_category = Voltage, desc: "category voltage at upper category temperature (polar electrolytics: e.g. 2/3 of rated at 125 °C)"
+            voltage_surge    = Voltage, desc: "surge voltage, non-repetitive (typically 1.15× rated)"
+            voltage_ac       = Voltage, desc: "AC voltage class rating (safety X/Y caps, film AC face)"
+            safety_class     = Words, desc: "EMI safety class (X1/X2/Y1/Y2)"
+            certification    = Words, desc: "safety agency certification (UL / ENEC etc.)"
+            rohs             = Flag, desc: "RoHS conformity"
+            derating_note    = Words, desc: "derating guidance note"
+        ]
+    ]
+
+    func Cap([pos, neg])
+    {
+        pos - this - neg
+        return [pos, neg]
     }
 }
 
@@ -152,18 +217,19 @@ component CAP(
 // CAP.ELEC - Electrolytic Capacitor (Polarized) Component Definition
 // Core Rule: polarized aluminum-oxide capacitor — anode must sit at or above
 // cathode potential; wet vs polymer construction stays open at BOM stage.
+// Polarity is declared: \+ is the anode pad, \- the cathode (PCAP face).
 
 component CAP.ELEC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP
+) :: CAP.POL
 {
     name = "Electrolytic Capacitor"
     description = "Polarized aluminum electrolytic / polymer aluminum capacitor"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [\+, \-]::PCAP()   // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
     spec = [
@@ -240,19 +306,20 @@ component CAP.DISC(
 // CAP.TANT - Tantalum Capacitor (Polarized) Component Definition
 // Core Rule: polarized tantalum-pentoxide capacitor — anode must sit at or
 // above cathode potential; wet vs polymer construction stays open at BOM
-// stage.
+// stage. Polarity is declared: \+ is the anode pad, \- the cathode (PCAP
+// face).
 
 component CAP.TANT(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP
+) :: CAP.POL
 {
     name = "Tantalum Capacitor"
     description = "Polarized tantalum / polymer tantalum capacitor"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [\+, \-]::PCAP()   // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
     spec = [
@@ -268,19 +335,20 @@ component CAP.TANT(
 
 // CAP.NIOB - Niobium Capacitor (Polarized) Component Definition
 // Core Rule: polarized niobium-pentoxide capacitor — anode must sit at or
-// above cathode potential.
+// above cathode potential. Polarity is declared: \+ is the anode pad, \- the
+// cathode (PCAP face).
 
 component CAP.NIOB(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP
+) :: CAP.POL
 {
     name = "Niobium Capacitor"
     description = "Polarized niobium pentoxide capacitor"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [\+, \-]::PCAP()   // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
     spec = [
@@ -389,19 +457,20 @@ component CAP.SAFETY(
 // CAP.SC - Supercapacitor / EDLC (Polarized) Component Definition
 // Core Rule: electric-double-layer storage — farad-scale capacitance at low
 // voltage, polarized; EDLC doubles as dielectric and construction by
-// convention, not as a classical dielectric.
+// convention, not as a classical dielectric. Polarity is declared: \+ is the
+// anode pad, \- the cathode (PCAP face).
 
 component CAP.SC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP
+) :: CAP.POL
 {
     name = "Supercapacitor / EDLC"
     description = "Electric Double Layer Capacitor, polarized"
 
     pins = [
-        io [1, 2] = [1,2]::TERM()
+        io [1, 2] = [\+, \-]::PCAP()   // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
     spec = [
@@ -459,8 +528,9 @@ component CAP.TRIM(
 // chaining two caps on one `=>` hop is the SAME stage (different semantics):
 //   [PWR, GND] => CAP(10uF,16V).Cap(_) -> [this.VIN, this.GND] => CAP(100nF,16V).Cap(_)
 // Scalar spellings are honest errors now: Cap(vdd) = E4180 (width), bare _
-// without a `=>` prefix = E4176. Polarized parts land their anode (pad 1,
-// the pair's first terminal) on the first-named node in both spellings.
+// without a `=>` prefix = E4176. On the polarized classes (CAP.POL adopters)
+// the first lane of Cap(_) is the \+ terminal - polarity is named on the
+// entry pair (PCAP{\+, \-}), never implied by position.
 // vcc - CAP.MLCC(100nF, 50V, ±10%, X7R) - gnd
 // line - CAP.DISC(1000pF, 1kV, ±10%, C0G) - gnd
 // vcc - CAP.ELEC(100μF, 16V, ±10%) - gnd

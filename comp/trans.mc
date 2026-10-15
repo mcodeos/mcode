@@ -122,7 +122,7 @@ component TRANS.SCR(vrrm::UV.VOLT, it::UV.AMP)
 
     pins = [
         in 1 = GATE     , "Gate terminal"
-        io [2, 3] = DIO{A, K}   // A = anode (pad 2), K = cathode (pad 3); DIO face adoption
+        io [2, 3] = [A, K]::DIO()   // A = anode (pad 2), K = cathode (pad 3); DIO face adoption, bare member names (schematic face)
     ]
 }
 

@@ -13,7 +13,10 @@
 //            working-direction answer), not this face.
 // Note: symmetric two-terminal passives (resistor, capacitor, inductor,
 //       fuse, varistor) adopt TERM, not this face - the anode/cathode
-//       vocabulary is the split line between the two faces.
+//       vocabulary is the split line between the two faces. The polarized
+//       (but non-conducting) passives - electrolytic/tantalum/niobium/
+//       supercap capacitors - have their own sign face PCAP (\+/-), not
+//       this one: A/K names the conduction-direction leaf.
 
 interface DIO
 {

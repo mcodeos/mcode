@@ -1,6 +1,8 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
+use ../ifs/dio
+
 // DIO - Generic Diode Component Definition
 // Core Rule: conducts from anode to cathode above the forward voltage and
 // blocks in reverse up to the reverse voltage rating.
@@ -15,7 +17,7 @@ component DIO(vfwd::UV.VOLT, vrev::UV.VOLT, irated::UV.AMP)
     ]
     
     pins = [
-        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode — bare member names (schematic face)
     ]
 }
 
@@ -31,7 +33,7 @@ component DIO.ESD(rating::UV.VOLT)
     ]
     
     pins = [
-        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode — bare member names (schematic face)
     ]
     
     func Protect([input, gnd])
@@ -72,7 +74,7 @@ component DIO.SCH(vfwd::UV.VOLT, vrev::UV.VOLT, irated::UV.AMP)
     ]
     
     pins = [
-        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode — bare member names (schematic face)
     ]
     
     func Rectify(input, output)
@@ -98,7 +100,7 @@ component DIO.ZEN(vz::UV.VOLT, prated::UV.WATT, tol::UV.PERCENT)
     ]
     
     pins = [
-        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode — bare member names (schematic face)
     ]
     
     func Regulate(input, output, gnd)
@@ -125,7 +127,7 @@ component DIO.TVS(vbr::UV.VOLT, vclamp::UV.VOLT, ppeak::UV.WATT)
     ]
     
     pins = [
-        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode — bare member names (schematic face)
     ]
     
     func Protect(input, gnd)
@@ -151,7 +153,7 @@ component DIO.PHOTO(resp::UV.RESPONSIVITY, idark::UV.AMP, srange::UV.LEN)
     ]
     
     pins = [
-        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode — bare member names (schematic face)
     ]
     
     func Sense(vcc, output)

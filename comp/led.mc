@@ -16,7 +16,7 @@ component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
     ]
     
     pins = [
-        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode — bare member names (schematic face)
     ]
     
     func Indicator([positive, negative]::DC())
@@ -73,7 +73,7 @@ component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN)
     ]
     
     pins = [
-        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode — bare member names (schematic face)
     ]
     
     func Transmit(driver::DC())
@@ -98,7 +98,7 @@ component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT)
     ]
     
     pins = [
-        io [1, 2] = DIO{A, K}   // A = anode (pad 1), K = cathode
+        io [1, 2] = [A, K]::DIO()   // A = anode (pad 1), K = cathode — bare member names (schematic face)
     ]
     
     func Light(driver::DC())

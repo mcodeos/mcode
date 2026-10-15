@@ -321,7 +321,11 @@ Rules:
    conventions: `ANODE`/`CATHODE`, `Term 1`/`Term 2`, `W1_IN`/`W1_OUT`,
    `PRIMARY+`/`SECONDARY-`, `VCC`/`GND`.
 3. Polarity / phase markers: `\+` and `\-` mark a polarized or phased terminal
-   (`1 = \+ , "Anode"`, `1 = PRIMARY\+`).
+   (`1 = \+ , "Anode"`, `1 = PRIMARY\+`). A genuinely polarized passive
+   (electrolytic / tantalum / niobium / supercap capacitor) declares its
+   polarity at the model layer: adopt the `PCAP` face
+   (`io [1, 2] = [\+, \-]::PCAP()`) — the pads carry the bare signs and the
+   polarity ERC (B9) reads them; never imply polarity from the pad number.
 4. Direction prefixes (a bare identifier before the range) classify a pin:
    `io`, `in`, `out`, and the power words `psrc`/`psnk`/`psbi`.
    `io [1:4] = GPIO[0:3]` declares a 4-bit GPIO port.
