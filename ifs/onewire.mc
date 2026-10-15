@@ -17,9 +17,19 @@ interface ONEWIRE(role)
 {
     topology = "multi-point"
     mode = ["half duplex"]
-    maxdistance = 100m
-    maxspeed = [16kbps]
-    voltage = [1.8V,3.3V,5V]
+    // No interface electrical book: the device corpus (DS18B20 family,
+    // DS2502; four distinct parts, one temperature family plus an EPROM --
+    // below the five-sample bar) decomposes every candidate key. Supply:
+    // per-part windows (DS18B20 VDD/VPU 3.0~5.5 V; DS2502 VPUP min 2.8 V
+    // with a part-internal 2.5/2.8 V split) -- per-part DC face when the
+    // parts are authored. Pull-up: the 4.7 kOhm figure is prose/app-note
+    // practice with no MIN/MAX spec row anywhere -- the effective value
+    // is an RC rise-time trade against cable capacitance (1~4.7 kOhm by
+    // bus). Speed: the slot timing (standard ~14-16 kbps, overdrive
+    // ~125 kbps class) is the protocol timing identity, not a link-rate
+    // contract. Distance: no maximum bus length is a guaranteed spec
+    // number anywhere -- cable-capacitance guidance throughout; the
+    // retired 100 m row was application folklore.
 
     pins = [
         1 = _ @drive(od) @class(digital)
