@@ -17,11 +17,21 @@ interface ADC.SINGLE(role)
 {
     topology = "point to point"
     mode = ["input"]
-    maxdistance = 0.5m
-    maxspeed = [1MSPS]
-    voltage = [3.3V, 5V]
-    input_range = 0V ~ voltage
-    resolution = [8bit,10bit,12bit,16bit]
+
+    // Corpus verdict (5 ADC samples: ADS7883/ADC0804-N/ADC0832-N/ADC0831/
+    // AD7891): the retired rows carried no interface-level contract.
+    // Distance: zero witnesses corpus-wide (folklore). Speed: per-part
+    // throughput, supply-conditional (3 MSPS @ 5V tier vs 2 MSPS @ 3.3V
+    // tier on ADS7883) - rides the family recipe's fsample require. Supply:
+    // part/class windows (2.7~5.5V class vs fixed-5V parts), rides the DC
+    // faces. Input range: every sample states one, but always referenced
+    // to the part's own VCC/VREF (GND~VCC+0.05, 0~5V single-supply,
+    // 0~2.5/0~5V against REF IN) - zero common absolute window; the form
+    // ("0 V to the part's own reference") is the whole interface content
+    // and rides the family recipe's input.v_in require. Resolution: part
+    // identity, rides the family recipe's converter.resolution. No .ELEC
+    // book: the electrical contract is already keyed at converter altitude
+    // by the ADC.SINGLE family recipe.
 
     pins = [
         1 = IN @class(analog)   // Single-ended analog input, referenced to analog ground

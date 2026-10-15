@@ -13,11 +13,22 @@ interface DAC(role)
 {
     topology = "point to point"
     mode = ["output"]
-    maxdistance = 0.1m
-    maxspeed = [1MSPS]
-    voltage = [3.3V, 5V]
-    output_range = 0V ~ voltage
-    resolution = [8bit,10bit,12bit,16bit]
+
+    // Corpus verdict (7 DAC samples: DAC8551/DAC7512/TLV5638/DAC8560/
+    // DAC7551/DAC081C081/MCP4921): the retired rows carried no interface-
+    // level contract. Distance: zero witnesses corpus-wide (folklore).
+    // Speed: per-part settling (us-class), rides the part spec face -
+    // the family recipe's t_settle require is its keyed home. Supply:
+    // every sample states 2.7~5.5V, but that is the supply rail face and
+    // rides the DC faces. Output swing: rail-to-rail to the part's OWN
+    // reference or supply - the form ("0 V to its own reference, buffer
+    // rail-to-rail") is the whole interface content, the numbers are
+    // per-part (internal 2.5V vs external ref vs supply-derived) and ride
+    // the family recipe's output.v_out require. Resolution: part identity
+    // (8/12/16bit), rides the family recipe's converter.resolution.
+    // No .ELEC book: the electrical contract is already keyed at converter
+    // altitude by the DAC.SINGLE family recipe - a second book on this
+    // face would be the double-book the registry bans.
 
     pins = [
         1 = OUT @class(analog), "Analog Output"    // Analog output voltage

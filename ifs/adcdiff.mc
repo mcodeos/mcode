@@ -15,11 +15,21 @@ interface ADC.DIFF(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 0.5m
-    maxspeed = [1Mbps@0.5m, 10Mbps@0.1m]
-    voltage = [3.3V,5V]
-    input_range = ±10V
-    resolution = [8bit,10bit,12bit,16bit]
+
+    // Corpus verdict (6 diff-input ADC samples: ADS127L01/ADS127L11/
+    // ADS131M04/ADS8588S/ADS8588H/AD7606B): the retired rows carried no
+    // interface-level contract. Distance and the Mbps@distance ladder:
+    // zero witnesses corpus-wide (no datasheet states a length face).
+    // Speed: per-part data rates (64kSPS OSR-scaled to 800kSPS), rides
+    // the part spec face. Supply: genuinely multi-rail (5V analog +
+    // 1.71~3.6V drive class vs 3V class) but that is the DC face. Input
+    // window: bimodal with no common value - (a) on-chip-scaled true
+    // bipolar +-10/+-5V class, (b) reference-scaled FSR = +-VREF (PGA
+    // gain) class; the bare +-10V row witnessed only class (a). Common-
+    // mode is stated supply-relative (AVDD/2) or as abs-max bounds, never
+    // absolute. If a lane book is ever forced, its lawful shape is a
+    // v_in require with the value split by that class split - until then
+    // the numbers ride the part spec faces and no .ELEC book exists.
 
     // The two rows tagged @pair(p) are the two legs of one differential
     // signal; the P/N spellings are the naming convention, and the first
