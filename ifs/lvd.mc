@@ -20,8 +20,13 @@ interface LVD(role)
 {
     topology = "point to point"
     mode = ["input"]
-    maxdistance = 0.5m
-    voltage = [1.8V, 3.3V, 5V]
+    // No interface electrical book: this is a board-level sense wire, not a
+    // standardized link. The monitored-rail identity is the binding-side
+    // value (the SOURCE-side rail); the detector threshold is per-part
+    // device EC and rides the category face (the RESET.MON threshold class;
+    // the corpus carries zero link-level witnesses). The retired distance
+    // row (0.5 m) was placement practice with zero standard witnesses; the
+    // supply tiers ride the DC faces.
 
     pins = [
         1 = IN @class(analog)   // Monitored voltage sense input (datasheet LVDINx)
@@ -59,8 +64,12 @@ interface LVD.OUT(role)
 {
     topology = "point to point"
     mode = ["output"]
-    maxdistance = 0.5m
-    voltage = [1.8V, 3.3V, 5V]
+    // Same verdict as the sense face: board-level alarm wire, no
+    // standardized link contract, no book. The transmitter face is the
+    // GPIO EC inheritance law (alternate-function digital output rows
+    // only, zero LVD-named electrical rows in any checked MCU datasheet);
+    // the retired distance row was placement practice; supply tiers ride
+    // the DC faces.
 
     pins = [
         1 = OUT @class(digital)   // Detection result (datasheet LVD_OUT)
