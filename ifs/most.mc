@@ -15,9 +15,14 @@ interface MOST.OPT(role)
 {
     topology = "ring"
     mode = ["full duplex"]
-    maxdistance = 40m
-    maxspeed = [22.5Mbps, 50Mbps, 150Mbps]
-    voltage = 3.3V
+    // Electrical contract data rides the recipe face: MOST.OPT.ELEC carries
+    // the optical link contract (peak wavelength window, transmit power
+    // classes, received-power window -- the Broadcom AFBR / ODIN FOT manual
+    // population, 8 of 8 stating the optical rows). The speed figures are
+    // the generation identity and ride the per-part family face
+    // (MOST.PHY media.generation/rate). The distance row carried zero link
+    // contract witnesses (the only corpus length figure is an Rx jitter
+    // test condition); supply windows ride the DC faces.
 
     pins = [
         1 = TX @class(digital), "Optical transmit"    // fiber out to the downstream node
@@ -64,9 +69,14 @@ interface MOST.ELE(role)
 {
     topology = "ring"
     mode = ["full duplex"]
-    maxdistance = 40m
-    maxspeed = [50Mbps]
-    voltage = 3.3V
+    // No recipe book: the MOST50 electrical (twisted-pair ePHY) contract is
+    // a corpus blank -- zero twisted-pair PHY samples in the tree (the
+    // carrying population covers the optical face only). No keys are minted
+    // on a zero population; the ledger rides 302 s5.2 (ePHY sub-spec
+    // cluster, first encountered = open a case). The speed figure is the
+    // generation identity (rides MOST.PHY media.generation/rate); supply
+    // windows ride the DC faces; no distance witness (same verdict as the
+    // optical face).
 
     pins = [
         1 = TX\+ @pair(tx) @class(digital), "Transmit Positive"    // differential pair, fiber-out equivalent
@@ -120,9 +130,12 @@ interface MOST.COAX(role)
 {
     topology = "ring"
     mode = ["full duplex"]
-    maxdistance = 40m
-    maxspeed = [150Mbps]
-    voltage = 3.3V
+    // No recipe book: the MOST150 coaxial (coaxPHY) contract is a corpus
+    // blank -- zero coax-PHY samples in the tree. No keys are minted on a
+    // zero population; the ledger rides 302 s5.2 beside the ePHY cluster.
+    // The speed figure is the generation identity (rides MOST.PHY
+    // media.generation/rate); supply windows ride the DC faces; no distance
+    // witness (same verdict as the optical face).
 
     pins = [
         1 = TX @class(digital), "Coaxial transmit"    // out to the downstream node
@@ -173,7 +186,12 @@ interface MOST.FOT(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    voltage = 3.3V
+    // No interface electrical book: the board-level copper face is already
+    // keyed by the category book MOST.PHY (network v_out/v_in/c_in, supply
+    // v_cc -- this very iface is that book's anchor). The FOT layout note
+    // in the corpus (short unbroken ground run, series termination at the
+    // driving source) is placement practice, not a link contract. The
+    // supply window rides the DC faces.
 
     pins = [
         1 = _ @class(digital)    // NIC TX <-> FOT RX data
