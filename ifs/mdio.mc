@@ -14,9 +14,14 @@ interface MDIO(role)
 {
     topology = "multi-point"  // one management station addresses up to 32 PHYs on the pair
     mode = ["half duplex"]  // MDIO is shared, half-duplex by construction
-    maxdistance = 0.1m  // PCB trace only
-    maxspeed = [2.5MHz@0.1m]  // MDC period >= 400ns
-    voltage = [1.8V, 2.5V, 3.3V]  // I/O ring follows VDDIO
+    // No interface electrical book: Clause 22 defines the management
+    // frames and the clocking ceiling only -- the 2.5 MHz MDC ceiling
+    // (period >= 400 ns, carried by the pin row) is a spec-derived
+    // timing constant, not a link-rate contract. Levels are per-part
+    // VDDIO-classed CMOS on the same ring as the MAC bus (keyed at the
+    // family altitude, ETH.PHY supply.v_ddio; the open-drain pull-up
+    // rides that ring). The retired 0.1 m row was board practice with
+    // zero spec witnesses -- same verdict as the MII/RMII bus face.
 
     pins = [
         1 = MDC @class(digital), "Management Clock (manager drives)"   // non-periodic, data latched to rising edge
