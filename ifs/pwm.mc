@@ -17,9 +17,14 @@ interface PWM(role)
 {
     topology = "point to point"
     mode = ["output"]
-    maxdistance = 0.1m
-    maxspeed = [1MHz]
-    voltage = [1.8V,3.3V,5V]
+    // Electrical contract data rides the recipe face: PWM.ELEC carries the
+    // receiver logic-input windows (the one face the corpus carries -- the
+    // gate-driver / motor-driver input tables). The transmitting side is
+    // the GPIO EC inheritance law (alternate-function I/O rows only, zero
+    // PWM-named electrical rows in any checked MCU datasheet) and rides
+    // GPIO.ELEC. The distance row carried zero corpus statements and is
+    // retired; the 1 MHz tier was peripheral-function text, not a link
+    // limit; supply tiers ride the DC faces.
 
     // @drive(pp): a PWM output stage is push-pull by default, same library
     // default as GPIO. A device that drives the line open-drain states
@@ -60,9 +65,12 @@ interface PWM.H6(role)
 {
     topology = "point to point"
     mode = ["output"]
-    maxdistance = 0.1m
-    maxspeed = [1MHz]
-    voltage = [1.8V,3.3V,5V]
+    // Same recipe face as the single lane: PWM.ELEC serves the six-lane
+    // three-phase face as a variant rider (six independent logic lanes of
+    // one bridge; per-lane electrical character = the same receiver
+    // logic-input face; deadtime lives in the driver, not in the lane
+    // pair). The retired envelope rows share the single-lane corpus
+    // verdict above.
 
     // Role-less conductor view: 6 anonymous lanes, ordinal = wire identity
     //
