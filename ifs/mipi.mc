@@ -17,9 +17,14 @@ interface MIPI.DSI(role)
 {
     topology = "point to point"
     mode = ["unidirectional"]  // video mode; command mode replies ride DSI read packets
-    maxdistance = 0.3m  // PCB traces / short flex
-    maxspeed = [500Mbps@0.3m, 1.5Gbps@0.1m]  // per lane
-    voltage = [1.8V, 1.2V]  // D-PHY supply domain
+    // Electrical contract data rides the recipe face: MIPI.DPHY.ELEC
+    // carries the D-PHY lane contract (PHY supply window, the per-lane HS
+    // rate span with its 80 Mbps spec floor and version-dependent ceiling,
+    // the low-swing HS class) and serves this face and MIPI.CSI alike --
+    // same PHY, same contract. The retired distance row (0.3 m) and the
+    // rate-at-distance spellings were board practice coupled into the rows
+    // (folklore forms of the per-lane rate); the spec states electrical
+    // and timing limits only.
 
     pins = [
         1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"
@@ -78,9 +83,9 @@ interface MIPI.CSI(role)
 {
     topology = "point to point"
     mode = ["unidirectional"]
-    maxdistance = 0.3m
-    maxspeed = [500Mbps@0.3m, 2.5Gbps@0.1m]  // per lane
-    voltage = [1.8V, 1.2V]
+    // Same verdict as MIPI.DSI: the D-PHY lane contract rides the shared
+    // MIPI.DPHY.ELEC book; the retired distance and rate-at-distance rows
+    // were board practice, the supply domain rides the book's window.
 
     pins = [
         1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"
