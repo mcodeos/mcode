@@ -59,10 +59,15 @@ interface I2C.SMBUS(role)
 {
     topology = "multi-point"
     mode = ["half duplex"]
-    maxdistance = 1m  // Typically on-board / backplane
-    maxspeed = [10kbps@1m, 100kbps@0.5m]  // 10 kHz minimum, 100 kHz max
-    voltage = [1.8V, 3.3V, 5V]
-    pullup = 1kΩ ~ 10kΩ
+
+    // Electrical contract data rides the I2C.SMBUS.ELEC recipe face
+    // (302 3.2): fixed-absolute threshold discipline (VIL 0.8 V,
+    // VIH vendor-divergent), 10 kHz minimum clock, bus timeout window,
+    // and open-drain sink strength - six-sample corpus on file. No
+    // distance key exists anywhere on the recipe face (zero of six
+    // sheets state one; the retired maxspeed/maxdistance tiers were
+    // folklore, forensics log). Supply tiers ride the DC supply faces;
+    // pull-up sizing is a system convention, not a device EC face.
 
     // @drive(od): like I2C, the bus is open-drain with external pullups. A
     // push-pull driver states `@drive(pp)` on its own adoption row, which
