@@ -97,7 +97,7 @@ recipe DIO.PHOTO {
             open_circuit_voltage  = Voltage, alias: [Vo], desc: "open-circuit photovoltage at the stated irradiance (photovoltaic operating face)"
             response_time         = Time, alias: [tr, tf], desc: "rise/fall time at the stated load and wavelength"
             shunt_resistance      = Resistance, alias: [Rsh], desc: "shunt resistance at VR = 0 V (precision photometry face)"
-            noise_equivalent_power = Noise, alias: [NEP], desc: "noise equivalent power per root Hz at the stated wavelength (W/sqrt(Hz); the detector's 1 SNR bandwidth face)"
+            noise_equivalent_power = Noise, alias: [NEP], desc: "noise equivalent power per root Hz at the stated wavelength (W/sqrt(Hz); the detector 1 SNR bandwidth face)"
             half_angle            = Angle, desc: "angle of half sensitivity (radiation pattern face)"
         ]
     ]
