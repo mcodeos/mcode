@@ -234,8 +234,8 @@ recipe RES.NTC {
     io [1, 2]
     require = [
         electrical = [
-            resistance       = Resistance, desc: "nominal resistance at the reference temperature (25 °C zero-power face)"
-            beta_coefficient = Ratio, desc: "beta characteristic constant (dimensionless, e.g. 3950)"
+            resistance       = Resistance, alias: [R25], desc: "nominal resistance at the reference temperature (25 °C zero-power face; sheet heads: Resistance @25 (R25) / R25 Resistance Value at Rated Zero-power, both NTC sheets)"
+            beta_coefficient = Ratio, alias: [B], desc: "beta characteristic constant (dimensionless, e.g. 3950; sheet head B Value with B-25/50 B-25/85 categories, MF52 sheet)"
             voltage          = Voltage, desc: "maximum working voltage rating"
             tolerance        = Ratio, desc: "resistance tolerance grade"
         ]
