@@ -12,17 +12,20 @@
 //            diode's anode/cathode words are why diodes have their own
 //            face). No peer adopter - the far end is a network node, not
 //            a face adopter.
-// Note: the member names are the positional convention, not roles - pad 1
-//       is the first-named node (a polarized part lands its anode there
-//       per its own polarity flag); adopting rows rename by position and
-//       never rely on these names.
+// Note: the members are numbered, not named - a generic passive lands in
+//       signal networks as often as power networks, so the face carries no
+//       role vocabulary (hot/ret was power-rail speech and read wrong on a
+//       coupling cap or a divider resistor). Position is the only contract:
+//       pad 1 is the first terminal (a polarized part lands its anode there
+//       per its own polarity flag); adopting rows map pads by position
+//       ([1,2]::TERM()) and never rely on names.
 
 interface TERM
 {
     topology = "point to point"
 
     pins = [
-        1 = hot @class(analog)   // entry node 1 (first-named node)
-        2 = ret @class(analog)   // entry node 2 (return)
+        1 = 1 @class(analog)   // terminal 1 (first pad; polarized anode lands here)
+        2 = 2 @class(analog)   // terminal 2
     ]
 }

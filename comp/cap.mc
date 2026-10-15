@@ -1,5 +1,6 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
+use ../ifs/term
 
 // Scoped enum: values are directly accessible (bare) inside component CAP /
 // CAP.*. Outside, use CAP.X7R, CAP.MLCC, etc.
@@ -55,21 +56,23 @@ enum CAP
 // values; ideal values live in the component bodies below via ctor/spec
 // defaults, actual values are filled by engineering parts from their
 // datasheets), and the wiring funcs. Adoption: `:: CAP`.
-// The formal names the entry pair's roles ([hot, ret]); the flat
+// The flat
 // single-statement body keeps the decouple entry one drawing unit and lands
-// a polarized part's anode (hot, pad 1) on the first-named node
-// automatically - the polarity ERC reads the spec flag plus the exposed
-// entry pair, the pad faces name no polarity word. The
+// a polarized part's anode (pad 1, the pair's first terminal) on the
+// first-named node automatically - the polarity ERC reads the spec flag
+// plus the pad pair's position, the pad faces name no polarity word. The
 // column-vector return is load-bearing: it reads as the bridge (one cap
 // across the entry pair); an implicit `return this` row face would read
 // per-lane.
+
 recipe CAP
 {
 
-    // Two-terminal entry pair, adopted on the passive two-terminal face
-    // TERM: the pair spells [hot, ret] per the face's positional
-    // convention (pad 1 = the first-named node).
-    io TERM{hot, ret}
+    // Two-terminal entry pair, positional: the face carries no member
+    // vocabulary, position is the only contract (pad 1 = the first
+    // terminal). Components bind the pads to the passive two-terminal
+    // iface TERM ([1,2]::TERM()).
+    io [1, 2]
 
     require = [
         electrical = [
@@ -123,7 +126,6 @@ component CAP(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT,
-
     diel = CAP.X7R,
     cons = CAP.MLCC
 ) :: CAP
@@ -132,7 +134,7 @@ component CAP(
     description = "General Capacitor"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -161,7 +163,7 @@ component CAP.ELEC(
     description = "Polarized aluminum electrolytic / polymer aluminum capacitor"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -190,7 +192,7 @@ component CAP.MLCC(
     description = "Multilayer Ceramic Capacitor (MLCC), non-polarized"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -220,7 +222,7 @@ component CAP.DISC(
     description = "Non-MLCC disk ceramic capacitor; common high-voltage low-cost"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -250,7 +252,7 @@ component CAP.TANT(
     description = "Polarized tantalum / polymer tantalum capacitor"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -278,7 +280,7 @@ component CAP.NIOB(
     description = "Polarized niobium pentoxide capacitor"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -308,7 +310,7 @@ component CAP.FILM(
     description = "Non-polarized film capacitor (PP/PET/PC/PS/PEN)"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -337,7 +339,7 @@ component CAP.MICA(
     description = "Mica dielectric capacitor, high stability / high frequency"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -368,7 +370,7 @@ component CAP.SAFETY(
     description = "EMI safety capacitor (X1/X2 / Y1/Y2); volt = AC RMS rating"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -399,7 +401,7 @@ component CAP.SC(
     description = "Electric Double Layer Capacitor, polarized"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -428,7 +430,7 @@ component CAP.TRIM(
     description = "Adjustable trimmer / variable capacitor; cap = nominal/max capacitance"
 
     pins = [
-        io [1, 2] = TERM{hot, ret}
+        io [1, 2] = [1,2]::TERM()
     ]
 
     spec = [
@@ -457,8 +459,8 @@ component CAP.TRIM(
 // chaining two caps on one `=>` hop is the SAME stage (different semantics):
 //   [PWR, GND] => CAP(10uF,16V).Cap(_) -> [this.VIN, this.GND] => CAP(100nF,16V).Cap(_)
 // Scalar spellings are honest errors now: Cap(vdd) = E4180 (width), bare _
-// without a `=>` prefix = E4176. Polarized parts land their anode (hot,
-// pad 1) on the first-named node in both spellings.
+// without a `=>` prefix = E4176. Polarized parts land their anode (pad 1,
+// the pair's first terminal) on the first-named node in both spellings.
 // vcc - CAP.MLCC(100nF, 50V, ±10%, X7R) - gnd
 // line - CAP.DISC(1000pF, 1kV, ±10%, C0G) - gnd
 // vcc - CAP.ELEC(100μF, 16V, ±10%) - gnd
