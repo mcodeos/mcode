@@ -7,15 +7,13 @@
 // points, controlled net merging). The short is physical, not a connection
 // statement: the two terminals stay separately addressable.
 
-component NETTIE()
-{
-    name = "Net Tie"
+component NETTIE() {
+    name        = "Net Tie"
     description = "Two-terminal net bridge, pads shorted on the part"
-
-    spec = [
-        current = _ // [1A, 2A]
-        style = _ // [inline, s-bend]
-        mount = _ // [surface-mount]
+    spec        = [
+        current = _  // [1A, 2A]
+        style   = _  // [inline, s-bend]
+        mount   = _  // [surface-mount]
     ]
 
     pins = [

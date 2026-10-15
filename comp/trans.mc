@@ -227,7 +227,7 @@ component TRANS.SCR(vrev::UV.VOLT, icur::UV.AMP) :: SCR {
     ]
 
     pins = [
-        in 1 = GATE, "Gate terminal"
+        in 1      = GATE, "Gate terminal"
         io [2, 3] = [A, K]::DIO()  // A = anode (pad 2), K = cathode (pad 3); DIO face adoption, bare member names (schematic face)
     ]
 }
