@@ -15,28 +15,45 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "build" / "param-aliases.toml"
 
-ROW = re.compile(r'^\s{4,}(\w+)\s+=\s+(\w+),\s*alias:\s*\[([^\]]*)\]')
+# Type face runs to the `alias:` comma and may carry arguments or a cond
+# group: `Voltage(range)`, `Ratio(cond(ic: Current, vce: Voltage))`.
+ROW = re.compile(r'^(\s{4,})(\w+)\s+=\s+(.+?),\s*alias:\s*\[([^\]]*)\]')
 RECIPE = re.compile(r'^recipe\s+([\w.]+)')
-GROUP = re.compile(r'^\s{4,}(\w+)\s+=\s*\[')
+# Group opener: `name = [` alone on its line (an inline `[B, C, E]` pin row
+# closes on the same line and is data, not a group).
+GROUP = re.compile(r'^(\s{4,})(\w+)\s+=\s*\[\s*$')
+# Group closer: a bare `]` at the opener's indent.
+CLOSE = re.compile(r'^(\s{4,})\]\s*$')
 
 
 def main() -> int:
     rows = []
     for path in sorted((ROOT / "comp").glob("*.mc")):
         recipe = None
-        group = None
+        stack = []  # (indent, group name), innermost last
         for line in path.read_text().splitlines():
             m = RECIPE.match(line)
             if m:
-                recipe, group = m.group(1), None
+                recipe, stack = m.group(1), []
+                continue
+            m = CLOSE.match(line)
+            if m:
+                indent = len(m.group(1))
+                while stack and stack[-1][0] >= indent:
+                    stack.pop()
                 continue
             m = GROUP.match(line)
             if m:
-                group = m.group(1)
+                stack.append((len(m.group(1)), m.group(2)))
                 continue
             m = ROW.match(line)
-            if m and recipe and group:
-                col, typ, aliases = m.groups()
+            if m and recipe and stack:
+                indent, col, typ, aliases = m.groups()
+                # the row's group is the innermost opener strictly above it
+                group = next((g for i, g in reversed(stack)
+                              if i < len(indent)), None)
+                if group is None:
+                    continue
                 names = [a.strip() for a in aliases.split(",") if a.strip()]
                 if names:
                     rows.append((recipe, group, col, typ, names, path.name))
