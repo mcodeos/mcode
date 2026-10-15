@@ -347,10 +347,13 @@ interface UART.RS423(role)
 {
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
-    maxdistance = 1200m
-    maxspeed = [100kbps@1200m, 1Mbps@100m, 10Mbps@10m]
-    receiver = ±7V
-    output = ±5V
+    // Electrical contract data (receiver thresholds, common-mode window,
+    // driver single-ended output swing) rides the UART.RS423.ELEC recipe
+    // face (302 3.2); this definition carries structure only. The receiver
+    // face shares the RS-422 receiver key vocabulary; the driver face is
+    // single-ended (RS232-family vo/i_sc shape). No numeric data rate is
+    // stated by any sample datasheet (transition-time-implied only), so no
+    // rate key exists anywhere on the recipe face.
 
 
     // Role-less conductor view: 5 anonymous lanes, ordinal = wire identity
@@ -402,10 +405,13 @@ interface UART.RS449(role)
 {
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
-    maxdistance = 1200m
-    maxspeed = [100kbps@1200m, 1Mbps@100m, 10Mbps@10m]
-    receiver = ±7V
-    output = ±5V
+    // This is the FUNCTIONAL face of the RS-449 family (circuit names,
+    // DTE/DCE roles, connector view): it defines no electrical numbers of
+    // its own - the standard delegates every electrical value to EIA-422
+    // (balanced) or EIA-423 (unbalanced) circuits, so the electrical
+    // contract rides those faces' recipe books (UART.RS422.ELEC /
+    // UART.RS423.ELEC, 302 3.2) and no book exists here. The retired data
+    // rows were verbatim copies of the RS-422 folklore (forensics log).
 
 
     // Role-less conductor view: 16 anonymous lanes, ordinal = wire identity
