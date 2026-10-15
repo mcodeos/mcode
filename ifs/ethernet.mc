@@ -12,9 +12,21 @@ interface ETHERNET(role)
 {
     topology = "star"
     mode = ["full duplex"]
-    maxdistance = 100m
-    maxspeed = [10Mbps, 100Mbps, 1Gbps, 10Gbps]
-    voltage = 3.3V
+
+    // Corpus verdict (PHYs LAN8710A/DP83848/RTL8221B class; the
+    // transceiver electrical axis is already keyed at the family-recipe
+    // altitude -- ETH.PHY carries supply.v_ddio and the MAC interface
+    // faces): the retired rows carried no interface-level contract.
+    // Distance: the 100 m figure has zero part-level witnesses
+    // corpus-wide (the IEEE 802.3 specification owns the channel
+    // length; the only corpus hit is a PoE app-note context). Speed:
+    // the rate list is the 802.3 class labels -- spec-derived identity,
+    // quoted against the standard by every PHY. Voltage: media
+    // signaling is the per-part TP-PMD amplitude tables (~1 Vpp class,
+    // tightly clustered but per-part) riding the magnetics face; 3.3 V
+    // was the PHY supply rail class, not the signaling face. No .ELEC
+    // book: the media face is keyed at the recipe altitude and the
+    // channel is spec-owned.
 
     pins = [
         1 = TD\+ @pair(td) @class(digital), "Transmit Data Positive"    // Positive transmit data

@@ -13,9 +13,17 @@ interface STEPDIR(role)
 {
     topology = "point to point"
     mode = ["output"]
-    maxdistance = 0.1m
-    maxspeed = [500kHz]
-    voltage = [1.8V,3.3V,5V]
+
+    // Corpus verdict (stepper drivers DRV8825/DRV8434A/DRV8711/DRV8880,
+    // SGM42630/SGM42618 class): the retired rows carried no
+    // interface-level contract. Distance: zero witnesses corpus-wide.
+    // Speed: fSTEP is per-part (250 kHz DRV8825 vs 500 kHz SGM42630).
+    // Voltage: two input-threshold conventions coexist -- absolute
+    // volts (VIH 2.2 V / hysteresis 0.3 V) and rail-relative
+    // (0.2/0.8 x VCC, internal pull-downs) -- with no interface-level
+    // unification; the optocoupler input-current class has zero
+    // witnesses. No .ELEC book: zero all-sample keys exist on this
+    // face.
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     //

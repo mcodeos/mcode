@@ -22,10 +22,19 @@ interface ENC(role)
 {
     topology = "point to point"
     mode = ["output"]
-    maxdistance = 0.3m
-    maxspeed = [100kHz]   // generic face cap; mechanical encoders sit far
-                          // below it (family-typical: 15 pulses/rev, 3ms chatter mask)
-    voltage = [1.8V,3.3V,5V]
+
+    // Corpus verdict (encoder modules HEDS-9200/HEDM optical, AS5040
+    // magnetic, iC-TW8/iC-HE conditioners; MCU readers RM0364/HPM5300/
+    // QEP -- the reader side is pure protocol, zero electrical rows):
+    // the retired rows carried no interface-level contract. Distance:
+    // zero witnesses corpus-wide (the only length figure is a iC-HE
+    // Figure-2 test condition, not a spec row). Speed: per-part figures
+    // span decades -- HEDS 100 kHz recommended, iC-TW8 8 MHz ABZ,
+    // AS5040 stated in rpm -- never an interface envelope. Voltage: the
+    // output classes split per-part (TTL open-collector + external
+    // pull-up, CMOS push-pull, RS-422 differential driver) with no
+    // receiver threshold stated for the differential class. No .ELEC
+    // book: zero all-sample keys exist on this face.
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     pins = [

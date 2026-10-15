@@ -14,9 +14,21 @@ interface DP(role)
 {
     topology = "point to point"
     mode = ["full duplex"]  // main link unidirectional, AUX bidirectional
-    maxdistance = 3m
-    maxspeed = [2.7Gbps@2m, 5.4Gbps@2m, 8.1Gbps@1m]  // RBR / HBR / HBR2+ per lane
-    voltage = [1.8V, 3.3V]
+
+    // Corpus verdict (redrivers TDP158/SN65DP159, SoC DP TX RK3576/
+    // RK3588; zero DP sink/source documents and zero adopted parts
+    // corpus-wide): the retired rows carried no interface-level
+    // contract. Distance and the rate-at-distance spellings are
+    // folklore -- zero witnesses; lane rates are the spec band labels
+    // (RBR/HBR/HBR2 cited by every carrier, HBR3 only on DP-v1.4-class
+    // SoCs) -- per-part subsets of the standard. Swing and
+    // pre-emphasis are register-programmable per part (TDP158 VOD
+    // levels keyed to register default states; RK3588 exposes per-lane
+    // swing/pre-emphasis control registers) -- never a fixed envelope.
+    // The [1.8V, 3.3V] list was supply rails; the AUX and main-link
+    // level tables are per-part. No .ELEC book: zero all-sample keys
+    // and no electrical population beyond the redriver/SoC register
+    // faces.
 
     pins = [
         1 = ML0_P @pair(ml0) @class(digital), "Main link lane 0 positive"
