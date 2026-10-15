@@ -12,9 +12,19 @@ interface FLEXRAY(role)
 {
     topology = "star"
     mode = ["full duplex"]
-    maxdistance = 10m
-    maxspeed = [10Mbps]
-    voltage = 5V
+
+    // Corpus verdict (carriers are all MCU communication controllers:
+    // Infineon AURIX TC27x E-Ray, TI Hercules TMS570, ST SPC5 -- zero
+    // FlexRay transceiver/PHY document exists corpus-wide, so the bus
+    // electrical face has no witnesses at all): all three retired rows
+    // carried no interface-level contract. Distance: zero witnesses
+    // corpus-wide (folklore). Speed: the protocol identity -- FlexRay
+    // V2.1 runs 2.5/5/8/10 Mbit/s per channel; the per-part module rate
+    // rows live on the MCU datasheet faces (TMS570 "10 Mbps, 2
+    // channels"; SPC58 RM lists the four rates). Voltage: zero
+    // witnesses -- no bus driver document states levels on this face.
+    // No .ELEC book: zero all-sample keys exist, and the electrical
+    // population is empty (half-device law has nothing to judge).
 
     pins = [
         1 = CH_A\+ @pair(cha) @class(digital), "Channel A Positive"    // Positive differential signal for channel A
@@ -53,9 +63,16 @@ interface FLEXRAY.TTL(role)
 {
     topology = "point to point"
     mode = ["full duplex"]
-    maxdistance = 0.5m
-    maxspeed = [10Mbps@0.5m]
-    voltage = [3.3V, 5V]
+
+    // Corpus verdict (consumer = the AURIX tc27x family bindings; the
+    // link is a board-level controller-to-transceiver digital face):
+    // the retired rows carried no interface-level contract. Distance
+    // (0.5 m) and the rate-at-distance spelling are board-routing
+    // folklore -- zero witnesses corpus-wide; the bit-stream rate is the
+    // bus face's protocol rate, never a length function. Voltage:
+    // logic levels ride each controller/transceiver's own supply
+    // (GPIO EC inheritance), no interface-level list exists. No .ELEC
+    // book: zero all-sample keys on this face.
 
     // Role-less conductor view: 4 anonymous lanes, ordinal = wire identity
     pins = [

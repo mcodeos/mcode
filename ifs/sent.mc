@@ -15,7 +15,17 @@ interface SENT(role)
 {
     topology = "point to point"
     mode = ["half duplex"]
-    voltage = 5V
+
+    // Corpus verdict (SAE J2716; sensor conditioners NSC9264/MT6511,
+    // MCU SENT peripherals F29H85x/YTM32B1HA, Elmos E520 SSP): the
+    // retired voltage row carried no interface-level contract. Every
+    // stated level is referenced to the chip's own supply or pin --
+    // MT6511 VOH = VDD - 0.3 V push-pull (open-drain needs an external
+    // pull-up), NSC9264's figures are per-part output-low windows and a
+    // per-part absolute-max clamp on its own pin. Distance: zero
+    // witnesses corpus-wide. Tick timing is per-part programmable
+    // (1.5~6.0 us class), never an interface envelope. No .ELEC book:
+    // zero all-sample keys exist on this face.
 
     pins = [
         1 = SIG @class(digital), "Signal line (single-wire)"    // drop-pause nibble encoding
@@ -50,7 +60,11 @@ interface SENT.SPC(role)
 {
     topology = "point to point"
     mode = ["half duplex"]
-    voltage = 5V
+
+    // Corpus verdict: rides the SENT disposition -- the reverse-channel
+    // trigger is the same supply-referenced digital face; no
+    // interface-level voltage contract exists (per-part pin electricals
+    // only). No .ELEC book.
 
     pins = [
         1 = SIG @class(digital), "Signal line (sensor to ECU)"

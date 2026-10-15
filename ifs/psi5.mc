@@ -15,7 +15,19 @@ interface PSI5(role)
 {
     topology = "point to point"
     mode = ["half duplex"]
-    voltage = 5V
+
+    // Corpus verdict (PSI5 v1.3/v2.x; ST L9663 transceiver, L9662
+    // satellite interface, inertial/pressure sensors NXLS95120/
+    // FXPS71407, Elmos E981): the retired voltage row is falsified by
+    // the corpus -- PSI5 is a current-modulated supply pair, and the
+    // bus supply windows are per-part classes (4.0~16.5 V NXLS95120,
+    // 4.2~16.0 V FXPS71407), not a 5 V interface envelope. Every
+    // threshold is rail-relative (sync detection dV = VPSI5 + 1.0/1.5/
+    // 2.0 V; L9663 Vt2 min 3.5 V v1.3 vs 2.5 V v2.x -- the two spec
+    // generations split the classes). The electrical population is
+    // three documents with values, below the five-sample bar for
+    // require keys, so the .ELEC book stays a registered candidate
+    // (302) rather than a minted one; the row dies here either way.
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     pins = [
