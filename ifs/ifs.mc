@@ -27,6 +27,7 @@ pub use ./spi.mc        // SPI interface (SPI, SPI.3WIRE, SPI.QUAD, SPI.WO)
 pub use ./sdio.mc       // SDIO interface (SDIO, SDIO.1BIT)
 pub use ./usb.mc        // USB interface
 pub use ./pcm.mc        // PCM interface
+pub use ./tdm.mc        // TDM multi-lane audio port interface (BCLK/FSYNC + TX/RX lane banks)
 pub use ./can.mc        // CAN interface
 pub use ./ethernet.mc   // Ethernet interface
 pub use ./mii.mc        // MII / RMII interfaces
