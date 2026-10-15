@@ -14,9 +14,17 @@ interface MII(role)
 {
     topology = "point to point"
     mode = ["full duplex", "half duplex"]  // CRS/COL carry meaning in half duplex
-    maxdistance = 0.1m  // PCB trace only
-    maxspeed = [2.5MHz@0.1m, 25MHz@0.1m]  // 10BASE-T / 100BASE-TX nibble clock
-    voltage = [1.8V, 2.5V, 3.3V]  // I/O ring follows VDDIO
+    // No interface electrical book: IEEE 802.3 Clause 22 defines signals,
+    // timing and management only -- the DC levels are not spec-fixed. The
+    // retired voltage row's classes (1.8/2.5/3.3 V) are the VDDIO ring
+    // classes, and every carrying datasheet states its per-pin levels
+    // against its own VDDIO: the electrical axis is already keyed at the
+    // family altitude (ETH.PHY supply.v_ddio / option mac.iform). The
+    // clock rows were spec-derived timing constants (TX_CLK/RX_CLK
+    // 25 MHz at 100M / 2.5 MHz at 10M, PHY-driven), not a link-rate
+    // contract. The retired 0.1 m distance row was board practice -- the
+    // only corpus witness is a vendor application figure (6-inch traces,
+    // 2-inch matching), not a spec number.
 
     pins = [
         1 = TX_CLK @class(digital), "Transmit Clock (PHY drives)"      // 25MHz / 2.5MHz continuous
@@ -98,9 +106,12 @@ interface RMII(role)
 {
     topology = "point to point"
     mode = ["full duplex", "half duplex"]  // CRS_DV multiplexes carrier sense into the receive path
-    maxdistance = 0.1m  // PCB trace only
-    maxspeed = [50MHz@0.1m]  // fixed 50MHz REF_CLK, both directions sampled to it
-    voltage = [1.8V, 2.5V, 3.3V]  // I/O ring follows VDDIO
+    // Same verdict as MII: the RMII Specification (Rev 1.2) defines
+    // signals and timing only -- the single 50 MHz REF_CLK is a spec
+    // timing constant carried by the pin row, not a link-rate contract;
+    // levels are per-part VDDIO-classed CMOS, keyed at the family
+    // altitude (ETH.PHY supply.v_ddio); the retired 0.1 m row was board
+    // practice with zero spec witnesses.
 
     pins = [
         1 = REF_CLK @class(digital), "Reference Clock 50MHz (system drives)"  // continuous, shared by both directions
