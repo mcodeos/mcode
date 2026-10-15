@@ -42,7 +42,7 @@ recipe SWITCH.DIP {
 // Core Rule: user-actuated open/close between COM and NO; no closed-at-rest
 // contact.
 
-component SWITCH :: SWITCH {
+abstract component SWITCH :: SWITCH {
     name        = "Basic Switch"
     description = "on/off switch with two terminals"
 
@@ -56,7 +56,7 @@ component SWITCH :: SWITCH {
 // Core Rule: one actuation switches two independent poles (COM1-NO1,
 // COM2-NO2) together.
 
-component SWITCH.DOUBLE :: SWITCH {
+abstract component SWITCH.DOUBLE :: SWITCH {
     name        = "Double Pole Switch"
     description = "Double pole switch with four terminals"
 
@@ -72,7 +72,7 @@ component SWITCH.DOUBLE :: SWITCH {
 // Core Rule: the actuator selects which of NC / NO is connected to COM and
 // stays in that position without power.
 
-component SWITCH.TOGGLE :: SWITCH {
+abstract component SWITCH.TOGGLE :: SWITCH {
     name        = "Toggle Switch"
     description = "Toggle switch with on/off positions"
 
@@ -86,7 +86,7 @@ component SWITCH.TOGGLE :: SWITCH {
 // SWITCH.MOM - Momentary Switch Component Definition
 // Core Rule: contact closes only while actuated and opens on release.
 
-component SWITCH.MOM :: SWITCH {
+abstract component SWITCH.MOM :: SWITCH {
     name        = "Momentary Switch"
     description = "Momentary push button switch"
 
@@ -99,7 +99,7 @@ component SWITCH.MOM :: SWITCH {
 // SWITCH.BUTTON - Momentary Push Button Component Definition
 // Core Rule: momentary COM-NO closure while pressed (tact-switch style).
 
-component SWITCH.BUTTON :: SWITCH {
+abstract component SWITCH.BUTTON :: SWITCH {
     name        = "Momentary Push Button"
     description = "Momentary push button (tact switch) with common and normally-open terminals"
 
@@ -114,7 +114,7 @@ component SWITCH.BUTTON :: SWITCH {
 // Note: physical contact map — switch k joins pin k with pin (pin_count+1-k),
 // i.e. an 8-pin part shorts 1-8, 2-7, 3-6, 4-5 when closed.
 
-component SWITCH.DIP(pincnt::INT) :: SWITCH.DIP {
+abstract component SWITCH.DIP(pincnt::INT) :: SWITCH.DIP {
     name        = "DIP Switch"
     description = "DIP switch with independent SPST slides (pin count on the spec face)"
     spec        = [

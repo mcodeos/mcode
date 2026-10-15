@@ -31,7 +31,7 @@ recipe DC {
 // Core Rule: ideal source that holds its rated voltage on the VCC/GND pair
 // and supplies up to its rated current.
 
-component DC.SRC(volt::UV.VOLT, curr::UV.AMP) :: DC {
+abstract component DC.SRC(volt::UV.VOLT, curr::UV.AMP) :: DC {
     name        = "DC Power Source"
     description = "DC power supply source"
     spec        = [
@@ -48,7 +48,7 @@ component DC.SRC(volt::UV.VOLT, curr::UV.AMP) :: DC {
 // Core Rule: bidirectional source on the BAT pair — charge flows in as a
 // sink, discharge flows out as a source; the whole lead pair is addressable.
 
-component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE) :: DC {
+abstract component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE) :: DC {
     name        = "DC Battery"
     description = "DC battery"
     spec        = [

@@ -48,7 +48,7 @@ recipe FUSE.PTC {
 // Core Rule: an overcurrent event melts the element and opens the circuit
 // permanently; the part must then be replaced.
 
-component FUSE(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
+abstract component FUSE(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
     name = "Fuse"
     spec = [
         rated_current = irated  // [0.1A, 0.5A, 1A, 2A, 5A, 10A, 20A]
@@ -65,7 +65,7 @@ component FUSE(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
 // FUSE.SMD - Surface Mount Fuse Component Definition
 // Core Rule: one-shot overcurrent opening in a surface-mount two-terminal body.
 
-component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
+abstract component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
     name = "Surface Mount Fuse"
     spec = [
         rated_current = irated  // [0.1A, 0.5A, 1A, 2A, 5A]
@@ -83,7 +83,7 @@ component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
 // Core Rule: one-shot overcurrent opening in a ceramic body rated for a
 // specified breaking capacity (maximum fault current it can safely interrupt).
 
-component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP, spd::STRING) :: FUSE {
+abstract component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP, spd::STRING) :: FUSE {
     name = "Ceramic Fuse"
     spec = [
         rated_current     = irated
@@ -102,7 +102,7 @@ component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP, spd::STR
 // Core Rule: one-shot overcurrent opening in a glass body (lower breaking
 // capacity than ceramic at the same size).
 
-component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
+abstract component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
     name = "Glass Fuse"
     spec = [
         rated_current = irated  // [0.5A, 1A, 2A, 5A, 10A]
@@ -123,7 +123,7 @@ component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
 // fault current flows; it resets on cooling. `resistance` stays as an
 // unassigned BOM slot for the cold resistance.
 
-component FUSE.PTC(irated::UV.AMP, vrated::UV.VOLT, itrip::UV.AMP) :: FUSE.PTC {
+abstract component FUSE.PTC(irated::UV.AMP, vrated::UV.VOLT, itrip::UV.AMP) :: FUSE.PTC {
     name        = "PTC Fuse"
     description = "Resettable PPTC overcurrent protection device"
     spec        = [

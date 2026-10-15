@@ -5,7 +5,7 @@
 // Core Rule: one instance per net tap; the single pin is a pure measurement
 // tap and carries no electrical function of its own.
 
-component TP()
+abstract component TP()
 {
     name = "Test Point"
     description = "Electrical test point for circuit debugging"

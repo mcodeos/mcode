@@ -31,7 +31,7 @@ recipe FET {
 // the channel, so drain-source conduction is set by gate drive; conduction
 // loss is characterized by Rds(on).
 
-component FET(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
+abstract component FET(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
     name        = "FET"
     description = "General field-effect transistor"
     spec        = [
@@ -52,7 +52,7 @@ component FET(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
 // normal operation; channel conducts with gate at source potential, and
 // negative gate-source voltage pinches it off.
 
-component FET.JFET.N(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
+abstract component FET.JFET.N(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
     name        = "N-Channel JFET"
     description = "N-channel junction field-effect transistor"
     spec        = [
@@ -73,7 +73,7 @@ component FET.JFET.N(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
 // channel conducts at zero gate-source bias and positive gate-source voltage
 // pinches it off.
 
-component FET.JFET.P(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
+abstract component FET.JFET.P(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
     name        = "P-Channel JFET"
     description = "P-channel junction field-effect transistor"
     spec        = [
@@ -93,7 +93,7 @@ component FET.JFET.P(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
 // Core Rule: insulated gate turns the channel on with a positive
 // gate-source voltage above threshold; body diode points source to drain.
 
-component FET.MOSFET.N(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
+abstract component FET.MOSFET.N(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
     name        = "N-Channel MOSFET"
     description = "N-channel metal-oxide-semiconductor field-effect transistor"
     spec        = [
@@ -113,7 +113,7 @@ component FET.MOSFET.N(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
 // Core Rule: insulated gate turns the channel on with a negative
 // gate-source voltage below threshold; body diode points drain to source.
 
-component FET.MOSFET.P(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
+abstract component FET.MOSFET.P(vds::UV.VOLT, ids::UV.AMP, rds::UV.OHM) :: FET {
     name        = "P-Channel MOSFET"
     description = "P-channel metal-oxide-semiconductor field-effect transistor"
     spec        = [

@@ -86,7 +86,7 @@ recipe OPTO.LOGIC {
 // Core Rule: signal crosses the isolation barrier optically — input LED and
 // output photodetector share no galvanic path up to the isolation voltage.
 
-component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: OPTO {
+abstract component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: OPTO {
     name = "Optocoupler"
     spec = [
         input_current     = iin
@@ -106,7 +106,7 @@ component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: OPTO {
 // Core Rule: phototransistor output; the current transfer ratio (CTR) sets
 // how much output current a given input LED current can sustain.
 
-component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT) :: OPTO {
+abstract component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT) :: OPTO {
     name = "Transistor Output Optocoupler"
     spec = [
         input_current          = iin
@@ -127,7 +127,7 @@ component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT) 
 // Core Rule: photosensitive triac output drives AC loads; holding current
 // keeps the output on until the load current crosses zero.
 
-component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP) :: OPTO.TRIAC {
+abstract component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP) :: OPTO.TRIAC {
     name = "Triac Output Optocoupler"
     spec = [
         input_current     = iin
@@ -148,7 +148,7 @@ component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP) :
 // Core Rule: the output side is a photovoltaic generator — LED input light
 // produces an isolated floating voltage source rather than a switched current.
 
-component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: OPTO.PV {
+abstract component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: OPTO.PV {
     name = "Photovoltaic Optocoupler"
     spec = [
         input_current     = iin
@@ -168,7 +168,7 @@ component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: OPTO.PV {
 // Core Rule: integrated receiver restores the signal to a logic level on the
 // output side; the propagation delay bounds the achievable signalling rate.
 
-component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME) :: OPTO.LOGIC {
+abstract component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME) :: OPTO.LOGIC {
     name = "Logic Output Optocoupler"
     spec = [
         input_current     = iin

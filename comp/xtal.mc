@@ -52,7 +52,7 @@ recipe XTAL
 // Core Rule: the cload formal carries the crystal load capacitance — it lands
 // in `spec` (for BOM/DRC) and drives the container `Setup` wiring helper.
 
-component XTAL2(freq::UV.HZ, cload::UV.CAP) :: XTAL
+abstract component XTAL2(freq::UV.HZ, cload::UV.CAP) :: XTAL
 {
     name = "2-Pin Crystal"
     description = "Basic 2-pin crystal oscillator"
@@ -71,7 +71,7 @@ component XTAL2(freq::UV.HZ, cload::UV.CAP) :: XTAL
 // Core Rule: same resonator law as XTAL2 with two unconnected package pins
 // (pins 2 and 4); cload drives the container `Setup` the same way.
 
-component XTAL4(freq::UV.HZ, cload::UV.CAP) :: XTAL
+abstract component XTAL4(freq::UV.HZ, cload::UV.CAP) :: XTAL
 {
     name = "4-Pin Crystal"
     description = "4-pin crystal oscillator (pins 2 and 4 unconnected)"
@@ -90,7 +90,7 @@ component XTAL4(freq::UV.HZ, cload::UV.CAP) :: XTAL
 // Core Rule: self-contained oscillator — power in, single-ended clock out;
 // no external load capacitors are needed or modeled.
 
-component OSC(freq::UV.HZ)
+abstract component OSC(freq::UV.HZ)
 {
     name = "Oscillator"
     description = "Active oscillator module"
@@ -110,7 +110,7 @@ component OSC(freq::UV.HZ)
 // lower-cost alternative to a quartz crystal; two resonator terminals, no
 // load capacitance formal (the option column stays unfilled).
 
-component XTAL.CERAMIC(freq::UV.HZ) :: XTAL
+abstract component XTAL.CERAMIC(freq::UV.HZ) :: XTAL
 {
     name = "Ceramic Resonator"
     description = "Ceramic resonator for timing applications"

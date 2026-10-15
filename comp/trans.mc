@@ -126,7 +126,7 @@ recipe TRIAC {
 // General-purpose junction transistor: polarity-neutral ideal element
 // (schematic-level placeholder; polarity-specific contracts adopt the
 // NPN/PNP containers).
-component TRANS(vce::UV.VOLT, ic::UV.AMP, hfe::INT) {
+abstract component TRANS(vce::UV.VOLT, ic::UV.AMP, hfe::INT) {
     name        = "Bipolar Junction Transistor"
     description = "General bipolar junction transistor"
     spec        = [
@@ -144,7 +144,7 @@ component TRANS(vce::UV.VOLT, ic::UV.AMP, hfe::INT) {
 
 // NPN transistor: conducts when the base is driven above the emitter;
 // adopts the NPN container.
-component TRANS.NPN(vce::UV.VOLT, icur::UV.AMP, gain::INT) :: NPN {
+abstract component TRANS.NPN(vce::UV.VOLT, icur::UV.AMP, gain::INT) :: NPN {
     name        = "NPN Transistor"
     description = "NPN bipolar junction transistor"
     spec        = [
@@ -162,7 +162,7 @@ component TRANS.NPN(vce::UV.VOLT, icur::UV.AMP, gain::INT) :: NPN {
 
 // PNP transistor: conducts when the base is pulled below the emitter;
 // adopts the PNP container.
-component TRANS.PNP(vce::UV.VOLT, icur::UV.AMP, gain::INT) :: PNP {
+abstract component TRANS.PNP(vce::UV.VOLT, icur::UV.AMP, gain::INT) :: PNP {
     name        = "PNP Transistor"
     description = "PNP bipolar junction transistor"
     spec        = [
@@ -182,7 +182,7 @@ component TRANS.PNP(vce::UV.VOLT, icur::UV.AMP, gain::INT) :: PNP {
 // current gain is the product of the two stages; adopts the NPN container
 // (the common polarity; the doubled VBE drop rides the model, not the
 // ratings).
-component TRANS.DARLINGTON(vce::UV.VOLT, icur::UV.AMP, gain::INT) :: NPN {
+abstract component TRANS.DARLINGTON(vce::UV.VOLT, icur::UV.AMP, gain::INT) :: NPN {
     name        = "Darlington Transistor"
     description = "Darlington pair transistor"
     spec        = [
@@ -200,7 +200,7 @@ component TRANS.DARLINGTON(vce::UV.VOLT, icur::UV.AMP, gain::INT) :: NPN {
 
 // IGBT: a MOSFET-style insulated gate controls a bipolar conduction path;
 // adopts the IGBT container.
-component TRANS.IGBT(vce::UV.VOLT, icur::UV.AMP) :: IGBT {
+abstract component TRANS.IGBT(vce::UV.VOLT, icur::UV.AMP) :: IGBT {
     name        = "IGBT"
     description = "Insulated Gate Bipolar Transistor"
     spec        = [
@@ -218,7 +218,7 @@ component TRANS.IGBT(vce::UV.VOLT, icur::UV.AMP) :: IGBT {
 // SCR: latches on when gate current is injected while forward biased and
 // stays conducting until the anode current falls below the holding level;
 // adopts the SCR container.
-component TRANS.SCR(vrev::UV.VOLT, icur::UV.AMP) :: SCR {
+abstract component TRANS.SCR(vrev::UV.VOLT, icur::UV.AMP) :: SCR {
     name        = "SCR"
     description = "Silicon Controlled Rectifier"
     spec        = [
@@ -235,7 +235,7 @@ component TRANS.SCR(vrev::UV.VOLT, icur::UV.AMP) :: SCR {
 // TRIAC: bidirectional latching switch - gate triggering in either
 // polarity turns on conduction in either direction; adopts the TRIAC
 // container.
-component TRANS.TRIAC(vd::UV.VOLT, icur::UV.AMP) :: TRIAC {
+abstract component TRANS.TRIAC(vd::UV.VOLT, icur::UV.AMP) :: TRIAC {
     name        = "TRIAC"
     description = "Triode for Alternating Current"
     spec        = [

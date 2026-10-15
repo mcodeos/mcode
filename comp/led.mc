@@ -49,7 +49,7 @@ recipe LED.RGB {
 // forward voltage sets the dropper/budget, forward current sets the
 // brightness and must be limited externally.
 
-component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
+abstract component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
     name = "LED"
     spec = [
         forward_voltage = vfwd        // [1.8V, 2.0V, 2.2V, 3.2V, 3.6V]
@@ -73,7 +73,7 @@ component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
 // common cathode; each channel has its own forward voltage and needs its own
 // current limit.
 
-component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP) :: LED.RGB {
+abstract component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP) :: LED.RGB {
     name = "RGB LED"
     spec = [
         red_forward_voltage   = vred
@@ -102,7 +102,7 @@ component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP) 
 // Core Rule: forward-biased junction emits in the infrared band; driven in
 // pulsed or continuous mode by an external current limit.
 
-component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
+abstract component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
     name = "Infrared LED"
     spec = [
         forward_voltage = vfwd
@@ -125,7 +125,7 @@ component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
 // Core Rule: high-current emitter rated by dissipated power — thermal
 // management (heatsinking, derating) governs the drive level.
 
-component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT) :: LED {
+abstract component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT) :: LED {
     name = "High Power LED"
     spec = [
         forward_voltage = vfwd  // [3.0V, 3.2V, 3.4V, 3.6V]

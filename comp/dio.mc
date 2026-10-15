@@ -34,6 +34,7 @@ recipe DIO {
             surge_current   = Current, alias: [IFSM], desc: "non-repetitive peak surge current (8.3 ms half sine)"
             peak_current    = Current, alias: [IFRM], desc: "repetitive peak forward current (signal faces)"
             power_rated     = Power, alias: [PD], desc: "power dissipation rating (small-signal faces; power rectifiers state thermal resistance instead)"
+            fusing_i2t      = I2t, alias: [I2t, It], desc: "fusing I2t (superscript I²t in the sheets), the non-repetitive thermal integral in A²s (rectifier/bridge surge face)"
         ]
     ]
 
@@ -96,6 +97,7 @@ recipe DIO.PHOTO {
             open_circuit_voltage  = Voltage, alias: [Vo], desc: "open-circuit photovoltage at the stated irradiance (photovoltaic operating face)"
             response_time         = Time, alias: [tr, tf], desc: "rise/fall time at the stated load and wavelength"
             shunt_resistance      = Resistance, alias: [Rsh], desc: "shunt resistance at VR = 0 V (precision photometry face)"
+            noise_equivalent_power = Noise, alias: [NEP], desc: "noise equivalent power per root Hz at the stated wavelength (W/sqrt(Hz); the detector's 1 SNR bandwidth face)"
             half_angle            = Angle, desc: "angle of half sensitivity (radiation pattern face)"
         ]
     ]
@@ -145,7 +147,7 @@ recipe DIO.ESD_ARRAY {
 
 // General-purpose diode: conducts from anode to cathode above the forward
 // voltage, blocks in reverse up to the reverse voltage rating.
-component DIO(
+abstract component DIO(
     vfwd::UV.VOLT,
     vrev::UV.VOLT,
     irated::UV.AMP
@@ -167,7 +169,7 @@ component DIO(
 // Schottky diode: metal-semiconductor junction - lower forward drop and
 // faster recovery than a standard PN diode, at a lower reverse voltage
 // rating. Same conduction equation as DIO; only the ratings differ.
-component DIO.SCH(
+abstract component DIO.SCH(
     vfwd::UV.VOLT,
     vrev::UV.VOLT,
     irated::UV.AMP
@@ -189,7 +191,7 @@ component DIO.SCH(
 // Zener diode: operates in reverse breakdown - clamps at the zener voltage
 // while dissipating up to the rated power; the tolerance grades the clamp
 // accuracy.
-component DIO.ZEN(
+abstract component DIO.ZEN(
     vz::UV.VOLT,
     prated::UV.WATT,
     tol::UV.PERCENT
@@ -211,7 +213,7 @@ component DIO.ZEN(
 // Transient voltage suppressor: inactive at normal operating voltage,
 // breaks down at the breakdown voltage, absorbs the surge energy at the
 // clamping voltage up to the peak power rating.
-component DIO.TVS(
+abstract component DIO.TVS(
     vbr::UV.VOLT,
     vclamp::UV.VOLT,
     ppeak::UV.WATT
@@ -233,7 +235,7 @@ component DIO.TVS(
 // ESD protection diode: steers a protected line to the clamp reference -
 // junction conduction on the steering side, breakdown standoff on the
 // working face; rated by the working standoff / ESD withstand voltage.
-component DIO.ESD(
+abstract component DIO.ESD(
     rating::UV.VOLT
 ) :: DIO.CLAMP {
     name = "ESD Diode"
@@ -252,7 +254,7 @@ component DIO.ESD(
 // ESD protection diode array: two protected signal lines steering to a
 // common clamp reference; same clamp law as DIO.ESD in a multi-line
 // topology.
-component DIO.ESD_ARRAY(
+abstract component DIO.ESD_ARRAY(
     rating::UV.VOLT
 ) :: DIO.ESD_ARRAY {
     name = "ESD Protection Diode Array"
@@ -271,7 +273,7 @@ component DIO.ESD_ARRAY(
 // Photodiode: a reverse-biased junction generating a photocurrent
 // proportional to incident light (responsivity) plus a leakage dark
 // current, over the specified spectral range.
-component DIO.PHOTO(
+abstract component DIO.PHOTO(
     resp::UV.RESPONSIVITY,
     idark::UV.AMP,
     srange::UV.LEN
@@ -292,7 +294,7 @@ component DIO.PHOTO(
 
 // Bridge rectifier: four diodes in one package full-wave rectify an AC
 // input into DC outputs; the two AC terminals are interchangeable.
-component DIO.BR(
+abstract component DIO.BR(
     iavg::UV.AMP,
     vrrm::UV.VOLT,
     vfwd::UV.VOLT

@@ -39,7 +39,7 @@ recipe RELAY.SSR {
 // Core Rule: coil-side energization (isolated barrier) magnetically switches
 // the contact side between COM-NO (open at rest) and COM-NC (closed at rest).
 
-component RELAY(icont::UV.AMP, vcoil::UV.VOLT) :: RELAY {
+abstract component RELAY(icont::UV.AMP, vcoil::UV.VOLT) :: RELAY {
     name = "Relay"
     spec = [
         contact_rating = icont
@@ -58,7 +58,7 @@ component RELAY(icont::UV.AMP, vcoil::UV.VOLT) :: RELAY {
 // Core Rule: coil current creates the switching force; contacts spring back
 // to the rest position when the coil de-energizes.
 
-component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
+abstract component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
     name = "Electromagnetic Relay"
     spec = [
         coil_voltage   = vcoil
@@ -77,7 +77,7 @@ component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
 // Core Rule: no moving parts and no coil — a control-side input drives an
 // electronic output switch across the isolation barrier.
 
-component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP) :: RELAY.SSR {
+abstract component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP) :: RELAY.SSR {
     name = "Solid State Relay"
     spec = [
         control_voltage = vctrl
@@ -97,7 +97,7 @@ component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP) :: RELAY.SSR 
 // Core Rule: coil-driven reed contact, NO/COM only (no normally-closed
 // contact); low coil power, fast switching.
 
-component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
+abstract component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
     name = "Reed Relay"
     spec = [
         coil_voltage   = vcoil
@@ -115,7 +115,7 @@ component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
 // Core Rule: two coils (set and reset); the contact state persists after the
 // pulse ends instead of springing back.
 
-component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
+abstract component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
     name = "Latching Relay"
     spec = [
         coil_voltage   = vcoil

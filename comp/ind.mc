@@ -88,7 +88,7 @@ recipe IND.CMC {
 // Core Rule: V = L dI/dt between the terminals; carries the rated thermal
 // current and a DC winding resistance.
 
-component IND(
+abstract component IND(
     ind::UV.IND,
     irated::UV.AMP,
     tol::UV.PERCENT,
@@ -119,7 +119,7 @@ component IND(
 // Core Rule: V = L dI/dt with SMD-mount construction; rated thermal current
 // and DCR apply.
 
-component IND.SMD(
+abstract component IND.SMD(
     ind::UV.IND,
     irated::UV.AMP,
     tol::UV.PERCENT,
@@ -150,7 +150,7 @@ component IND.SMD(
 // Core Rule: V = L dI/dt with THT-mount construction; rated thermal current
 // and DCR apply.
 
-component IND.THT(
+abstract component IND.THT(
     ind::UV.IND,
     irated::UV.AMP,
     tol::UV.PERCENT,
@@ -181,7 +181,7 @@ component IND.THT(
 // Core Rule: inductor for converter service — adds the saturation current
 // limit; beyond it the inductance collapses regardless of the thermal rating.
 
-component IND.POWER(
+abstract component IND.POWER(
     ind::UV.IND,
     irated::UV.AMP,
     isat::UV.AMP,
@@ -214,7 +214,7 @@ component IND.POWER(
 // Core Rule: usable only below the self-resonant frequency (SRF), where the
 // winding capacitance turns the inductor resonant.
 
-component IND.HF(
+abstract component IND.HF(
     ind::UV.IND,
     irated::UV.AMP,
     srf::UV.HZ,
@@ -247,7 +247,7 @@ component IND.HF(
 // Core Rule: lossy high-frequency impedance, not an inductor — specified by
 // impedance at a test frequency, with no inductance parameter.
 
-component IND.FB(
+abstract component IND.FB(
     impd::UV.OHM,
     irated::UV.AMP,
     ftest::UV.HZ
@@ -277,7 +277,7 @@ component IND.FB(
 // currents, low impedance to differential currents; four-pin topology,
 // modeled as an independent component.
 
-component IND.CMC(
+abstract component IND.CMC(
     ind::UV.IND,
     irated::UV.AMP,
     impd::UV.OHM,

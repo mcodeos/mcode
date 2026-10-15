@@ -181,7 +181,7 @@ recipe CAP.POL {
 // construction selections fix the electrical family (the enum groups must not
 // be cross-assigned).
 
-component CAP(
+abstract component CAP(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT,
@@ -211,7 +211,7 @@ component CAP(
 // cathode potential; wet vs polymer construction stays open at BOM stage.
 // Polarity is declared: \+ is the anode pad, \- the cathode (PCAP face).
 
-component CAP.ELEC(
+abstract component CAP.ELEC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
@@ -237,7 +237,7 @@ component CAP.ELEC(
 // Core Rule: non-polarized ceramic capacitor; the dielectric class (X7R, X5R,
 // C0G, ...) fixes the temperature characteristic and drift behavior.
 
-component CAP.MLCC(
+abstract component CAP.MLCC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT,
@@ -265,7 +265,7 @@ component CAP.MLCC(
 // Core Rule: non-polarized single-layer disk ceramic; common high-voltage,
 // low-cost service (defaults to C0G).
 
-component CAP.DISC(
+abstract component CAP.DISC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT,
@@ -295,7 +295,7 @@ component CAP.DISC(
 // stage. Polarity is declared: \+ is the anode pad, \- the cathode (PCAP
 // face).
 
-component CAP.TANT(
+abstract component CAP.TANT(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
@@ -322,7 +322,7 @@ component CAP.TANT(
 // above cathode potential. Polarity is declared: \+ is the anode pad, \- the
 // cathode (PCAP face).
 
-component CAP.NIOB(
+abstract component CAP.NIOB(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
@@ -349,7 +349,7 @@ component CAP.NIOB(
 // Core Rule: non-polarized plastic-film capacitor; the film dielectric
 // (PP/PET/PC/PS/PEN) sets tolerance, stability, and self-healing behavior.
 
-component CAP.FILM(
+abstract component CAP.FILM(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT,
@@ -377,7 +377,7 @@ component CAP.FILM(
 // Core Rule: mica dielectric gives high stability and low loss at high
 // frequency and precision service.
 
-component CAP.MICA(
+abstract component CAP.MICA(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
@@ -404,7 +404,7 @@ component CAP.MICA(
 // Core Rule: certified for fail-safe EMI service across the mains; the volt
 // formal is the AC RMS rating, not a DC voltage.
 
-component CAP.SAFETY(
+abstract component CAP.SAFETY(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT,
@@ -436,7 +436,7 @@ component CAP.SAFETY(
 // convention, not as a classical dielectric. Polarity is declared: \+ is the
 // anode pad, \- the cathode (PCAP face).
 
-component CAP.SC(
+abstract component CAP.SC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
@@ -463,7 +463,7 @@ component CAP.SC(
 // Core Rule: mechanically adjustable capacitance; the cap formal is the
 // nominal (maximum) value.
 
-component CAP.TRIM(
+abstract component CAP.TRIM(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT

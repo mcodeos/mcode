@@ -38,7 +38,7 @@ recipe ANT {
 // class (radio is a subtype of analog: an analog-class expectation still
 // accepts a radio-class line, and a radio expectation rejects an analog line).
 
-component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
+abstract component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Antenna"
     spec = [
         frequency = freq  // [433MHz, 868MHz, 900MHz, 2.4GHz, 5.8GHz]
@@ -55,7 +55,7 @@ component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
 // Core Rule: monopole over the surrounding ground; single RF port, no ground
 // pin on the part.
 
-component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
+abstract component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Whip Antenna"
     spec = [
         frequency  = freq  // [433MHz, 868MHz, 900MHz, 2.4GHz]
@@ -73,7 +73,7 @@ component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
 // Core Rule: radiating element that requires a ground plane (separate GND
 // pin); polarization is a design choice.
 
-component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
+abstract component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Patch Antenna"
     spec = [
         frequency    = freq  // [2.4GHz, 5.8GHz, 10GHz]
@@ -92,7 +92,7 @@ component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
 // Core Rule: balanced two-element radiator fed at the center; single RF port
 // on the part, length tied to the operating frequency.
 
-component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
+abstract component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Dipole Antenna"
     spec = [
         frequency = freq  // [433MHz, 868MHz, 900MHz, 2.4GHz]
@@ -110,7 +110,7 @@ component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
 // Core Rule: spiral radiator for circular polarization; requires a ground
 // pin, with the number of turns as a structural parameter.
 
-component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
+abstract component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Helical Antenna"
     spec = [
         frequency = freq  // [1GHz, 1.5GHz, 2.4GHz]
@@ -129,7 +129,7 @@ component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
 // Core Rule: logarithmically periodic element structure gives near-constant
 // gain across a wide band, bounded by the start and end frequencies.
 
-component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
+abstract component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Log Periodic Antenna"
     spec = [
         frequency_start = fstart  // [88MHz, 1MHz, 100MHz]
