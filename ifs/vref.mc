@@ -14,13 +14,17 @@
 //                    RECEIVER = the converter reference input (ADC/DAC).
 // Note: members keep neutral local names (REF/RET, not VCC/GND); adopting
 //       rows rename by position and never rely on these names.
+// Note: the head formal is the instance-binding hook of the data face —
+//       each adoption binds its own reference nominal (::VREF(2.5V) class;
+//       per-part output windows live on the part spec faces, the retired
+//       body rows were folklore: distance stated by zero documents). The
+//       body keeps structure only; no interface-level key exists (no
+//       all-sample answer face corpus-wide), so no .ELEC book.
 
 interface VREF(volt::UV.VOLT) // Voltage Reference Interface
 {
     topology = "point to point"
     mode = ["unidirectional"]
-    maxdistance = 0.3m
-    voltage = volt
 
     pins = [
         1 = REF @role(quiet), "Voltage reference"

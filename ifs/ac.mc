@@ -13,13 +13,16 @@
 //            ::AC.1P(), module power faces carry the nominal
 //            (::AC.1P(230V, 50Hz)).
 // Note: the family name AC.SPLIT (L1, L2, N) is reserved.
+// Note: the head formals are the instance-binding hooks of the data face
+//       (region nominals bind at the adoption site); the retired body
+//       rows were definition-side mirrors of them. The body keeps
+//       structure only; mains nominals are region convention (no
+//       interface-level key exists), so no .ELEC book.
 
 interface AC.1P(volt::UV.VOLT, freq::UV.HZ) // Single-phase AC mains interface
 {
     topology = "point to point"
     mode = ["unidirectional"]
-    voltage = volt
-    frequency = freq
 
     pins = [
         1 = L, "Line (live conductor)"
@@ -39,8 +42,6 @@ interface AC.3P(volt::UV.VOLT, freq::UV.HZ) // Three-phase AC mains interface (4
 {
     topology = "point to point"
     mode = ["unidirectional"]
-    voltage = volt
-    frequency = freq
 
     pins = [
         1 = L1, "Phase 1 (live conductor)"
@@ -64,8 +65,6 @@ interface AC.3P3W(volt::UV.VOLT, freq::UV.HZ) // Three-phase AC mains interface 
 {
     topology = "point to point"
     mode = ["unidirectional"]
-    voltage = volt
-    frequency = freq
 
     pins = [
         1 = L1, "Phase 1 (live conductor)"

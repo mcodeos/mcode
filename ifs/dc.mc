@@ -11,13 +11,16 @@
 //            name VCC. Source/sink direction rides the adopting
 //            terminal's direction word (psrc / psnk / psbi), not a
 //            parameter of this face.
+// Note: the head formal is the instance-binding hook of the data face —
+//       every adoption site binds its own rail nominal (::DC(3.3V) class;
+//       the retired body rows were folklore: distance stated by zero
+//       documents, the nominal is not definition data). The body keeps
+//       structure only; the electrical contract rides the .ELEC recipes.
 
 interface DC(volt::UV.VOLT) // DC Power Supply Interface
 {
     topology = "point to point"
     mode = ["unidirectional"]
-    maxdistance = 3m
-    voltage = volt
 
     if (volt < 0V)
         pins = [
