@@ -44,6 +44,7 @@ pub use ./pmbus.mc      // PMBus interface
 pub use ./adcdiff.mc    // ADC.DIFF interface
 pub use ./adcsingle.mc  // ADC.SINGLE interface (single-ended analog input)
 pub use ./dac.mc        // DAC interface
+pub use ./amp.mc        // AMP interface (op-amp: IN+/IN-/OUT)
 pub use ./ampbtl.mc     // AMP.BTL interface
 pub use ./loop.mc       // LOOP interface (analog current loop, 4-20mA class)
 
