@@ -65,6 +65,6 @@ interface AMP(role)
             in 1 = IN+ @class(analog), "Non-inverting Input"   // Both inputs are RECEIVER
             in 2 = IN- @class(analog), "Inverting Input"       // - they sum at the amplifier
         ]
-        peer = TRANSMITTER(1, 2)
+        peer = TRANSMITTER(1)
     }
 }
