@@ -39,7 +39,7 @@ interface AMP(role)
     // family recipe; the AMP interface states no per-lane rows beyond
     // the pin map.
 
-    // The two input rows (IN+/IN-) are the non-inverting and inverting
+    // The two input rows (IN\+/IN\-) are the non-inverting and inverting
     // inputs of one op-amp; they sum at the amplifier's summing node
     // (or, for AMP.BUFFER, only one input is present and the buffer
     // stage drives OUT). The @class(analog) row attribute is the
@@ -47,24 +47,17 @@ interface AMP(role)
     // an analog signal face even when the amplifier is a precision
     // instrumentation or comparator variant.
     pins = [
-        1 = IN+ @class(analog), "Non-inverting Input"  // Non-inverting (positive) input
-        2 = IN- @class(analog), "Inverting Input"       // Inverting (negative) input
+        1 = IN\+ @class(analog), "Non-inverting Input"  // Non-inverting (positive) input
+        2 = IN\- @class(analog), "Inverting Input"       // Inverting (negative) input
         3 = OUT @class(analog), "Output"                // Amplifier output
     ]
 
-    role TRANSMITTER {  // AMP Transmitter - Amplifier output stage
+    role TRANSMITTER {  // AMP Transmitter - Amplifier output stage (inherits the view's 3 lanes)
         name = "AMP Transmitter"
-        pins = [
-            out 3 = OUT @class(analog), "Output"          // The amplifier drives the output
-        ]
         peer = RECEIVER(3)
     }
-    role RECEIVER {  // AMP Receiver - Amplifier input stage (sums two inputs)
+    role RECEIVER {  // AMP Receiver - Amplifier input stage (inherits the view's 3 lanes)
         name = "AMP Receiver"
-        pins = [
-            in 1 = IN+ @class(analog), "Non-inverting Input"   // Both inputs are RECEIVER
-            in 2 = IN- @class(analog), "Inverting Input"       // - they sum at the amplifier
-        ]
         peer = TRANSMITTER(1)
     }
 }
