@@ -11,22 +11,22 @@
 Never mention any third-party company name, product name, or part/model
 number anywhere in this repo — not in `.mc` identifiers, comments, doc
 strings, parameter names, or READMEs. Abstract shapes are named by function,
-and datasheet provenance belongs in mcpub packs, not here.
+and datasheet provenance belongs in mcparts packs, not here.
 
 ## No chip documents (mandatory)
 
 This repo must not contain any chip-specific datasheets, schematics, or
 other manufacturer documents (PDFs, vendor .txt dumps, source EDA files).
 Abstract shapes carry pinout/behavior comments only; the underlying
-documents live in the corresponding mcpub packs. For the same reason,
+documents live in the corresponding mcparts packs. For the same reason,
 comments must not cite document locations (page numbers, tables, figures,
 sections) — no `p.3`, `Table 5-1`, `Figure 8` style references; that
-evidence trail lives in the mcpub packs, not here.
+evidence trail lives in the mcparts packs, not here.
 
 ## No cross-repo or internal-design references (mandatory)
 
 This repo is a standalone public library: it must not reference, mention,
-or depend on any other repo — no `mcpub` pointers, no `mcfam`/`mcd`
+or depend on any other repo — no `mcparts` pointers, no `mcfam`/`mcd`
 mentions, no paths into sibling projects. It must also not cite internal
 design material: no design documents, no design clauses or rulings
 ("ruling 12" style), no issue/decision numbers (`b4532` style), no
