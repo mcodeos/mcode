@@ -4,8 +4,11 @@
 // TERM - Passive Two-Terminal Interface Standard Definition
 // Core Rule: the symmetric passive two-terminal face (resistor, capacitor,
 //            inductor, ferrite bead, fuse, varistor, jumper, net-tie). Two
-//            analog network nodes, no role distinction and no direction
-//            words: the terminals are interchangeable for every adopter.
+//            classless network nodes (class rides the host net's identity,
+//            not the iface — a passive on a power rail is still a passive;
+//            a passive on analog signal is still a passive), no role
+//            distinction and no direction words: the terminals are
+//            interchangeable for every adopter.
 //            Polarity never rides this face - a polarized part declares its
 //            terminals on its own face (PCAP's sign words for the polarized
 //            passives, DIO's anode/cathode for the diode leaf), never by
@@ -23,7 +26,7 @@ interface TERM
     topology = "point to point"
 
     pins = [
-        1 = 1 @class(analog)   // terminal 1 (first pad)
-        2 = 2 @class(analog)   // terminal 2
+        1 = 1                  // terminal 1 (first pad) — classless: class rides the host net, not the iface
+        2 = 2                  // terminal 2
     ]
 }
