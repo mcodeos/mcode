@@ -179,8 +179,13 @@ interface UART.RS232.5(role)
 //            DTE role.
 // Device Definition: DCE = data communications equipment,
 //                    DTE = data terminal equipment.
-// Note: an interface modeling a specific physical connector mirrors that
-//       connector's numbering — this 9-pin face mirrors the DE-9.
+// Note: the 9 lanes carry the DE-9 signal set (DCD/RXD/TXD/DTR/GND/DSR/RTS/CTS/RI),
+//       but the iface uses role-symmetric numbering — each side places its
+//       role-appropriate signal on the same ordinal position (DCE.Pin2 = RXD,
+//       DTE.Pin2 = TXD; DCE.Pin3 = TXD, DTE.Pin3 = RXD); DE-9 connector
+//       numbering has DTE.Pin2 = RXD, Pin3 = TXD — so this iface does NOT
+//       mirror DE-9 pin numbers, only the signal set. Bind the role brace
+//       by signal name, not by DE-9 pin number.
 
 interface UART.RS232.9(role)
 {
@@ -622,8 +627,8 @@ interface UART.TTL.4(role)
         pins = [
             out 1 = TX @class(digital), "Transmit"                     // Cross-connect to DTE RX
             in 2 = RX @class(digital), "Receive"                       // Cross-connect to DTE TX
-            in 3 = RTS @class(digital), "Request To Send (from DTE)"   // Cross-connect to DTE RTS
-            out 4 = CTS @class(digital), "Clear To Send (to DTE)"      // Cross-connect to DTE CTS
+            in 3 = CTS @class(digital), "Clear To Send (from DTE)"     // Cross-connect to DTE RTS
+            out 4 = RTS @class(digital), "Request To Send (to DTE)"    // Cross-connect to DTE CTS
         ]
         peer = DTE(1)
     }
