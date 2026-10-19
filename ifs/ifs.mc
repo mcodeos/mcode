@@ -21,6 +21,7 @@ pub use ./lvd.mc        // LVD low-voltage detection interfaces (monitored rail,
 
 // Communication Interfaces
 pub use ./uart.mc       // UART interfaces (TTL, RS232, RS422, RS423, RS449, RS485)
+pub use ./uart-hw.mc    // UART.TTL.HW interface (TTL levels, hardware flow control)
 pub use ./i2c.mc        // I2C interface
 pub use ./i2s.mc        // I2S interface
 pub use ./spi.mc        // SPI interface (SPI, SPI.3WIRE, SPI.QUAD, SPI.WO)
@@ -52,6 +53,9 @@ pub use ./loop.mc       // LOOP interface (analog current loop, 4-20mA class)
 pub use ./fet.mc        // FET field-effect transistor terminal interface (G/D/S)
 pub use ./bjt.mc        // BJT bipolar junction transistor terminal interface (B/C/E)
 pub use ./ret.mc        // RET resistor-equipped transistor terminal interface (IN/OUT/GND)
+pub use ./dio.mc        // DIO polarized two-terminal leaf interface (A/K)
+pub use ./term.mc       // TERM symmetric two-terminal passive interface (classless)
+pub use ./pcap.mc       // PCAP polarized passive interface (+/-)
 
 // Clock Interfaces
 pub use ./clkdiff.mc    // CLK.DIFF interface (differential clock pair)
@@ -61,6 +65,14 @@ pub use ./clk.mc        // CLK interface (single-ended clock)
 pub use ./flexray.mc    // FlexRay interface
 pub use ./most.mc       // MOST interface
 pub use ./lin.mc        // LIN interface
+pub use ./psi5.mc       // PSI5 current-modulated sensor supply interface (PSI5, PSI5.S)
+pub use ./sent.mc       // SENT single edge nibble transmission sensor interface (SENT, SENT.SPC)
+
+// Sensor Interfaces
+pub use ./hall.mc       // HALL three-wire position sensor interface
+
+// Camera Interfaces
+pub use ./cif.mc        // CIF parallel camera interface (16-bit data bus)
 
 // Debug Interfaces
 pub use ./dbg.mc        // Debug interfaces (JTAG, SWD, SWIM, ICD, UART Bootloader)
