@@ -40,7 +40,7 @@ abstract component DC.SRC(volt::UV.VOLT, curr::UV.AMP) :: DC {
     ]
 
     pins = [
-        [1, 2] = [VCC, GND]::DC(volt)  // source terminal pair
+        [1, 2] = [VCC, GND]::DC()  // source terminal pair
     ]
 }
 
@@ -57,7 +57,7 @@ abstract component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE) :: DC {
     ]
 
     pins = [
-        psbi [1, 2] = BAT{VCC, GND}::DC(volt)  // battery: bidirectional source (charge = sink, discharge = source); BAT bus, whole-lead addressable
+        psbi [1, 2] = BAT{VCC, GND}::DC()  // battery: bidirectional source (charge = sink, discharge = source); BAT bus, whole-lead addressable
     ]
 }
 

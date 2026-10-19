@@ -23,7 +23,7 @@ component USB.SOCK_TYPEA()
     ]
 
     pins = [
-        [1,4] = [VBUS,GND]::DC(5V), "Power / Ground"
+        [1,4] = [VBUS,GND]::DC(), "Power / Ground"
         2 = D\- @pair(d), "Data Negative"
         3 = D\+ @pair(d), "Data Positive"
     ]
@@ -45,7 +45,7 @@ component USB.SOCK_TYPEB()
     ]
 
     pins = [
-        [1,4] = [VBUS,GND]::DC(5V), "Power / Ground"
+        [1,4] = [VBUS,GND]::DC(), "Power / Ground"
         2 = D\- @pair(d), "Data Negative"
         3 = D\+ @pair(d), "Data Positive"
     ]
@@ -91,7 +91,7 @@ component USB.SOCK_MICROB()
     ]
 
     pins = [
-        [1,5] = [VBUS,GND]::DC(5V), "Power / Ground"
+        [1,5] = [VBUS,GND]::DC(), "Power / Ground"
         2 = D\- @pair(d), "Data Negative"
         3 = D\+ @pair(d), "Data Positive"
         4 = ID, "Identification (OTG)"
@@ -117,7 +117,7 @@ component USB3.SOCK_TYPEA()
 
     pins = [
         // USB 2.0 pins (backward compatibility)
-        [1,4] = [VBUS,GND]::DC(5V), "Power / Ground"
+        [1,4] = [VBUS,GND]::DC(), "Power / Ground"
         2 = D\- @pair(d), "Data Negative (USB 2.0)"
         3 = D\+ @pair(d), "Data Positive (USB 2.0)"
 
@@ -148,7 +148,7 @@ component USB3.SOCK_TYPEB()
 
     pins = [
         // USB 2.0 pins (backward compatibility)
-        [1,4] = [VBUS,GND]::DC(5V), "Power / Ground"
+        [1,4] = [VBUS,GND]::DC(), "Power / Ground"
         2 = D\- @pair(d), "Data Negative (USB 2.0)"
         3 = D\+ @pair(d), "Data Positive (USB 2.0)"
 
@@ -180,7 +180,7 @@ component USB3.SOCK_MICROB()
 
     pins = [
         // USB 2.0 pins (backward compatibility)
-        [1,5] = [VBUS,GND]::DC(5V), "Power / Ground"
+        [1,5] = [VBUS,GND]::DC(), "Power / Ground"
         2 = D\- @pair(d), "Data Negative (USB 2.0)"
         3 = D\+ @pair(d), "Data Positive (USB 2.0)"
         4 = ID, "Identification (OTG)"

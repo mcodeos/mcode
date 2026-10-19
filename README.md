@@ -70,7 +70,7 @@ The kind of a func param is expressed by **syntax, not by the name**:
 
 - a plain identifier is a single net: `gnd`, `input`
 - `[...]` is a bus of nets: `[net1, net2]`, `[positive, negative]`
-- `::TYPE(...)` is an interface bundle: `driver::DC()`, `[V3V3, GND]::DC(3.3V)`
+- `::TYPE(...)` is an interface bundle: `driver::DC()`, `[V3V3, GND]::DC()`
 
 Interface and bus params **expand** into their member nets when the func is
 used in a circuit - e.g. a `DC` rail expands to `rail.VCC` / `rail.GND`, and
@@ -303,7 +303,7 @@ pins = [
     1 = 1, "Term 1"                    // numeric name + description
     1 = \+ , "Anode"                   // polarity marker (polarized parts)
     io [1:4] = GPIO[0:3]               // direction prefix + range -> indexed names
-    psnk [6, 21] = [VDD, GND]::DC(3.3V)   // power pair ([hot, ret])
+    psnk [6, 21] = [VDD, GND]::DC()   // power pair ([hot, ret])
     1:cols = R[1:rows]C[1:cols]        // dynamic ranges from parameters
     1:4 = DC2{VDD, GND}                // bus grouping
     1:2 = UART0::UART.TTL(DCE)         // interface binding with role
