@@ -86,12 +86,12 @@ interface PWM.H6(role)
     role TRANSMITTER {  // PWM source: MCU advanced timer with complementary outputs
         name = "Three-phase PWM Transmitter"
         pins = [
-            out 1 = UH @drive(pp) @class(digital) // Phase U high-side control
-            out 2 = UL @drive(pp) @class(digital) // Phase U low-side control
-            out 3 = VH @drive(pp) @class(digital) // Phase V high-side control
-            out 4 = VL @drive(pp) @class(digital) // Phase V low-side control
-            out 5 = WH @drive(pp) @class(digital) // Phase W high-side control
-            out 6 = WL @drive(pp) @class(digital) // Phase W low-side control
+            out 1 = UH @drive(pp) @class(digital) @cross(RECEIVER.INHA) // Phase U high-side control
+            out 2 = UL @drive(pp) @class(digital) @cross(RECEIVER.INLA) // Phase U low-side control
+            out 3 = VH @drive(pp) @class(digital) @cross(RECEIVER.INHB) // Phase V high-side control
+            out 4 = VL @drive(pp) @class(digital) @cross(RECEIVER.INLB) // Phase V low-side control
+            out 5 = WH @drive(pp) @class(digital) @cross(RECEIVER.INHC) // Phase W high-side control
+            out 6 = WL @drive(pp) @class(digital) @cross(RECEIVER.INLC) // Phase W low-side control
         ]
         peer = RECEIVER
     }
@@ -99,12 +99,12 @@ interface PWM.H6(role)
     role RECEIVER {  // PWM sink: three-phase gate driver
         name = "Three-phase PWM Receiver"
         pins = [
-            in 1 = INHA @drive(pp) @class(digital) // Phase U high-side control (driver input)
-            in 2 = INLA @drive(pp) @class(digital) // Phase U low-side control (driver input)
-            in 3 = INHB @drive(pp) @class(digital) // Phase V high-side control (driver input)
-            in 4 = INLB @drive(pp) @class(digital) // Phase V low-side control (driver input)
-            in 5 = INHC @drive(pp) @class(digital) // Phase W high-side control (driver input)
-            in 6 = INLC @drive(pp) @class(digital) // Phase W low-side control (driver input)
+            in 1 = INHA @drive(pp) @class(digital) @cross(TRANSMITTER.UH) // Phase U high-side control (driver input)
+            in 2 = INLA @drive(pp) @class(digital) @cross(TRANSMITTER.UL) // Phase U low-side control (driver input)
+            in 3 = INHB @drive(pp) @class(digital) @cross(TRANSMITTER.VH) // Phase V high-side control (driver input)
+            in 4 = INLB @drive(pp) @class(digital) @cross(TRANSMITTER.VL) // Phase V low-side control (driver input)
+            in 5 = INHC @drive(pp) @class(digital) @cross(TRANSMITTER.WH) // Phase W high-side control (driver input)
+            in 6 = INLC @drive(pp) @class(digital) @cross(TRANSMITTER.WL) // Phase W low-side control (driver input)
         ]
         peer = TRANSMITTER
     }

@@ -42,8 +42,8 @@ interface SPI(role)
         name = "SPI Master"
         pins = [
             out 1 = SCLK @class(digital), "Serial Clock"         // Clock, driven by master
-            out 2 = MOSI @class(digital), "Master Out Slave In"  // Data from master to slave (my output)
-            in 3 = MISO @class(digital), "Master In Slave Out"  // Data from slave to master (my input)
+            out 2 = MOSI @class(digital) @cross(SLAVE.SI), "Master Out Slave In"  // Data from master to slave (my output)
+            in 3 = MISO @class(digital) @cross(SLAVE.SO), "Master In Slave Out"  // Data from slave to master (my input)
             out 4 = _CS @class(digital), "Chip Select"            // Slave select
         ]
         peer = SLAVE
@@ -52,8 +52,8 @@ interface SPI(role)
         name = "SPI Slave"
         pins = [
             in 1 = SCLK @class(digital), "Serial Clock"          // Clock, from master
-            in 2 = SI @class(digital), "Slave In (from Master)"  // Data from master to slave (my input)
-            out 3 = SO @class(digital), "Slave Out (to Master)"   // Data from slave to master (my output)
+            in 2 = SI @class(digital) @cross(MASTER.MOSI), "Slave In (from Master)"  // Data from master to slave (my input)
+            out 3 = SO @class(digital) @cross(MASTER.MISO), "Slave Out (to Master)"   // Data from slave to master (my output)
             in 4 = _CS @class(digital), "Chip Select"             // Slave select
         ]
         peer = MASTER
@@ -200,7 +200,7 @@ interface SPI.WO(role)
         pins = [
             out 1 = _CS @class(digital), "Chip Select"    // Slave select
             out 2 = SCLK @class(digital), "Serial Clock" // Clock, driven by master
-            out 3 = SO @class(digital), "Serial Data Out" // Data from master to slave (my output)
+            out 3 = SO @class(digital) @cross(SLAVE.SI), "Serial Data Out" // Data from master to slave (my output)
         ]
         peer = SLAVE
     }
@@ -209,7 +209,7 @@ interface SPI.WO(role)
         pins = [
             in 1 = _CS @class(digital), "Chip Select"   // Slave select
             in 2 = SCLK @class(digital), "Serial Clock" // Clock, from master
-            in 3 = SI @class(digital), "Slave In (from Master)" // Data from master to slave (my input)
+            in 3 = SI @class(digital) @cross(MASTER.SO), "Slave In (from Master)" // Data from master to slave (my input)
         ]
         peer = MASTER
     }

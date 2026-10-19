@@ -201,8 +201,8 @@ interface MOST.FOT(role)
     role NIC {
         name = "MOST NIC Copper Face"
         pins = [
-            out 1 = TX @class(digital), "Transmit - drives the RX-data pin of the FOT"
-            in 2 = RX @class(digital), "Receive - reads the TX-data pin of the FOT"
+            out 1 = TX @class(digital) @cross(FOT.RX), "Transmit - drives the RX-data pin of the FOT"
+            in 2 = RX @class(digital) @cross(FOT.TX), "Receive - reads the TX-data pin of the FOT"
         ]
         peer = FOT(1)
     }
@@ -210,8 +210,8 @@ interface MOST.FOT(role)
     role FOT {
         name = "MOST Transceiver Copper Face"
         pins = [
-            in 1 = RX @class(digital), "RX data - the lane the NIC drives"
-            out 2 = TX @class(digital), "TX data - the lane the NIC reads"
+            in 1 = RX @class(digital) @cross(NIC.TX), "RX data - the lane the NIC drives"
+            out 2 = TX @class(digital) @cross(NIC.RX), "TX data - the lane the NIC reads"
         ]
         peer = NIC(1)
     }

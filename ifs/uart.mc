@@ -37,8 +37,8 @@ interface UART.TTL(role)
     role DCE {
         name = "UART.TTL DCE"
         pins = [
-            out 1 = TX @class(digital), "Transmit"  // Cross-connect to DTE RX
-            in 2 = RX @class(digital), "Receive"   // Cross-connect to DTE TX
+            out 1 = TX @class(digital) @cross(DTE.RX), "Transmit"  // Cross-connect to DTE RX
+            in 2 = RX @class(digital) @cross(DTE.TX), "Receive"   // Cross-connect to DTE TX
         ]
         peer = DTE(1)
     }
@@ -47,8 +47,8 @@ interface UART.TTL(role)
     role DTE {
         name = "UART.TTL DTE"
         pins = [
-            in 1 = RX @class(digital), "Receive"           // Cross-connect to DCE TX
-            out 2 = TX @class(digital), "Transmit"          // Cross-connect to DCE RX
+            in 1 = RX @class(digital) @cross(DCE.TX), "Receive"           // Cross-connect to DCE TX
+            out 2 = TX @class(digital) @cross(DCE.RX), "Transmit"          // Cross-connect to DCE RX
         ]
         peer = DCE(1)
     }
@@ -97,8 +97,8 @@ interface UART.RS232.3(role)
     role DCE {  // RS232.3 DCE - basic TX/RX function only
         name = "RS232.3 DCE"
         pins = [
-            in 1 = RXD @class(digital), "Receive Data"  // Cross-connect to DTE Pin1 TXD
-            out 2 = TXD @class(digital), "Transmit Data" // Cross-connect to DTE Pin2 RXD
+            in 1 = RXD @class(digital) @cross(DTE.TXD), "Receive Data"  // Cross-connect to DTE Pin1 TXD
+            out 2 = TXD @class(digital) @cross(DTE.RXD), "Transmit Data" // Cross-connect to DTE Pin2 RXD
             3 = GND, "Signal Ground"                                    // Direct connect to DTE Pin3 GND, signal reference ground
         ]
         peer = DTE(1)  // Paired with terminal device DTE
@@ -107,8 +107,8 @@ interface UART.RS232.3(role)
     role DTE {  // RS232.3 DTE - basic TX/RX function only
         name = "RS232.3 DTE"
         pins = [
-            out 1 = TXD @class(digital), "Transmit Data" // Cross-connect to DCE Pin1 RXD
-            in 2 = RXD @class(digital), "Receive Data"  // Cross-connect to DCE Pin2 TXD
+            out 1 = TXD @class(digital) @cross(DCE.RXD), "Transmit Data" // Cross-connect to DCE Pin1 RXD
+            in 2 = RXD @class(digital) @cross(DCE.TXD), "Receive Data"  // Cross-connect to DCE Pin2 TXD
             3 = GND, "Signal Ground"                                    // Direct connect to DCE Pin3 GND, signal reference ground
         ]
         peer = DCE(1)  // Paired with communication device DCE
@@ -148,8 +148,8 @@ interface UART.RS232.5(role)
     role DCE {  // RS232.5 DCE - TX/RX + RTS/CTS hardware flow control
         name = "RS232.5 DCE"
         pins = [
-            in 1 = RXD @class(digital), "Receive Data"        // Cross-connect to DTE Pin1 TXD
-            out 2 = TXD @class(digital), "Transmit Data"       // Cross-connect to DTE Pin2 RXD
+            in 1 = RXD @class(digital) @cross(DTE.TXD), "Receive Data"        // Cross-connect to DTE Pin1 TXD
+            out 2 = TXD @class(digital) @cross(DTE.RXD), "Transmit Data"       // Cross-connect to DTE Pin2 RXD
             3 = GND, "Signal Ground"                                          // Direct connect to DTE Pin3 GND, signal reference ground
             in 4 = RTS @class(digital), "Request to Send"      // Direct connect to DTE Pin4 RTS, hardware flow control
             out 5 = CTS @class(digital), "Clear to Send"       // Direct connect to DTE Pin5 CTS, hardware flow control
@@ -160,8 +160,8 @@ interface UART.RS232.5(role)
     role DTE {  // RS232.5 DTE - TX/RX + RTS/CTS hardware flow control
         name = "RS232.5 DTE"
         pins = [
-            out 1 = TXD @class(digital), "Transmit Data"       // Cross-connect to DCE Pin1 RXD
-            in 2 = RXD @class(digital), "Receive Data"        // Cross-connect to DCE Pin2 TXD
+            out 1 = TXD @class(digital) @cross(DCE.RXD), "Transmit Data"       // Cross-connect to DCE Pin1 RXD
+            in 2 = RXD @class(digital) @cross(DCE.TXD), "Receive Data"        // Cross-connect to DCE Pin2 TXD
             3 = GND, "Signal Ground"                                          // Direct connect to DCE Pin3 GND, signal reference ground
             out 4 = RTS @class(digital), "Request to Send"      // Direct connect to DCE Pin4 RTS, hardware flow control
             in 5 = CTS @class(digital), "Clear to Send"       // Direct connect to DCE Pin5 CTS, hardware flow control
@@ -215,8 +215,8 @@ interface UART.RS232.9(role)
         name = "RS232.9 DCE"
         pins = [
             out 1 = DCD @class(digital),  "Data Carrier Detect"   // Direct connect to DTE Pin1 DCD, status indicator
-            in 2 = RXD @class(digital),  "Receive Data"          // Cross-connect to DTE Pin2 TXD, core data receive
-            out 3 = TXD @class(digital),  "Transmit Data"         // Cross-connect to DTE Pin3 RXD, core data transmit
+            in 2 = RXD @class(digital) @cross(DTE.TXD),  "Receive Data"          // Cross-connect to DTE Pin2 TXD, core data receive
+            out 3 = TXD @class(digital) @cross(DTE.RXD),  "Transmit Data"         // Cross-connect to DTE Pin3 RXD, core data transmit
             in 4 = DTR @class(digital),  "Data Terminal Ready"   // Direct connect to DTE Pin4 DTR, device handshake
             5 = GND,  "Signal Ground"                                            // Direct connect to DTE Pin5 GND, signal reference ground
             out 6 = DSR @class(digital),  "Data Set Ready"        // Direct connect to DTE Pin6 DSR, device handshake
@@ -231,8 +231,8 @@ interface UART.RS232.9(role)
         name = "RS232.9 DTE"
         pins = [
             in 1 = DCD @class(digital),  "Data Carrier Detect"   // Direct connect to DCE Pin1 DCD, status indicator
-            out 2 = TXD @class(digital),  "Transmit Data"         // Cross-connect to DCE Pin2 RXD, core data transmit
-            in 3 = RXD @class(digital),  "Receive Data"          // Cross-connect to DCE Pin3 TXD, core data receive
+            out 2 = TXD @class(digital) @cross(DCE.RXD),  "Transmit Data"         // Cross-connect to DCE Pin2 RXD, core data transmit
+            in 3 = RXD @class(digital) @cross(DCE.TXD),  "Receive Data"          // Cross-connect to DCE Pin3 TXD, core data receive
             out 4 = DTR @class(digital),  "Data Terminal Ready"   // Direct connect to DCE Pin4 DTR, device handshake
             5 = GND,  "Signal Ground"                                            // Direct connect to DCE Pin5 GND, signal reference ground
             in 6 = DSR @class(digital),  "Data Set Ready"        // Direct connect to DCE Pin6 DSR, device handshake
@@ -374,8 +374,8 @@ interface UART.RS423(role)
     role DCE {  // RS423 DCE - Data Communications Equipment
         name = "RS423 DCE"
         pins = [
-            in 1 = RXD @class(digital), "Receive Data"  // Cross-connect to DTE RXD
-            out 2 = TXD @class(digital), "Transmit Data" // Cross-connect to DTE TXD
+            in 1 = RXD @class(digital) @cross(DTE.TXD), "Receive Data"  // Cross-connect to DTE RXD
+            out 2 = TXD @class(digital) @cross(DTE.RXD), "Transmit Data" // Cross-connect to DTE TXD
             3 = GND, "Signal Ground"                                    // Signal reference ground
             in 4 = RTS @class(digital), "Request to Send"  // Direct connect to DTE RTS
             out 5 = CTS @class(digital), "Clear to Send"   // Direct connect to DTE CTS
@@ -386,8 +386,8 @@ interface UART.RS423(role)
     role DTE {  // RS423 DTE - Data Terminal Equipment
         name = "RS423 DTE"
         pins = [
-            out 1 = TXD @class(digital), "Transmit Data"   // Cross-connect to DCE RXD
-            in 2 = RXD @class(digital), "Receive Data"    // Cross-connect to DCE TXD
+            out 1 = TXD @class(digital) @cross(DCE.RXD), "Transmit Data"   // Cross-connect to DCE RXD
+            in 2 = RXD @class(digital) @cross(DCE.TXD), "Receive Data"    // Cross-connect to DCE TXD
             3 = GND, "Signal Ground"                                   // Signal reference ground
             out 4 = RTS @class(digital), "Request to Send"  // Direct connect to DCE RTS
             in 5 = CTS @class(digital), "Clear to Send"   // Direct connect to DCE CTS
@@ -448,10 +448,10 @@ interface UART.RS449(role)
             out 2 = RD @class(digital), "Receive Data"       // Direct connect to DTE RD
             in 3 = RS @class(digital), "Request to Send"     // Direct connect to DTE RS
             out 4 = CS @class(digital), "Clear to Send"       // Direct connect to DTE CS
-            out 5 = DR @class(digital), "Data Ready"          // Cross-connect to DTE CD
-            out 6 = CD @class(digital), "Carrier Detect"      // Cross-connect to DTE DR
-            in 7 = TM @class(digital), "Transmit Clock"      // Cross-connect to DTE TT
-            out 8 = TT @class(digital), "Terminal Timing"      // Cross-connect to DTE TM
+            out 5 = DR @class(digital) @cross(DTE.CD), "Data Ready"          // Cross-connect to DTE CD
+            out 6 = CD @class(digital) @cross(DTE.DR), "Carrier Detect"      // Cross-connect to DTE DR
+            in 7 = TM @class(digital) @cross(DTE.TT), "Transmit Clock"      // Cross-connect to DTE TT
+            out 8 = TT @class(digital) @cross(DTE.TM), "Terminal Timing"      // Cross-connect to DTE TM
             out 9 = RT @class(digital), "Receive Timing"      // Cross-connect to DTE RT
             10 = SG @class(digital), "Signal Ground"                                       // Signal reference ground
 
@@ -460,7 +460,7 @@ interface UART.RS449(role)
             out 12 = RD2 @class(digital), "Receive Data 2"     // Direct connect to DTE RD2
             in 13 = RS2 @class(digital), "Request to Send 2"   // Direct connect to DTE RS2
             out 14 = CS2 @class(digital), "Clear to Send 2"     // Direct connect to DTE CS2
-            out 15 = DR2 @class(digital), "Data Ready 2"        // Cross-connect to DTE CD2
+            out 15 = DR2 @class(digital) @cross(DTE.CD2), "Data Ready 2"        // Cross-connect to DTE CD2
             out 16 = CD2 @class(digital), "Carrier Detect 2"    // Cross-connect to DTE DR2
         ]
         peer = DTE(1)  // Paired with RS449 DTE
@@ -474,10 +474,10 @@ interface UART.RS449(role)
             in 2 = RD @class(digital), "Receive Data"       // Direct connect to DCE RD
             out 3 = RS @class(digital), "Request to Send"     // Direct connect to DCE RS
             in 4 = CS @class(digital), "Clear to Send"       // Direct connect to DCE CS
-            in 5 = CD @class(digital), "Carrier Detect"      // Cross-connect to DCE DR
-            in 6 = DR @class(digital), "Data Ready"          // Cross-connect to DCE CD
-            out 7 = TT @class(digital), "Terminal Timing"      // Cross-connect to DCE TM
-            in 8 = TM @class(digital), "Transmit Clock"      // Cross-connect to DCE TT
+            in 5 = CD @class(digital) @cross(DCE.DR), "Carrier Detect"      // Cross-connect to DCE DR
+            in 6 = DR @class(digital) @cross(DCE.CD), "Data Ready"          // Cross-connect to DCE CD
+            out 7 = TT @class(digital) @cross(DCE.TM), "Terminal Timing"      // Cross-connect to DCE TM
+            in 8 = TM @class(digital) @cross(DCE.TT), "Transmit Clock"      // Cross-connect to DCE TT
             in 9 = RT @class(digital), "Receive Timing"      // Cross-connect to DCE RT
             10 = SG @class(digital), "Signal Ground"                                       // Signal reference ground
 
@@ -486,7 +486,7 @@ interface UART.RS449(role)
             in 12 = RD2 @class(digital), "Receive Data 2"     // Direct connect to DCE RD2
             out 13 = RS2 @class(digital), "Request to Send 2"   // Direct connect to DCE RS2
             in 14 = CS2 @class(digital), "Clear to Send 2"     // Direct connect to DCE CS2
-            in 15 = CD2 @class(digital), "Carrier Detect 2"    // Cross-connect to DCE DR2
+            in 15 = CD2 @class(digital) @cross(DCE.DR2), "Carrier Detect 2"    // Cross-connect to DCE DR2
             in 16 = CD2 @class(digital), "Carrier Detect 2"    // Direct connect to DCE CD2
         ]
         peer = DCE(1)  // Paired with RS449 DCE
@@ -625,10 +625,10 @@ interface UART.TTL.4(role)
     role DCE {
         name = "UART.TTL.4 DCE"
         pins = [
-            out 1 = TX @class(digital), "Transmit"                     // Cross-connect to DTE RX
-            in 2 = RX @class(digital), "Receive"                       // Cross-connect to DTE TX
-            in 3 = CTS @class(digital), "Clear To Send (from DTE)"     // Cross-connect to DTE RTS
-            out 4 = RTS @class(digital), "Request To Send (to DTE)"    // Cross-connect to DTE CTS
+            out 1 = TX @class(digital) @cross(DTE.RX), "Transmit"                     // Cross-connect to DTE RX
+            in 2 = RX @class(digital) @cross(DTE.TX), "Receive"                       // Cross-connect to DTE TX
+            in 3 = CTS @class(digital) @cross(DTE.RTS), "Clear To Send (from DTE)"     // Cross-connect to DTE RTS
+            out 4 = RTS @class(digital) @cross(DTE.CTS), "Request To Send (to DTE)"    // Cross-connect to DTE CTS
         ]
         peer = DTE(1)
     }
@@ -636,10 +636,10 @@ interface UART.TTL.4(role)
     role DTE {
         name = "UART.TTL.4 DTE"
         pins = [
-            in 1 = RX @class(digital), "Receive"                       // Cross-connect to DCE TX
-            out 2 = TX @class(digital), "Transmit"                     // Cross-connect to DCE RX
-            out 3 = RTS @class(digital), "Request To Send"             // Cross-connect to DCE CTS
-            in 4 = CTS @class(digital), "Clear To Send"                // Cross-connect to DCE RTS
+            in 1 = RX @class(digital) @cross(DCE.TX), "Receive"                       // Cross-connect to DCE TX
+            out 2 = TX @class(digital) @cross(DCE.RX), "Transmit"                     // Cross-connect to DCE RX
+            out 3 = RTS @class(digital) @cross(DCE.CTS), "Request To Send"             // Cross-connect to DCE CTS
+            in 4 = CTS @class(digital) @cross(DCE.RTS), "Clear To Send"                // Cross-connect to DCE RTS
         ]
         peer = DCE(1)
     }
