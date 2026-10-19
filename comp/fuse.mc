@@ -50,7 +50,7 @@ recipe FUSE.PTC {
 
 abstract component FUSE(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
     name = "Fuse"
-    spec = [
+    spec += [
         rated_current = irated  // [0.1A, 0.5A, 1A, 2A, 5A, 10A, 20A]
         voltage       = vrated  // [5V, 12V, 24V, 120V, 240V]
         speed_rating  = spd     // [fast, slow, medium]
@@ -67,7 +67,7 @@ abstract component FUSE(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
 
 abstract component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
     name = "Surface Mount Fuse"
-    spec = [
+    spec += [
         rated_current = irated  // [0.1A, 0.5A, 1A, 2A, 5A]
         voltage       = vrated  // [5V, 12V, 24V, 120V]
         speed_rating  = spd     // [fast, slow, medium]
@@ -85,7 +85,7 @@ abstract component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUS
 
 abstract component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP, spd::STRING) :: FUSE {
     name = "Ceramic Fuse"
-    spec = [
+    spec += [
         rated_current     = irated
         voltage           = vrated
         breaking_capacity = ibreak
@@ -104,7 +104,7 @@ abstract component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP,
 
 abstract component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
     name = "Glass Fuse"
-    spec = [
+    spec += [
         rated_current = irated  // [0.5A, 1A, 2A, 5A, 10A]
         voltage       = vrated  // [12V, 24V, 120V, 240V]
         speed_rating  = spd     // [fast, slow, medium]

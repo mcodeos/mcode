@@ -47,7 +47,7 @@ recipe SENSOR {
 
 abstract component SENSOR.TEMP(otype::STRING, range::STRING, acc::STRING) :: SENSOR {
     name = "Temperature Sensor"
-    spec = [
+    spec += [
         output_type       = otype  // [analog, i2c, spi]
         temperature_range = range  // [-40°C to 125°C, -20°C to 85°C]
         accuracy          = acc    // [±0.1°C, ±0.5°C, ±1.0°C]
@@ -78,7 +78,7 @@ abstract component SENSOR.TEMP(otype::STRING, range::STRING, acc::STRING) :: SEN
 
 abstract component SENSOR.HUMIDITY(otype::STRING, range::STRING, acc::STRING) :: SENSOR {
     name = "Humidity Sensor"
-    spec = [
+    spec += [
         output_type    = otype  // [analog, i2c, spi]
         humidity_range = range  // [0-100% RH, 10-90% RH]
         accuracy       = acc    // [±2%, ±3%, ±5%]
@@ -109,7 +109,7 @@ abstract component SENSOR.HUMIDITY(otype::STRING, range::STRING, acc::STRING) ::
 
 abstract component SENSOR.PRESSURE(otype::STRING, range::STRING, acc::STRING) :: SENSOR {
     name = "Pressure Sensor"
-    spec = [
+    spec += [
         output_type    = otype  // [analog, i2c, spi]
         pressure_range = range  // [0-100kPa, 0-1MPa, 0-10MPa]
         accuracy       = acc    // [±0.5%, ±1%, ±2%]
@@ -140,7 +140,7 @@ abstract component SENSOR.PRESSURE(otype::STRING, range::STRING, acc::STRING) ::
 
 abstract component SENSOR.LIGHT(otype::STRING, range::STRING, sens::STRING) :: SENSOR {
     name = "Light Sensor"
-    spec = [
+    spec += [
         output_type    = otype  // [analog, i2c, spi]
         spectral_range = range  // [400-700nm, 380-850nm]
         sensitivity    = sens   // [1000mV/lux, 500mV/lux, 100mV/lux]
@@ -171,7 +171,7 @@ abstract component SENSOR.LIGHT(otype::STRING, range::STRING, sens::STRING) :: S
 
 abstract component SENSOR.PROX(otype::STRING, range::STRING, rtime::UV.TIME) :: SENSOR {
     name = "Proximity Sensor"
-    spec = [
+    spec += [
         output_type     = otype  // [analog, i2c, spi]
         detection_range = range  // [0-10cm, 0-50cm, 0-1m]
         response_time   = rtime  // [1ms, 10ms, 50ms]
@@ -202,7 +202,7 @@ abstract component SENSOR.PROX(otype::STRING, range::STRING, rtime::UV.TIME) :: 
 
 abstract component SENSOR.MOTION(otype::STRING, range::STRING, sens::STRING) :: SENSOR {
     name = "Motion Sensor"
-    spec = [
+    spec += [
         output_type     = otype  // [analog, i2c, spi]
         detection_range = range  // [0-5m, 0-10m, 0-15m]
         sensitivity     = sens   // [low, medium, high]
@@ -233,7 +233,7 @@ abstract component SENSOR.MOTION(otype::STRING, range::STRING, sens::STRING) :: 
 
 abstract component SENSOR.GAS(otype::STRING, gas::STRING, sens::STRING) :: SENSOR {
     name = "Gas Sensor"
-    spec = [
+    spec += [
         output_type = otype  // [analog, i2c, spi]
         gas_type    = gas    // [CO, CH4, LPG, smoke, VOC]
         sensitivity = sens   // [low, medium, high]
@@ -267,7 +267,7 @@ abstract component SENSOR.GAS(otype::STRING, gas::STRING, sens::STRING) :: SENSO
 
 abstract component SENSOR.ACCEL(otype::STRING, range::STRING, sens::STRING) :: SENSOR {
     name = "Accelerometer"
-    spec = [
+    spec += [
         output_type       = otype  // [analog, i2c, spi]
         measurement_range = range  // [±2g, ±4g, ±8g, ±16g]
         sensitivity       = sens   // [1mg/LSB, 2mg/LSB, 4mg/LSB]
@@ -300,7 +300,7 @@ abstract component SENSOR.ACCEL(otype::STRING, range::STRING, sens::STRING) :: S
 
 abstract component SENSOR.GYRO(otype::STRING, range::STRING, sens::STRING) :: SENSOR {
     name = "Gyroscope"
-    spec = [
+    spec += [
         output_type       = otype  // [analog, i2c, spi]
         measurement_range = range  // [±250°/s, ±500°/s, ±1000°/s, ±2000°/s]
         sensitivity       = sens   // [1°/s/LSB, 2°/s/LSB, 4°/s/LSB]
@@ -333,7 +333,7 @@ abstract component SENSOR.GYRO(otype::STRING, range::STRING, sens::STRING) :: SE
 
 abstract component SENSOR.MAG(otype::STRING, range::STRING, sens::STRING) :: SENSOR {
     name = "Magnetometer"
-    spec = [
+    spec += [
         output_type       = otype  // [analog, i2c, spi]
         measurement_range = range  // [±1.3mT, ±2.5mT, ±4.7mT, ±9.5mT]
         sensitivity       = sens   // [0.5mT/LSB, 1mT/LSB, 2mT/LSB]

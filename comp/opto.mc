@@ -88,7 +88,7 @@ recipe OPTO.LOGIC {
 
 abstract component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: OPTO {
     name = "Optocoupler"
-    spec = [
+    spec += [
         input_current     = iin
         output_current    = iout
         isolation_voltage = viso
@@ -108,7 +108,7 @@ abstract component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: OPTO {
 
 abstract component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT) :: OPTO {
     name = "Transistor Output Optocoupler"
-    spec = [
+    spec += [
         input_current          = iin
         output_current         = iout
         isolation_voltage      = viso
@@ -129,7 +129,7 @@ abstract component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.
 
 abstract component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP) :: OPTO.TRIAC {
     name = "Triac Output Optocoupler"
-    spec = [
+    spec += [
         input_current     = iin
         output_voltage    = vout
         isolation_voltage = viso
@@ -150,7 +150,7 @@ abstract component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::
 
 abstract component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: OPTO.PV {
     name = "Photovoltaic Optocoupler"
-    spec = [
+    spec += [
         input_current     = iin
         output_voltage    = vout
         isolation_voltage = viso
@@ -170,7 +170,7 @@ abstract component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: OPTO.PV
 
 abstract component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME) :: OPTO.LOGIC {
     name = "Logic Output Optocoupler"
-    spec = [
+    spec += [
         input_current     = iin
         output_voltage    = vout
         isolation_voltage = viso

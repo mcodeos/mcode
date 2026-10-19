@@ -51,7 +51,7 @@ recipe LED.RGB {
 
 abstract component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
     name = "LED"
-    spec = [
+    spec += [
         forward_voltage = vfwd        // [1.8V, 2.0V, 2.2V, 3.2V, 3.6V]
         forward_current = ifwd        // [10mA, 20mA, 30mA, 50mA, 100mA]
         wavelength      = wavelength  // [460nm, 520nm, 620nm, 650nm, 850nm, 940nm]
@@ -75,7 +75,7 @@ abstract component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
 
 abstract component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP) :: LED.RGB {
     name = "RGB LED"
-    spec = [
+    spec += [
         red_forward_voltage   = vred
         green_forward_voltage = vgreen
         blue_forward_voltage  = vblue
@@ -104,7 +104,7 @@ abstract component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd:
 
 abstract component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
     name = "Infrared LED"
-    spec = [
+    spec += [
         forward_voltage = vfwd
         forward_current = ifwd
         wavelength      = wavelength
@@ -127,7 +127,7 @@ abstract component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LE
 
 abstract component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT) :: LED {
     name = "High Power LED"
-    spec = [
+    spec += [
         forward_voltage = vfwd  // [3.0V, 3.2V, 3.4V, 3.6V]
         forward_current = ifwd  // [350mA, 500mA, 700mA, 1.0A, 2.0A]
         power_rated     = pmax  // [1W, 3W, 5W, 10W, 20W]

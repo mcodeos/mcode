@@ -10,7 +10,7 @@ component POWER.DC_JACK(polarity::STRING)
     name = "DC Power Jack"
     description = "DC power barrel jack, " + polarity + " polarity"
     
-    spec = [
+    spec += [
         type = "DC Jack"
         outer_diameter = _ // [5.5mm, 6.3mm, 7.4mm, 8.4mm]
         center_pin_diameter = _ // [2.1mm, 2.5mm, 3.0mm]
@@ -29,7 +29,7 @@ component POWER.XT60()
     name = "XT60 Connector"
     description = "XT60 power connector"
     
-    spec = [
+    spec += [
         type = "XT60"
         gender = _ // [male, female]
         current_rating = "60A"
@@ -48,7 +48,7 @@ component POWER.XT30()
     name = "XT30 Connector"
     description = "XT30 power connector"
     
-    spec = [
+    spec += [
         type = "XT30"
         gender = _ // [male, female]
         current_rating = "30A"
@@ -67,7 +67,7 @@ component POWER.DEANS_T()
     name = "Deans T Connector"
     description = "Deans T power connector"
     
-    spec = [
+    spec += [
         type = "Deans T"
         gender = _ // [male, female]
         current_rating = "40A"
@@ -86,7 +86,7 @@ component POWER.ANDERSON(quantity::INT = 1)
     name = "Anderson Powerpole Connector"
     description = "Anderson Powerpole connector, " + quantity + " pole(s)"
 
-    spec = [
+    spec += [
         type = "Anderson Powerpole"
         current_rating = _ // [15A, 30A, 45A]
         pole_count = quantity
@@ -105,7 +105,7 @@ component POWER.ATX(type::STRING)
     name = "ATX Power Connector"
     description = "ATX " + type + " power connector"
     
-    spec = [
+    spec += [
         standard = "ATX"
         connector_type = type
     ]

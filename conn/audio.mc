@@ -9,7 +9,7 @@ component AUDIO.TRS_35MM(config::STRING)
     name = "3.5mm TRS Connector"
     description = "3.5mm TRS audio connector, " + config + " configuration"
     
-    spec = [
+    spec += [
         type = "TRS"
         size = "3.5mm"
         configuration = config
@@ -48,7 +48,7 @@ component AUDIO.TRS_25MM()
     name = "2.5mm TRS Connector"
     description = "2.5mm TRS audio connector"
     
-    spec = [
+    spec += [
         type = "TRS"
         size = "2.5mm"
         configuration = _ // [stereo, mono, headset]
@@ -68,7 +68,7 @@ component AUDIO.RCA()
     name = "RCA Connector"
     description = "RCA audio connector"
     
-    spec = [
+    spec += [
         type = "RCA"
     ]
     
@@ -87,7 +87,7 @@ component AUDIO.XLR(pincnt::INT)
     name = "XLR Connector"
     description = "XLR audio connector, " + string(pincnt) + " pins"
     
-    spec = [
+    spec += [
         type = "XLR"
         pin_count = pincnt
         gender = _ // [male, female]
@@ -123,7 +123,7 @@ component AUDIO.SPEAKON(pincnt::INT)
     name = "Speakon Connector"
     description = "Speakon professional audio connector"
 
-    spec = [
+    spec += [
         type = "Speakon"
         pin_count = pincnt // [4, 8]
         application = "Professional Audio"
@@ -144,7 +144,7 @@ component AUDIO.BANANA_PLUG()
     name = "Banana Plug Connector"
     description = "Banana plug speaker connector"
     
-    spec = [
+    spec += [
         type = "Banana Plug"
         application = "Speaker Terminals"
     ]

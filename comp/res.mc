@@ -71,7 +71,7 @@ abstract component RES(
         io [1, 2] = [T1, T2]::TERM()  // interchangeable terminals, positional binding
     ]
 
-    spec = [
+    spec += [
         resistance    = rs
         voltage       = volt
         power_rated   = prated
@@ -103,7 +103,7 @@ abstract component RES.SMD(
         io [1, 2] = [T1, T2]::TERM()  // interchangeable terminals, positional binding
     ]
 
-    spec = [
+    spec += [
         resistance    = rs
         voltage       = volt
         power_rated   = prated
@@ -136,7 +136,7 @@ abstract component RES.SMD_POWER(
         io [1, 2] = [T1, T2]::TERM()  // interchangeable terminals, positional binding
     ]
 
-    spec = [
+    spec += [
         resistance    = rs
         voltage       = volt
         power_rated   = prated
@@ -168,7 +168,7 @@ abstract component RES.THT(
         io [1, 2] = [T1, T2]::TERM()  // interchangeable terminals, positional binding
     ]
 
-    spec = [
+    spec += [
         resistance    = rs
         voltage       = volt
         power_rated   = prated
@@ -203,7 +203,7 @@ abstract component RES.POT(
         3         = 3, "Wiper"        // wiper tap (bare row - third terminal)
     ]
 
-    spec = [
+    spec += [
         resistance    = rs
         voltage       = volt
         power_rated   = prated
@@ -260,7 +260,7 @@ abstract component RES.NTC(
         io [1, 2] = [T1, T2]::TERM()  // interchangeable terminals, positional binding
     ]
 
-    spec = [
+    spec += [
         resistance       = rs
         beta_coefficient = beta
         voltage          = volt
@@ -319,7 +319,7 @@ abstract component RES.ARRAY(
         1 : 2 * channels = CH[1:channels]T[1:2]  // 2 pins per channel: CH1T1, CH1T2, CH2T1, ...
     ]
 
-    spec = [
+    spec += [
         resistance    = rs
         voltage       = volt
         power_rated   = prated
@@ -375,7 +375,7 @@ abstract component RES.LDR(
         io [1, 2] = [T1, T2]::TERM()  // interchangeable terminals, positional binding
     ]
 
-    spec = [
+    spec += [
         resistance_light = rlight
         resistance_dark  = rdark
         voltage          = volt

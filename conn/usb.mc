@@ -15,7 +15,7 @@ component USB.SOCK_TYPEA()
     name = "USB 2.0 Type A Connector"
     description = "USB 2.0 Type A connector"
 
-    spec = [
+    spec += [
         type = "USB"
         version = "2.0"
         form_factor = "Type A"
@@ -37,7 +37,7 @@ component USB.SOCK_TYPEB()
     name = "USB 2.0 Type B Connector"
     description = "USB 2.0 Type B connector"
 
-    spec = [
+    spec += [
         type = "USB"
         version = "2.0"
         form_factor = "Type B"
@@ -60,7 +60,7 @@ abstract component USB.SOCK_MINIB()
     name = "USB 2.0 Mini Type B Connector"
     description = "USB 2.0 Mini Type B connector"
 
-    spec = [
+    spec += [
         type = "USB"
         version = "2.0"
         form_factor = "Mini Type B"
@@ -83,7 +83,7 @@ component USB.SOCK_MICROB()
     name = "USB 2.0 Micro Type B Connector"
     description = "USB 2.0 Micro Type B connector"
 
-    spec = [
+    spec += [
         type = "USB"
         version = "2.0"
         form_factor = "Micro Type B"
@@ -108,7 +108,7 @@ component USB3.SOCK_TYPEA()
     name = "USB 3.x Type A Connector"
     description = "USB 3.x Type A connector"
 
-    spec = [
+    spec += [
         type = "USB"
         version = "3.x"
         form_factor = "Type A"
@@ -139,7 +139,7 @@ component USB3.SOCK_TYPEB()
     name = "USB 3.x Type B Connector"
     description = "USB 3.x Type B connector"
 
-    spec = [
+    spec += [
         type = "USB"
         version = "3.x"
         form_factor = "Type B"
@@ -171,7 +171,7 @@ component USB3.SOCK_MICROB()
     name = "USB 3.x Micro B Connector"
     description = "USB 3.x Micro B connector"
 
-    spec = [
+    spec += [
         type = "USB"
         version = "3.x"
         form_factor = "Micro B"
@@ -203,7 +203,7 @@ component USB.SOCK_C()
     name = "USB Type C Connector"
     description = "USB Type C connector"
 
-    spec = [
+    spec += [
         type = "USB"
         version = "3.1/3.2"
         form_factor = "Type C"

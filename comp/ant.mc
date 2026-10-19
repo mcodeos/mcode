@@ -40,7 +40,7 @@ recipe ANT {
 
 abstract component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Antenna"
-    spec = [
+    spec += [
         frequency = freq  // [433MHz, 868MHz, 900MHz, 2.4GHz, 5.8GHz]
         gain      = gain  // [1dBi, 2dBi, 3dBi, 5dBi, 8dBi]
         impedance = impd  // [50Ω, 75Ω]
@@ -57,7 +57,7 @@ abstract component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
 
 abstract component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Whip Antenna"
-    spec = [
+    spec += [
         frequency  = freq  // [433MHz, 868MHz, 900MHz, 2.4GHz]
         gain       = gain  // [1dBi, 1.5dBi, 2dBi]
         impedance  = impd  // [50Ω, 75Ω]
@@ -75,7 +75,7 @@ abstract component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
 
 abstract component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Patch Antenna"
-    spec = [
+    spec += [
         frequency    = freq  // [2.4GHz, 5.8GHz, 10GHz]
         gain         = gain  // [2dBi, 3dBi, 5dBi]
         impedance    = impd  // [50Ω, 75Ω]
@@ -94,7 +94,7 @@ abstract component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
 
 abstract component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Dipole Antenna"
-    spec = [
+    spec += [
         frequency = freq  // [433MHz, 868MHz, 900MHz, 2.4GHz]
         gain      = gain  // [2dBi, 3dBi]
         impedance = impd  // [50Ω, 75Ω]
@@ -112,7 +112,7 @@ abstract component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
 
 abstract component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Helical Antenna"
-    spec = [
+    spec += [
         frequency = freq  // [1GHz, 1.5GHz, 2.4GHz]
         gain      = gain  // [5dBi, 8dBi, 10dBi]
         impedance = impd  // [50Ω, 75Ω]
@@ -131,7 +131,7 @@ abstract component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
 
 abstract component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     name = "Log Periodic Antenna"
-    spec = [
+    spec += [
         frequency_start = fstart  // [88MHz, 1MHz, 100MHz]
         frequency_end   = fend    // [108MHz, 1GHz, 2GHz]
         gain            = gain    // [3dBi, 5dBi, 8dBi]

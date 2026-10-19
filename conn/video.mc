@@ -11,7 +11,7 @@ component VIDEO.HDMI()
     name = "HDMI Connector"
     description = "HDMI connector"
     
-    spec = [
+    spec += [
         standard = "HDMI"
         version = _ // [1.4, 2.0, 2.1]
         connector_type = _ // [A, C, D, E]
@@ -47,7 +47,7 @@ component VIDEO.DISPLAYPORT()
     name = "DisplayPort Connector"
     description = "DisplayPort connector"
     
-    spec = [
+    spec += [
         standard = "DisplayPort"
         version = _ // [1.2, 1.3, 1.4, 2.0]
         connector_type = _ // [standard, mini, usb-c]
@@ -83,7 +83,7 @@ component VIDEO.VGA()
     name = "VGA Connector"
     description = "VGA (D-sub 15-pin) connector"
     
-    spec = [
+    spec += [
         standard = "VGA"
         type = "D-sub"
         pin_count = 15
@@ -117,7 +117,7 @@ component VIDEO.DVI()
     name = "DVI Connector"
     description = "DVI connector"
     
-    spec = [
+    spec += [
         standard = "DVI"
         connector_type = _ // [DVI-D, DVI-I, DVI-A]
         link_type = _ // [single, dual]

@@ -10,7 +10,7 @@ component JUMPER(n::INT)
     name = "Jumper Header"
     description = "Jumper header with " + n + " pins, closed pairwise by a cap"
 
-    spec = [
+    spec += [
         pin_count = n
         pitch = _ // [2.54mm, 1.27mm]
         closed_by = "cap"
@@ -29,7 +29,7 @@ component JUMPER.BRIDGE()
     name = "Solder Bridge"
     description = "Two-pad solder bridge for board-level configuration"
 
-    spec = [
+    spec += [
         closed_by = "solder"
         pitch = _ // [1.27mm, 2.54mm]
     ]

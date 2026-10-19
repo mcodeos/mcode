@@ -11,7 +11,7 @@ component TERM.BLOCK(positions::INT)
     name = "Screw Terminal Block"
     description = "Barrier screw terminal block, one pole per position"
 
-    spec = [
+    spec += [
         positions = positions // [2, 3, 4, 5, 6, 7, 8, 10, 12]
         pitch = _ // [2.54mm, 3.5mm, 3.81mm, 5.0mm, 5.08mm, 7.62mm]
         orientation = _ // [horizontal, vertical, 45deg]

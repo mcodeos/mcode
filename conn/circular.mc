@@ -8,7 +8,7 @@ component CIRC.BASIC(pin_count::INT)
     name = "Circular Connector"
     description = "Basic circular connector with " + pin_count + " pins"
 
-    spec = [
+    spec += [
         pin_count = pin_count
         diameter = _ // [8mm, 10mm, 12mm, 16mm, 20mm]
         thread = _ // [M8, M10, M12, M16, 1/4-20, 3/8-16]
@@ -26,7 +26,7 @@ component CIRC.MIL_SPEC(pin_count::INT)
     name = "MIL-SPEC Circular Connector"
     description = "MIL-SPEC circular connector, " + pin_count + " pins"
     
-    spec = [
+    spec += [
         series = _ // [MS3102, MS3106, MS3108, MS3110]
         shell_size = _ // [8, 10, 12, 14, 16]
         pin_count = pin_count
@@ -47,7 +47,7 @@ component CIRC.BNC(impedance::STRING)
     name = "BNC Connector"
     description = "BNC RF coaxial connector, " + impedance + " impedance"
     
-    spec = [
+    spec += [
         type = "BNC"
         impedance = impedance
         application = "RF, Video"
@@ -68,7 +68,7 @@ component CIRC.SMA(impedance::STRING)
     name = "SMA Connector"
     description = "SMA RF coaxial connector, " + impedance + " impedance"
     
-    spec = [
+    spec += [
         type = "SMA"
         impedance = impedance
         application = "RF, Microwave"
@@ -89,7 +89,7 @@ component CIRC.UFL()
     name = "U.FL RF Coaxial Connector"
     description = "U.FL micro RF coaxial receptacle"
 
-    spec = [
+    spec += [
         type = "U.FL"
         impedance = "50Ω"
         application = "Board-level RF exit: WiFi / BT / cellular module antenna port"
@@ -111,7 +111,7 @@ component CIRC.MHF4()
     name = "MHF4 RF Coaxial Connector"
     description = "MHF4 micro RF coaxial receptacle"
 
-    spec = [
+    spec += [
         type = "MHF4"
         impedance = "50Ω"
         application = "Board-level RF exit: WiFi / BT / GNSS module antenna port"

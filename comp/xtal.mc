@@ -57,7 +57,7 @@ abstract component XTAL2(freq::UV.HZ, cload::UV.CAP) :: XTAL
     name = "2-Pin Crystal"
     description = "Basic 2-pin crystal oscillator"
 
-    spec = [
+    spec += [
         frequency = freq
         load_capacitance = cload
     ]
@@ -76,7 +76,7 @@ abstract component XTAL4(freq::UV.HZ, cload::UV.CAP) :: XTAL
     name = "4-Pin Crystal"
     description = "4-pin crystal oscillator (pins 2 and 4 unconnected)"
 
-    spec = [
+    spec += [
         frequency = freq
         load_capacitance = cload
     ]
@@ -95,7 +95,7 @@ abstract component OSC(freq::UV.HZ)
     name = "Oscillator"
     description = "Active oscillator module"
 
-    spec = [
+    spec += [
         frequency = freq
     ]
 
@@ -115,7 +115,7 @@ abstract component XTAL.CERAMIC(freq::UV.HZ) :: XTAL
     name = "Ceramic Resonator"
     description = "Ceramic resonator for timing applications"
 
-    spec = [
+    spec += [
         frequency = freq
     ]
 

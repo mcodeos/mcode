@@ -11,7 +11,7 @@ component SIM.SOCKET()
     name = "SIM Card Socket"
     description = "SIM card socket, 6-contact ISO 7816 pad map"
 
-    spec = [
+    spec += [
         type = "SIM"
         form_factor = _ // [ID-000 full SIM, mini-UICC / micro, nano 4FF]
         contacts = _ // [6, 8]

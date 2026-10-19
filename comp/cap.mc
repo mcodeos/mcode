@@ -195,7 +195,7 @@ abstract component CAP(
         io [1, 2] = [1, 2]::TERM()
     ]
 
-    spec = [
+    spec += [
         capacitance  = cap
         voltage      = volt
         tolerance    = tol
@@ -223,7 +223,7 @@ abstract component CAP.ELEC(
         io [1, 2] = [\+, \-]::PCAP()  // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
-    spec = [
+    spec += [
         capacitance = cap
         voltage     = volt
         tolerance   = tol
@@ -250,7 +250,7 @@ abstract component CAP.MLCC(
         io [1, 2] = [1, 2]::TERM()
     ]
 
-    spec = [
+    spec += [
         capacitance  = cap
         voltage      = volt
         tolerance    = tol
@@ -278,7 +278,7 @@ abstract component CAP.DISC(
         io [1, 2] = [1, 2]::TERM()
     ]
 
-    spec = [
+    spec += [
         capacitance  = cap
         voltage      = volt
         tolerance    = tol
@@ -307,7 +307,7 @@ abstract component CAP.TANT(
         io [1, 2] = [\+, \-]::PCAP()  // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
-    spec = [
+    spec += [
         capacitance = cap
         voltage     = volt
         tolerance   = tol
@@ -334,7 +334,7 @@ abstract component CAP.NIOB(
         io [1, 2] = [\+, \-]::PCAP()  // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
-    spec = [
+    spec += [
         capacitance  = cap
         voltage      = volt
         tolerance    = tol
@@ -362,7 +362,7 @@ abstract component CAP.FILM(
         io [1, 2] = [1, 2]::TERM()
     ]
 
-    spec = [
+    spec += [
         capacitance  = cap
         voltage      = volt
         tolerance    = tol
@@ -389,7 +389,7 @@ abstract component CAP.MICA(
         io [1, 2] = [1, 2]::TERM()
     ]
 
-    spec = [
+    spec += [
         capacitance  = cap
         voltage      = volt
         tolerance    = tol
@@ -418,7 +418,7 @@ abstract component CAP.SAFETY(
         io [1, 2] = [1, 2]::TERM()
     ]
 
-    spec = [
+    spec += [
         capacitance = cap
         voltage = volt     // the volt formal is the AC RMS rating here
         tolerance    = tol
@@ -448,7 +448,7 @@ abstract component CAP.SC(
         io [1, 2] = [\+, \-]::PCAP()  // \+ = anode (pad 1), \- = cathode — bare member names (schematic face)
     ]
 
-    spec = [
+    spec += [
         capacitance  = cap
         voltage      = volt
         tolerance    = tol
@@ -475,7 +475,7 @@ abstract component CAP.TRIM(
         io [1, 2] = [1, 2]::TERM()
     ]
 
-    spec = [
+    spec += [
         capacitance = cap
         voltage     = volt
         tolerance   = tol

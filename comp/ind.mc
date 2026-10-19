@@ -102,7 +102,7 @@ abstract component IND(
         2 = 2, "Term 2"
     ]
 
-    spec = [
+    spec += [
         inductance    = ind
         rated_current = irated
         dcr           = dcr
@@ -133,7 +133,7 @@ abstract component IND.SMD(
         2 = 2, "Term 2"
     ]
 
-    spec = [
+    spec += [
         inductance    = ind
         rated_current = irated
         dcr           = dcr
@@ -164,7 +164,7 @@ abstract component IND.THT(
         2 = 2, "Term 2"
     ]
 
-    spec = [
+    spec += [
         inductance    = ind
         rated_current = irated
         dcr           = dcr
@@ -196,7 +196,7 @@ abstract component IND.POWER(
         2 = 2, "Term 2"
     ]
 
-    spec = [
+    spec += [
         inductance    = ind
         rated_current = irated
         sat_current   = isat
@@ -229,7 +229,7 @@ abstract component IND.HF(
         2 = 2, "Term 2"
     ]
 
-    spec = [
+    spec += [
         inductance    = ind
         rated_current = irated
         srf           = srf
@@ -260,7 +260,7 @@ abstract component IND.FB(
         2 = 2, "Term 2"
     ]
 
-    spec = [
+    spec += [
         impedance      = impd
         rated_current  = irated
         test_frequency = ftest
@@ -294,7 +294,7 @@ abstract component IND.CMC(
         4 = 4, "W2_OUT"
     ]
 
-    spec = [
+    spec += [
         inductance     = ind
         rated_current  = irated
         impedance      = impd

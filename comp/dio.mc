@@ -158,7 +158,7 @@ abstract component DIO(
         io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
-    spec = [
+    spec += [
         forward_voltage = vfwd
         reverse_voltage = vrev
         rated_current   = irated
@@ -180,7 +180,7 @@ abstract component DIO.SCH(
         io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
-    spec = [
+    spec += [
         forward_voltage = vfwd
         reverse_voltage = vrev
         rated_current   = irated
@@ -202,7 +202,7 @@ abstract component DIO.ZEN(
         io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
-    spec = [
+    spec += [
         breakdown_voltage = vz
         power_rated       = prated
         tolerance         = tol
@@ -224,7 +224,7 @@ abstract component DIO.TVS(
         io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
-    spec = [
+    spec += [
         breakdown_voltage = vbr
         clamping_voltage  = vclamp
         peak_power        = ppeak
@@ -244,7 +244,7 @@ abstract component DIO.ESD(
         io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
-    spec = [
+    spec += [
         working_standoff = rating
         esd_rating       = rating
         polarized        = true
@@ -264,7 +264,7 @@ abstract component DIO.ESD_ARRAY(
         3         = GND         # clamp reference
     ]
 
-    spec = [
+    spec += [
         esd_rating       = rating
         working_standoff = rating
     ]
@@ -284,7 +284,7 @@ abstract component DIO.PHOTO(
         io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
     ]
 
-    spec = [
+    spec += [
         responsivity   = resp
         dark_current   = idark
         spectral_range = srange
@@ -309,7 +309,7 @@ abstract component DIO.BR(
         4 = DC\-  # Rectified negative output
     ]
 
-    spec = [
+    spec += [
         current_average = iavg
         voltage_reverse = vrrm
         forward_voltage = vfwd

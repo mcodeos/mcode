@@ -10,7 +10,7 @@ component BAT.HOLDER()
     name = "Battery Holder"
     description = "Coin-cell battery holder, contact face only (cell is a DC.BAT source)"
 
-    spec = [
+    spec += [
         cell = _ // [CR2032, CR2025, CR2016, CR1220, LR44]
         mount = _ // [through-hole, surface-mount]
         retention = _ // [snap, screw]

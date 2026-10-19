@@ -14,7 +14,7 @@ component IEC.C14()
     name = "IEC C14 Appliance Inlet"
     description = "IEC 60320 C14 panel inlet, earthed, mates with a C13 cord set"
 
-    spec = [
+    spec += [
         current = 10A
         voltage = 250V
         earth = "yes"
@@ -36,7 +36,7 @@ component IEC.C8()
     name = "IEC C8 Appliance Inlet"
     description = "IEC 60320 C8 panel inlet, 2-pole without earth, mates with a C7 cord"
 
-    spec = [
+    spec += [
         current = 2.5A
         voltage = 250V
         earth = "no"

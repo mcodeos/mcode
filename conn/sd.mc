@@ -12,7 +12,7 @@ component SD.SOCKET()
     name = "SD Card Socket"
     description = "Full-size SD card socket with card-detect switch"
 
-    spec = [
+    spec += [
         type = "SD"
         form_factor = _ // [full-size, microSD]
         eject = _ // [push-push, push-pull, hinge]

@@ -11,7 +11,7 @@ component RJ45.JACK()
     name = "RJ45 Jack"
     description = "8P8C RJ45 receptacle, MDI face"
 
-    spec = [
+    spec += [
         type = "RJ45"
         category = _ // [Cat5e, Cat6, Cat6a]
         speed = _ // [10BASE-T, 100BASE-TX, 1000BASE-T]
@@ -42,7 +42,7 @@ component RJ45.MAGJACK()
     name = "RJ45 Magjack"
     description = "RJ45 jack with integrated 10/100BASE-T magnetics"
 
-    spec = [
+    spec += [
         type = "RJ45"
         speed = _ // [10BASE-T, 100BASE-TX]
         turns_ratio = _ // [1:1, 1:2]

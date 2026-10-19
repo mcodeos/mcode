@@ -8,7 +8,7 @@ component WTB.BASIC(count::INT)
     name = "Wire-to-Board Connector"
     description = "Basic wire-to-board connector"
     
-    spec = [
+    spec += [
         pin_count = count // [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16]
         pitch = _ // [1.0mm, 1.25mm, 1.5mm, 2.0mm, 2.54mm, 3.96mm]
         orientation = _ // [horizontal, vertical]
@@ -26,7 +26,7 @@ component WTB.JST_XH(count::INT)
     name = "JST XH Connector"
     description = "JST XH series wire-to-board connector"
     
-    spec = [
+    spec += [
         series = "XH"
         pin_count = count // [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16]
         pitch = 2.5mm
@@ -45,7 +45,7 @@ component WTB.MOLEX_KK(count::INT)
     name = "Molex KK Connector"
     description = "Molex KK series wire-to-board connector"
     
-    spec = [
+    spec += [
         series = "KK"
         pin_count = count // [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16]
         pitch = 2.54mm
@@ -64,7 +64,7 @@ component WTB.DUPONT(count::INT)
     name = "Dupont Connector"
     description = "Dupont wire-to-board connector"
     
-    spec = [
+    spec += [
         type = "Dupont"
         pin_count = count // [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16]
         pitch = 2.54mm

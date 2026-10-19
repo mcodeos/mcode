@@ -41,7 +41,7 @@ recipe RELAY.SSR {
 
 abstract component RELAY(icont::UV.AMP, vcoil::UV.VOLT) :: RELAY {
     name = "Relay"
-    spec = [
+    spec += [
         contact_rating = icont
         coil_voltage   = vcoil
     ]
@@ -60,7 +60,7 @@ abstract component RELAY(icont::UV.AMP, vcoil::UV.VOLT) :: RELAY {
 
 abstract component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
     name = "Electromagnetic Relay"
-    spec = [
+    spec += [
         coil_voltage   = vcoil
         contact_rating = icont
     ]
@@ -79,7 +79,7 @@ abstract component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
 
 abstract component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP) :: RELAY.SSR {
     name = "Solid State Relay"
-    spec = [
+    spec += [
         control_voltage = vctrl
         load_voltage    = vload
         load_current    = iload
@@ -99,7 +99,7 @@ abstract component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP) :: R
 
 abstract component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
     name = "Reed Relay"
-    spec = [
+    spec += [
         coil_voltage   = vcoil
         contact_rating = icont
     ]
@@ -117,7 +117,7 @@ abstract component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
 
 abstract component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
     name = "Latching Relay"
-    spec = [
+    spec += [
         coil_voltage   = vcoil
         contact_rating = icont
     ]

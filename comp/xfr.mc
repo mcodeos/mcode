@@ -49,7 +49,7 @@ recipe XFR.AUDIO {
 
 abstract component XFR(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: XFR {
     name = "Transformer"
-    spec = [
+    spec += [
         primary_voltage   = vpri    // [12V, 24V, 120V, 240V]
         secondary_voltage = vsec    // [5V, 9V, 12V, 24V]
         power_rated       = prated  // [1W, 5W, 10W, 50W, 100W]
@@ -70,7 +70,7 @@ abstract component XFR(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: XFR {
 
 abstract component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq::UV.HZ) :: XFR {
     name = "Power Transformer"
-    spec = [
+    spec += [
         primary_voltage   = vpri    // [12V, 24V, 120V, 240V]
         secondary_voltage = vsec    // [5V, 9V, 12V, 24V]
         power_rated       = prated  // [1W, 5W, 10W, 50W, 100W]
@@ -92,7 +92,7 @@ abstract component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq
 
 abstract component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, fresp::STRING) :: XFR.AUDIO {
     name = "Audio Transformer"
-    spec = [
+    spec += [
         primary_impedance   = zpri    // [8Ω, 50Ω, 600Ω]
         secondary_impedance = zsec    // [8Ω, 50Ω, 600Ω]
         power_rated         = prated  // [0.1W, 0.5W, 1W, 5W]
@@ -113,7 +113,7 @@ abstract component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, fresp:
 
 abstract component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::UV.WATT) :: XFR {
     name = "Isolation Transformer"
-    spec = [
+    spec += [
         primary_voltage   = vpri    // [12V, 24V, 120V, 240V]
         secondary_voltage = vsec    // [12V, 24V, 120V, 240V]
         isolation_voltage = viso    // [500V, 1000V, 2000V, 5000V]
@@ -134,7 +134,7 @@ abstract component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::
 
 abstract component XFR.CT(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: XFR {
     name = "Center Tapped Transformer"
-    spec = [
+    spec += [
         primary_voltage   = vpri    // [12V, 24V, 120V, 240V]
         secondary_voltage = vsec    // [9V, 12V, 24V, 36V]
         power_rated       = prated  // [1W, 5W, 10W, 50W]
