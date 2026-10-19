@@ -99,12 +99,12 @@ interface PWM.H6(role)
     role RECEIVER {  // PWM sink: three-phase gate driver
         name = "Three-phase PWM Receiver"
         pins = [
-            in 1 = UH @drive(pp) @class(digital) // Phase U high-side control
-            in 2 = UL @drive(pp) @class(digital) // Phase U low-side control
-            in 3 = VH @drive(pp) @class(digital) // Phase V high-side control
-            in 4 = VL @drive(pp) @class(digital) // Phase V low-side control
-            in 5 = WH @drive(pp) @class(digital) // Phase W high-side control
-            in 6 = WL @drive(pp) @class(digital) // Phase W low-side control
+            in 1 = INHA @drive(pp) @class(digital) // Phase U high-side control (driver input)
+            in 2 = INLA @drive(pp) @class(digital) // Phase U low-side control (driver input)
+            in 3 = INHB @drive(pp) @class(digital) // Phase V high-side control (driver input)
+            in 4 = INLB @drive(pp) @class(digital) // Phase V low-side control (driver input)
+            in 5 = INHC @drive(pp) @class(digital) // Phase W high-side control (driver input)
+            in 6 = INLC @drive(pp) @class(digital) // Phase W low-side control (driver input)
         ]
         peer = TRANSMITTER
     }

@@ -22,9 +22,10 @@
 // Electrical character: the DBG.JTAG.ELEC recipe face (rate option
 // vocabulary, internal pull-bias note); the 2-wire DBG.JTAG.2 member rides
 // the same contract as a variant.
-// Core Rule: Five-wire synchronous debug/test link: the data pair crosses
-//            by position (TDI <-> TDO), plus clock, mode select, and an
-//            optional test reset; the TAP controller lives in the target.
+// Core Rule: Five-wire synchronous debug/test link: TDI and TDO are
+//            same-wire / role-flipped (HOST drives TDI, TAP returns on TDO),
+//            plus clock, mode select, and an optional test reset; the TAP
+//            controller lives in the target.
 // Device Definition: HOST = debugger/programmer,
 //                    TAP = test access port (target device).
 
@@ -35,11 +36,11 @@ interface DBG.JTAG(role)
     // Role-less conductor view: 5 anonymous lanes, ordinal = wire identity
     // Mediated devices and module ports bind
     // role-less and take their shape from this table; the role tables below
-    // carry the named views: the data pair crosses by position (TDI <-> TDO),
-    // and the direction words flip per side.
+    // carry the named views: TDI and TDO are same-wire / role-flipped, and
+    // the direction words flip per side.
     pins = [
-        1 = _ @class(digital) // TDI <-> TDO
-        2 = _ @class(digital) // TDO <-> TDI
+        1 = _ @class(digital) // TDI (HOST out -> TAP in)
+        2 = _ @class(digital) // TDO (TAP out -> HOST in)
         3 = _ @class(digital) // TCK
         4 = _ @class(digital) // TMS
         5 = _ @class(digital) // _TRST
