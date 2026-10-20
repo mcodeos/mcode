@@ -34,6 +34,7 @@ pub use ./ethernet.mc   // Ethernet interface
 pub use ./mii.mc        // MII / RMII interfaces
 pub use ./mdio.mc       // MDIO interface (PHY serial management)
 pub use ./dp.mc         // DisplayPort interface
+pub use ./hdmi.mc       // HDMI interface (TMDS pairs, CEC, DDC, hot-plug detect)
 pub use ./lvds.mc       // LVDS interface (clock + 4 data pairs)
 pub use ./mipi.mc       // MIPI DSI / CSI interfaces (D-PHY)
 pub use ./spdif.mc      // S/PDIF interface

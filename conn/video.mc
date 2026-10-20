@@ -2,39 +2,31 @@
 # Licensed under the Apache License, Version 2.0.
 
 // VIDEO.HDMI - HDMI connector Component Definition
-// Core Rule: Three TMDS differential pairs (data 0-2) plus a TMDS clock pair,
-// each with its own shield; DDC (SCL/SDA), CEC, HPD, and a +5V feed for the
-// sink-side side channel.
+// Core Rule: The HDMI link rides the HDMI interface: three TMDS data pairs
+// and a TMDS clock pair, CEC, the DDC pair and the hot-plug detect. The
+// three shield contacts and the utility contact are in-shell members with
+// no far-end counterpart, so they stay bare rows; the +5V feed and its
+// return ride the DC face.
 
 component VIDEO.HDMI()
 {
     name = "HDMI Connector"
     description = "HDMI connector"
-    
+
     spec += [
         standard = "HDMI"
         version = _ // [1.4, 2.0, 2.1]
         connector_type = _ // [A, C, D, E]
     ]
-    
+
     pins = [
-        1 = TMDS_D2\+ @pair(d2), "TMDS Data2+"
-        2 = TMDS_D2_SH, "TMDS Data2 Shield"
-        3 = TMDS_D2\- @pair(d2), "TMDS Data2-"
-        4 = TMDS_D1\+ @pair(d1), "TMDS Data1+"
-        5 = TMDS_D1_SH, "TMDS Data1 Shield"
-        6 = TMDS_D1\- @pair(d1), "TMDS Data1-"
-        7 = TMDS_D0\+ @pair(d0), "TMDS Data0+"
-        8 = TMDS_D0_SH, "TMDS Data0 Shield"
-        9 = TMDS_D0\- @pair(d0), "TMDS Data0-"
-        10 = TMDS_CK\+ @pair(clk), "TMDS Clock+"
-        11 = TMDS_CK_SH, "TMDS Clock Shield"
-        12 = TMDS_CK\- @pair(clk), "TMDS Clock-"
-        13 = CEC, "CEC"
-        14 = RESERVED, "Reserved"
-        [15, 16] = I2C{SCL, SDA}::I2C(), "DDC I2C bus (EDID channel to the sink)"
+        [1,3,4,6,7,9,10,12,13,15,16,19] = HDMI::HDMI(), "HDMI link: TMDS data 2/1/0 and clock pairs, CEC, DDC and hot-plug detect"
+        2 = TMDS_D2_SH, "TMDS data 2 shield"      // in-shell member - no far-end counterpart
+        5 = TMDS_D1_SH, "TMDS data 1 shield"
+        8 = TMDS_D0_SH, "TMDS data 0 shield"
+        11 = TMDS_CK_SH, "TMDS clock shield"
+        14 = RESERVED, "Reserved (utility contact, unused before HDMI 1.4)"
         [18,17] = [P5V,GND]::DC(), "+5V Power / DDC/CEC Ground"
-        19 = HDMI_HPD, "Hot Plug Detect"
     ]
 }
 
