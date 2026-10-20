@@ -3,6 +3,12 @@
 # retired; the store walk applies the working-tree exclusions itself).
 # mcode installs into the global data root, so this runs from anywhere.
 #
+# The library version is the one truth in project.toml (`[project] version`);
+# this script passes it to `mcc lib install --version`, because the store
+# keys the installed view by that version and refuses a re-install of the
+# same one. Bumping the version in project.toml is therefore the release
+# step for the library face.
+#
 # After install we also seed project.toml into the installed root. The store
 # install face refuses project.toml by design, but subdir files inside
 # `comp/*.mc` carry `use ../ifs/<iface>` — without project.toml to anchor
@@ -11,20 +17,26 @@
 # TERM/PCAP/DIO/XTAL interface binding degrades to "treating '[1, 2]' as
 # plain pin alias" (E3110 sweep). The source tree already carries project.toml
 # (b5582); this seed closes the symmetric gap on the installed copy that
-# the LSP / mcc check consume under ~/.mcode/mcode@<ver>/. b5585.
+# the LSP / mcc check consume under the store view. b5585.
 SRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+LIB_VERSION="$( sed -n 's/^[[:space:]]*version[[:space:]]*=[[:space:]]*"\([^"]*\)".*/\1/p' \
+    "$SRC/project.toml" 2>/dev/null | head -1 )"
+if [ -z "$LIB_VERSION" ]; then
+    printf 'cp.sh: no [project] version in %s/project.toml\n' "$SRC" >&2
+    exit 1
+fi
 # `lib install` refuses a re-install of the same version; we treat that as a
 # no-op (the lib is in place; cp.sh's only side effect is the project.toml
 # seed below, which is idempotent).
-INSTALL_OUT="$(mcc lib install mcode --from "$SRC" 2>&1)" || {
+INSTALL_OUT="$(mcc lib install mcode --from "$SRC" --version "$LIB_VERSION" 2>&1)" || {
     case "$INSTALL_OUT" in
         *already*installed*) : ;;
         *) printf '%s\n' "$INSTALL_OUT" >&2; exit 1 ;;
     esac
 }
 if [ -f "$SRC/project.toml" ]; then
-    INSTALLED="$(mcc lib list 2>/dev/null | awk '
-        /^  mcode@0\.0[[:space:]]+global[[:space:]]+\// { print $3; exit }
+    INSTALLED="$(mcc lib list 2>/dev/null | awk -v v="$LIB_VERSION" '
+        $1 == "mcode@" v { print $3; exit }
     ')"
     if [ -n "$INSTALLED" ] && [ -d "$INSTALLED" ]; then
         cp "$SRC/project.toml" "$INSTALLED/project.toml"
