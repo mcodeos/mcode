@@ -23,9 +23,7 @@ component USB.SOCK_TYPEA()
     ]
 
     pins = [
-        [1,4] = [VBUS,GND]::DC(), "Power / Ground"
-        2 = D\- @pair(d), "Data Negative"
-        3 = D\+ @pair(d), "Data Positive"
+        [1,2,3,4] = [VBUS, D\-, D\+, GND]::USB.TYPEA(DEVICE), "VBUS / Data Negative / Data Positive / GND"
     ]
 }
 
@@ -45,9 +43,7 @@ component USB.SOCK_TYPEB()
     ]
 
     pins = [
-        [1,4] = [VBUS,GND]::DC(), "Power / Ground"
-        2 = D\- @pair(d), "Data Negative"
-        3 = D\+ @pair(d), "Data Positive"
+        [1,2,3,4] = [VBUS, D\-, D\+, GND]::USB.TYPEB(DEVICE), "VBUS / Data Negative / Data Positive / GND"
     ]
 }
 
@@ -91,10 +87,7 @@ component USB.SOCK_MICROB()
     ]
 
     pins = [
-        [1,5] = [VBUS,GND]::DC(), "Power / Ground"
-        2 = D\- @pair(d), "Data Negative"
-        3 = D\+ @pair(d), "Data Positive"
-        4 = ID, "Identification (OTG)"
+        [1,2,3,4,5] = [VBUS, D\-, D\+, ID, GND]::USB.MICROB(DEVICE), "VBUS / Data Negative / Data Positive / ID / GND"
     ]
 }
 
