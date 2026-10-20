@@ -35,7 +35,7 @@ interface RST(role)
     // reset network is a legal reset source: its resistor and capacitor
     // terminals are the non-family terminals that count.
     pins = [
-        1 = RST @class(digital)   // Reset line (datasheet nRST/RESET/NRST)
+        1 = RST | NRST | RESET | RESETB @class(digital)   // Reset line (datasheet nRST/RESET/NRST)
     ]
 
     role SOURCE {  // drives the reset line: supervisor, RC, debugger, button

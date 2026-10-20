@@ -23,8 +23,8 @@ interface XTAL(role)
     topology = "point to point"
 
     pins = [
-        1 = X1 @class(analog)   // Crystal terminal 1
-        2 = X2 @class(analog)   // Crystal terminal 2
+        1 = X1 | XTAL1 | XIN | XI | XTI | OSCIN @class(analog)   // Crystal terminal 1 (datasheet XTAL1; host side XIN/XI/XTI/OSCIN)
+        2 = X2 | XTAL2 | XOUT | XO | XTO | OSCOUT @class(analog)   // Crystal terminal 2 (datasheet XTAL2; host side XOUT/XO/XTO/OSCOUT)
     ]
 
     role OSCILLATOR {  // hosts the sustaining amplifier: MCU XIN/XOUT

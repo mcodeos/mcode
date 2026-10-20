@@ -559,23 +559,23 @@ interface USB.DATA(role)
     // signal; the +/- spellings are the naming convention (same as
     // USB3.TX / USB3.RX).
     pins = [
-        1 = D\+ @pair(d) @class(digital), "Data Positive"     // Positive data line
-        2 = D\- @pair(d) @class(digital), "Data Negative"     // Negative data line
+        1 = D\+ | DP @pair(d) @class(digital), "Data Positive"     // Positive data line
+        2 = D\- | DM @pair(d) @class(digital), "Data Negative"     // Negative data line
     ]
 
     role HOST {
         name = "USB Host"
         pins = [
-            io 1 = D\+ @pair(d) @class(digital), "Data Positive"     // Half duplex: either side drives
-            io 2 = D\- @pair(d) @class(digital), "Data Negative"
+            io 1 = D\+ | DP @pair(d) @class(digital), "Data Positive"     // Half duplex: either side drives
+            io 2 = D\- | DM @pair(d) @class(digital), "Data Negative"
         ]
         peer = DEVICE(1)
     }
     role DEVICE {
         name = "USB Device"
         pins = [
-            io 1 = D\+ @pair(d) @class(digital), "Data Positive"     // Half duplex: either side drives
-            io 2 = D\- @pair(d) @class(digital), "Data Negative"
+            io 1 = D\+ | DP @pair(d) @class(digital), "Data Positive"     // Half duplex: either side drives
+            io 2 = D\- | DM @pair(d) @class(digital), "Data Negative"
         ]
         peer = HOST(1)
     }

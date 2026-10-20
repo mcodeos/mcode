@@ -29,7 +29,7 @@ interface LVD(role)
     // supply tiers ride the DC faces.
 
     pins = [
-        1 = IN @class(analog)   // Monitored voltage sense input (datasheet LVDINx)
+        1 = IN | LVDIN1 @class(analog)   // Monitored voltage sense input (datasheet LVDINx)
     ]
 
     role SOURCE {
@@ -72,7 +72,7 @@ interface LVD.OUT(role)
     // the DC faces.
 
     pins = [
-        1 = OUT @class(digital)   // Detection result (datasheet LVD_OUT)
+        1 = OUT | LVD_OUT @class(digital)   // Detection result (datasheet LVD_OUT)
     ]
 
     role TRANSMITTER {
