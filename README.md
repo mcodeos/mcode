@@ -319,7 +319,10 @@ Rules:
    (`R.ANODE`, `U_SENSOR.VCC`). Pin names are written in ALL CAPS
    ([Naming Conventions §4](#4-pin-names-are-all-caps)). Prefer family
    conventions: `ANODE`/`CATHODE`, `Term 1`/`Term 2`, `W1_IN`/`W1_OUT`,
-   `PRIMARY+`/`SECONDARY-`, `VCC`/`GND`.
+   `PRIMARY+`/`SECONDARY-`, `VCC`/`GND`. Take the shortest established word:
+   a two-terminal part names its ends `A`/`B` (`1 = A`, `2 = B`) - a made-up
+   domain prefix (`NET_A`, `PAD_A`) repeats what the class already says and
+   is not a word the trade uses.
 3. Polarity / phase markers: `\+` and `\-` mark a polarized or phased terminal
    (`1 = \+ , "Anode"`, `1 = PRIMARY\+`). A genuinely polarized passive
    (electrolytic / tantalum / niobium / supercap capacitor) declares its
