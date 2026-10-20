@@ -116,17 +116,7 @@ component USB3.SOCK_TYPEA()
     ]
 
     pins = [
-        // USB 2.0 pins (backward compatibility)
-        [1,4] = [VBUS,GND]::DC(), "Power / Ground"
-        2 = D\- @pair(d), "Data Negative (USB 2.0)"
-        3 = D\+ @pair(d), "Data Positive (USB 2.0)"
-
-        // USB 3.x additional pins (host side: receive on SSRX 5/6, transmit on SSTX 8/9)
-        5 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
-        6 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"
-        7 = GND_DRAIN, "Ground Drain"
-        8 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
-        9 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"
+        io [1,4,2,3,5,6,7,8,9] = U3{VBUS, GND, D\-, D\+, SSRX\-, SSRX\+, GND_DRAIN, SSTX\-, SSTX\+}::USB3.TYPEA(), "USB 2.0 pins (1/4 power, 2/3 data) plus SuperSpeed pairs (5/6 RX, 8/9 TX) and the ground drain (7); host receptacle"
     ]
 }
 
@@ -147,17 +137,7 @@ component USB3.SOCK_TYPEB()
     ]
 
     pins = [
-        // USB 2.0 pins (backward compatibility)
-        [1,4] = [VBUS,GND]::DC(), "Power / Ground"
-        2 = D\- @pair(d), "Data Negative (USB 2.0)"
-        3 = D\+ @pair(d), "Data Positive (USB 2.0)"
-
-        // USB 3.x additional pins (device side: transmit on SSTX 5/6, receive on SSRX 8/9)
-        5 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
-        6 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"
-        7 = GND_DRAIN, "Ground Drain"
-        8 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
-        9 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"
+        io [1,4,2,3,5,6,7,8,9] = U3{VBUS, GND, D\-, D\+, SSTX\-, SSTX\+, GND_DRAIN, SSRX\-, SSRX\+}::USB3.TYPEB(), "USB 2.0 pins (1/4 power, 2/3 data) plus SuperSpeed pairs (5/6 TX, 8/9 RX) and the ground drain (7); device receptacle"
     ]
 }
 
@@ -179,18 +159,7 @@ component USB3.SOCK_MICROB()
     ]
 
     pins = [
-        // USB 2.0 pins (backward compatibility)
-        [1,5] = [VBUS,GND]::DC(), "Power / Ground"
-        2 = D\- @pair(d), "Data Negative (USB 2.0)"
-        3 = D\+ @pair(d), "Data Positive (USB 2.0)"
-        4 = ID, "Identification (OTG)"
-
-        // USB 3.x additional pins (device side: transmit on SSTX 6/7, receive on SSRX 9/10)
-        6 = SSTX\- @pair(sstx, match: 0.2mm), "SuperSpeed TX Negative"
-        7 = SSTX\+ @pair(sstx, match: 0.2mm), "SuperSpeed TX Positive"
-        8 = GND_DRAIN, "Ground Drain"
-        9 = SSRX\- @pair(ssrx, match: 0.2mm), "SuperSpeed RX Negative"
-        10 = SSRX\+ @pair(ssrx, match: 0.2mm), "SuperSpeed RX Positive"
+        io [1,5,2,3,4,6,7,8,9,10] = U3{VBUS, GND, D\-, D\+, ID, SSTX\-, SSTX\+, GND_DRAIN, SSRX\-, SSRX\+}::USB3.MICROB(), "USB 2.0 pins (1/5 power, 2/3 data, 4 ID) plus SuperSpeed pairs (6/7 TX, 9/10 RX) and the ground drain (8); device receptacle"
     ]
 }
 

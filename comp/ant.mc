@@ -47,7 +47,7 @@ abstract component ANT(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     ]
 
     pins = [
-        1 = ANT @class(radio)  # Antenna connection, RF continuous-wave port
+        io 1 = RF{ANT}::RF_SE()  # Antenna connection, RF continuous-wave port
     ]
 }
 
@@ -65,7 +65,7 @@ abstract component ANT.WHIP(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     ]
 
     pins = [
-        1 = ANT @class(radio)  # Antenna connection, RF continuous-wave port
+        io 1 = RF{ANT}::RF_SE()  # Antenna connection, RF continuous-wave port
     ]
 }
 
@@ -83,7 +83,7 @@ abstract component ANT.PATCH(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     ]
 
     pins = [
-        1 = ANT @class(radio)  # Antenna connection, RF continuous-wave port
+        io 1 = RF{ANT}::RF_SE()  # Antenna connection, RF continuous-wave port
         2 = GND                # Ground plane
     ]
 }
@@ -102,7 +102,7 @@ abstract component ANT.DIPOLE(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     ]
 
     pins = [
-        1 = ANT @class(radio)  # Antenna connection, RF continuous-wave port
+        io 1 = RF{ANT}::RF_SE()  # Antenna connection, RF continuous-wave port
     ]
 }
 
@@ -120,7 +120,7 @@ abstract component ANT.HELICAL(freq::UV.HZ, gain::UV.DB, impd::UV.OHM) :: ANT {
     ]
 
     pins = [
-        1 = ANT @class(radio)  # Antenna connection, RF continuous-wave port
+        io 1 = RF{ANT}::RF_SE()  # Antenna connection, RF continuous-wave port
         2 = GND                # Ground plane
     ]
 }
@@ -139,7 +139,7 @@ abstract component ANT.LOGPERIODIC(fstart::UV.HZ, fend::UV.HZ, gain::UV.DB, impd
     ]
 
     pins = [
-        1 = ANT @class(radio)  # Antenna connection, RF continuous-wave port
+        io 1 = RF{ANT}::RF_SE()  # Antenna connection, RF continuous-wave port
     ]
 }
 

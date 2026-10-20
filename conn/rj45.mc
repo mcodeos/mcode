@@ -2,9 +2,9 @@
 # Licensed under the Apache License, Version 2.0.
 
 // RJ45.JACK - Plain 8P8C Ethernet receptacle (MDI face, 10/100/1000BASE-T) Component Definition
-// Core Rule: Pin names mirror the ETHERNET interface members position for
-// position, so a jack wired to an ETHERNET Host maps 1:1 without an interface
-// binding on the component face.
+// Core Rule: The eight MDI pads adopt the ETHERNET media face position for
+// position (pad 1 = TD+, ... pad 8 = BI8), so a jack wired to an ETHERNET
+// Host maps 1:1 through the adoption.
 
 component RJ45.JACK()
 {
@@ -20,14 +20,7 @@ component RJ45.JACK()
     ]
 
     pins = [
-        1 = TD\+ @pair(td), "Transmit Data Positive"     // MDI pin 1
-        2 = TD\- @pair(td), "Transmit Data Negative"     // MDI pin 2
-        3 = RD\+ @pair(rd), "Receive Data Positive"      // MDI pin 3
-        4 = BI4 @pair(bi45), "Bidirectional line 4"      // PoE / termination
-        5 = BI5 @pair(bi45), "Bidirectional line 5"      // PoE / termination
-        6 = RD\- @pair(rd), "Receive Data Negative"      // MDI pin 6
-        7 = BI7 @pair(bi78), "Bidirectional line 7"      // PoE / termination
-        8 = BI8 @pair(bi78), "Bidirectional line 8"      // PoE / termination
+        io [1,2,3,4,5,6,7,8] = ETH{TD\+, TD\-, RD\+, BI4, BI5, RD\-, BI7, BI8}::ETHERNET(), "MDI face: 1 TD+ / 2 TD- / 3 RD+ / 4 BI4 / 5 BI5 / 6 RD- / 7 BI7 / 8 BI8"
     ]
 }
 

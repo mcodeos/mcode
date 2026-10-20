@@ -3,9 +3,9 @@
 
 // SD.SOCKET - Full-size SD card socket with card-detect switch Component Definition
 // Core Rule: Pad numbers and roles follow the standard SD card contact map;
-// signal pad names mirror the SDIO interface members position for position,
-// so a socket wired to an SDIO Host maps 1:1 without an interface binding on
-// the component face. microSD shares the same pad roles.
+// the six signal pads (CLK, CMD, DAT0-DAT3) adopt the SDIO face position for
+// position, so a socket wired to an SDIO Host maps 1:1 through the adoption.
+// microSD shares the same pad roles.
 
 component SD.SOCKET()
 {
@@ -22,14 +22,9 @@ component SD.SOCKET()
     ]
 
     pins = [
-        1 = DAT3, "Data 3 / card select in SPI mode"   // card pad 1
-        2 = CMD, "Command / response line"             // card pad 2
+        io [5,2,7,8,9,1] = SDIO{CLK, CMD, DAT0, DAT1, DAT2, DAT3}::SDIO(), "Signal face: pad 5 CLK / 2 CMD / 7 DAT0 / 8 DAT1 / 9 DAT2 / 1 DAT3 (DAT3 doubles as card select in SPI mode)"
         [4,3] = [VDD,VSS]::DC(), "Card supply / Ground return"   // card pads 4, 3
         6 = VSS, "Ground return"                       // card pad 6
-        5 = CLK, "Clock (host generated)"              // card pad 5
-        7 = DAT0, "Data 0"                             // card pad 7
-        8 = DAT1, "Data 1"                             // card pad 8
-        9 = DAT2, "Data 2"                             // card pad 9
         10 = CD1, "Card detect switch contact"         // switch pair, closed when card inserted
         11 = CD2, "Card detect switch contact"
     ]

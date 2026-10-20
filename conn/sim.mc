@@ -21,7 +21,7 @@ component SIM.SOCKET()
 
     pins = [
         [1,4] = [VCC,GND]::DC(), "C1 supply / C5 ground"
-        2 = RST, "C2 reset"
+        in 2 = RST{RST}::RST(), "C2 reset"
         3 = CLK, "C3 clock"
         5 = VPP, "C6 programming voltage (rarely driven on modern SIMs)"
         6 = IO, "C7 data I/O"

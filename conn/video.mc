@@ -34,7 +34,7 @@ component VIDEO.HDMI()
         14 = RESERVED, "Reserved"
         [15, 16] = I2C{SCL, SDA}::I2C(), "DDC I2C bus (EDID channel to the sink)"
         [18,17] = [P5V,GND]::DC(), "+5V Power / DDC/CEC Ground"
-        19 = HPD, "Hot Plug Detect"
+        19 = HDMI_HPD, "Hot Plug Detect"
     ]
 }
 
@@ -54,21 +54,11 @@ component VIDEO.DISPLAYPORT()
     ]
     
     pins = [
-        1 = LANE0_P @pair(lane0), "Main Link Lane 0 (P)"
-        2 = LANE0_N @pair(lane0), "Main Link Lane 0 (N)"
-        3 = LANE1_P @pair(lane1), "Main Link Lane 1 (P)"
-        4 = LANE1_N @pair(lane1), "Main Link Lane 1 (N)"
-        5 = LANE2_P @pair(lane2), "Main Link Lane 2 (P)"
-        6 = LANE2_N @pair(lane2), "Main Link Lane 2 (N)"
-        7 = LANE3_P @pair(lane3), "Main Link Lane 3 (P)"
-        8 = LANE3_N @pair(lane3), "Main Link Lane 3 (N)"
+        io [1,2,3,4,5,6,7,8,13,14,15] = DP{LANE0_P, LANE0_N, LANE1_P, LANE1_N, LANE2_P, LANE2_N, LANE3_P, LANE3_N, AUX_P, AUX_N, HPD}::DP(), "Main link lanes 0-3 (P/N each) plus the AUX configuration lane and hot-plug detect"
         9 = GND, "Ground"
         10 = GND, "Ground"
         11 = GND, "Ground"
         12 = GND, "Ground"
-        13 = AUX_P @pair(aux), "Configuration Data Lane (P)"
-        14 = AUX_N @pair(aux), "Configuration Data Lane (N)"
-        15 = HPD, "Hot Plug Detect"
         [16,17] = [P3V3,GND]::DC(), "+3.3V Power / Ground"
         18 = RESERVED, "Reserved"
     ]
@@ -103,8 +93,8 @@ component VIDEO.VGA()
         10 = GND_S, "Sync Ground"
         11 = RESERVED, "Reserved"
         [15, 12] = I2C{SCL, SDA}::I2C(), "DDC I2C bus (EDID channel to the host)"
-        13 = HSYNC, "Horizontal Sync"
-        14 = VSYNC, "Vertical Sync"
+        13 = HSYNC_VGA, "Horizontal Sync"
+        14 = VSYNC_VGA, "Vertical Sync"
     ]
 }
 
@@ -140,7 +130,7 @@ component VIDEO.DVI()
         14 = TMDS_CK\+, "TMDS Clock+"
         15 = TMDS_CK\-, "TMDS Clock-"
         16 = GND, "Ground"
-        17 = HPD, "Hot Plug Detect"
+        17 = DVI_HPD, "Hot Plug Detect"
         18 = DDC_SCL, "DDC Clock"
         19 = DDC_SDA, "DDC Data"
         [20,21] = [P5V,GND]::DC(), "+5V Power / Ground"
