@@ -57,25 +57,25 @@ component VIDEO.DISPLAYPORT()
 }
 
 // VIDEO.VGA - Analog VGA connector (D-sub 15-pin) Component Definition
-// Core Rule: Three single-ended analog video lines (red/green/blue) each with
-// its own ground, separate sync grounds, HSYNC/VSYNC, and an I2C DDC pair.
+// Core Rule: Three single-ended analog video lines (red/green/blue), the
+// horizontal and vertical sync lines and a DDC I2C pair ride the VGA face.
+// The five ground contacts (one common, one per color, one for sync) are
+// the analog returns, not link members, so they stay bare rows.
 
 component VIDEO.VGA()
 {
     name = "VGA Connector"
     description = "VGA (D-sub 15-pin) connector"
-    
+
     spec += [
         standard = "VGA"
         type = "D-sub"
         pin_count = 15
         gender = _ // [male, female]
     ]
-    
+
     pins = [
-        1 = RED, "Red Video"
-        2 = GREEN, "Green Video"
-        3 = BLUE, "Blue Video"
+        io [1,2,3,13,14,15,12] = VGA::VGA(), "VGA link: analog red/green/blue, horizontal and vertical sync, and the DDC I2C pair"
         4 = RESERVED, "Reserved"
         5 = GND, "Ground"
         6 = GND_R, "Red Ground"
@@ -84,48 +84,34 @@ component VIDEO.VGA()
         9 = KEY, "Key (No Pin)"
         10 = GND_S, "Sync Ground"
         11 = RESERVED, "Reserved"
-        [15, 12] = I2C{SCL, SDA}::I2C(), "DDC I2C bus (EDID channel to the host)"
-        13 = HSYNC_VGA, "Horizontal Sync"
-        14 = VSYNC_VGA, "Vertical Sync"
     ]
 }
 
 // VIDEO.DVI - DVI digital video connector Component Definition
-// Core Rule: TMDS differential pairs for data and clock (single link) with a
-// second set of pairs when link_type is dual; DDC clock/data and a +5V feed.
+// Core Rule: The TMDS data and clock pairs, the dual-link data pairs, the
+// DDC pair and the hot-plug detect ride the DVI face. The four shield
+// contacts are in-shell members with no far-end counterpart, so they stay
+// bare rows; the +5V feed and its return ride the DC face.
 
 component VIDEO.DVI()
 {
     name = "DVI Connector"
     description = "DVI connector"
-    
+
     spec += [
         standard = "DVI"
-        connector_type = _ // [DVI-D, DVI-I, DVI-A]
+        connector_type = "DVI-D"  // digital-only 24 contacts; the analog variants add the flat blade
         link_type = _ // [single, dual]
     ]
-    
+
     pins = [
-        1 = TMDS_D2\+ @pair(d2), "TMDS Data2+"
-        2 = TMDS_D2\- @pair(d2), "TMDS Data2-"
-        3 = TMDS_D1\+ @pair(d1), "TMDS Data1+"
-        4 = TMDS_D1\- @pair(d1), "TMDS Data1-"
-        5 = TMDS_D0\+ @pair(d0), "TMDS Data0+"
-        6 = TMDS_D0\- @pair(d0), "TMDS Data0-"
-        7 = TMDS_CK\+ @pair(clk), "TMDS Clock+"
-        8 = TMDS_CK\- @pair(clk), "TMDS Clock-"
-        9 = GND, "Ground"
-        10 = TMDS_D4\+ @pair(d4), "TMDS Data4+"
-        11 = TMDS_D4\- @pair(d4), "TMDS Data4-"
-        12 = TMDS_D3\+ @pair(d3), "TMDS Data3+"
-        13 = TMDS_D3\- @pair(d3), "TMDS Data3-"
-        14 = TMDS_CK\+, "TMDS Clock+"
-        15 = TMDS_CK\-, "TMDS Clock-"
-        16 = GND, "Ground"
-        17 = DVI_HPD, "Hot Plug Detect"
-        18 = DDC_SCL, "DDC Clock"
-        19 = DDC_SDA, "DDC Data"
-        [20,21] = [P5V,GND]::DC(), "+5V Power / Ground"
+        io [2,1,10,9,18,17,23,24,13,12,5,4,21,20,6,7,16] = DVI::DVI(), "DVI link: TMDS data 2/1/0 and clock pairs, the dual-link data 3/4/5 pairs, the DDC pair and hot-plug detect"
+        3 = TMDS_D2_SH, "TMDS data 2/4 shield"   // in-shell member - no far-end counterpart
+        8 = RESERVED, "Reserved (analog vertical sync on the analog variants)"
+        11 = TMDS_D1_SH, "TMDS data 1/3 shield"
+        19 = TMDS_D0_SH, "TMDS data 0/5 shield"
+        22 = TMDS_CK_SH, "TMDS clock shield"
+        [14,15] = [P5V,GND]::DC(), "+5V Power / Ground"
     ]
 }
 

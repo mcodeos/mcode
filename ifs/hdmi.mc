@@ -55,7 +55,7 @@ interface HDMI(role)
             out 7 = TMDS_CKP @pair(clk) @class(digital), "TMDS clock positive"
             out 8 = TMDS_CKN @pair(clk) @class(digital), "TMDS clock negative"
             io 9 = CEC @drive(od) @class(digital), "Consumer electronics control"  // Either side may initiate
-            io 10 = DDC_SCL @drive(od) @class(digital), "DDC serial clock"   // The source reads the sink EDID
+            out 10 = DDC_SCL @drive(od) @class(digital), "DDC serial clock"  // The source masters the DDC bus
             io 11 = DDC_SDA @drive(od) @class(digital), "DDC serial data"
             in 12 = HPD @class(digital), "Hot plug detect"                  // The sink asserts the plug
         ]
@@ -73,7 +73,7 @@ interface HDMI(role)
             in 7 = TMDS_CKP @pair(clk) @class(digital), "TMDS clock positive"
             in 8 = TMDS_CKN @pair(clk) @class(digital), "TMDS clock negative"
             io 9 = CEC @drive(od) @class(digital), "Consumer electronics control"
-            io 10 = DDC_SCL @drive(od) @class(digital), "DDC serial clock"    // The sink holds the EDID
+            in 10 = DDC_SCL @drive(od) @class(digital), "DDC serial clock"    // The sink answers on the DDC bus
             io 11 = DDC_SDA @drive(od) @class(digital), "DDC serial data"
             out 12 = HPD @class(digital), "Hot plug detect"                  // The sink drives the detect line
         ]
