@@ -42,3 +42,12 @@ if [ -f "$SRC/project.toml" ]; then
         cp "$SRC/project.toml" "$INSTALLED/project.toml"
     fi
 fi
+# Retire the other versions of this library. The store never silently picks
+# between same-name multi-version installs: with a second version still
+# active the load is refused outright, so the whole library goes silent
+# (every interface binding degrades to a plain pin alias - the E3110
+# sweep). Publishing a new version therefore ends the previous one.
+mcc lib list 2>/dev/null | awk '$1 ~ /^mcode@/ { sub(/^mcode@/, "", $1); print $1 }' | while read -r ver; do
+    [ "$ver" = "$LIB_VERSION" ] && continue
+    mcc lib uninstall "mcode@$ver" --global --force >/dev/null 2>&1 || true
+done
