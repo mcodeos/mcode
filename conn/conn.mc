@@ -1,6 +1,7 @@
 # Copyright (c) 2026 MCode. Built with MCode Bench(TM).
 # Licensed under the Apache License, Version 2.0.
 
+pub use ./conn_cap.mc
 pub use ./hdr.mc
 pub use ./brd2brd.mc
 pub use ./wire2brd.mc

@@ -8,15 +8,18 @@
 // no far-end counterpart, so they stay bare rows; the +5V feed and its
 // return ride the DC face.
 
-component VIDEO.HDMI()
+component VIDEO.HDMI() :: CONN.CAP
 {
     name = "HDMI Connector"
     description = "HDMI connector"
 
     spec += [
-        standard = "HDMI"
         version = _ // [1.4, 2.0, 2.1]
-        connector_type = _ // [A, C, D, E]
+        CONN.CAP = [
+            conn_type = _ // [HDMI_TYPE_A, HDMI_TYPE_C, HDMI_TYPE_D, HDMI_TYPE_E]
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -34,15 +37,18 @@ component VIDEO.HDMI()
 // Core Rule: Four main-link differential lanes plus an AUX configuration lane,
 // HPD, and a +3.3V feed.
 
-component VIDEO.DISPLAYPORT()
+component VIDEO.DISPLAYPORT() :: CONN.CAP
 {
     name = "DisplayPort Connector"
     description = "DisplayPort connector"
     
     spec += [
-        standard = "DisplayPort"
         version = _ // [1.2, 1.3, 1.4, 2.0]
-        connector_type = _ // [standard, mini, usb-c]
+        CONN.CAP = [
+            conn_type = _ // [DISPLAYPORT_STANDARD, DISPLAYPORT_MINI, DISPLAYPORT_USB_C]
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
     
     pins = [
@@ -65,16 +71,18 @@ component VIDEO.DISPLAYPORT()
 // fixes the shape but not the shell, so the slot stays open here and the
 // real part fills it in.
 
-component VIDEO.VGA()
+component VIDEO.VGA() :: CONN.CAP
 {
     name = "VGA Connector"
     description = "VGA (D-sub 15-pin) connector"
 
     spec += [
-        standard = "VGA"
-        type = "D-sub"
         pin_count = 15
-        gender = _ // [male, female] - the shell gender, filled in by the real part
+        CONN.CAP = [
+            conn_type = CONN_TYPE.D_SUB_15
+            mate_type = CONN_TYPE.D_SUB_15
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -101,16 +109,18 @@ component VIDEO.VGA()
 // female; a library base fixes the shape but not the shell, so the slot
 // stays open here and the real part fills it in.
 
-component VIDEO.DVI_D()
+component VIDEO.DVI_D() :: CONN.CAP
 {
     name = "DVI-D Connector"
     description = "DVI-D (digital-only) connector"
 
     spec += [
-        standard = "DVI"
-        connector_type = "DVI-D"  // digital-only 24 contacts; the analog variants add the flat blade
         link_type = _ // [single, dual]
-        gender = _ // [male, female] - the shell gender, filled in by the real part
+        CONN.CAP = [
+            conn_type = CONN_TYPE.DVI_D  // digital-only 24 contacts; the analog variants add the flat blade
+            mate_type = CONN_TYPE.DVI_D
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -132,15 +142,17 @@ component VIDEO.DVI_D()
 // fixes the shape but not the shell, so the slot stays open here and the
 // real part fills it in.
 
-component VIDEO.DVI_A()
+component VIDEO.DVI_A() :: CONN.CAP
 {
     name = "DVI-A Connector"
     description = "DVI-A (analog-only) connector"
 
     spec += [
-        standard = "DVI"
-        connector_type = "DVI-A"  // analog-only: the flat blade plus the grid DDC and sync contacts
-        gender = _ // [male, female] - the shell gender, filled in by the real part
+        CONN.CAP = [
+            conn_type = CONN_TYPE.DVI_A  // analog-only: the flat blade plus the grid DDC and sync contacts
+            mate_type = CONN_TYPE.DVI_A
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -160,16 +172,18 @@ component VIDEO.DVI_A()
 // not the shell, so the slot stays open here and the real part fills it
 // in.
 
-component VIDEO.DVI_I()
+component VIDEO.DVI_I() :: CONN.CAP
 {
     name = "DVI-I Connector"
     description = "DVI-I (integrated) connector"
 
     spec += [
-        standard = "DVI"
-        connector_type = "DVI-I"  // integrated 24+5 contacts: the full grid plus the full flat blade
         link_type = "dual"
-        gender = _ // [male, female] - the shell gender, filled in by the real part
+        CONN.CAP = [
+            conn_type = CONN_TYPE.DVI_I  // integrated 24+5 contacts: the full grid plus the full flat blade
+            mate_type = CONN_TYPE.DVI_I
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [

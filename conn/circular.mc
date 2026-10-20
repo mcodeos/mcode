@@ -3,7 +3,7 @@
 
 // CIRC.BASIC - Generic circular connector Component Definition
 
-component CIRC.BASIC(pin_count::INT)
+component CIRC.BASIC(pin_count::INT) :: CONN.CAP
 {
     name = "Circular Connector"
     description = "Basic circular connector with " + pin_count + " pins"
@@ -12,6 +12,11 @@ component CIRC.BASIC(pin_count::INT)
         pin_count = pin_count
         diameter = _ // [8mm, 10mm, 12mm, 16mm, 20mm]
         thread = _ // [M8, M10, M12, M16, 1/4-20, 3/8-16]
+        CONN.CAP = [
+            conn_type = _ // the mating face is not fixed until the shell geometry is
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -21,7 +26,7 @@ component CIRC.BASIC(pin_count::INT)
 
 // CIRC.MIL_SPEC - Military-specification circular connector Component Definition
 
-component CIRC.MIL_SPEC(pin_count::INT)
+component CIRC.MIL_SPEC(pin_count::INT) :: CONN.CAP
 {
     name = "MIL-SPEC Circular Connector"
     description = "MIL-SPEC circular connector, " + pin_count + " pins"
@@ -30,7 +35,11 @@ component CIRC.MIL_SPEC(pin_count::INT)
         series = _ // [MS3102, MS3106, MS3108, MS3110]
         shell_size = _ // [8, 10, 12, 14, 16]
         pin_count = pin_count
-        standard = "MIL-SPEC"
+        CONN.CAP = [
+            conn_type = _ // the mating face is not fixed until the series is
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
     
     pins = [
@@ -42,15 +51,19 @@ component CIRC.MIL_SPEC(pin_count::INT)
 // Core Rule: Two-contact coaxial face - center conductor carries the RF signal,
 // outer ground shield is the return and exposed electrode.
 
-component CIRC.BNC(impedance::STRING)
+component CIRC.BNC(impedance::STRING) :: CONN.CAP
 {
     name = "BNC Connector"
     description = "BNC RF coaxial connector, " + impedance + " impedance"
     
     spec += [
-        type = "BNC"
         impedance = impedance
         application = "RF, Video"
+        CONN.CAP = [
+            conn_type = CONN_TYPE.BNC
+            mate_type = CONN_TYPE.BNC
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
     
     pins = [
@@ -63,15 +76,19 @@ component CIRC.BNC(impedance::STRING)
 // Core Rule: Two-contact coaxial face - center conductor carries the RF signal,
 // outer ground shield is the return and exposed electrode.
 
-component CIRC.SMA(impedance::STRING)
+component CIRC.SMA(impedance::STRING) :: CONN.CAP
 {
     name = "SMA Connector"
     description = "SMA RF coaxial connector, " + impedance + " impedance"
     
     spec += [
-        type = "SMA"
         impedance = impedance
         application = "RF, Microwave"
+        CONN.CAP = [
+            conn_type = CONN_TYPE.SMA
+            mate_type = CONN_TYPE.SMA
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
     
     pins = [
@@ -84,16 +101,19 @@ component CIRC.SMA(impedance::STRING)
 // Core Rule: 50-ohm two-contact coaxial face - center conductor (RF) plus
 // ground shell; mates with the matching micro RF plug.
 
-component CIRC.UFL()
+component CIRC.UFL() :: CONN.CAP
 {
     name = "U.FL RF Coaxial Connector"
     description = "U.FL micro RF coaxial receptacle"
 
     spec += [
-        type = "U.FL"
         impedance = "50Ω"
         application = "Board-level RF exit: WiFi / BT / cellular module antenna port"
-        mate = _ // [U.FL plug, matching micro RF plug]
+        CONN.CAP = [
+            conn_type = CONN_TYPE.UFL
+            mate_type = CONN_TYPE.IPEX1
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -106,16 +126,19 @@ component CIRC.UFL()
 // Core Rule: 50-ohm two-contact coaxial face - center conductor (RF) plus
 // ground shell; mates with the matching micro RF plug.
 
-component CIRC.MHF4()
+component CIRC.MHF4() :: CONN.CAP
 {
     name = "MHF4 RF Coaxial Connector"
     description = "MHF4 micro RF coaxial receptacle"
 
     spec += [
-        type = "MHF4"
         impedance = "50Ω"
         application = "Board-level RF exit: WiFi / BT / GNSS module antenna port"
-        mate = _ // [MHF4 plug]
+        CONN.CAP = [
+            conn_type = CONN_TYPE.MHF4
+            mate_type = CONN_TYPE.IPEX4
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
