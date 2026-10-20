@@ -60,7 +60,10 @@ component VIDEO.DISPLAYPORT()
 // Core Rule: Three single-ended analog video lines (red/green/blue), the
 // horizontal and vertical sync lines and a DDC I2C pair ride the VGA face.
 // The five ground contacts (one common, one per color, one for sync) are
-// the analog returns, not link members, so they stay bare rows.
+// the analog returns, not link members, so they stay bare rows. The
+// gender slot names the shell gender - male or female; a library base
+// fixes the shape but not the shell, so the slot stays open here and the
+// real part fills it in.
 
 component VIDEO.VGA()
 {
@@ -71,7 +74,7 @@ component VIDEO.VGA()
         standard = "VGA"
         type = "D-sub"
         pin_count = 15
-        gender = _ // [male, female]
+        gender = _ // [male, female] - the shell gender, filled in by the real part
     ]
 
     pins = [
@@ -81,33 +84,39 @@ component VIDEO.VGA()
         6 = GND_R, "Red Ground"
         7 = GND_G, "Green Ground"
         8 = GND_B, "Blue Ground"
-        9 = KEY, "Key (No Pin)"
+        9 = KEY, "Key (No Pin)"   // the standard puts the type key here; a real plug part carries +5V on this contact and rides the DC face
         10 = GND_S, "Sync Ground"
         11 = RESERVED, "Reserved"
     ]
 }
 
-// VIDEO.DVI - DVI digital video connector Component Definition
+// VIDEO.DVI_D - DVI digital-only connector Component Definition
 // Core Rule: The TMDS data and clock pairs, the dual-link data pairs, the
 // DDC pair and the hot-plug detect ride the DVI face. The four shield
 // contacts are in-shell members with no far-end counterpart, so they stay
-// bare rows; the +5V feed and its return ride the DC face.
+// bare rows; the +5V feed and its return ride the DC face. This base
+// covers the digital-only variant: the analog variants carry the flat
+// blade and have their own faces, so the contact set here is the
+// digital-only one. The gender slot names the shell gender - male or
+// female; a library base fixes the shape but not the shell, so the slot
+// stays open here and the real part fills it in.
 
-component VIDEO.DVI()
+component VIDEO.DVI_D()
 {
-    name = "DVI Connector"
-    description = "DVI connector"
+    name = "DVI-D Connector"
+    description = "DVI-D (digital-only) connector"
 
     spec += [
         standard = "DVI"
         connector_type = "DVI-D"  // digital-only 24 contacts; the analog variants add the flat blade
         link_type = _ // [single, dual]
+        gender = _ // [male, female] - the shell gender, filled in by the real part
     ]
 
     pins = [
-        io [2,1,10,9,18,17,23,24,13,12,5,4,21,20,6,7,16] = DVI::DVI(), "DVI link: TMDS data 2/1/0 and clock pairs, the dual-link data 3/4/5 pairs, the DDC pair and hot-plug detect"
+        io [2,1,10,9,18,17,23,24,13,12,5,4,21,20,6,7,16] = DVI::DVI.D(), "DVI link: TMDS data 2/1/0 and clock pairs, the dual-link data 3/4/5 pairs, the DDC pair and hot-plug detect"
         3 = TMDS_D2_SH, "TMDS data 2/4 shield"   // in-shell member - no far-end counterpart
-        8 = RESERVED, "Reserved (analog vertical sync on the analog variants)"
+        nc 8 = NC, "Not connected on this variant (the analog vertical sync contact of the analog variants)"
         11 = TMDS_D1_SH, "TMDS data 1/3 shield"
         19 = TMDS_D0_SH, "TMDS data 0/5 shield"
         22 = TMDS_CK_SH, "TMDS clock shield"
@@ -126,4 +135,4 @@ component VIDEO.DVI()
 // VIDEO.VGA()
 
 // 4. DVI connector
-// VIDEO.DVI()
+// VIDEO.DVI_D()

@@ -90,7 +90,7 @@ component AUDIO.XLR(pincnt::INT)
     spec += [
         type = "XLR"
         pin_count = pincnt
-        gender = _ // [male, female]
+        gender = _ // [male, female] - the shell gender, filled in by the real part
     ]
     
     if pincnt == 3

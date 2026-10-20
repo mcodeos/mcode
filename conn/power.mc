@@ -31,7 +31,7 @@ component POWER.XT60()
     
     spec += [
         type = "XT60"
-        gender = _ // [male, female]
+        gender = _ // [male, female] - the shell gender, filled in by the real part
         current_rating = "60A"
         application = "RC Models"
     ]
@@ -50,7 +50,7 @@ component POWER.XT30()
     
     spec += [
         type = "XT30"
-        gender = _ // [male, female]
+        gender = _ // [male, female] - the shell gender, filled in by the real part
         current_rating = "30A"
         application = "RC Models"
     ]
@@ -69,7 +69,7 @@ component POWER.DEANS_T()
     
     spec += [
         type = "Deans T"
-        gender = _ // [male, female]
+        gender = _ // [male, female] - the shell gender, filled in by the real part
         current_rating = "40A"
         application = "RC Models"
     ]
