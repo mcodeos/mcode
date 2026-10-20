@@ -124,6 +124,65 @@ component VIDEO.DVI_D()
     ]
 }
 
+// VIDEO.DVI_A - DVI analog-only connector Component Definition
+// Core Rule: The analog raster rides the flat blade and the DDC pair, the
+// analog vertical sync and the hot-plug detect ride the grid. The TMDS
+// contacts do not exist on this variant, so no digital member appears.
+// The gender slot names the shell gender - male or female; a library base
+// fixes the shape but not the shell, so the slot stays open here and the
+// real part fills it in.
+
+component VIDEO.DVI_A()
+{
+    name = "DVI-A Connector"
+    description = "DVI-A (analog-only) connector"
+
+    spec += [
+        standard = "DVI"
+        connector_type = "DVI-A"  // analog-only: the flat blade plus the grid DDC and sync contacts
+        gender = _ // [male, female] - the shell gender, filled in by the real part
+    ]
+
+    pins = [
+        io [C1,C2,C3,C4,8,6,7,16] = DVI::DVI.A(), "DVI analog link: the blade red/green/blue and horizontal sync, the grid vertical sync, the DDC pair and hot-plug detect"
+        nc 14 = NC, "Not connected on this variant (the +5V contact of the digital variants)"
+        15 = GND, "Ground"
+        C5 = AGND, "Analog ground (the flat blade return)"
+    ]
+}
+
+// VIDEO.DVI_I - DVI integrated connector Component Definition
+// Core Rule: The digital grid and the analog blade in one face - every
+// digital member and every analog member. The four shield contacts are
+// in-shell members with no far-end counterpart, so they stay bare rows;
+// the +5V feed and its return ride the DC face. The gender slot names
+// the shell gender - male or female; a library base fixes the shape but
+// not the shell, so the slot stays open here and the real part fills it
+// in.
+
+component VIDEO.DVI_I()
+{
+    name = "DVI-I Connector"
+    description = "DVI-I (integrated) connector"
+
+    spec += [
+        standard = "DVI"
+        connector_type = "DVI-I"  // integrated 24+5 contacts: the full grid plus the full flat blade
+        link_type = "dual"
+        gender = _ // [male, female] - the shell gender, filled in by the real part
+    ]
+
+    pins = [
+        io [2,1,10,9,18,17,23,24,13,12,5,4,21,20,6,7,16,C1,C2,C3,C4,8] = DVI::DVI.I(), "DVI integrated link: the TMDS data and clock pairs, the DDC pair, hot-plug detect, the blade red/green/blue and horizontal sync, and the grid vertical sync"
+        3 = TMDS_D2_SH, "TMDS data 2/4 shield"   // in-shell member - no far-end counterpart
+        11 = TMDS_D1_SH, "TMDS data 1/3 shield"
+        19 = TMDS_D0_SH, "TMDS data 0/5 shield"
+        22 = TMDS_CK_SH, "TMDS clock shield"
+        [14,15] = [P5V,GND]::DC(), "+5V Power / Ground"
+        C5 = AGND, "Analog ground (the flat blade return)"
+    ]
+}
+
 // Usage Examples:
 // 1. HDMI connector
 // VIDEO.HDMI()
@@ -134,5 +193,11 @@ component VIDEO.DVI_D()
 // 3. VGA connector
 // VIDEO.VGA()
 
-// 4. DVI connector
+// 4. DVI digital-only connector
 // VIDEO.DVI_D()
+
+// 5. DVI analog-only connector
+// VIDEO.DVI_A()
+
+// 6. DVI integrated connector
+// VIDEO.DVI_I()
