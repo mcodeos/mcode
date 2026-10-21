@@ -3,7 +3,7 @@
 
 // WTB.BASIC - Generic wire-to-board connector Component Definition
 
-component WTB.BASIC(count::INT)
+component WTB.BASIC(count::INT) :: CONN.CAP
 {
     name = "Wire-to-Board Connector"
     description = "Basic wire-to-board connector"
@@ -12,6 +12,11 @@ component WTB.BASIC(count::INT)
         pin_count = count // [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16]
         pitch = _ // [1.0mm, 1.25mm, 1.5mm, 2.0mm, 2.54mm, 3.96mm]
         orientation = _ // [horizontal, vertical]
+        CONN.CAP = [
+            conn_type = _ // the mating form: the pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
     
     pins = [
@@ -21,7 +26,7 @@ component WTB.BASIC(count::INT)
 
 // WTB.JST_XH - 2.5mm-pitch wire-to-board connector, XH family Component Definition
 
-component WTB.JST_XH(count::INT)
+component WTB.JST_XH(count::INT) :: CONN.CAP
 {
     name = "JST XH Connector"
     description = "JST XH series wire-to-board connector"
@@ -31,6 +36,11 @@ component WTB.JST_XH(count::INT)
         pin_count = count // [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16]
         pitch = 2.5mm
         manufacturer = "JST"
+        CONN.CAP = [
+            conn_type = CONN_TYPE.HEADER_2_50MM
+            mate_type = CONN_TYPE.HEADER_2_50MM
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
     
     pins = [
@@ -40,7 +50,7 @@ component WTB.JST_XH(count::INT)
 
 // WTB.MOLEX_KK - 2.54mm-pitch wire-to-board connector, KK family Component Definition
 
-component WTB.MOLEX_KK(count::INT)
+component WTB.MOLEX_KK(count::INT) :: CONN.CAP
 {
     name = "Molex KK Connector"
     description = "Molex KK series wire-to-board connector"
@@ -50,6 +60,11 @@ component WTB.MOLEX_KK(count::INT)
         pin_count = count // [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16]
         pitch = 2.54mm
         manufacturer = "Molex"
+        CONN.CAP = [
+            conn_type = CONN_TYPE.HEADER_2_54MM
+            mate_type = CONN_TYPE.HEADER_2_54MM
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
     
     pins = [
@@ -59,7 +74,7 @@ component WTB.MOLEX_KK(count::INT)
 
 // WTB.DUPONT - 2.54mm-pitch single-row wire-to-board connector (breadboard compatible) Component Definition
 
-component WTB.DUPONT(count::INT)
+component WTB.DUPONT(count::INT) :: CONN.CAP
 {
     name = "Dupont Connector"
     description = "Dupont wire-to-board connector"
@@ -68,6 +83,11 @@ component WTB.DUPONT(count::INT)
         type = "Dupont"
         pin_count = count // [2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16]
         pitch = 2.54mm
+        CONN.CAP = [
+            conn_type = CONN_TYPE.HEADER_2_54MM
+            mate_type = CONN_TYPE.HEADER_2_54MM
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
     
     pins = [

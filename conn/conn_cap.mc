@@ -63,7 +63,29 @@ enum CONN_TYPE {
     UFL,          // mates with the IPEX1 (U.FL plug) half
     MHF4,         // mates with the IPEX4 half
     IPEX1,
-    IPEX4
+    IPEX4,
+
+    // Header families, named by the pitch they mate on: the pin half and
+    // the socket half of one pitch share the member, the shell gender
+    // tells them apart
+    HEADER_0_6MM,   // 0.6 mm pitch header
+    HEADER_1_00MM,  // 1.0 mm pitch header
+    HEADER_1_27MM,  // 1.27 mm pitch header
+    HEADER_2_00MM,  // 2.0 mm pitch header
+    HEADER_2_50MM,  // 2.5 mm pitch header
+    HEADER_2_54MM,  // 2.54 mm pitch header
+
+    // Ribbon cable: the flat-cable half mates with a header half
+    IDC_2_54MM,     // 2.54 mm insulation-displacement ribbon plug
+
+    // Appliance power: the inlet and the cord connector are two forms
+    IEC_C14,        // IEC 60320 C14 appliance inlet
+    IEC_C13,        // IEC 60320 C13 cord connector
+    IEC_C8,         // IEC 60320 C8 appliance inlet
+    IEC_C7,         // IEC 60320 C7 cord connector
+
+    // Modular plug
+    RJ45            // 8P8C modular plug
 }
 
 // The shell gender: the male half carries pins, the female half carries

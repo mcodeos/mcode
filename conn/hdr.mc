@@ -9,7 +9,7 @@
 
 // HDR.SINGLE - Parametric single-row header Component Definition
 
-component HDR.SINGLE(cols::INT)
+component HDR.SINGLE(cols::INT) :: CONN.CAP
 {
     name = "Single-row Header"
     description = "Standard single-row header with " + cols + " pins"
@@ -17,6 +17,11 @@ component HDR.SINGLE(cols::INT)
     spec += [
         cols = cols
         pitch = _ // [2.54mm, 1.27mm]
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     // Standard pin numbering: 1 to cols
@@ -28,7 +33,7 @@ component HDR.SINGLE(cols::INT)
 // HDR.MULTI - Parametric multi-row header Component Definition
 // Core Rule: Pin numbering is row-major, R1C1, R1C2, ... R2C1, R2C2, ...
 
-component HDR.MULTI(rows::INT, cols::INT)
+component HDR.MULTI(rows::INT, cols::INT) :: CONN.CAP
 {
     name = "Multi-row Header"
     description = "Standard multi-row header with " + rows + " rows, " + cols + " columns"
@@ -37,6 +42,11 @@ component HDR.MULTI(rows::INT, cols::INT)
         rows = rows
         cols = cols
         pitch = _ // [2.54mm, 1.27mm]
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     // Pin numbering: R1C1, R1C2...R2C1, R2C2...
@@ -50,7 +60,7 @@ component HDR.MULTI(rows::INT, cols::INT)
 
 // HDR.1X1 - Fixed 1x1 single-row header (1 pin) Component Definition
 
-component HDR.1X1()
+component HDR.1X1() :: CONN.CAP
 {
     name = "1x1 Header"
     description = "Standard 1x1 header (1 pin)"
@@ -58,6 +68,11 @@ component HDR.1X1()
     spec += [
         cols = 1
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -67,7 +82,7 @@ component HDR.1X1()
 
 // HDR.1X2 - Fixed 1x2 single-row header (2 pins) Component Definition
 
-component HDR.1X2()
+component HDR.1X2() :: CONN.CAP
 {
     name = "1x2 Header"
     description = "Standard 1x2 header (2 pins)"
@@ -75,6 +90,11 @@ component HDR.1X2()
     spec += [
         cols = 2
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -84,7 +104,7 @@ component HDR.1X2()
 
 // HDR.1X3 - Fixed 1x3 single-row header (3 pins) Component Definition
 
-component HDR.1X3()
+component HDR.1X3() :: CONN.CAP
 {
     name = "1x3 Header"
     description = "Standard 1x3 header (3 pins)"
@@ -92,6 +112,11 @@ component HDR.1X3()
     spec += [
         cols = 3
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -101,7 +126,7 @@ component HDR.1X3()
 
 // HDR.1X4 - Fixed 1x4 single-row header (4 pins) Component Definition
 
-component HDR.1X4()
+component HDR.1X4() :: CONN.CAP
 {
     name = "1x4 Header"
     description = "Standard 1x4 header (4 pins)"
@@ -109,6 +134,11 @@ component HDR.1X4()
     spec += [
         cols = 4
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -118,7 +148,7 @@ component HDR.1X4()
 
 // HDR.1X5 - Fixed 1x5 single-row header (5 pins) Component Definition
 
-component HDR.1X5()
+component HDR.1X5() :: CONN.CAP
 {
     name = "1x5 Header"
     description = "Standard 1x5 header (5 pins)"
@@ -126,6 +156,11 @@ component HDR.1X5()
     spec += [
         cols = 5
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -135,7 +170,7 @@ component HDR.1X5()
 
 // HDR.1X6 - Fixed 1x6 single-row header (6 pins) Component Definition
 
-component HDR.1X6()
+component HDR.1X6() :: CONN.CAP
 {
     name = "1x6 Header"
     description = "Standard 1x6 header (6 pins)"
@@ -143,6 +178,11 @@ component HDR.1X6()
     spec += [
         cols = 6
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -152,7 +192,7 @@ component HDR.1X6()
 
 // HDR.1X7 - Fixed 1x7 single-row header (7 pins) Component Definition
 
-component HDR.1X7()
+component HDR.1X7() :: CONN.CAP
 {
     name = "1x7 Header"
     description = "Standard 1x7 header (7 pins)"
@@ -160,6 +200,11 @@ component HDR.1X7()
     spec += [
         cols = 7
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -169,7 +214,7 @@ component HDR.1X7()
 
 // HDR.1X8 - Fixed 1x8 single-row header (8 pins) Component Definition
 
-component HDR.1X8()
+component HDR.1X8() :: CONN.CAP
 {
     name = "1x8 Header"
     description = "Standard 1x8 header (8 pins)"
@@ -177,6 +222,11 @@ component HDR.1X8()
     spec += [
         cols = 8
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -186,7 +236,7 @@ component HDR.1X8()
 
 // HDR.1X9 - Fixed 1x9 single-row header (9 pins) Component Definition
 
-component HDR.1X9()
+component HDR.1X9() :: CONN.CAP
 {
     name = "1x9 Header"
     description = "Standard 1x9 header (9 pins)"
@@ -194,6 +244,11 @@ component HDR.1X9()
     spec += [
         cols = 9
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -203,7 +258,7 @@ component HDR.1X9()
 
 // HDR.1X10 - Fixed 1x10 single-row header (10 pins) Component Definition
 
-component HDR.1X10()
+component HDR.1X10() :: CONN.CAP
 {
     name = "1x10 Header"
     description = "Standard 1x10 header (10 pins)"
@@ -211,6 +266,11 @@ component HDR.1X10()
     spec += [
         cols = 10
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -220,7 +280,7 @@ component HDR.1X10()
 
 // HDR.1X11 - Fixed 1x11 single-row header (11 pins) Component Definition
 
-component HDR.1X11()
+component HDR.1X11() :: CONN.CAP
 {
     name = "1x11 Header"
     description = "Standard 1x11 header (11 pins)"
@@ -228,6 +288,11 @@ component HDR.1X11()
     spec += [
         cols = 11
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -237,7 +302,7 @@ component HDR.1X11()
 
 // HDR.1X12 - Fixed 1x12 single-row header (12 pins) Component Definition
 
-component HDR.1X12()
+component HDR.1X12() :: CONN.CAP
 {
     name = "1x12 Header"
     description = "Standard 1x12 header (12 pins)"
@@ -245,6 +310,11 @@ component HDR.1X12()
     spec += [
         cols = 12
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -254,7 +324,7 @@ component HDR.1X12()
 
 // HDR.1X13 - Fixed 1x13 single-row header (13 pins) Component Definition
 
-component HDR.1X13()
+component HDR.1X13() :: CONN.CAP
 {
     name = "1x13 Header"
     description = "Standard 1x13 header (13 pins)"
@@ -262,6 +332,11 @@ component HDR.1X13()
     spec += [
         cols = 13
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -271,7 +346,7 @@ component HDR.1X13()
 
 // HDR.1X14 - Fixed 1x14 single-row header (14 pins) Component Definition
 
-component HDR.1X14()
+component HDR.1X14() :: CONN.CAP
 {
     name = "1x14 Header"
     description = "Standard 1x14 header (14 pins)"
@@ -279,6 +354,11 @@ component HDR.1X14()
     spec += [
         cols = 14
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -288,7 +368,7 @@ component HDR.1X14()
 
 // HDR.1X15 - Fixed 1x15 single-row header (15 pins) Component Definition
 
-component HDR.1X15()
+component HDR.1X15() :: CONN.CAP
 {
     name = "1x15 Header"
     description = "Standard 1x15 header (15 pins)"
@@ -296,6 +376,11 @@ component HDR.1X15()
     spec += [
         cols = 15
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -305,7 +390,7 @@ component HDR.1X15()
 
 // HDR.1X16 - Fixed 1x16 single-row header (16 pins) Component Definition
 
-component HDR.1X16()
+component HDR.1X16() :: CONN.CAP
 {
     name = "1x16 Header"
     description = "Standard 1x16 header (16 pins)"
@@ -313,6 +398,11 @@ component HDR.1X16()
     spec += [
         cols = 16
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -322,7 +412,7 @@ component HDR.1X16()
 
 // HDR.1X17 - Fixed 1x17 single-row header (17 pins) Component Definition
 
-component HDR.1X17()
+component HDR.1X17() :: CONN.CAP
 {
     name = "1x17 Header"
     description = "Standard 1x17 header (17 pins)"
@@ -330,6 +420,11 @@ component HDR.1X17()
     spec += [
         cols = 17
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -339,7 +434,7 @@ component HDR.1X17()
 
 // HDR.1X18 - Fixed 1x18 single-row header (18 pins) Component Definition
 
-component HDR.1X18()
+component HDR.1X18() :: CONN.CAP
 {
     name = "1x18 Header"
     description = "Standard 1x18 header (18 pins)"
@@ -347,6 +442,11 @@ component HDR.1X18()
     spec += [
         cols = 18
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -356,7 +456,7 @@ component HDR.1X18()
 
 // HDR.1X19 - Fixed 1x19 single-row header (19 pins) Component Definition
 
-component HDR.1X19()
+component HDR.1X19() :: CONN.CAP
 {
     name = "1x19 Header"
     description = "Standard 1x19 header (19 pins)"
@@ -364,6 +464,11 @@ component HDR.1X19()
     spec += [
         cols = 19
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -373,7 +478,7 @@ component HDR.1X19()
 
 // HDR.1X20 - Fixed 1x20 single-row header (20 pins) Component Definition
 
-component HDR.1X20()
+component HDR.1X20() :: CONN.CAP
 {
     name = "1x20 Header"
     description = "Standard 1x20 header (20 pins)"
@@ -381,6 +486,11 @@ component HDR.1X20()
     spec += [
         cols = 20
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -392,7 +502,7 @@ component HDR.1X20()
 
 // HDR.2X2 - Fixed 2x2 dual-row header (4 pins) Component Definition
 
-component HDR.2X2()
+component HDR.2X2() :: CONN.CAP
 {
     name = "2x2 Header"
     description = "Standard 2x2 header (4 pins)"
@@ -401,6 +511,11 @@ component HDR.2X2()
         rows = 2
         cols = 2
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -410,7 +525,7 @@ component HDR.2X2()
 
 // HDR.2X3 - Fixed 2x3 dual-row header (6 pins) Component Definition
 
-component HDR.2X3()
+component HDR.2X3() :: CONN.CAP
 {
     name = "2x3 Header"
     description = "Standard 2x3 header (6 pins)"
@@ -419,6 +534,11 @@ component HDR.2X3()
         rows = 2
         cols = 3
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -428,7 +548,7 @@ component HDR.2X3()
 
 // HDR.2X4 - Fixed 2x4 dual-row header (8 pins) Component Definition
 
-component HDR.2X4()
+component HDR.2X4() :: CONN.CAP
 {
     name = "2x4 Header"
     description = "Standard 2x4 header (8 pins)"
@@ -437,6 +557,11 @@ component HDR.2X4()
         rows = 2
         cols = 4
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -446,7 +571,7 @@ component HDR.2X4()
 
 // HDR.2X5 - Fixed 2x5 dual-row header (10 pins) Component Definition
 
-component HDR.2X5()
+component HDR.2X5() :: CONN.CAP
 {
     name = "2x5 Header"
     description = "Standard 2x5 header (10 pins)"
@@ -455,6 +580,11 @@ component HDR.2X5()
         rows = 2
         cols = 5
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -464,7 +594,7 @@ component HDR.2X5()
 
 // HDR.2X6 - Fixed 2x6 dual-row header (12 pins) Component Definition
 
-component HDR.2X6()
+component HDR.2X6() :: CONN.CAP
 {
     name = "2x6 Header"
     description = "Standard 2x6 header (12 pins)"
@@ -473,6 +603,11 @@ component HDR.2X6()
         rows = 2
         cols = 6
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -482,7 +617,7 @@ component HDR.2X6()
 
 // HDR.2X7 - Fixed 2x7 dual-row header (14 pins) Component Definition
 
-component HDR.2X7()
+component HDR.2X7() :: CONN.CAP
 {
     name = "2x7 Header"
     description = "Standard 2x7 header (14 pins)"
@@ -491,6 +626,11 @@ component HDR.2X7()
         rows = 2
         cols = 7
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -500,7 +640,7 @@ component HDR.2X7()
 
 // HDR.2X8 - Fixed 2x8 dual-row header (16 pins) Component Definition
 
-component HDR.2X8()
+component HDR.2X8() :: CONN.CAP
 {
     name = "2x8 Header"
     description = "Standard 2x8 header (16 pins)"
@@ -509,6 +649,11 @@ component HDR.2X8()
         rows = 2
         cols = 8
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -518,7 +663,7 @@ component HDR.2X8()
 
 // HDR.2X9 - Fixed 2x9 dual-row header (18 pins) Component Definition
 
-component HDR.2X9()
+component HDR.2X9() :: CONN.CAP
 {
     name = "2x9 Header"
     description = "Standard 2x9 header (18 pins)"
@@ -527,6 +672,11 @@ component HDR.2X9()
         rows = 2
         cols = 9
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
@@ -536,7 +686,7 @@ component HDR.2X9()
 
 // HDR.2X10 - Fixed 2x10 dual-row header (20 pins) Component Definition
 
-component HDR.2X10()
+component HDR.2X10() :: CONN.CAP
 {
     name = "2x10 Header"
     description = "Standard 2x10 header (20 pins)"
@@ -545,6 +695,11 @@ component HDR.2X10()
         rows = 2
         cols = 10
         pitch = _
+        CONN.CAP = [
+            conn_type = _ // the mating form: the header pitch family, filled in by the real part
+            mate_type = _ // the form this half mates with
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [

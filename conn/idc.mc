@@ -7,7 +7,7 @@
 // numbering follows the ribbon: odd row 1..n, even row n+1..2n as printed on
 // standard ribbon shrouds.
 
-component IDC(pincnt::INT)
+component IDC(pincnt::INT) :: CONN.CAP
 {
     name = "IDC Ribbon Cable Socket"
     description = "Two-row insulation-displacement ribbon cable socket"
@@ -17,6 +17,11 @@ component IDC(pincnt::INT)
         pitch = 2.54mm
         keying = _ // [shrouded box, notch, key slot]
         rohs = _
+        CONN.CAP = [
+            conn_type = CONN_TYPE.IDC_2_54MM
+            mate_type = CONN_TYPE.HEADER_2_54MM
+            gender = _ // the shell gender, filled in by the real part
+        ]
     ]
 
     pins = [
