@@ -47,7 +47,15 @@ fi
 # active the load is refused outright, so the whole library goes silent
 # (every interface binding degrades to a plain pin alias - the E3110
 # sweep). Publishing a new version therefore ends the previous one.
+#
+# The store keys a copy by its alias (`mcode@0.4`) while the project file
+# spells the version in full (`0.4.0`), so the two are compared in one
+# shape: without that, the loop retires the copy it has just installed.
+normalize_version() {
+    printf '%s\n' "$1" | awk -F. '{ printf "%s.%s.%s", $1, ($2 == "" ? 0 : $2), ($3 == "" ? 0 : $3) }'
+}
+CURRENT="$(normalize_version "$LIB_VERSION")"
 mcc lib list 2>/dev/null | awk '$1 ~ /^mcode@/ { sub(/^mcode@/, "", $1); print $1 }' | while read -r ver; do
-    [ "$ver" = "$LIB_VERSION" ] && continue
+    [ "$(normalize_version "$ver")" = "$CURRENT" ] && continue
     mcc lib uninstall "mcode@$ver" --global --force >/dev/null 2>&1 || true
 done
