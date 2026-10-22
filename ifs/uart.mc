@@ -21,7 +21,7 @@ interface UART.TTL(role)
     mode = ["full duplex"]
 
     // Electrical contract data (bus envelope: distance/speed caps, supply
-    // tiers, receiver/output level windows) rides the UART.TTL.ELEC recipe
+    // tiers, receiver/output level windows) rides the ELEC.UART.TTL recipe
     // face (302 3.2); this definition carries structure only.
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
@@ -63,6 +63,57 @@ interface UART.TTL(role)
     }
 }
 
+// UART.RS232 - RS-232 Interface (family base view) Standard Definition
+// Core Rule: The RS-232 family base view — a crossed data pair plus the
+//            signal ground. The per-variant members (UART.RS232.3 /
+//            UART.RS232.5 / UART.RS232.9) carry the added handshake
+//            lanes; the family base states the lanes every member
+//            shares. High = +3V ~ +15V (logic 0), low = -15V ~ -3V
+//            (logic 1); ground carries no level parameter (signal
+//            reference).
+// Device Definition: DCE = data communications equipment,
+//                    DTE = data terminal equipment.
+
+interface UART.RS232(role)
+{
+    topology = "point to point"
+    mode = ["half duplex", "full duplex"]
+
+    // Electrical contract data (rate, receiver logic thresholds and absolute
+    // input window, driver output window) rides the ELEC.UART.RS232 recipe
+    // face (302 3.2); this definition carries structure only. The variant
+    // members share the base class electrical contract (the variant ruling)
+    // — only the conductor view differs.
+
+    // Role-less conductor view: 3 anonymous lanes, ordinal = wire identity
+    //
+    pins = [
+        1 = _ @class(digital) // RXD <-> TXD
+        2 = _ @class(digital) // TXD <-> RXD
+        3 = _ // GND
+    ]
+
+    role DCE {  // RS232 DCE - basic TX/RX function only
+        name = "RS232 DCE"
+        pins = [
+            in 1 = RXD @class(digital) @cross(DTE.TXD), "Receive Data"   // Cross-connect to DTE Pin1 TXD
+            out 2 = TXD @class(digital) @cross(DTE.RXD), "Transmit Data" // Cross-connect to DTE Pin2 RXD
+            3 = GND, "Signal Ground"                                    // Direct connect to DTE Pin3 GND, signal reference ground
+        ]
+        peer = DTE(1)  // Paired with terminal device DTE
+    }
+
+    role DTE {  // RS232 DTE - basic TX/RX function only
+        name = "RS232 DTE"
+        pins = [
+            out 1 = TXD @class(digital) @cross(DCE.RXD), "Transmit Data" // Cross-connect to DCE Pin1 RXD
+            in 2 = RXD @class(digital) @cross(DCE.TXD), "Receive Data"  // Cross-connect to DCE Pin2 TXD
+            3 = GND, "Signal Ground"                                    // Direct connect to DCE Pin3 GND, signal reference ground
+        ]
+        peer = DCE(1)  // Paired with communication device DCE
+    }
+}
+
 // UART.RS232.3 - RS-232 Interface (3-pin: TX/RX/GND) Standard Definition
 // Core Rule: DTE <-> DCE cross-connect for data/handshake pins,
 //            direct-connect for status pins and ground. High = +3V ~ +15V
@@ -78,7 +129,7 @@ interface UART.RS232.3(role)
     mode = ["half duplex", "full duplex"]
 
     // Electrical contract data (rate, receiver logic thresholds and absolute
-    // input window, driver output window) rides the UART.RS232.3.ELEC recipe
+    // input window, driver output window) rides the ELEC.UART.RS232 recipe
     // face (302 3.2); this definition carries structure only. The cable-length
     // tier retired with the interface param gate (no sample datasheet states a
     // rate-vs-length derating).
@@ -130,7 +181,7 @@ interface UART.RS232.5(role)
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
 
-    // Electrical contract data rides the UART.RS232.5.ELEC recipe face
+    // Electrical contract data rides the ELEC.UART.RS232 recipe face
     // (302 3.2); this definition carries structure only. The cable-length
     // tier retired with the interface param gate (no sample datasheet states
     // a rate-vs-length derating).
@@ -192,7 +243,7 @@ interface UART.RS232.9(role)
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
 
-    // Electrical contract data rides the UART.RS232.9.ELEC recipe face
+    // Electrical contract data rides the ELEC.UART.RS232 recipe face
     // (302 3.2); this definition carries structure only. The cable-length
     // tier retired with the interface param gate (no sample datasheet states
     // a rate-vs-length derating).
@@ -259,7 +310,7 @@ interface UART.RS422(role)
     topology = "multi-point"
     mode = ["full duplex"]
     // Electrical contract data (rate, receiver thresholds and common-mode
-    // window, driver differential output window) rides the UART.RS422.ELEC
+    // window, driver differential output window) rides the ELEC.UART.RS422
     // recipe face (302 3.2); this definition carries structure only. The
     // 2-wire member shares the base class electrical contract (the variant
     // ruling) — only the conductor view differs (no ground member). The
@@ -309,7 +360,7 @@ interface UART.RS422.2(role)
 {
     topology = "multi-point"
     mode = ["half duplex"]
-    // Electrical contract data rides the UART.RS422.ELEC recipe face (302
+    // Electrical contract data rides the ELEC.UART.RS422 recipe face (302
     // 3.2); this definition carries structure only. The 2-wire member shares
     // the base class electrical contract (the variant ruling) — only the
     // conductor view differs (no ground member).
@@ -353,7 +404,7 @@ interface UART.RS423(role)
     topology = "point to point"
     mode = ["half duplex", "full duplex"]
     // Electrical contract data (receiver thresholds, common-mode window,
-    // driver single-ended output swing) rides the UART.RS423.ELEC recipe
+    // driver single-ended output swing) rides the ELEC.UART.RS423 recipe
     // face (302 3.2); this definition carries structure only. The receiver
     // face shares the RS-422 receiver key vocabulary; the driver face is
     // single-ended (RS232-family vo/i_sc shape). No numeric data rate is
@@ -414,8 +465,8 @@ interface UART.RS449(role)
     // DTE/DCE roles, connector view): it defines no electrical numbers of
     // its own - the standard delegates every electrical value to EIA-422
     // (balanced) or EIA-423 (unbalanced) circuits, so the electrical
-    // contract rides those faces' recipe books (UART.RS422.ELEC /
-    // UART.RS423.ELEC, 302 3.2) and no book exists here. The retired data
+    // contract rides those faces' recipe books (ELEC.UART.RS422 /
+    // ELEC.UART.RS423, 302 3.2) and no book exists here. The retired data
     // rows were verbatim copies of the RS-422 folklore (forensics log).
 
 
@@ -508,7 +559,7 @@ interface UART.RS485.3(role)
     topology = "multi-point"
     mode = ["half duplex"]
     // Electrical contract data (rate, receiver thresholds and common-mode
-    // window, driver differential output window) rides the UART.RS485.ELEC
+    // window, driver differential output window) rides the ELEC.UART.RS485
     // recipe face (302 3.2); this definition carries structure only. The
     // 3-wire member shares the base class electrical contract (the variant
     // ruling) — only the conductor view differs (GND as the third wire).
@@ -558,7 +609,7 @@ interface UART.RS485(role)
     topology = "multi-point"
     mode = ["half duplex"]
     // Electrical contract data (rate, receiver thresholds and common-mode
-    // window, driver differential output window) rides the UART.RS485.ELEC
+    // window, driver differential output window) rides the ELEC.UART.RS485
     // recipe face (302 3.2); this definition carries structure only. The
     // cable-length rate derating tiers retired with the interface param
     // gate (no sample datasheet states a rate-vs-length derating table).
@@ -607,11 +658,11 @@ interface UART.TTL.4(role)
     topology = "point to point"
     mode = ["full duplex"]
 
-    // Electrical contract data rides the UART.TTL.ELEC recipe face (302 3.2)
+    // Electrical contract data rides the ELEC.UART.TTL recipe face (302 3.2)
     // — same electrical law as the UART.TTL base class (the variant ruling),
     // the member adds RTS/CTS flow-control wires only. The cable-length tier
     // and its speed derating retired with the interface param gate; the
-    // supply tier is a per-part face (DC.SINK); this definition carries
+    // supply tier is a per-part face (ANCH.PWR.SINK); this definition carries
     // structure only.
 
     // Role-less conductor view: 4 anonymous lanes, ordinal = wire identity

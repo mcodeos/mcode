@@ -7,7 +7,7 @@
 // the class pads A/B). No net-tie datasheet in the sampled corpus - columns
 // stand on the model face.
 
-recipe NETTIE {
+recipe ANCH.NETTIE {
     option = [
         rating = [
             current = Current, desc: "short-path current capacity BOM slot"
@@ -25,7 +25,7 @@ recipe NETTIE {
 // points, controlled net merging). The short is physical, not a connection
 // statement: the two terminals stay separately addressable.
 
-abstract component NETTIE() :: NETTIE {
+abstract component NETTIE() :: ANCH.NETTIE {
     name        = "Net Tie"
     description = "Two-terminal net bridge, pads shorted on the part"
     spec        = [

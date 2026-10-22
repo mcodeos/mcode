@@ -18,7 +18,7 @@ interface GPIO(role)
     mode = ["input", "output", "bidirectional"]
 
     // Electrical contract data (bus envelope: distance/speed caps, supply
-    // tiers) rides the GPIO.ELEC recipe face (302 3.2); this definition
+    // tiers) rides the ELEC.GPIO recipe face (302 3.2); this definition
     // carries structure only.
 
     // Member row electrical nature: a general-purpose GPIO pin is

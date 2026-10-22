@@ -27,7 +27,7 @@ interface DAC(role)
     // the family recipe's output.v_out require. Resolution: part identity
     // (8/12/16bit), rides the family recipe's converter.resolution.
     // No .ELEC book: the electrical contract is already keyed at converter
-    // altitude by the DAC.SINGLE family recipe - a second book on this
+    // altitude by the DEV.SIG.DAC.SINGLE family recipe - a second book on this
     // face would be the double-book the registry bans.
 
     pins = [

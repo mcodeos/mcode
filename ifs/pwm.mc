@@ -17,7 +17,7 @@ interface PWM(role)
 {
     topology = "point to point"
     mode = ["output"]
-    // Electrical contract data rides the recipe face: PWM.ELEC carries the
+    // Electrical contract data rides the recipe face: ELEC.PWM carries the
     // receiver logic-input windows (the one face the corpus carries -- the
     // gate-driver / motor-driver input tables). The transmitting side is
     // the GPIO EC inheritance law (alternate-function I/O rows only, zero
@@ -65,7 +65,7 @@ interface PWM.H6(role)
 {
     topology = "point to point"
     mode = ["output"]
-    // Same recipe face as the single lane: PWM.ELEC serves the six-lane
+    // Same recipe face as the single lane: ELEC.PWM serves the six-lane
     // three-phase face as a variant rider (six independent logic lanes of
     // one bridge; per-lane electrical character = the same receiver
     // logic-input face; deadtime lives in the driver, not in the lane

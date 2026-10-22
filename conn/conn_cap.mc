@@ -4,7 +4,7 @@
 // Connector mating-capability face: the mechanical form roster
 // (CONN_TYPE), the shell gender roster (CONNECTOR_GENDER), the mating
 // exception roster (CONNECTOR_MATING) and the recipe that binds them
-// (CONN.CAP). A base whose mating face is not fixed yet leaves the slot
+// (ANCH.CONN.CAP). A base whose mating face is not fixed yet leaves the slot
 // open; the real part fills it. Fill face spells the member with the
 // namespace prefix (CONN_TYPE.USB_TYPE_A).
 
@@ -105,10 +105,10 @@ enum CONNECTOR_MATING {
     NONE     // mates with nothing: a sealed or blind half
 }
 
-// CONN.CAP - connector mating-capability recipe. The answer sheet every
+// ANCH.CONN.CAP - connector mating-capability recipe. The answer sheet every
 // connector class fills: the form of this half, the form of the half it
 // mates with, and the shell gender.
-recipe CONN.CAP {
+recipe ANCH.CONN.CAP {
     name = "connector mating-capability recipe"
 
     require = [

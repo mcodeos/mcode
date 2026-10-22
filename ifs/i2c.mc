@@ -18,7 +18,7 @@ interface I2C(role)
     mode = ["half duplex"]
 
     // Electrical contract data (bus envelope: distance/speed caps, supply
-    // tiers, pullup convention) rides the I2C.ELEC recipe face (302 3.2);
+    // tiers, pullup convention) rides the ELEC.I2C recipe face (302 3.2);
     // this definition carries structure only.
 
     // @drive(od): the I2C bus is open-drain with external pullups — every
@@ -60,7 +60,7 @@ interface I2C.SMBUS(role)
     topology = "multi-point"
     mode = ["half duplex"]
 
-    // Electrical contract data rides the I2C.SMBUS.ELEC recipe face
+    // Electrical contract data rides the ELEC.I2C.SMBUS recipe face
     // (302 3.2): fixed-absolute threshold discipline (VIL 0.8 V,
     // VIH vendor-divergent), 10 kHz minimum clock, bus timeout window,
     // and open-drain sink strength - six-sample corpus on file. No

@@ -16,7 +16,7 @@ interface PMBUS(role)
     topology = "multi-point"
     mode = ["half duplex"]
 
-    // Electrical contract data rides the PMBUS.ELEC recipe face (302 3.2):
+    // Electrical contract data rides the ELEC.PMBUS recipe face (302 3.2):
     // the SMBus fixed family with a PMBus-specific clock face (10k-400k on
     // the 1.1-era parts, to 1 MHz on the 1.3 claimants), fixed-absolute
     // VIL 0.8 V, three-band VIH (2.1 V SMBus-literal vs lowered low-rail

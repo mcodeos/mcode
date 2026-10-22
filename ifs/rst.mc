@@ -25,7 +25,7 @@ interface RST(role)
     mode = ["input", "output"]
 
     // Electrical contract data (bus envelope: distance/speed caps, supply
-    // tiers) rides the RST.ELEC recipe face (302 3.2); this definition
+    // tiers) rides the ELEC.RST recipe face (302 3.2); this definition
     // carries structure only.
 
     // ERC anchors on these roles: overshoot is checked by the

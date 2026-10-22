@@ -23,10 +23,10 @@ interface AMP.BTL(role)
     // only that low-voltage subset (10W/ch and 2x50W parts exist in class).
     // Supply rides the DC faces. Output power and load live as per-part
     // rated-condition tables - p_out(mode = rated(rl, vcc, thd), value)
-    // rows already keyed by the AUDIO.AMP family recipe's power group
+    // rows already keyed by the DEV.AUDIO.AMP family recipe's power group
     // (r_load included; 4/8 Ohm are measurement conditions, abs-max min
     // load is the part's own rating). Distance: zero witnesses (folklore).
-    // No .ELEC book: the electrical contract is owned by the AUDIO.AMP
+    // No .ELEC book: the electrical contract is owned by the DEV.AUDIO.AMP
     // family recipe; the BTL pair itself states no per-lane rows beyond
     // that table.
 

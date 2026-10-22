@@ -14,7 +14,7 @@
 // operating-temperature heads are the range face (305) - temp_min/temp_max
 // stay unregistered.
 
-recipe IND {
+recipe ANCH.IND {
     require = [
         electrical = [
             inductance    = Inductance, desc: "rated inductance (sheet heads: Inductance (µH) / Inductance ±20% - full word, no symbol face)"
@@ -38,10 +38,10 @@ recipe IND {
     ]
 }
 
-// IND.FB container: the ferrite-bead population - lossy high-frequency
+// ANCH.IND.FB container: the ferrite-bead population - lossy high-frequency
 // impedance specified at a test frequency, no inductance face (bead sheet
 // witness: Rated Current / DC Resistance / Impedance (at 100MHz)).
-recipe IND.FB {
+recipe ANCH.IND.FB {
     require = [
         electrical = [
             impedance      = Resistance, desc: "lossy impedance at the stated test frequency (sheet head Impedance (at 100MHz/1GHz) - full word, no symbol face)"
@@ -60,10 +60,10 @@ recipe IND.FB {
     ]
 }
 
-// IND.CMC container: the common-mode-choke population - two windings on one
+// ANCH.IND.CMC container: the common-mode-choke population - two windings on one
 // core (CMC sheets carry their own head family: LR / Lstray / IR / Rtyp;
 // the model keeps the two-winding contract faces).
-recipe IND.CMC {
+recipe ANCH.IND.CMC {
     require = [
         electrical = [
             inductance     = Inductance, desc: "winding inductance (CMC sheet head LR - full word face)"
@@ -93,7 +93,7 @@ abstract component IND(
     irated::UV.AMP,
     tol::UV.PERCENT,
     dcr::UV.OHM
-) :: IND {
+) :: ANCH.IND {
     name        = "Inductor"
     description = "Generic two-terminal inductor"
 
@@ -124,7 +124,7 @@ abstract component IND.SMD(
     irated::UV.AMP,
     tol::UV.PERCENT,
     dcr::UV.OHM
-) :: IND {
+) :: ANCH.IND {
     name        = "SMD Inductor"
     description = "Surface mount two-terminal inductor"
 
@@ -155,7 +155,7 @@ abstract component IND.THT(
     irated::UV.AMP,
     tol::UV.PERCENT,
     dcr::UV.OHM
-) :: IND {
+) :: ANCH.IND {
     name        = "Through Hole Inductor"
     description = "Through-hole two-terminal inductor"
 
@@ -187,7 +187,7 @@ abstract component IND.POWER(
     isat::UV.AMP,
     tol::UV.PERCENT,
     dcr::UV.OHM
-) :: IND {
+) :: ANCH.IND {
     name        = "Power Inductor"
     description = "Power inductor for DC-DC converters, with saturation current"
 
@@ -220,7 +220,7 @@ abstract component IND.HF(
     srf::UV.HZ,
     tol::UV.PERCENT,
     dcr::UV.OHM
-) :: IND {
+) :: ANCH.IND {
     name        = "HF Inductor"
     description = "High-frequency / RF inductor with SRF"
 
@@ -243,7 +243,7 @@ abstract component IND.HF(
     ]
 }
 
-// IND.FB - Ferrite Bead Component Definition
+// ANCH.IND.FB - Ferrite Bead Component Definition
 // Core Rule: lossy high-frequency impedance, not an inductor — specified by
 // impedance at a test frequency, with no inductance parameter.
 
@@ -251,7 +251,7 @@ abstract component IND.FB(
     impd::UV.OHM,
     irated::UV.AMP,
     ftest::UV.HZ
-) :: IND.FB {
+) :: ANCH.IND.FB {
     name        = "Ferrite Bead"
     description = "Ferrite bead for high-frequency noise suppression"
 
@@ -272,7 +272,7 @@ abstract component IND.FB(
     ]
 }
 
-// IND.CMC - Common Mode Choke Component Definition
+// ANCH.IND.CMC - Common Mode Choke Component Definition
 // Core Rule: two windings on one core — high impedance to common-mode
 // currents, low impedance to differential currents; four-pin topology,
 // modeled as an independent component.
@@ -283,7 +283,7 @@ abstract component IND.CMC(
     impd::UV.OHM,
     tol::UV.PERCENT,
     ftest::UV.HZ
-) :: IND.CMC {
+) :: ANCH.IND.CMC {
     name        = "Common Mode Choke"
     description = "4-terminal common mode choke"
 
@@ -322,5 +322,5 @@ abstract component IND.CMC(
 // IND.SMD(47μH, 2A, ±10%, 0.08Ω): sw_node -> IND.SMD(47μH, 2A, ±10%, 0.08Ω) -> ldo_in
 // IND.POWER(47μH, 3A, 4A, ±20%, 0.05Ω): sw -> IND.POWER(47μH, 3A, 4A, ±20%, 0.05Ω) -> out
 // IND.HF(10μH, 0.5A, 50MHz, ±5%, 0.2Ω): rf_in -> IND.HF(10μH, 0.5A, 50MHz, ±5%, 0.2Ω) -> filter_out
-// IND.FB(100Ω, 1A, 100MHz): io_line -> IND.FB(100Ω, 1A, 100MHz) -> soc_pin
-// IND.CMC(100μH, 2A, 100Ω, ±20%, 100MHz).CommonModeSuppress(line_in, line_out, ret_in, ret_out)
+// ANCH.IND.FB(100Ω, 1A, 100MHz): io_line -> ANCH.IND.FB(100Ω, 1A, 100MHz) -> soc_pin
+// ANCH.IND.CMC(100μH, 2A, 100Ω, ±20%, 100MHz).CommonModeSuppress(line_in, line_out, ret_in, ret_out)

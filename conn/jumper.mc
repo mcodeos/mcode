@@ -5,7 +5,7 @@
 // Core Rule: The cap closes pins (2k-1, 2k); an odd trailing pin (e.g.
 // JUMPER(3)) stays open as the standard "2 closed + 1 spare" form.
 
-component JUMPER(n::INT) :: CONN.CAP
+component JUMPER(n::INT) :: ANCH.CONN.CAP
 {
     name = "Jumper Header"
     description = "Jumper header with " + n + " pins, closed pairwise by a cap"
@@ -15,7 +15,7 @@ component JUMPER(n::INT) :: CONN.CAP
         pitch = _ // [2.54mm, 1.27mm]
         closed_by = "cap"
         mount = _ // [through-hole, surface-mount]
-        CONN.CAP = [
+        ANCH.CONN.CAP = [
             conn_type = _ // the mating form: the pitch family, filled in by the real part
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part

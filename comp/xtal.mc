@@ -13,7 +13,7 @@ use ../ifs/clk
 // middle container for the crystal / ceramic-resonator classes). Three
 // loadings (340 s0.2): the io entry face XTAL{X1, X2}, the answer sheet
 // (frequency required; load capacitance optional - ceramic resonators leave
-// it unfilled), and the family-shared wiring func. Adoption: `:: XTAL`.
+// it unfilled), and the family-shared wiring func. Adoption: `:: ANCH.XTAL`.
 // The Setup func reaches the adopter's ideal load-capacitance value through
 // the instance face (this.load_capacitance): the recipe never carries the
 // value (pure-form law) - the value lives in the component body's ctor/spec
@@ -25,7 +25,7 @@ use ../ifs/clk
 // Note: active oscillator modules (OSC) do not adopt this face; their clock
 // output adopts the single-ended CLK interface (ifs/xtal header law).
 
-recipe XTAL
+recipe ANCH.XTAL
 {
     io XTAL{X1, X2}
 
@@ -52,7 +52,7 @@ recipe XTAL
 // Core Rule: the cload formal carries the crystal load capacitance — it lands
 // in `spec` (for BOM/DRC) and drives the container `Setup` wiring helper.
 
-abstract component XTAL2(freq::UV.HZ, cload::UV.CAP) :: XTAL
+abstract component XTAL2(freq::UV.HZ, cload::UV.CAP) :: ANCH.XTAL
 {
     name = "2-Pin Crystal"
     description = "Basic 2-pin crystal oscillator"
@@ -71,7 +71,7 @@ abstract component XTAL2(freq::UV.HZ, cload::UV.CAP) :: XTAL
 // Core Rule: same resonator law as XTAL2 with two unconnected package pins
 // (pins 2 and 4); cload drives the container `Setup` the same way.
 
-abstract component XTAL4(freq::UV.HZ, cload::UV.CAP) :: XTAL
+abstract component XTAL4(freq::UV.HZ, cload::UV.CAP) :: ANCH.XTAL
 {
     name = "4-Pin Crystal"
     description = "4-pin crystal oscillator (pins 2 and 4 unconnected)"
@@ -110,7 +110,7 @@ abstract component OSC(freq::UV.HZ)
 // lower-cost alternative to a quartz crystal; two resonator terminals, no
 // load capacitance formal (the option column stays unfilled).
 
-abstract component XTAL.CERAMIC(freq::UV.HZ) :: XTAL
+abstract component XTAL.CERAMIC(freq::UV.HZ) :: ANCH.XTAL
 {
     name = "Ceramic Resonator"
     description = "Ceramic resonator for timing applications"

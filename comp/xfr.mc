@@ -9,7 +9,7 @@
 // and the audio faces appear as Bandwidth / Insertion loss heads. Columns
 // stand on the model face with the corpus shape recorded in the descs.
 
-recipe XFR {
+recipe ANCH.XFR {
     require = [
         windings = [
             primary_voltage   = Voltage, desc: "primary winding voltage rating (RF/planar sheets rate by turns ratio and current instead)"
@@ -30,9 +30,9 @@ recipe XFR {
     ]
 }
 
-// XFR.AUDIO container: the impedance-matching population - the winding
+// ANCH.XFR.AUDIO container: the impedance-matching population - the winding
 // impedances and the flat band are the design quantities.
-recipe XFR.AUDIO {
+recipe ANCH.XFR.AUDIO {
     require = [
         windings = [
             primary_impedance   = Resistance, desc: "primary impedance (8Ω / 50Ω / 600Ω classes)"
@@ -47,7 +47,7 @@ recipe XFR.AUDIO {
 // Core Rule: galvanically isolated windings coupled magnetically — voltage
 // scales with the turns ratio, power transfers at the rated capacity.
 
-abstract component XFR(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: XFR {
+abstract component XFR(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: ANCH.XFR {
     name = "Transformer"
     spec += [
         primary_voltage   = vpri    // [12V, 24V, 120V, 240V]
@@ -68,7 +68,7 @@ abstract component XFR(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: XFR {
 // specified line frequency; running below it drives the core into
 // saturation.
 
-abstract component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq::UV.HZ) :: XFR {
+abstract component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq::UV.HZ) :: ANCH.XFR {
     name = "Power Transformer"
     spec += [
         primary_voltage   = vpri    // [12V, 24V, 120V, 240V]
@@ -85,12 +85,12 @@ abstract component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq
     ]
 }
 
-// XFR.AUDIO - Audio Transformer Component Definition
+// ANCH.XFR.AUDIO - Audio Transformer Component Definition
 // Core Rule: impedance-matching transformer — primary and secondary
 // impedances are the design quantities, with a specified flat frequency
 // response band.
 
-abstract component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, fresp::STRING) :: XFR.AUDIO {
+abstract component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, fresp::STRING) :: ANCH.XFR.AUDIO {
     name = "Audio Transformer"
     spec += [
         primary_impedance   = zpri    // [8Ω, 50Ω, 600Ω]
@@ -111,7 +111,7 @@ abstract component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, fresp:
 // Core Rule: 1:1-class windings whose purpose is the isolation barrier
 // itself, rated to a specified isolation voltage.
 
-abstract component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::UV.WATT) :: XFR {
+abstract component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::UV.WATT) :: ANCH.XFR {
     name = "Isolation Transformer"
     spec += [
         primary_voltage   = vpri    // [12V, 24V, 120V, 240V]
@@ -132,7 +132,7 @@ abstract component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::
 // Core Rule: secondary winding carries a center tap, giving two half
 // windings for split-supply or full-wave rectifier use.
 
-abstract component XFR.CT(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: XFR {
+abstract component XFR.CT(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: ANCH.XFR {
     name = "Center Tapped Transformer"
     spec += [
         primary_voltage   = vpri    // [12V, 24V, 120V, 240V]
@@ -152,5 +152,5 @@ abstract component XFR.CT(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: XFR 
 // Usage Examples:
 // XFR.POWER(230V, 12V, 10W, 50Hz) t1
 // XFR.ISO(120V, 120V, 4kV, 5W) t2
-// XFR.AUDIO(600Ω, 8Ω, 2W, "20Hz~20kHz") t3
+// ANCH.XFR.AUDIO(600Ω, 8Ω, 2W, "20Hz~20kHz") t3
 // XFR.CT(230V, 6V, 3W) t4

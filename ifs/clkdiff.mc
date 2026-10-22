@@ -15,7 +15,7 @@ interface CLK.DIFF(role)
     topology = "point to point"
     mode = ["unidirectional"]
     // Electrical contract data rides the recipe face: the differential
-    // pair rides CLK.DIFF.ELEC -- input swing / common-mode /
+    // pair rides ELEC.CLK.DIFF -- input swing / common-mode /
     // max frequency / supply-domain keys; the single-ended clock face
     // rides CLK.ELEC. The distance row carries zero corpus statements
     // and is retired (rows without datasheet backing stay retired).

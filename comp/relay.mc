@@ -9,7 +9,7 @@
 // voltages and operate times are extra corpus heads (305 candidate ledger).
 // Terminal faces stay on the classes (COIL bus / SSR ctrl-load / SET-RESET).
 
-recipe RELAY {
+recipe ANCH.RELAY {
     require = [
         coil = [
             coil_voltage = Voltage, desc: "nominal coil voltage (sheet heads: Nominal Voltage / NOMINAL COIL VOLTAGE - full phrase, no symbol face)"
@@ -20,10 +20,10 @@ recipe RELAY {
     ]
 }
 
-// RELAY.SSR container: the solid-state population - a control-side input
+// ANCH.RELAY.SSR container: the solid-state population - a control-side input
 // drives the electronic output switch; no coil (sheet head INPUT RATINGS /
 // OUTPUT RATINGS, full phrases).
-recipe RELAY.SSR {
+recipe ANCH.RELAY.SSR {
     require = [
         input = [
             control_voltage = Voltage, desc: "control-side input voltage (sheet head INPUT RATINGS Rated voltage / Operating voltage range)"
@@ -39,7 +39,7 @@ recipe RELAY.SSR {
 // Core Rule: coil-side energization (isolated barrier) magnetically switches
 // the contact side between COM-NO (open at rest) and COM-NC (closed at rest).
 
-abstract component RELAY(icont::UV.AMP, vcoil::UV.VOLT) :: RELAY {
+abstract component RELAY(icont::UV.AMP, vcoil::UV.VOLT) :: ANCH.RELAY {
     name = "Relay"
     spec += [
         contact_rating = icont
@@ -58,7 +58,7 @@ abstract component RELAY(icont::UV.AMP, vcoil::UV.VOLT) :: RELAY {
 // Core Rule: coil current creates the switching force; contacts spring back
 // to the rest position when the coil de-energizes.
 
-abstract component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
+abstract component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP) :: ANCH.RELAY {
     name = "Electromagnetic Relay"
     spec += [
         coil_voltage   = vcoil
@@ -73,11 +73,11 @@ abstract component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
     ]
 }
 
-// RELAY.SSR - Solid State Relay Component Definition
+// ANCH.RELAY.SSR - Solid State Relay Component Definition
 // Core Rule: no moving parts and no coil — a control-side input drives an
 // electronic output switch across the isolation barrier.
 
-abstract component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP) :: RELAY.SSR {
+abstract component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP) :: ANCH.RELAY.SSR {
     name = "Solid State Relay"
     spec += [
         control_voltage = vctrl
@@ -97,7 +97,7 @@ abstract component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP) :: R
 // Core Rule: coil-driven reed contact, NO/COM only (no normally-closed
 // contact); low coil power, fast switching.
 
-abstract component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
+abstract component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP) :: ANCH.RELAY {
     name = "Reed Relay"
     spec += [
         coil_voltage   = vcoil
@@ -115,7 +115,7 @@ abstract component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
 // Core Rule: two coils (set and reset); the contact state persists after the
 // pulse ends instead of springing back.
 
-abstract component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
+abstract component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP) :: ANCH.RELAY {
     name = "Latching Relay"
     spec += [
         coil_voltage   = vcoil
@@ -135,6 +135,6 @@ abstract component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP) :: RELAY {
 
 // Usage Examples:
 // RELAY.EM(12V, 2A) k1        // 12V coil, 2A contacts
-// RELAY.SSR(3.3V, 24V, 4A) k2 // solid state, logic-level control
+// ANCH.RELAY.SSR(3.3V, 24V, 4A) k2 // solid state, logic-level control
 // RELAY.LATCH(5V, 1A) k3      // two-coil latching
 // RELAY.REED(5V, 0.5A) k4

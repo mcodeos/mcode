@@ -20,7 +20,7 @@ interface SPI(role)
     mode = ["full duplex"]
 
     // Electrical contract data (bus envelope: distance/speed caps, supply
-    // tiers) rides the SPI.ELEC recipe face (302 3.2); this definition
+    // tiers) rides the ELEC.SPI recipe face (302 3.2); this definition
     // carries structure only.
 
     // Role tables declare each role's wiring order: ordinal k on the two
@@ -74,7 +74,7 @@ interface SPI.3(role)
     topology = "point to point"
     mode = ["half duplex"]  // Half duplex since using single data line
 
-    // Electrical contract data rides the SPI.ELEC recipe face (302 3.2) —
+    // Electrical contract data rides the ELEC.SPI recipe face (302 3.2) —
     // same electrical law as the SPI base class (the variant ruling), only
     // the conductor view differs. The cable-length tier retired with the
     // interface param gate; this definition carries structure only.
@@ -122,7 +122,7 @@ interface SPI.QUAD(role)
     topology = "point to point"
     mode = ["half duplex", "full duplex"]  // Dual/Quad modes
 
-    // Electrical contract data rides the SPI.ELEC recipe face (302 3.2) —
+    // Electrical contract data rides the ELEC.SPI recipe face (302 3.2) —
     // same electrical law as the SPI base class (the variant ruling), only
     // the conductor view differs. The cable-length tier retired with the
     // interface param gate; this definition carries structure only.
@@ -180,7 +180,7 @@ interface SPI.WO(role)
     topology = "point to point"
     mode = ["write-only"]  // The master writes; the slave has no data output
 
-    // Electrical contract data rides the SPI.ELEC recipe face (302 3.2) —
+    // Electrical contract data rides the ELEC.SPI recipe face (302 3.2) —
     // same electrical law as the SPI base class (the variant ruling), only
     // the conductor view differs. The cable-length tier retired with the
     // interface param gate; this definition carries structure only.

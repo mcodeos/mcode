@@ -7,7 +7,7 @@
 // witnessed as table symbols. Terminal faces stay on the classes (the
 // output stage names the pads: COLLECTOR/EMITTER, MT1/MT2, OUTPUT/GND).
 
-recipe OPTO {
+recipe ANCH.OPTO {
     require = [
         input = [
             input_current = Current, alias: [IF], desc: "input LED forward current rating (sheet head Forward current IF; the pulse face spells IFM)"
@@ -24,11 +24,11 @@ recipe OPTO {
     ]
 }
 
-// OPTO.TRIAC container: the photosensitive-triac output population - the
+// ANCH.OPTO.TRIAC container: the photosensitive-triac output population - the
 // off-state output voltage and the holding current are the population
 // faces (no triac-output sheet in the sampled corpus; columns stand on
 // the model face).
-recipe OPTO.TRIAC {
+recipe ANCH.OPTO.TRIAC {
     require = [
         input = [
             input_current = Current, alias: [IF], desc: "input LED forward current rating (sheet head Forward current IF)"
@@ -45,11 +45,11 @@ recipe OPTO.TRIAC {
     ]
 }
 
-// OPTO.PV container: the photovoltaic-output population - the LED input
+// ANCH.OPTO.PV container: the photovoltaic-output population - the LED input
 // light generates an isolated floating voltage rather than a switched
 // current (no PV-output sheet in the sampled corpus; columns stand on
 // the model face).
-recipe OPTO.PV {
+recipe ANCH.OPTO.PV {
     require = [
         input = [
             input_current = Current, alias: [IF], desc: "input LED forward current rating (sheet head Forward current IF)"
@@ -61,11 +61,11 @@ recipe OPTO.PV {
     ]
 }
 
-// OPTO.LOGIC container: the integrated-receiver population - the output
+// ANCH.OPTO.LOGIC container: the integrated-receiver population - the output
 // restores to a logic level and the propagation delay bounds the
 // signalling rate (VO and tPLH/tPHL witnessed on the 6N137 / HCPL-2630
 // logic-output sheets).
-recipe OPTO.LOGIC {
+recipe ANCH.OPTO.LOGIC {
     require = [
         input = [
             input_current = Current, alias: [IF], desc: "input LED forward current rating (sheet head Forward current IF; threshold faces spell ITH)"
@@ -86,7 +86,7 @@ recipe OPTO.LOGIC {
 // Core Rule: signal crosses the isolation barrier optically — input LED and
 // output photodetector share no galvanic path up to the isolation voltage.
 
-abstract component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: OPTO {
+abstract component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: ANCH.OPTO {
     name = "Optocoupler"
     spec += [
         input_current     = iin
@@ -106,7 +106,7 @@ abstract component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: OPTO {
 // Core Rule: phototransistor output; the current transfer ratio (CTR) sets
 // how much output current a given input LED current can sustain.
 
-abstract component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT) :: OPTO {
+abstract component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT) :: ANCH.OPTO {
     name = "Transistor Output Optocoupler"
     spec += [
         input_current          = iin
@@ -123,11 +123,11 @@ abstract component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.
     ]
 }
 
-// OPTO.TRIAC - Triac-Output Optocoupler Component Definition
+// ANCH.OPTO.TRIAC - Triac-Output Optocoupler Component Definition
 // Core Rule: photosensitive triac output drives AC loads; holding current
 // keeps the output on until the load current crosses zero.
 
-abstract component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP) :: OPTO.TRIAC {
+abstract component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP) :: ANCH.OPTO.TRIAC {
     name = "Triac Output Optocoupler"
     spec += [
         input_current     = iin
@@ -144,11 +144,11 @@ abstract component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::
     ]
 }
 
-// OPTO.PV - Photovoltaic-Output Optocoupler Component Definition
+// ANCH.OPTO.PV - Photovoltaic-Output Optocoupler Component Definition
 // Core Rule: the output side is a photovoltaic generator — LED input light
 // produces an isolated floating voltage source rather than a switched current.
 
-abstract component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: OPTO.PV {
+abstract component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: ANCH.OPTO.PV {
     name = "Photovoltaic Optocoupler"
     spec += [
         input_current     = iin
@@ -164,11 +164,11 @@ abstract component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: OPTO.PV
     ]
 }
 
-// OPTO.LOGIC - Logic-Gate Output Optocoupler Component Definition
+// ANCH.OPTO.LOGIC - Logic-Gate Output Optocoupler Component Definition
 // Core Rule: integrated receiver restores the signal to a logic level on the
 // output side; the propagation delay bounds the achievable signalling rate.
 
-abstract component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME) :: OPTO.LOGIC {
+abstract component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME) :: ANCH.OPTO.LOGIC {
     name = "Logic Output Optocoupler"
     spec += [
         input_current     = iin
@@ -187,6 +187,6 @@ abstract component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay:
 
 // Usage Examples:
 // OPTO.TRANS(10mA, 50mA, 3750V, 50%) oc1      // transistor output
-// OPTO.LOGIC(10mA, 8mA, 2500V, 10us) ol1      // logic-gate output
-// OPTO.TRIAC(10mA, 220V, 2500V, 5mA) ot1      // triac driver
-// OPTO.PV(10mA, 5V, 2500V) opv                // photovoltaic output
+// ANCH.OPTO.LOGIC(10mA, 8mA, 2500V, 10us) ol1      // logic-gate output
+// ANCH.OPTO.TRIAC(10mA, 220V, 2500V, 5mA) ot1      // triac driver
+// ANCH.OPTO.PV(10mA, 5V, 2500V) opv                // photovoltaic output

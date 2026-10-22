@@ -56,19 +56,19 @@ enum CAP {
 // shape only - the recipe never carries values; ideal values live in the
 // component bodies below via ctor/spec defaults, actual values are filled by
 // engineering parts from their datasheets), and the wiring funcs. Adoption:
-// `:: CAP`.
+// `:: ANCH.CAP`.
 // The flat single-statement body keeps the decouple entry one drawing unit.
 // The column-vector return is load-bearing: it reads as the bridge (one cap
 // across the entry pair); an implicit `return this` row face would read
 // per-lane.
 // Note: the polarized classes (ELEC/TANT/NIOB/SC) do NOT adopt this recipe -
-// polarity never rides implicit pad numbering. They adopt CAP.POL below,
+// polarity never rides implicit pad numbering. They adopt ANCH.CAP.POL below,
 // whose entry pair names the terminals explicitly through the PCAP face.
 
 use ../ifs/term
 use ../ifs/pcap
 
-recipe CAP {
+recipe ANCH.CAP {
     // Two-terminal entry pair, positional: the face carries no member
     // vocabulary, position is the only contract (pad 1 = the first
     // terminal). Components bind the pads to the passive two-terminal
@@ -117,7 +117,7 @@ recipe CAP {
     }
 }
 
-// CAP.POL - the polarized CAP container recipe (capability-interface-model
+// ANCH.CAP.POL - the polarized CAP container recipe (capability-interface-model
 // middle container for the explicitly polarized capacitor classes). The entry
 // pair names its terminals through the PCAP face: \+ is the anode / positive
 // terminal, \- is the cathode / negative terminal - polarity is a model-layer
@@ -128,7 +128,7 @@ recipe CAP {
 // the wiring func keeps the name/arity Cap([_, _]) so consumer call sites
 // survive unchanged - its first lane is the \+ terminal.
 
-recipe CAP.POL {
+recipe ANCH.CAP.POL {
     // Two-terminal entry pair on the polarized-passive face: the group
     // form carries the sign words at the recipe's entry (the schematic pad
     // names stay the bare members - the adopters bind [\+, \-]::PCAP()).
@@ -187,7 +187,7 @@ abstract component CAP(
     tol::UV.PERCENT,
     diel = CAP.X7R,
     cons = CAP.MLCC
-) :: CAP {
+) :: ANCH.CAP {
     name        = "Capacitor"
     description = "General Capacitor"
 
@@ -215,7 +215,7 @@ abstract component CAP.ELEC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP.POL {
+) :: ANCH.CAP.POL {
     name        = "Electrolytic Capacitor"
     description = "Polarized aluminum electrolytic / polymer aluminum capacitor"
 
@@ -242,7 +242,7 @@ abstract component CAP.MLCC(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.X7R
-) :: CAP {
+) :: ANCH.CAP {
     name        = "MLCC Capacitor"
     description = "Multilayer Ceramic Capacitor (MLCC), non-polarized"
 
@@ -270,7 +270,7 @@ abstract component CAP.DISC(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.C0G
-) :: CAP {
+) :: ANCH.CAP {
     name        = "Disc Ceramic Capacitor"
     description = "Non-MLCC disk ceramic capacitor; common high-voltage low-cost"
 
@@ -299,7 +299,7 @@ abstract component CAP.TANT(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP.POL {
+) :: ANCH.CAP.POL {
     name        = "Tantalum Capacitor"
     description = "Polarized tantalum / polymer tantalum capacitor"
 
@@ -326,7 +326,7 @@ abstract component CAP.NIOB(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP.POL {
+) :: ANCH.CAP.POL {
     name        = "Niobium Capacitor"
     description = "Polarized niobium pentoxide capacitor"
 
@@ -354,7 +354,7 @@ abstract component CAP.FILM(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.POLYPROPYLENE
-) :: CAP {
+) :: ANCH.CAP {
     name        = "Film Capacitor"
     description = "Non-polarized film capacitor (PP/PET/PC/PS/PEN)"
 
@@ -381,7 +381,7 @@ abstract component CAP.MICA(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP {
+) :: ANCH.CAP {
     name        = "Mica Capacitor"
     description = "Mica dielectric capacitor, high stability / high frequency"
 
@@ -410,7 +410,7 @@ abstract component CAP.SAFETY(
     tol::UV.PERCENT,
     diel = CAP.POLYPROPYLENE,
     cls  = CAP.SC_X2
-) :: CAP {
+) :: ANCH.CAP {
     name        = "Safety Capacitor X/Y"
     description = "EMI safety capacitor (X1/X2 / Y1/Y2); volt = AC RMS rating"
 
@@ -440,7 +440,7 @@ abstract component CAP.SC(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP.POL {
+) :: ANCH.CAP.POL {
     name        = "Supercapacitor / EDLC"
     description = "Electric Double Layer Capacitor, polarized"
 
@@ -467,7 +467,7 @@ abstract component CAP.TRIM(
     cap::UV.CAP,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: CAP {
+) :: ANCH.CAP {
     name        = "Trimmer Capacitor"
     description = "Adjustable trimmer / variable capacitor; cap = nominal/max capacitance"
 
@@ -500,7 +500,7 @@ abstract component CAP.TRIM(
 // chaining two caps on one `=>` hop is the SAME stage (different semantics):
 //   [PWR, GND] => CAP(10uF,16V).Cap(_) -> [this.VIN, this.GND] => CAP(100nF,16V).Cap(_)
 // Scalar spellings are honest errors now: Cap(vdd) = E4180 (width), bare _
-// without a `=>` prefix = E4176. On the polarized classes (CAP.POL adopters)
+// without a `=>` prefix = E4176. On the polarized classes (ANCH.CAP.POL adopters)
 // the first lane of Cap(_) is the \+ terminal - polarity is named on the
 // entry pair (PCAP{\+, \-}), never implied by position.
 // vcc - CAP.MLCC(100nF, 50V, ±10%, X7R) - gnd

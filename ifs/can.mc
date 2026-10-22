@@ -18,7 +18,7 @@ interface CAN(role)
 
     // Electrical contract data (bus rate tiers, common-mode window,
     // differential input/output windows, receiver thresholds) rides the
-    // CAN.ELEC recipe face (302 3.2); this definition carries structure
+    // ELEC.CAN recipe face (302 3.2); this definition carries structure
     // only.
 
     // The two rows tagged @pair(can) are the two legs of one differential
@@ -59,7 +59,7 @@ interface CAN.TTL(role)
     mode = ["full duplex"]
 
     // Electrical contract data (link rate tiers, logic level windows)
-    // rides the CAN.TTL.ELEC recipe face (302 3.2); this definition
+    // rides the ELEC.CAN.TTL recipe face (302 3.2); this definition
     // carries structure only.
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity

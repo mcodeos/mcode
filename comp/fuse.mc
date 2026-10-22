@@ -7,7 +7,7 @@
 // Nominal Cold Resistance) with no symbol face; speed rating lives in
 // time-current tables and class words (aM, time-lag), not symbols.
 
-recipe FUSE {
+recipe ANCH.FUSE {
     require = [
         rating = [
             rated_current = Current, desc: "nominal current rating (sheet head Ampere Rating / Bemessungsstrom Rated Current)"
@@ -24,11 +24,11 @@ recipe FUSE {
     ]
 }
 
-// FUSE.PTC container: the resettable PPTC population - hold/trip current
+// ANCH.FUSE.PTC container: the resettable PPTC population - hold/trip current
 // faces replace the one-shot melting face. No resettable-fuse datasheet in
 // the sampled corpus (prose mentions only), so the columns stand on the
 // model face.
-recipe FUSE.PTC {
+recipe ANCH.FUSE.PTC {
     require = [
         rating = [
             rated_current = Current, desc: "hold current (the current the PPTC carries without tripping)"
@@ -48,7 +48,7 @@ recipe FUSE.PTC {
 // Core Rule: an overcurrent event melts the element and opens the circuit
 // permanently; the part must then be replaced.
 
-abstract component FUSE(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
+abstract component FUSE(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: ANCH.FUSE {
     name = "Fuse"
     spec += [
         rated_current = irated  // [0.1A, 0.5A, 1A, 2A, 5A, 10A, 20A]
@@ -65,7 +65,7 @@ abstract component FUSE(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
 // FUSE.SMD - Surface Mount Fuse Component Definition
 // Core Rule: one-shot overcurrent opening in a surface-mount two-terminal body.
 
-abstract component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
+abstract component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: ANCH.FUSE {
     name = "Surface Mount Fuse"
     spec += [
         rated_current = irated  // [0.1A, 0.5A, 1A, 2A, 5A]
@@ -83,7 +83,7 @@ abstract component FUSE.SMD(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUS
 // Core Rule: one-shot overcurrent opening in a ceramic body rated for a
 // specified breaking capacity (maximum fault current it can safely interrupt).
 
-abstract component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP, spd::STRING) :: FUSE {
+abstract component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP, spd::STRING) :: ANCH.FUSE {
     name = "Ceramic Fuse"
     spec += [
         rated_current     = irated
@@ -102,7 +102,7 @@ abstract component FUSE.CERAMIC(irated::UV.AMP, vrated::UV.VOLT, ibreak::UV.AMP,
 // Core Rule: one-shot overcurrent opening in a glass body (lower breaking
 // capacity than ceramic at the same size).
 
-abstract component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: FUSE {
+abstract component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: ANCH.FUSE {
     name = "Glass Fuse"
     spec += [
         rated_current = irated  // [0.5A, 1A, 2A, 5A, 10A]
@@ -116,14 +116,14 @@ abstract component FUSE.GLASS(irated::UV.AMP, vrated::UV.VOLT, spd::STRING) :: F
     ]
 }
 
-// FUSE.PTC - Resettable PPTC Overcurrent Protector Component Definition
+// ANCH.FUSE.PTC - Resettable PPTC Overcurrent Protector Component Definition
 // Core Rule: the resettable overcurrent protector belongs to the FUSE family
 // (function decides the family, not the implementation). Tripping raises its
 // resistance by orders of magnitude and the trip state persists while the
 // fault current flows; it resets on cooling. `resistance` stays as an
 // unassigned BOM slot for the cold resistance.
 
-abstract component FUSE.PTC(irated::UV.AMP, vrated::UV.VOLT, itrip::UV.AMP) :: FUSE.PTC {
+abstract component FUSE.PTC(irated::UV.AMP, vrated::UV.VOLT, itrip::UV.AMP) :: ANCH.FUSE.PTC {
     name        = "PTC Fuse"
     description = "Resettable PPTC overcurrent protection device"
     spec        = [
@@ -144,5 +144,5 @@ abstract component FUSE.PTC(irated::UV.AMP, vrated::UV.VOLT, itrip::UV.AMP) :: F
 // FUSE.SMD(2A, 24V, "1206") f1
 // power_in -> f1.1
 // f1.2 -> protected_rail
-// FUSE.PTC(1.5A, 30V, 0.1A) selfreset
+// ANCH.FUSE.PTC(1.5A, 30V, 0.1A) selfreset
 // FUSE.CERAMIC(5A, 250V, 10A, "5x20") f2

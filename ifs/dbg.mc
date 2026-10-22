@@ -2,7 +2,7 @@
 # Licensed under the Apache License, Version 2.0.
 
 // DBG - debug and programming link family. Electrical contract data rides
-// the DBG.JTAG.ELEC / DBG.SWD.ELEC recipe faces (302 3.2); the 2-wire JTAG
+// the ELEC.DBG.JTAG / ELEC.DBG.SWD recipe faces (302 3.2); the 2-wire JTAG
 // member rides the JTAG face as a variant. All debug pins inherit the GPIO
 // EC tables (the corpus law: debug pins appear as alternate-function rows
 // in per-part MCU datasheets; the only debug-specific EC face anywhere is
@@ -14,12 +14,12 @@
 // protocol face, not a two-wire electrical contract); SWIM states a rate
 // only in the single protocol spec document (derived from the internal
 // oscillator); ICD states the pin face only; UARTBOOT's electrical
-// contract is the TTL UART face (UART.TTL.ELEC), bootloader rates being
+// contract is the TTL UART face (ELEC.UART.TTL), bootloader rates being
 // auto-baud detection rather than a link limit - these seven classes stay
 // recipe-less by the gap ledger.
 
 // DBG.JTAG - JTAG Debug Interface (5-wire) Standard Definition
-// Electrical character: the DBG.JTAG.ELEC recipe face (rate option
+// Electrical character: the ELEC.DBG.JTAG recipe face (rate option
 // vocabulary, internal pull-bias note); the 2-wire DBG.JTAG.2 member rides
 // the same contract as a variant.
 // Core Rule: Five-wire synchronous debug/test link: TDI and TDO are
@@ -214,7 +214,7 @@ interface DBG.CMSISDAP(role)
 }
 
 // DBG.SWD - Serial Wire Debug Interface Standard Definition
-// Electrical character: the DBG.SWD.ELEC recipe face (rate option
+// Electrical character: the ELEC.DBG.SWD recipe face (rate option
 // vocabulary, SWDIO internal pull-up); the VREF member row is the
 // debug-adapter connector convention, not a per-part supply tier.
 // Core Rule: Two-wire debug link (bidirectional SWDIO, clock SWCLK) plus

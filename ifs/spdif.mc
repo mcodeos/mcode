@@ -19,7 +19,7 @@ interface SPDIF(role)
     // one audio digital link with a real spec-level contract - every
     // carrying device cites the same standard set (IEC 60958 + JEITA
     // CPR-1205 + AES3 + EBU Tech 3250) and the contract rows it mandates
-    // are keyed in SPDIF.ELEC: the 75 ohm consumer termination (receiver
+    // are keyed in ELEC.SPDIF: the 75 ohm consumer termination (receiver
     // impedance 75 ohm +/-5%, quoted verbatim by CS8416; the AES3 110 ohm
     // professional face is a different class) and the receiver
     // sensitivity window (150~500 mVpp across the six receivers; the

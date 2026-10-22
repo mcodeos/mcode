@@ -5,9 +5,9 @@
 // adopts the containers it implements and exposes those containers' funcs.
 //   RES        - fixed two-terminal resistor (the generic answer sheet)
 //   PULL       - shared pull-up / pull-down hookup helpers
-//   RES.NTC    - NTC thermistor (beta characteristic)
-//   RES.LDR    - light dependent resistor (illuminance face)
-//   RES.ARRAY  - multi-channel resistor network (instance-topology pins)
+//   ANCH.RES.NTC    - NTC thermistor (beta characteristic)
+//   ANCH.RES.LDR    - light dependent resistor (illuminance face)
+//   ANCH.RES.ARRAY  - multi-channel resistor network (instance-topology pins)
 // Recipes carry structure only; values live in ctor/spec defaults and at
 // the BOM layer. Note: construction uses a plain string tag (no enum).
 // Tolerance: integer percentage omits .0; keep decimals only when needed.
@@ -15,7 +15,7 @@
 // PULL - shared pull-up / pull-down hookup recipe. Bare-row anchor; the
 // adopter's [T1, T2]::TERM() binding satisfies it by member name.
 
-recipe PULL {
+recipe ANCH.PULL {
     io T1
     io T2
     func Pullup([node, hot]) {
@@ -31,7 +31,7 @@ recipe PULL {
 
 // RES - fixed resistor family container. The generic answer sheet shared by
 // every two-terminal fixed resistor class.
-recipe RES {
+recipe ANCH.RES {
     io [1, 2]
     require = [
         electrical = [
@@ -63,7 +63,7 @@ abstract component RES(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-) :: RES, PULL {
+) :: ANCH.RES, ANCH.PULL {
     name        = "Resistor"
     description = "Generic resistor"
 
@@ -95,7 +95,7 @@ abstract component RES.SMD(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-) :: RES, PULL {
+) :: ANCH.RES, ANCH.PULL {
     name        = "SMD Resistor"
     description = "Surface mount two-terminal fixed resistor"
 
@@ -128,7 +128,7 @@ abstract component RES.SMD_POWER(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-) :: RES, PULL {
+) :: ANCH.RES, ANCH.PULL {
     name        = "SMD Power Resistor"
     description = "Surface mount high-power two-terminal resistor"
 
@@ -160,7 +160,7 @@ abstract component RES.THT(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-) :: RES, PULL {
+) :: ANCH.RES, ANCH.PULL {
     name        = "Through Hole Resistor"
     description = "Axial through-hole two-terminal fixed resistor"
 
@@ -194,7 +194,7 @@ abstract component RES.POT(
     prated::UV.WATT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-) :: RES, PULL {
+) :: ANCH.RES, ANCH.PULL {
     name        = "Potentiometer / Trim Pot"
     description = "3-terminal adjustable resistor, support divider or rheostat mode"
 
@@ -228,9 +228,9 @@ abstract component RES.POT(
     }
 }
 
-// RES.NTC - NTC thermistor container. The beta characteristic is the
+// ANCH.RES.NTC - NTC thermistor container. The beta characteristic is the
 // family face; the fixed-resistor temperature columns stay open.
-recipe RES.NTC {
+recipe ANCH.RES.NTC {
     io [1, 2]
     require = [
         electrical = [
@@ -242,7 +242,7 @@ recipe RES.NTC {
     ]
 }
 
-// RES.NTC - NTC Thermistor Component Definition
+// ANCH.RES.NTC - NTC Thermistor Component Definition
 // Core Rule: resistance falls with temperature following the beta
 // characteristic; used for temperature sensing and inrush limiting.
 
@@ -252,7 +252,7 @@ abstract component RES.NTC(
     volt::UV.VOLT,
     tol::UV.PERCENT,
     tc::UV.PPM/UV.TEMP
-) :: RES.NTC, PULL {
+) :: ANCH.RES.NTC, ANCH.PULL {
     name        = "NTC Thermistor"
     description = "Negative temperature coefficient thermistor"
 
@@ -275,9 +275,9 @@ abstract component RES.NTC(
     ]
 }
 
-// RES.ARRAY - resistor network container. No pin anchor: the channel count
+// ANCH.RES.ARRAY - resistor network container. No pin anchor: the channel count
 // is an instance-topology fact (expansion rows), answered per part.
-recipe RES.ARRAY {
+recipe ANCH.RES.ARRAY {
     require = [
         electrical = [
             resistance  = Resistance, desc: "nominal resistance per element"
@@ -297,7 +297,7 @@ recipe RES.ARRAY {
     ]
 }
 
-// RES.ARRAY - Resistor Array Component Definition
+// ANCH.RES.ARRAY - Resistor Array Component Definition
 // Core Rule: independent multi-channel resistor network, modeled separately
 // from discrete resistors.
 // Note: no single-resistor pull-up/pull-down helpers; series placement uses
@@ -311,7 +311,7 @@ abstract component RES.ARRAY(
     tc::UV.PPM/UV.TEMP,
     channels::INT,
     cons::STRING
-) :: RES.ARRAY {
+) :: ANCH.RES.ARRAY {
     name        = "Resistor Array"
     description = "Multi-channel integrated resistor network; separate model from discrete resistor"
 
@@ -334,9 +334,9 @@ abstract component RES.ARRAY(
     ]
 }
 
-// RES.LDR - light dependent resistor container. The illuminance face is
+// ANCH.RES.LDR - light dependent resistor container. The illuminance face is
 // the family answer: light/dark resistance instead of one fixed value.
-recipe RES.LDR {
+recipe ANCH.RES.LDR {
     io [1, 2]
     require = [
         electrical = [
@@ -358,7 +358,7 @@ recipe RES.LDR {
     ]
 }
 
-// RES.LDR - Light Dependent Resistor (Photoresistor) Component Definition
+// ANCH.RES.LDR - Light Dependent Resistor (Photoresistor) Component Definition
 // Core Rule: resistance falls with illuminance, bounded by the dark
 // resistance.
 
@@ -367,7 +367,7 @@ abstract component RES.LDR(
     rdark::UV.OHM,
     volt::UV.VOLT,
     tol::UV.PERCENT
-) :: RES.LDR, PULL {
+) :: ANCH.RES.LDR, ANCH.PULL {
     name        = "LDR Photoresistor"
     description = "Light dependent resistor, resistance falls with illuminance"
 
@@ -395,7 +395,7 @@ abstract component RES.LDR(
 // vcc -> RES.THT(1kΩ, 250V, 0.25W, 5%, 200ppm/℃) -> load                  // two-terminal part, default 1x2 shape placement
 // vout -> RES.SMD_POWER(0.1Ω, 100V, 2W, 5%, 100ppm/℃) -> load
 // RES.POT(10kΩ, 50V, 0.1W, 20%, 100ppm/℃).Divider(vcc, fb, gnd)
-// ntc_node -> RES.NTC(10kΩ, 3950, 5V, 5%, 100ppm/℃) -> gnd
-// vin -> FUSE.PTC(500mA, 24V, 100mA) -> load
-// RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_SMD")
-// RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_THT")
+// ntc_node -> ANCH.RES.NTC(10kΩ, 3950, 5V, 5%, 100ppm/℃) -> gnd
+// vin -> ANCH.FUSE.PTC(500mA, 24V, 100mA) -> load
+// ANCH.RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_SMD")
+// ANCH.RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_THT")

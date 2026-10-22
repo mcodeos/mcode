@@ -19,7 +19,7 @@ interface MDIO(role)
     // (period >= 400 ns, carried by the pin row) is a spec-derived
     // timing constant, not a link-rate contract. Levels are per-part
     // VDDIO-classed CMOS on the same ring as the MAC bus (keyed at the
-    // family altitude, ETH.PHY supply.v_ddio; the open-drain pull-up
+    // family altitude, DEV.TRANS.ETH supply.v_ddio; the open-drain pull-up
     // rides that ring). The retired 0.1 m row was board practice with
     // zero spec witnesses -- same verdict as the MII/RMII bus face.
 

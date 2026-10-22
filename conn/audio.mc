@@ -4,14 +4,14 @@
 // AUDIO.TRS_35MM - 3.5mm TRS audio jack (headphone jack), configuration-parameterized Component Definition
 // Note: pin layout varies by configuration - stereo, mono, or headset.
 
-component AUDIO.TRS_35MM(config::STRING) :: CONN.CAP
+component AUDIO.TRS_35MM(config::STRING) :: ANCH.CONN.CAP
 {
     name = "3.5mm TRS Connector"
     description = "3.5mm TRS audio connector, " + config + " configuration"
     
     spec += [
         configuration = config
-        CONN.CAP = [
+        ANCH.CONN.CAP = [
             conn_type = CONN_TYPE.TRS_3_5MM
             mate_type = CONN_TYPE.TRS_3_5MM
             gender = _ // the shell gender, filled in by the real part
@@ -46,14 +46,14 @@ component AUDIO.TRS_35MM(config::STRING) :: CONN.CAP
 
 // AUDIO.TRS_25MM - 2.5mm TRS audio jack, 3-conductor (tip/ring/sleeve) Component Definition
 
-component AUDIO.TRS_25MM() :: CONN.CAP
+component AUDIO.TRS_25MM() :: ANCH.CONN.CAP
 {
     name = "2.5mm TRS Connector"
     description = "2.5mm TRS audio connector"
     
     spec += [
         configuration = _ // [stereo, mono, headset]
-        CONN.CAP = [
+        ANCH.CONN.CAP = [
             conn_type = CONN_TYPE.TRS_2_5MM
             mate_type = CONN_TYPE.TRS_2_5MM
             gender = _ // the shell gender, filled in by the real part
@@ -69,13 +69,13 @@ component AUDIO.TRS_25MM() :: CONN.CAP
 
 // AUDIO.RCA - Single-channel phono audio connector (center pin + shield) Component Definition
 
-component AUDIO.RCA() :: CONN.CAP
+component AUDIO.RCA() :: ANCH.CONN.CAP
 {
     name = "RCA Connector"
     description = "RCA audio connector"
     
     spec += [
-        CONN.CAP = [
+        ANCH.CONN.CAP = [
             conn_type = CONN_TYPE.RCA
             mate_type = CONN_TYPE.RCA
             gender = _ // the shell gender, filled in by the real part
@@ -92,14 +92,14 @@ component AUDIO.RCA() :: CONN.CAP
 // Note: pin_count selects the layout: 3 = audio only, 4 = audio + DC power,
 // 5 = audio + bipolar DC power.
 
-component AUDIO.XLR(pincnt::INT) :: CONN.CAP
+component AUDIO.XLR(pincnt::INT) :: ANCH.CONN.CAP
 {
     name = "XLR Connector"
     description = "XLR audio connector, " + string(pincnt) + " pins"
     
     spec += [
         pin_count = pincnt
-        CONN.CAP = [
+        ANCH.CONN.CAP = [
             conn_type = _ // [XLR_3, XLR_4, XLR_5]
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part
@@ -131,7 +131,7 @@ component AUDIO.XLR(pincnt::INT) :: CONN.CAP
 
 // AUDIO.SPEAKON - Professional loudspeaker connector, 4- or 8-pole Component Definition
 
-component AUDIO.SPEAKON(pincnt::INT) :: CONN.CAP
+component AUDIO.SPEAKON(pincnt::INT) :: ANCH.CONN.CAP
 {
     name = "Speakon Connector"
     description = "Speakon professional audio connector"
@@ -139,7 +139,7 @@ component AUDIO.SPEAKON(pincnt::INT) :: CONN.CAP
     spec += [
         pin_count = pincnt // [4, 8]
         application = "Professional Audio"
-        CONN.CAP = [
+        ANCH.CONN.CAP = [
             conn_type = _ // [SPEAKON_4, SPEAKON_8]
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part
@@ -156,14 +156,14 @@ component AUDIO.SPEAKON(pincnt::INT) :: CONN.CAP
 
 // AUDIO.BANANA_PLUG - Single-conductor banana plug for speaker terminals Component Definition
 
-component AUDIO.BANANA_PLUG() :: CONN.CAP
+component AUDIO.BANANA_PLUG() :: ANCH.CONN.CAP
 {
     name = "Banana Plug Connector"
     description = "Banana plug speaker connector"
     
     spec += [
         application = "Speaker Terminals"
-        CONN.CAP = [
+        ANCH.CONN.CAP = [
             conn_type = CONN_TYPE.BANANA_PLUG
             mate_type = CONN_TYPE.BANANA_PLUG
             gender = _ // the shell gender, filled in by the real part

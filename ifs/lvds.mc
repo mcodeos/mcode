@@ -18,7 +18,7 @@ interface LVDS(role)
     // EIA-644 class -- differential swing 250~450 mV across the 100 ohm
     // termination, driver offset centered on 1.2 V, receiver threshold
     // margins plus/minus 100 mV) is already keyed at the recipe altitude
-    // in the IF.LVDS book's lvds group (v_od/v_os/v_th/r_term/z_l) --
+    // in the DEV.SIG.LVDS book's lvds group (v_od/v_os/v_th/r_term/z_l) --
     // a second book on the same face would be the double book. The
     // retired voltage row's classes (1.8/2.5/3.3 V) were the driver
     // supply rails, not the signaling face -- the signaling is the

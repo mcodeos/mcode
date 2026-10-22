@@ -8,7 +8,7 @@
 // are full phrases (Nominal Voltage / Nominal Capacity / Standard Discharge
 // Current) with no symbol faces - columns stand on the model face.
 
-recipe DC {
+recipe ANCH.DC {
     // Terminal face stays on the classes: the source population binds
     // [VCC, GND]::DC(), the battery population binds BAT{VCC, GND}::DC()
     // (psbi bus form) - the recipe carries the answer columns only.
@@ -31,7 +31,7 @@ recipe DC {
 // Core Rule: ideal source that holds its rated voltage on the VCC/GND pair
 // and supplies up to its rated current.
 
-abstract component DC.SRC(volt::UV.VOLT, curr::UV.AMP) :: DC {
+abstract component DC.SRC(volt::UV.VOLT, curr::UV.AMP) :: ANCH.DC {
     name        = "DC Power Source"
     description = "DC power supply source"
     spec        = [
@@ -48,7 +48,7 @@ abstract component DC.SRC(volt::UV.VOLT, curr::UV.AMP) :: DC {
 // Core Rule: bidirectional source on the BAT pair — charge flows in as a
 // sink, discharge flows out as a source; the whole lead pair is addressable.
 
-abstract component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE) :: DC {
+abstract component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE) :: ANCH.DC {
     name        = "DC Battery"
     description = "DC battery"
     spec        = [

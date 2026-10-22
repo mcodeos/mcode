@@ -15,7 +15,7 @@ interface ETHERNET(role)
 
     // Corpus verdict (PHYs LAN8710A/DP83848/RTL8221B class; the
     // transceiver electrical axis is already keyed at the family-recipe
-    // altitude -- ETH.PHY carries supply.v_ddio and the MAC interface
+    // altitude -- DEV.TRANS.ETH carries supply.v_ddio and the MAC interface
     // faces): the retired rows carried no interface-level contract.
     // Distance: the 100 m figure has zero part-level witnesses
     // corpus-wide (the IEEE 802.3 specification owns the channel

@@ -13,7 +13,7 @@ interface SDIO(role)
 {
     topology = "point to point"
     mode = ["half duplex", "full duplex"]  // 1-bit / 4-bit modes
-    // Electrical contract data rides the recipe face: SDIO.ELEC carries the
+    // Electrical contract data rides the recipe face: ELEC.SDIO carries the
     // bus link contract (supply window, per-part bus clock over the mode
     // set, the S18 1.8 V signaling switch, the CMD/DAT pull-up class) --
     // the SD/SDIO simplified specifications are in the corpus. The
@@ -69,7 +69,7 @@ interface SDIO.1(role)
 {
     topology = "point to point"
     mode = ["half duplex"]
-    // Variant rider of SDIO.ELEC: the 1-bit mode is the same link contract
+    // Variant rider of ELEC.SDIO: the 1-bit mode is the same link contract
     // over fewer data lines (CLK/CMD/DAT0); the book serves both faces.
     // The retired envelope rows share the 4-bit face's corpus verdict.
 

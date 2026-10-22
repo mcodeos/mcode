@@ -19,7 +19,7 @@ interface MII(role)
     // retired voltage row's classes (1.8/2.5/3.3 V) are the VDDIO ring
     // classes, and every carrying datasheet states its per-pin levels
     // against its own VDDIO: the electrical axis is already keyed at the
-    // family altitude (ETH.PHY supply.v_ddio / option mac.iform). The
+    // family altitude (DEV.TRANS.ETH supply.v_ddio / option mac.iform). The
     // clock rows were spec-derived timing constants (TX_CLK/RX_CLK
     // 25 MHz at 100M / 2.5 MHz at 10M, PHY-driven), not a link-rate
     // contract. The retired 0.1 m distance row was board practice -- the
@@ -110,7 +110,7 @@ interface RMII(role)
     // signals and timing only -- the single 50 MHz REF_CLK is a spec
     // timing constant carried by the pin row, not a link-rate contract;
     // levels are per-part VDDIO-classed CMOS, keyed at the family
-    // altitude (ETH.PHY supply.v_ddio); the retired 0.1 m row was board
+    // altitude (DEV.TRANS.ETH supply.v_ddio); the retired 0.1 m row was board
     // practice with zero spec witnesses.
 
     pins = [

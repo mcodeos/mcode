@@ -23,7 +23,7 @@ interface LVD(role)
     // No interface electrical book: this is a board-level sense wire, not a
     // standardized link. The monitored-rail identity is the binding-side
     // value (the SOURCE-side rail); the detector threshold is per-part
-    // device EC and rides the category face (the RESET.MON threshold class;
+    // device EC and rides the category face (the DEV.SUP.RESET threshold class;
     // the corpus carries zero link-level witnesses). The retired distance
     // row (0.5 m) was placement practice with zero standard witnesses; the
     // supply tiers ride the DC faces.

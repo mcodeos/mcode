@@ -14,10 +14,10 @@
 //       on each end and states its crossing or straight join in the body.
 
 // USB3 - SuperSpeed family. The lane contract (SSTX/SSRX differential
-// pairs) rides the USB3.ELEC recipe face; USB3.TX and USB3.RX are its two
+// pairs) rides the ELEC.USB3 recipe face; USB3.TX and USB3.RX are its two
 // mirror half-classes, and the connector classes (USB3.TYPEA/TYPEB/
 // MICROB) carry the lane pairs beside their USB 2.0 pair (which rides
-// USB.ELEC) - no connector book (the shared-contract law). The retired
+// ELEC.USB) - no connector book (the shared-contract law). The retired
 // envelope rows were folklore: no document states a physical cable limit
 // (the nearest witnesses are test-fixture and loss-budget prose), the
 // rate-at-distance form exists nowhere corpus-wide, and the 5V/900mA
@@ -33,8 +33,8 @@ interface USB(role)
     mode = ["full duplex"]
 
     // Electrical contract data (rate, receiver/driver windows) rides the
-    // USB.ELEC recipe face (302 3.2); the VBUS/GND power face rides the
-    // DC.ELEC / DC.SINK recipe faces (the CAN.ELEC supply-tier routing
+    // ELEC.USB recipe face (302 3.2); the VBUS/GND power face rides the
+    // ELEC.DC / ANCH.PWR.SINK recipe faces (the ELEC.CAN supply-tier routing
     // law). The cable-length tier retired with the interface param gate;
     // this definition carries structure only.
 
@@ -81,8 +81,8 @@ interface USB.TYPEA(role)
     topology = "point to point"
     mode = ["full duplex"]
 
-    // Electrical contract data rides the USB.ELEC recipe face (302 3.2);
-    // the VBUS/GND power face rides the DC.ELEC / DC.SINK recipe faces.
+    // Electrical contract data rides the ELEC.USB recipe face (302 3.2);
+    // the VBUS/GND power face rides the ELEC.DC / ANCH.PWR.SINK recipe faces.
     // Same electrical law as the USB base class (the variant ruling); this
     // definition carries structure only.
 
@@ -122,8 +122,8 @@ interface USB.TYPEB(role)
     topology = "point to point"
     mode = ["full duplex"]
 
-    // Electrical contract data rides the USB.ELEC recipe face (302 3.2);
-    // the VBUS/GND power face rides the DC.ELEC / DC.SINK recipe faces.
+    // Electrical contract data rides the ELEC.USB recipe face (302 3.2);
+    // the VBUS/GND power face rides the ELEC.DC / ANCH.PWR.SINK recipe faces.
     // Same electrical law as the USB base class (the variant ruling); this
     // definition carries structure only.
 
@@ -163,8 +163,8 @@ interface USB.MINIB(role)
     topology = "point to point"
     mode = ["full duplex"]
 
-    // Electrical contract data rides the USB.ELEC recipe face (302 3.2);
-    // the VBUS/GND power face rides the DC.ELEC / DC.SINK recipe faces.
+    // Electrical contract data rides the ELEC.USB recipe face (302 3.2);
+    // the VBUS/GND power face rides the ELEC.DC / ANCH.PWR.SINK recipe faces.
     // Same electrical law as the USB base class (the variant ruling); this
     // definition carries structure only.
 
@@ -207,8 +207,8 @@ interface USB.MICROB(role)
     topology = "point to point"
     mode = ["full duplex"]
 
-    // Electrical contract data rides the USB.ELEC recipe face (302 3.2);
-    // the VBUS/GND power face rides the DC.ELEC / DC.SINK recipe faces.
+    // Electrical contract data rides the ELEC.USB recipe face (302 3.2);
+    // the VBUS/GND power face rides the ELEC.DC / ANCH.PWR.SINK recipe faces.
     // Same electrical law as the USB base class (the variant ruling); this
     // definition carries structure only.
 
@@ -239,6 +239,61 @@ interface USB.MICROB(role)
 
 }
 
+// USB3 - USB 3.x Interface (family base view) Standard Definition
+// Core Rule: The SuperSpeed family base view — the USB 2.0 backward-
+//            compatibility pair, the SuperSpeed lane pairs and the
+//            GND_DRAIN return; the connector members (USB3.TYPEA /
+//            USB3.TYPEB / USB3.MICROB) state the receptacle pinout, the
+//            lane members (USB3.TX / USB3.RX) state one direction each.
+//            The Standard-A receptacle is the host side, so the host
+//            receives on SSRX and transmits on SSTX.
+// Device Definition: HOST = the SuperSpeed host (transmits on SSTX,
+//                    receives on SSRX),
+//                    DEVICE = the SuperSpeed peripheral.
+// Routing: the SuperSpeed pairs ride the ELEC.USB3 recipe face; the USB
+//           2.0 pair rides the ELEC.USB recipe face; the VBUS 5V/900mA
+//           face is application convention and rides the DC faces.
+
+interface USB3(role)
+{
+    topology = "point to point"
+    mode = ["full duplex"]
+
+    pins = [
+        // USB 2.0 pins (backward compatibility)
+        [1,4] = [VBUS, GND]::DC(), "Power / Ground"
+        [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
+        // SuperSpeed lanes
+        [5,6] = [SS\-,SS\+] @pair(ss) @class(digital), "SuperSpeed Negative / SuperSpeed Positive"
+        [7,8] = [SSRX\-,SSRX\+] @pair(ssrx) @class(digital), "SuperSpeed RX Negative / SuperSpeed RX Positive"
+        9 = GND_DRAIN, "Ground drain return"
+    ]
+
+    role HOST {
+        name = "USB3 Host"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(), "Power / Ground"
+            [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
+            io [5,6] = [SS\-,SS\+] @pair(ss) @class(digital), "SuperSpeed Negative / SuperSpeed Positive"
+            in [7,8] = [SSRX\-,SSRX\+] @pair(ssrx) @class(digital), "SuperSpeed RX Negative / SuperSpeed RX Positive"
+            9 = GND_DRAIN, "Ground drain return"
+        ]
+        peer = DEVICE(1)
+    }
+
+    role DEVICE {
+        name = "USB3 Device"
+        pins = [
+            [1,4] = [VBUS, GND]::DC(), "Power / Ground"
+            [2,3] = [D\-,D\+] @pair(d) @class(digital), "Data Negative / Data Positive"
+            io [5,6] = [SS\-,SS\+] @pair(ss) @class(digital), "SuperSpeed Negative / SuperSpeed Positive"
+            in [7,8] = [SSRX\-,SSRX\+] @pair(ssrx) @class(digital), "SuperSpeed RX Negative / SuperSpeed RX Positive"
+            9 = GND_DRAIN, "Ground drain return"
+        ]
+        peer = HOST(1)
+    }
+}
+
 // USB3.TYPEA - USB 3.x Type-A Connector Interface Standard Definition
 // Core Rule: USB 2.0 pins for backward compatibility plus two
 //            SuperSpeed differential pairs and a GND_DRAIN return; the
@@ -247,8 +302,8 @@ interface USB.MICROB(role)
 // Device Definition: HOST = the SuperSpeed host (transmits on SSTX,
 //                    receives on SSRX),
 //                    DEVICE = the SuperSpeed peripheral.
-// Routing: the two SuperSpeed pairs ride USB3.ELEC; the USB 2.0 pair rides
-//           USB.ELEC; the VBUS 5V/900mA face is application convention and
+// Routing: the two SuperSpeed pairs ride ELEC.USB3; the USB 2.0 pair rides
+//           ELEC.USB; the VBUS 5V/900mA face is application convention and
 //           rides the DC faces.
 
 interface USB3.TYPEA(role)
@@ -307,8 +362,8 @@ interface USB3.TYPEA(role)
 // Device Definition: HOST = the SuperSpeed host (transmits on SSTX,
 //                    receives on SSRX),
 //                    DEVICE = the SuperSpeed peripheral.
-// Routing: the two SuperSpeed pairs ride USB3.ELEC; the USB 2.0 pair rides
-//           USB.ELEC; the VBUS face rides the DC faces.
+// Routing: the two SuperSpeed pairs ride ELEC.USB3; the USB 2.0 pair rides
+//           ELEC.USB; the VBUS face rides the DC faces.
 
 interface USB3.TYPEB(role)
 {
@@ -366,8 +421,8 @@ interface USB3.TYPEB(role)
 // Device Definition: HOST = the SuperSpeed host (transmits on SSTX,
 //                    receives on SSRX),
 //                    DEVICE = the SuperSpeed peripheral.
-// Routing: the two SuperSpeed pairs ride USB3.ELEC; the USB 2.0 pair rides
-//           USB.ELEC; the VBUS face rides the DC faces.
+// Routing: the two SuperSpeed pairs ride ELEC.USB3; the USB 2.0 pair rides
+//           ELEC.USB; the VBUS face rides the DC faces.
 
 interface USB3.MICROB(role)
 {
@@ -435,10 +490,10 @@ interface USB.C(role)
     mode = ["full duplex"]
 
     // Electrical contract data rides the recipe faces: the CC
-    // configuration-channel face rides USB.C.ELEC (302 3.2); the USB 2.0
-    // lane rides USB.ELEC and the SuperSpeed pairs stay open for the USB3
-    // leg; the VBUS power face rides the DC.ELEC / DC.SINK recipe faces
-    // (the CAN.ELEC supply-tier routing law). The cable-length tier
+    // configuration-channel face rides ELEC.USB.C (302 3.2); the USB 2.0
+    // lane rides ELEC.USB and the SuperSpeed pairs stay open for the USB3
+    // leg; the VBUS power face rides the ELEC.DC / ANCH.PWR.SINK recipe faces
+    // (the ELEC.CAN supply-tier routing law). The cable-length tier
     // retired with the interface param gate; this definition carries
     // structure only.
     
@@ -552,7 +607,7 @@ interface USB.DATA(role)
     mode = ["full duplex"]
 
     // Electrical contract data (rate, receiver/driver windows) rides the
-    // USB.ELEC recipe face (302 3.2); this definition carries structure
+    // ELEC.USB recipe face (302 3.2); this definition carries structure
     // only.
 
     // The two rows tagged @pair(d) are the two legs of one differential
@@ -589,7 +644,7 @@ interface USB.DATA(role)
 //            bench judge it.
 // Device Definition: HOST = the transmit end that drives the pair,
 //                    DEVICE = the peer end that reads it.
-// Routing: the lane face rides USB3.ELEC - TX is the transmit half-class,
+// Routing: the lane face rides ELEC.USB3 - TX is the transmit half-class,
 //           USB3.RX its receive mirror end; one book covers both.
 
 interface USB3.TX(role)
@@ -633,7 +688,7 @@ interface USB3.TX(role)
 //            bench judge it.
 // Device Definition: HOST = the receive end that reads the pair,
 //                    DEVICE = the peer end that drives it.
-// Routing: the lane face rides USB3.ELEC - RX is the receive half-class,
+// Routing: the lane face rides ELEC.USB3 - RX is the receive half-class,
 //           the mirror end of USB3.TX; one book covers both.
 
 interface USB3.RX(role)

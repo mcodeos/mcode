@@ -6,14 +6,14 @@ use ../ifs/dio
 // Diode family book. One recipe container per diode model; a class adopts
 // the container it implements and exposes that container's funcs.
 //   DIO           - junction conduction (general-purpose, Schottky)
-//   DIO.CLAMP     - reverse-breakdown clamp (zener, TVS, ESD)
-//   DIO.PHOTO     - photocurrent (photodiode)
-//   DIO.BR        - bridge rectifier composite
-//   DIO.ESD_ARRAY - multi-line ESD array
+//   ANCH.DIO.CLAMP     - reverse-breakdown clamp (zener, TVS, ESD)
+//   ANCH.DIO.PHOTO     - photocurrent (photodiode)
+//   ANCH.DIO.BR        - bridge rectifier composite
+//   ANCH.DIO.ESD_ARRAY - multi-line ESD array
 // Recipes carry structure only; values live in ctor/spec defaults and at
 // the BOM layer.
 
-recipe DIO {
+recipe ANCH.DIO {
     // Entry pair anchor; adopters bind [A, K]::DIO() (bare member names
     // render on the schematic).
     io DIO{A, K}
@@ -47,7 +47,7 @@ recipe DIO {
 }
 
 // Reverse-breakdown clamp container.
-recipe DIO.CLAMP {
+recipe ANCH.DIO.CLAMP {
     io DIO{A, K}
     require = [
         clamp = [
@@ -79,7 +79,7 @@ recipe DIO.CLAMP {
 }
 
 // Photocurrent container.
-recipe DIO.PHOTO {
+recipe ANCH.DIO.PHOTO {
     io DIO{A, K}
     require = [
         optical = [
@@ -112,7 +112,7 @@ recipe DIO.PHOTO {
 
 // Bridge rectifier composite; contact order = ~ + ~ - around the DIP-4
 // package.
-recipe DIO.BR {
+recipe ANCH.DIO.BR {
     require = [
         electrical = [
             current_average = Current, desc: "average forward output current rating IO(AV)"
@@ -131,7 +131,7 @@ recipe DIO.BR {
 
 // Multi-line ESD array: N signal lines steering to a common clamp
 // reference.
-recipe DIO.ESD_ARRAY {
+recipe ANCH.DIO.ESD_ARRAY {
     require = [
         clamp = [
             esd_rating = Voltage, desc: "ESD withstand class voltage (IEC 61000-4-2 face)"
@@ -151,7 +151,7 @@ abstract component DIO(
     vfwd::UV.VOLT,
     vrev::UV.VOLT,
     irated::UV.AMP
-) :: DIO {
+) :: ANCH.DIO {
     name = "Diode"
 
     pins = [
@@ -173,7 +173,7 @@ abstract component DIO.SCH(
     vfwd::UV.VOLT,
     vrev::UV.VOLT,
     irated::UV.AMP
-) :: DIO {
+) :: ANCH.DIO {
     name = "Schottky Diode"
 
     pins = [
@@ -195,7 +195,7 @@ abstract component DIO.ZEN(
     vz::UV.VOLT,
     prated::UV.WATT,
     tol::UV.PERCENT
-) :: DIO.CLAMP {
+) :: ANCH.DIO.CLAMP {
     name = "Zener Diode"
 
     pins = [
@@ -217,7 +217,7 @@ abstract component DIO.TVS(
     vbr::UV.VOLT,
     vclamp::UV.VOLT,
     ppeak::UV.WATT
-) :: DIO.CLAMP {
+) :: ANCH.DIO.CLAMP {
     name = "Transient Voltage Suppressor"
 
     pins = [
@@ -237,7 +237,7 @@ abstract component DIO.TVS(
 // working face; rated by the working standoff / ESD withstand voltage.
 abstract component DIO.ESD(
     rating::UV.VOLT
-) :: DIO.CLAMP {
+) :: ANCH.DIO.CLAMP {
     name = "ESD Diode"
 
     pins = [
@@ -256,7 +256,7 @@ abstract component DIO.ESD(
 // topology.
 abstract component DIO.ESD_ARRAY(
     rating::UV.VOLT
-) :: DIO.ESD_ARRAY {
+) :: ANCH.DIO.ESD_ARRAY {
     name = "ESD Protection Diode Array"
 
     pins = [
@@ -277,7 +277,7 @@ abstract component DIO.PHOTO(
     resp::UV.RESPONSIVITY,
     idark::UV.AMP,
     srange::UV.LEN
-) :: DIO.PHOTO {
+) :: ANCH.DIO.PHOTO {
     name = "Photodiode"
 
     pins = [
@@ -298,7 +298,7 @@ abstract component DIO.BR(
     iavg::UV.AMP,
     vrrm::UV.VOLT,
     vfwd::UV.VOLT
-) :: DIO.BR {
+) :: ANCH.DIO.BR {
     name        = "Bridge Rectifier"
     description = "Single-phase bridge rectifier, two AC inputs and two DC outputs"
 
@@ -331,4 +331,4 @@ abstract component DIO.BR(
 // DIO.TVS(12V, 15V, 500W).Clamp([sensitive_line, gnd])
 //
 // 5. Photodiode sensing light through a reverse bias
-// DIO.PHOTO(0.5A/W, 1nA, 850nm).Sense([5.0V, light_output])
+// ANCH.DIO.PHOTO(0.5A/W, 1nA, 850nm).Sense([5.0V, light_output])

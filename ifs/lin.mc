@@ -15,12 +15,12 @@ interface LIN(role)
     mode = ["half duplex"]
 
     // Corpus verdict (LIN 2.x / SAE J2602 class; transceiver contract
-    // already keyed at the family-recipe altitude -- LIN.PHY carries
+    // already keyed at the family-recipe altitude -- DEV.TRANS.LIN carries
     // bus rate (20 kbaud class), v_bus, v_th, and the v_bb battery
     // supply window): the three retired rows route there or die.
-    // Speed: the 20 kbps row is the LIN.PHY rate key's value domain,
+    // Speed: the 20 kbps row is the DEV.TRANS.LIN rate key's value domain,
     // not an interface envelope. Voltage: 12 V is the VBAT domain --
-    // the battery window is LIN.PHY v_bb, the node supply windows ride
+    // the battery window is DEV.TRANS.LIN v_bb, the node supply windows ride
     // the DC faces. Distance: the 40 m figure has zero corpus
     // witnesses (the LIN specification owns any cable face). No .ELEC
     // book: the bus electrical face is already keyed at the recipe

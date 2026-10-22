@@ -10,7 +10,7 @@
 // ledger). The five no-parameter classes adopt this container as-is (option
 // faces only); the terminal faces stay on the classes.
 
-recipe SWITCH {
+recipe ANCH.SWITCH {
     option = [
         build = [
             style = Words, desc: "contact form / actuator style (sheet heads: Contact form SPST-NO / Angle of Throw)"
@@ -19,11 +19,11 @@ recipe SWITCH {
     ]
 }
 
-// SWITCH.DIP container: the DIP-switch population - the total pin count is
+// ANCH.SWITCH.DIP container: the DIP-switch population - the total pin count is
 // the require face (the formal), pitch / style / mount are BOM faces. No
 // DIP-switch component sheet in the sampled corpus - columns stand on the
 // model face.
-recipe SWITCH.DIP {
+recipe ANCH.SWITCH.DIP {
     require = [
         build = [
             pin_count = Count, desc: "total pin count (the formal; switch k joins pin k with pin pin_count+1-k)"
@@ -42,7 +42,7 @@ recipe SWITCH.DIP {
 // Core Rule: user-actuated open/close between COM and NO; no closed-at-rest
 // contact.
 
-abstract component SWITCH :: SWITCH {
+abstract component SWITCH :: ANCH.SWITCH {
     name        = "Basic Switch"
     description = "on/off switch with two terminals"
 
@@ -56,7 +56,7 @@ abstract component SWITCH :: SWITCH {
 // Core Rule: one actuation switches two independent poles (COM1-NO1,
 // COM2-NO2) together.
 
-abstract component SWITCH.DOUBLE :: SWITCH {
+abstract component SWITCH.DOUBLE :: ANCH.SWITCH {
     name        = "Double Pole Switch"
     description = "Double pole switch with four terminals"
 
@@ -72,7 +72,7 @@ abstract component SWITCH.DOUBLE :: SWITCH {
 // Core Rule: the actuator selects which of NC / NO is connected to COM and
 // stays in that position without power.
 
-abstract component SWITCH.TOGGLE :: SWITCH {
+abstract component SWITCH.TOGGLE :: ANCH.SWITCH {
     name        = "Toggle Switch"
     description = "Toggle switch with on/off positions"
 
@@ -86,7 +86,7 @@ abstract component SWITCH.TOGGLE :: SWITCH {
 // SWITCH.MOM - Momentary Switch Component Definition
 // Core Rule: contact closes only while actuated and opens on release.
 
-abstract component SWITCH.MOM :: SWITCH {
+abstract component SWITCH.MOM :: ANCH.SWITCH {
     name        = "Momentary Switch"
     description = "Momentary push button switch"
 
@@ -99,7 +99,7 @@ abstract component SWITCH.MOM :: SWITCH {
 // SWITCH.BUTTON - Momentary Push Button Component Definition
 // Core Rule: momentary COM-NO closure while pressed (tact-switch style).
 
-abstract component SWITCH.BUTTON :: SWITCH {
+abstract component SWITCH.BUTTON :: ANCH.SWITCH {
     name        = "Momentary Push Button"
     description = "Momentary push button (tact switch) with common and normally-open terminals"
 
@@ -109,12 +109,12 @@ abstract component SWITCH.BUTTON :: SWITCH {
     ]
 }
 
-// SWITCH.DIP - DIP Switch Component Definition
+// ANCH.SWITCH.DIP - DIP Switch Component Definition
 // Core Rule: independent SPST slides; the formal is the total pin count.
 // Note: physical contact map — switch k joins pin k with pin (pin_count+1-k),
 // i.e. an 8-pin part shorts 1-8, 2-7, 3-6, 4-5 when closed.
 
-abstract component SWITCH.DIP(pincnt::INT) :: SWITCH.DIP {
+abstract component SWITCH.DIP(pincnt::INT) :: ANCH.SWITCH.DIP {
     name        = "DIP Switch"
     description = "DIP switch with independent SPST slides (pin count on the spec face)"
     spec        = [
@@ -136,6 +136,6 @@ abstract component SWITCH.DIP(pincnt::INT) :: SWITCH.DIP {
 // SWITCH.BUTTON btn1
 // SWITCH.TOGGLE tog1
 // SWITCH.MOM mom1
-// SWITCH.DIP(8) addr_sel1          // 8 pins = 4 positions
+// ANCH.SWITCH.DIP(8) addr_sel1          // 8 pins = 4 positions
 // addr_sel1.1 -> gnd
 // addr_sel1.8 -> i2c_addr0

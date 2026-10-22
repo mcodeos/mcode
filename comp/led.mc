@@ -9,7 +9,7 @@
 // Current / Power Dissipation) with no symbol face; the wavelength symbols
 // are the non-ASCII lambda-p / lambda-d subscripts (desc notes).
 
-recipe LED {
+recipe ANCH.LED {
     // Entry pair anchor, bare member names; adopters bind [A, K]::DIO()
     // (the SCR container shape - bare rows match the group-exposed pads).
     io A
@@ -33,7 +33,7 @@ recipe LED {
 // per-channel forward voltages are the design quantities (per-color sheet
 // columns carry no separate symbols). Terminal face stays on the classes
 // (four discrete pads, no group adoption).
-recipe LED.RGB {
+recipe ANCH.LED.RGB {
     require = [
         electrical = [
             red_forward_voltage   = Voltage, desc: "red channel forward voltage (per-color sheet columns)"
@@ -49,7 +49,7 @@ recipe LED.RGB {
 // forward voltage sets the dropper/budget, forward current sets the
 // brightness and must be limited externally.
 
-abstract component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
+abstract component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: ANCH.LED {
     name = "LED"
     spec += [
         forward_voltage = vfwd        // [1.8V, 2.0V, 2.2V, 3.2V, 3.6V]
@@ -68,12 +68,12 @@ abstract component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
     }
 }
 
-// LED.RGB - Three-Channel RGB LED Component Definition
+// ANCH.LED.RGB - Three-Channel RGB LED Component Definition
 // Core Rule: three independent emitters (red, green, blue anodes) sharing one
 // common cathode; each channel has its own forward voltage and needs its own
 // current limit.
 
-abstract component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP) :: LED.RGB {
+abstract component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP) :: ANCH.LED.RGB {
     name = "RGB LED"
     spec += [
         red_forward_voltage   = vred
@@ -102,7 +102,7 @@ abstract component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd:
 // Core Rule: forward-biased junction emits in the infrared band; driven in
 // pulsed or continuous mode by an external current limit.
 
-abstract component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LED {
+abstract component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: ANCH.LED {
     name = "Infrared LED"
     spec += [
         forward_voltage = vfwd
@@ -125,7 +125,7 @@ abstract component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: LE
 // Core Rule: high-current emitter rated by dissipated power — thermal
 // management (heatsinking, derating) governs the drive level.
 
-abstract component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT) :: LED {
+abstract component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT) :: ANCH.LED {
     name = "High Power LED"
     spec += [
         forward_voltage = vfwd  // [3.0V, 3.2V, 3.4V, 3.6V]
@@ -149,7 +149,7 @@ abstract component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT) :: LED {
 // LED(2.2V, 20mA, 520nm).Indicator([vcc, gnd])
 
 // 2. RGB LED for color indication
-// LED.RGB(2.0V, 3.2V, 3.2V, 20mA).Color(red_pwm, green_pwm, blue_pwm, gnd)
+// ANCH.LED.RGB(2.0V, 3.2V, 3.2V, 20mA).Color(red_pwm, green_pwm, blue_pwm, gnd)
 
 // 3. Infrared LED for remote control
 // LED.IR(1.2V, 100mA, 940nm).Transmit(ir_driver)
