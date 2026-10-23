@@ -59,3 +59,17 @@ if ! python3 scripts/check-enum-groups.py; then
     echo "pre-commit: enum group gate failed (see scripts/check-enum-groups.py)"
     exit 1
 fi
+
+# Pin-face gate: the library face keeps the shapes that landed (usage
+# blocks, pin naming off the pin number).  A gate nobody calls is a gate
+# that never bites, so it is called here.
+if ! python3 scripts/check-face.py --quiet; then
+    echo "pre-commit: pin-face gate failed (see scripts/check-face.py)"
+    exit 1
+fi
+
+# Spec-key vocabulary gate: one quantity, one spelling.
+if ! python3 scripts/check-spec-keys.py; then
+    echo "pre-commit: spec-key gate failed (see scripts/check-spec-keys.py)"
+    exit 1
+fi

@@ -29,11 +29,23 @@ violations of landed law (gating them today would ship a red gate):
 
 Exit 0 = gated rules clean, 1 = findings. Lines are reported as
 `file:line: message`.
+
+The scan face is the tracked library face (see scripts/tracked.py): a
+commit carries tracked files, and the gate judges what a commit carries.
+
+Usage
+    python3 scripts/check-face.py [--quiet]
+
+`--quiet` suppresses the worklist section only -- the campaign list is
+for the reading human, not for the hook, which wants the verdict.
 """
 
 import re
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from tracked import tracked_mc
 
 COMPONENT_RE = re.compile(r"^(abstract\s+)?component\b")
 USAGE_RE = re.compile(r"usage example", re.IGNORECASE)
@@ -72,7 +84,7 @@ def check_file(path, in_conn):
 def main():
     root = Path(__file__).resolve().parent.parent
     gated, report = [], []
-    for path in sorted(root.rglob("*.mc")):
+    for path in tracked_mc(root):
         rel = path.relative_to(root).as_posix()
         if rel.startswith("ifs/"):
             continue
@@ -81,7 +93,7 @@ def main():
         report.extend(r)
     for f in gated:
         print(f)
-    if report:
+    if report and "--quiet" not in sys.argv:
         print("-- worklist (report-only, not gated) --")
         for f in report:
             print(f)

@@ -26,6 +26,9 @@ import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from tracked import tracked_mc
+
 BANNED_KEYS = {
     "voltage_rated": "use `voltage`",
     "power_rating": "use `power_rated`",
@@ -105,7 +108,7 @@ def check_file(path):
 def main():
     root = Path(__file__).resolve().parent.parent
     findings = []
-    for path in sorted(root.rglob("*.mc")):
+    for path in tracked_mc(root):
         findings.extend(check_file(path))
     for f in findings:
         print(f)

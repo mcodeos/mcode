@@ -6,3 +6,6 @@ target
 baseline/
 build/
 .DS_Store
+
+# Python bytecode cache (the gate scripts import a shared helper)
+__pycache__/
