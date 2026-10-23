@@ -3,7 +3,7 @@
 
 // CIRC.BASIC - Generic circular connector Component Definition
 
-component CIRC.BASIC(pin_count::INT) :: ANCH.CONN.CAP
+component CIRC.BASIC(pin_count::INT) :: ANCH.CONN.MATE
 {
     name = "Circular Connector"
     description = "Basic circular connector with " + pin_count + " pins"
@@ -12,7 +12,7 @@ component CIRC.BASIC(pin_count::INT) :: ANCH.CONN.CAP
         pin_count = pin_count
         diameter = _ // [8mm, 10mm, 12mm, 16mm, 20mm]
         thread = _ // [M8, M10, M12, M16, 1/4-20, 3/8-16]
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = _ // the mating face is not fixed until the shell geometry is
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part
@@ -26,7 +26,7 @@ component CIRC.BASIC(pin_count::INT) :: ANCH.CONN.CAP
 
 // CIRC.MIL_SPEC - Military-specification circular connector Component Definition
 
-component CIRC.MIL_SPEC(pin_count::INT) :: ANCH.CONN.CAP
+component CIRC.MIL_SPEC(pin_count::INT) :: ANCH.CONN.MATE
 {
     name = "MIL-SPEC Circular Connector"
     description = "MIL-SPEC circular connector, " + pin_count + " pins"
@@ -35,7 +35,7 @@ component CIRC.MIL_SPEC(pin_count::INT) :: ANCH.CONN.CAP
         series = _ // [MS3102, MS3106, MS3108, MS3110]
         shell_size = _ // [8, 10, 12, 14, 16]
         pin_count = pin_count
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = _ // the mating face is not fixed until the series is
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part
@@ -51,7 +51,7 @@ component CIRC.MIL_SPEC(pin_count::INT) :: ANCH.CONN.CAP
 // Core Rule: Two-contact coaxial face - center conductor carries the RF signal,
 // outer ground shield is the return and exposed electrode.
 
-component CIRC.BNC(impedance::STRING) :: ANCH.CONN.CAP
+component CIRC.BNC(impedance::STRING) :: ANCH.CONN.MATE
 {
     name = "BNC Connector"
     description = "BNC RF coaxial connector, " + impedance + " impedance"
@@ -59,7 +59,7 @@ component CIRC.BNC(impedance::STRING) :: ANCH.CONN.CAP
     spec += [
         impedance = impedance
         application = "RF, Video"
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = CONN_TYPE.BNC
             mate_type = CONN_TYPE.BNC
             gender = _ // the shell gender, filled in by the real part
@@ -76,7 +76,7 @@ component CIRC.BNC(impedance::STRING) :: ANCH.CONN.CAP
 // Core Rule: Two-contact coaxial face - center conductor carries the RF signal,
 // outer ground shield is the return and exposed electrode.
 
-component CIRC.SMA(impedance::STRING) :: ANCH.CONN.CAP
+component CIRC.SMA(impedance::STRING) :: ANCH.CONN.MATE
 {
     name = "SMA Connector"
     description = "SMA RF coaxial connector, " + impedance + " impedance"
@@ -84,7 +84,7 @@ component CIRC.SMA(impedance::STRING) :: ANCH.CONN.CAP
     spec += [
         impedance = impedance
         application = "RF, Microwave"
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = CONN_TYPE.SMA
             mate_type = CONN_TYPE.SMA
             gender = _ // the shell gender, filled in by the real part
@@ -101,7 +101,7 @@ component CIRC.SMA(impedance::STRING) :: ANCH.CONN.CAP
 // Core Rule: 50-ohm two-contact coaxial face - center conductor (RF) plus
 // ground shell; mates with the matching micro RF plug.
 
-component CIRC.UFL() :: ANCH.CONN.CAP
+component CIRC.UFL() :: ANCH.CONN.MATE
 {
     name = "U.FL RF Coaxial Connector"
     description = "U.FL micro RF coaxial receptacle"
@@ -109,7 +109,7 @@ component CIRC.UFL() :: ANCH.CONN.CAP
     spec += [
         impedance = "50Ω"
         application = "Board-level RF exit: WiFi / BT / cellular module antenna port"
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = CONN_TYPE.UFL
             mate_type = CONN_TYPE.IPEX1
             gender = _ // the shell gender, filled in by the real part
@@ -126,7 +126,7 @@ component CIRC.UFL() :: ANCH.CONN.CAP
 // Core Rule: 50-ohm two-contact coaxial face - center conductor (RF) plus
 // ground shell; mates with the matching micro RF plug.
 
-component CIRC.MHF4() :: ANCH.CONN.CAP
+component CIRC.MHF4() :: ANCH.CONN.MATE
 {
     name = "MHF4 RF Coaxial Connector"
     description = "MHF4 micro RF coaxial receptacle"
@@ -134,7 +134,7 @@ component CIRC.MHF4() :: ANCH.CONN.CAP
     spec += [
         impedance = "50Ω"
         application = "Board-level RF exit: WiFi / BT / GNSS module antenna port"
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = CONN_TYPE.MHF4
             mate_type = CONN_TYPE.IPEX4
             gender = _ // the shell gender, filled in by the real part

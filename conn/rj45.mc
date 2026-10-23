@@ -6,7 +6,7 @@
 // position (pad 1 = TD+, ... pad 8 = BI8), so a jack wired to an ETHERNET
 // Host maps 1:1 through the adoption.
 
-component RJ45.JACK() :: ANCH.CONN.CAP
+component RJ45.JACK() :: ANCH.CONN.MATE
 {
     name = "RJ45 Jack"
     description = "8P8C RJ45 receptacle, MDI face"
@@ -17,7 +17,7 @@ component RJ45.JACK() :: ANCH.CONN.CAP
         speed = _ // [10BASE-T, 100BASE-TX, 1000BASE-T]
         mount = _ // [through-hole, surface-mount]
         orientation = _ // [horizontal, vertical]
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = CONN_TYPE.RJ45
             mate_type = CONN_TYPE.RJ45
             gender = _ // the shell gender, filled in by the real part
@@ -35,7 +35,7 @@ component RJ45.JACK() :: ANCH.CONN.CAP
 // the chassis/shield electrode. GbE magjacks (4 pairs + 4 taps) are not
 // modeled here.
 
-component RJ45.MAGJACK() :: ANCH.CONN.CAP
+component RJ45.MAGJACK() :: ANCH.CONN.MATE
 {
     name = "RJ45 Magjack"
     description = "RJ45 jack with integrated 10/100BASE-T magnetics"
@@ -47,7 +47,7 @@ component RJ45.MAGJACK() :: ANCH.CONN.CAP
         isolation = _ // [1500Vrms]
         leds = _ // [none, green/yellow, single]
         mount = _ // [through-hole, surface-mount]
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = CONN_TYPE.RJ45
             mate_type = CONN_TYPE.RJ45
             gender = _ // the shell gender, filled in by the real part

@@ -5,7 +5,7 @@
 // Core Rule: Two-contact DC face - center pin positive or negative per the
 // polarity parameter, outer sleeve the opposite rail.
 
-component POWER.DC_JACK(polarity::STRING) :: ANCH.CONN.CAP
+component POWER.DC_JACK(polarity::STRING) :: ANCH.CONN.MATE
 {
     name = "DC Power Jack"
     description = "DC power barrel jack, " + polarity + " polarity"
@@ -13,7 +13,7 @@ component POWER.DC_JACK(polarity::STRING) :: ANCH.CONN.CAP
     spec += [
         center_pin_diameter = _ // [2.1mm, 2.5mm, 3.0mm]
         polarity = polarity
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = _ // [DC_JACK_5_5MM, DC_JACK_6_3MM, DC_JACK_7_4MM, DC_JACK_8_4MM]
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part
@@ -27,7 +27,7 @@ component POWER.DC_JACK(polarity::STRING) :: ANCH.CONN.CAP
 
 // POWER.XT60 - 60 A two-pole DC power connector (RC models) Component Definition
 
-component POWER.XT60() :: ANCH.CONN.CAP
+component POWER.XT60() :: ANCH.CONN.MATE
 {
     name = "XT60 Connector"
     description = "XT60 power connector"
@@ -35,7 +35,7 @@ component POWER.XT60() :: ANCH.CONN.CAP
     spec += [
         current_rating = "60A"
         application = "RC Models"
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = CONN_TYPE.XT60
             mate_type = CONN_TYPE.XT60
             gender = _ // the shell gender, filled in by the real part
@@ -49,7 +49,7 @@ component POWER.XT60() :: ANCH.CONN.CAP
 
 // POWER.XT30 - 30 A two-pole DC power connector, smaller sibling of POWER.XT60 (RC models) Component Definition
 
-component POWER.XT30() :: ANCH.CONN.CAP
+component POWER.XT30() :: ANCH.CONN.MATE
 {
     name = "XT30 Connector"
     description = "XT30 power connector"
@@ -57,7 +57,7 @@ component POWER.XT30() :: ANCH.CONN.CAP
     spec += [
         current_rating = "30A"
         application = "RC Models"
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = CONN_TYPE.XT30
             mate_type = CONN_TYPE.XT30
             gender = _ // the shell gender, filled in by the real part
@@ -71,7 +71,7 @@ component POWER.XT30() :: ANCH.CONN.CAP
 
 // POWER.DEANS_T - 40 A two-pole T-form DC power connector (RC models) Component Definition
 
-component POWER.DEANS_T() :: ANCH.CONN.CAP
+component POWER.DEANS_T() :: ANCH.CONN.MATE
 {
     name = "Deans T Connector"
     description = "Deans T power connector"
@@ -79,7 +79,7 @@ component POWER.DEANS_T() :: ANCH.CONN.CAP
     spec += [
         current_rating = "40A"
         application = "RC Models"
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = CONN_TYPE.DEANS_T
             mate_type = CONN_TYPE.DEANS_T
             gender = _ // the shell gender, filled in by the real part
@@ -93,7 +93,7 @@ component POWER.DEANS_T() :: ANCH.CONN.CAP
 
 // POWER.ANDERSON - Modular multi-pole DC power connector, quantity pole pairs Component Definition
 
-component POWER.ANDERSON(quantity::INT = 1) :: ANCH.CONN.CAP
+component POWER.ANDERSON(quantity::INT = 1) :: ANCH.CONN.MATE
 {
     name = "Anderson Powerpole Connector"
     description = "Anderson Powerpole connector, " + quantity + " pole(s)"
@@ -101,7 +101,7 @@ component POWER.ANDERSON(quantity::INT = 1) :: ANCH.CONN.CAP
     spec += [
         current_rating = _ // [15A, 30A, 45A]
         pole_count = quantity
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = _ // [ANDERSON_2P, ANDERSON_4P, ANDERSON_6P]
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part
@@ -116,13 +116,13 @@ component POWER.ANDERSON(quantity::INT = 1) :: ANCH.CONN.CAP
 // POWER.ATX - Computer power supply connector, type-parameterized Component Definition
 // Note: type selects the pin map - main (24-pin), cpu, pcie, sata, or molex.
 
-component POWER.ATX(type::STRING) :: ANCH.CONN.CAP
+component POWER.ATX(type::STRING) :: ANCH.CONN.MATE
 {
     name = "ATX Power Connector"
     description = "ATX " + type + " power connector"
     
     spec += [
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = _ // [ATX_MAIN, ATX_CPU_4P, ATX_PCIE, ATX_SATA, ATX_MOLEX]
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part

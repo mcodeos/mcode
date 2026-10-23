@@ -3,7 +3,7 @@
 
 // CONN.B2B - Generic board-to-board connector Component Definition
 
-component CONN.B2B(pincnt::INT) :: ANCH.CONN.CAP
+component CONN.B2B(pincnt::INT) :: ANCH.CONN.MATE
 {
     name = "Board-to-Board Connector"
     description = "Board-to-board connector"
@@ -12,7 +12,7 @@ component CONN.B2B(pincnt::INT) :: ANCH.CONN.CAP
         pin_count = pincnt // [2, 4, 6, 8, 10, 12, 16, 20, 24, 28, 32, 40]
         pitch = _ // [0.5mm, 0.65mm, 0.8mm, 1.0mm, 1.27mm, 2.0mm]
         stack_height = _ // [0.5mm, 1.0mm, 1.5mm, 2.0mm, 2.5mm, 3.0mm, 4.0mm, 5.0mm]
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = _ // the mating form: fixed by the pitch and the stack height, filled in by the real part
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part
@@ -26,7 +26,7 @@ component CONN.B2B(pincnt::INT) :: ANCH.CONN.CAP
 
 // CONN.MEZZANINE - High-density mezzanine (stacked-board) connector Component Definition
 
-component CONN.MEZZANINE(pincnt::INT) :: ANCH.CONN.CAP
+component CONN.MEZZANINE(pincnt::INT) :: ANCH.CONN.MATE
 {
     name = "Mezzanine Connector"
     description = "High-density mezzanine connector"
@@ -35,7 +35,7 @@ component CONN.MEZZANINE(pincnt::INT) :: ANCH.CONN.CAP
         pin_count = pincnt // [10, 20, 30, 40, 50, 60, 80, 100]
         pitch = _ // [0.3mm, 0.4mm, 0.5mm, 0.65mm, 0.8mm]
         stack_height = _ // [0.5mm, 1.0mm, 1.5mm, 2.0mm, 2.5mm, 3.0mm]
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = _ // the mating form: fixed by the pitch and the stack height, filled in by the real part
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part
@@ -50,7 +50,7 @@ component CONN.MEZZANINE(pincnt::INT) :: ANCH.CONN.CAP
 // CONN.DIN41612 - DIN 41612 rectangular board-to-board connector Component Definition
 // Note: form factor C = 96-pin, B = 64-pin, A = 32-pin.
 
-component CONN.DIN41612(pincnt::INT) :: ANCH.CONN.CAP
+component CONN.DIN41612(pincnt::INT) :: ANCH.CONN.MATE
 {
     name = "DIN 41612 Connector"
     description = "DIN 41612 board-to-board connector, " + pincnt + " pins"
@@ -59,7 +59,7 @@ component CONN.DIN41612(pincnt::INT) :: ANCH.CONN.CAP
         standard = "DIN 41612"
         size = _ // [1, 2, 3]
         pin_count = pincnt
-        ANCH.CONN.CAP = [
+        ANCH.CONN.MATE = [
             conn_type = _ // the mating form: fixed by the pitch and the stack height, filled in by the real part
             mate_type = _ // the form this half mates with
             gender = _ // the shell gender, filled in by the real part

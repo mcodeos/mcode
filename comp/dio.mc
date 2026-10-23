@@ -9,7 +9,7 @@ use ../ifs/dio
 //   ANCH.DIO.CLAMP     - reverse-breakdown clamp (zener, TVS, ESD)
 //   ANCH.DIO.PHOTO     - photocurrent (photodiode)
 //   ANCH.DIO.BR        - bridge rectifier composite
-//   ANCH.DIO.ESD_ARRAY - multi-line ESD array
+//   ANCH.DIO.ESD.ARRAY - multi-line ESD array
 // Recipes carry structure only; values live in ctor/spec defaults and at
 // the BOM layer.
 
@@ -131,7 +131,7 @@ recipe ANCH.DIO.BR {
 
 // Multi-line ESD array: N signal lines steering to a common clamp
 // reference.
-recipe ANCH.DIO.ESD_ARRAY {
+recipe ANCH.DIO.ESD.ARRAY {
     require = [
         clamp = [
             esd_rating = Voltage, desc: "ESD withstand class voltage (IEC 61000-4-2 face)"
@@ -256,7 +256,7 @@ abstract component DIO.ESD(
 // topology.
 abstract component DIO.ESD_ARRAY(
     rating::UV.VOLT
-) :: ANCH.DIO.ESD_ARRAY {
+) :: ANCH.DIO.ESD.ARRAY {
     name = "ESD Protection Diode Array"
 
     pins = [
