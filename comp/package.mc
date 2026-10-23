@@ -554,6 +554,7 @@ enum PKG
     QFN12_3X3,
     QFN16_3X3,
     QFN16_4X4,
+    QFN20_3X3,
     QFN20_4X4,
     QFN20_5X5,
     QFN24_4X4,
