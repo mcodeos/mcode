@@ -27,7 +27,9 @@ recipe DEV.ACTIVE.NPN {
             vceo = Voltage(range), alias: [VCEO], desc: "collector-emitter voltage rating, the absolute-maximum face (base open)"
             ic   = Current, alias: [IC], desc: "continuous collector current rating, the absolute-maximum face"
         ]
-        hfe = Ratio(cond(ic: Current, vce: Voltage)), alias: [hFE], desc: "DC current gain; the cond group registers the field axis vocabulary, condition rows carry the axis word, one condition per row"
+        hfe = [
+            Ratio @cond(mode: Words, ic: Current, vce: Voltage)
+        ], alias: [hFE], desc: "DC current gain; the cond group registers the field axis vocabulary, condition rows carry the axis word, one condition per row"
     ]
     option = [
         abs_max = [
@@ -50,7 +52,9 @@ recipe DEV.ACTIVE.PNP {
             vceo = Voltage(range), alias: [VCEO], desc: "collector-emitter voltage rating, the absolute-maximum face (base open)"
             ic   = Current, alias: [IC], desc: "continuous collector current rating, the absolute-maximum face"
         ]
-        hfe = Ratio(cond(ic: Current, vce: Voltage)), alias: [hFE], desc: "DC current gain; the cond group registers the field axis vocabulary, condition rows carry the axis word, one condition per row"
+        hfe = [
+            Ratio @cond(mode: Words, ic: Current, vce: Voltage)
+        ], alias: [hFE], desc: "DC current gain; the cond group registers the field axis vocabulary, condition rows carry the axis word, one condition per row"
     ]
     option = [
         abs_max = [
