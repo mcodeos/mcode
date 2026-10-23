@@ -5,8 +5,9 @@ use ../ifs/term
 
 // Scoped enum: values are directly accessible (bare) inside component CAP /
 // CAP.*. Outside, use CAP.X7R, CAP.MLCC, etc.
-// Note: the enum mixes three logical groups — 1) Dielectric 2) Construction
-// 3) SafetyClass — do NOT cross-group assign.
+// Note: the enum mixes three logical groups — Dielectric, Construction and
+// SafetyClass — do NOT cross-group assign.  The grouping is machine data in
+// comp/cap.groups.json, held against this enum by scripts/check-enum-groups.py.
 
 enum CAP {
     // ── Dielectric (MLCC temperature characteristic codes) ──

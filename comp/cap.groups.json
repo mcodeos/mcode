@@ -1,0 +1,58 @@
+{
+  "id": "cap-groups",
+  "enum": "CAP",
+  "source": "comp/cap.mc",
+  "note": "The logical groups of the CAP enum, and the spec keys each group may fill. The grouping is a judgement, not a spelling, so it lives in a machine file: a comment cannot be read by a gate, and a judgement a gate cannot read is a judgement nobody enforces.",
+  "keys": {
+    "dielectric": "dielectric",
+    "construction": "construction",
+    "safety_class": "safety"
+  },
+  "params": {
+    "diel": "dielectric",
+    "cons": "construction",
+    "cls": "safety"
+  },
+  "groups": {
+    "dielectric": [
+      "C0G",
+      "X7R",
+      "X7S",
+      "X7U",
+      "X5R",
+      "Y5V",
+      "X8R",
+      "X5F",
+      "U2J",
+      "ALUMINUM_OXIDE",
+      "TANTALUM_PENTOXIDE",
+      "NIOBIUM_PENTOXIDE",
+      "POLYESTER",
+      "POLYPROPYLENE",
+      "POLYCARBONATE",
+      "POLYSTYRENE",
+      "PEN",
+      "MICA",
+      "EDLC"
+    ],
+    "construction": [
+      "WET_ALUMINUM",
+      "POLYMER_ALUMINUM",
+      "WET_TANTALUM",
+      "POLYMER_TANTALUM",
+      "NIOBIUM",
+      "MLCC",
+      "DISC_CERAMIC",
+      "FILM",
+      "MICA",
+      "EDLC"
+    ],
+    "safety": [
+      "SC_NONE",
+      "SC_X1",
+      "SC_X2",
+      "SC_Y1",
+      "SC_Y2"
+    ]
+  }
+}

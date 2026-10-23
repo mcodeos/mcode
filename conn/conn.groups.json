@@ -1,0 +1,84 @@
+{
+  "id": "conn-type-groups",
+  "enum": "CONN_TYPE",
+  "source": "conn/conn_cap.mc",
+  "note": "The application families of the CONN_TYPE enum. The family names live here rather than in the comments, so that a family is a name a tool can read and not a heading a reader has to remember.",
+  "groups": {
+    "usb": [
+      "USB_TYPE_A",
+      "USB_TYPE_B",
+      "USB_TYPE_C",
+      "USB_MINI_B",
+      "USB_MICRO_B"
+    ],
+    "video": [
+      "HDMI_TYPE_A",
+      "HDMI_TYPE_C",
+      "HDMI_TYPE_D",
+      "HDMI_TYPE_E",
+      "DISPLAYPORT_STANDARD",
+      "DISPLAYPORT_MINI",
+      "DISPLAYPORT_USB_C",
+      "D_SUB_15",
+      "DVI_D",
+      "DVI_A",
+      "DVI_I"
+    ],
+    "dc_power": [
+      "DC_JACK_5_5MM",
+      "DC_JACK_6_3MM",
+      "DC_JACK_7_4MM",
+      "DC_JACK_8_4MM",
+      "XT60",
+      "XT30",
+      "DEANS_T",
+      "ANDERSON_2P",
+      "ANDERSON_4P",
+      "ANDERSON_6P",
+      "ATX_MAIN",
+      "ATX_CPU_4P",
+      "ATX_PCIE",
+      "ATX_SATA",
+      "ATX_MOLEX"
+    ],
+    "audio": [
+      "TRS_3_5MM",
+      "TRS_2_5MM",
+      "RCA",
+      "XLR_3",
+      "XLR_4",
+      "XLR_5",
+      "SPEAKON_4",
+      "SPEAKON_8",
+      "BANANA_PLUG"
+    ],
+    "rf_coax": [
+      "BNC",
+      "SMA",
+      "UFL",
+      "MHF4",
+      "IPEX1",
+      "IPEX4"
+    ],
+    "header": [
+      "HEADER_0_6MM",
+      "HEADER_1_00MM",
+      "HEADER_1_27MM",
+      "HEADER_2_00MM",
+      "HEADER_2_50MM",
+      "HEADER_2_54MM"
+    ],
+    "ribbon": [
+      "IDC_2_54MM"
+    ],
+    "appliance_power": [
+      "IEC_C14",
+      "IEC_C13",
+      "IEC_C8",
+      "IEC_C7"
+    ],
+    "modular_plug": [
+      "RJ45"
+    ]
+  }
+}

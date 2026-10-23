@@ -9,14 +9,14 @@
 // namespace prefix (CONN_TYPE.USB_TYPE_A).
 
 enum CONN_TYPE {
-    // Universal Serial Bus
+    // usb - family truth: conn/conn.groups.json
     USB_TYPE_A,
     USB_TYPE_B,
     USB_TYPE_C,
     USB_MINI_B,
     USB_MICRO_B,
 
-    // Video and display
+    // video - family truth: conn/conn.groups.json
     HDMI_TYPE_A,
     HDMI_TYPE_C,
     HDMI_TYPE_D,
@@ -29,7 +29,7 @@ enum CONN_TYPE {
     DVI_A,
     DVI_I,
 
-    // DC power
+    // dc_power - family truth: conn/conn.groups.json
     DC_JACK_5_5MM,
     DC_JACK_6_3MM,
     DC_JACK_7_4MM,
@@ -46,7 +46,7 @@ enum CONN_TYPE {
     ATX_SATA,
     ATX_MOLEX,
 
-    // Audio
+    // audio - family truth: conn/conn.groups.json
     TRS_3_5MM,
     TRS_2_5MM,
     RCA,
@@ -57,7 +57,7 @@ enum CONN_TYPE {
     SPEAKON_8,
     BANANA_PLUG,
 
-    // RF coaxial
+    // rf_coax - family truth: conn/conn.groups.json
     BNC,
     SMA,
     UFL,          // mates with the IPEX1 (U.FL plug) half
@@ -65,7 +65,8 @@ enum CONN_TYPE {
     IPEX1,
     IPEX4,
 
-    // Header families, named by the pitch they mate on: the pin half and
+    // header - family truth: conn/conn.groups.json
+    // Named by the pitch they mate on: the pin half and
     // the socket half of one pitch share the member, the shell gender
     // tells them apart
     HEADER_0_6MM,   // 0.6 mm pitch header
@@ -75,16 +76,18 @@ enum CONN_TYPE {
     HEADER_2_50MM,  // 2.5 mm pitch header
     HEADER_2_54MM,  // 2.54 mm pitch header
 
-    // Ribbon cable: the flat-cable half mates with a header half
+    // ribbon - family truth: conn/conn.groups.json
+    // The flat-cable half mates with a header half
     IDC_2_54MM,     // 2.54 mm insulation-displacement ribbon plug
 
-    // Appliance power: the inlet and the cord connector are two forms
+    // appliance_power - family truth: conn/conn.groups.json
+    // The inlet and the cord connector are two forms
     IEC_C14,        // IEC 60320 C14 appliance inlet
     IEC_C13,        // IEC 60320 C13 cord connector
     IEC_C8,         // IEC 60320 C8 appliance inlet
     IEC_C7,         // IEC 60320 C7 cord connector
 
-    // Modular plug
+    // modular_plug - family truth: conn/conn.groups.json
     RJ45            // 8P8C modular plug
 }
 
