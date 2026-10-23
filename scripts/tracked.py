@@ -18,18 +18,30 @@ so it is not on this face.
 Used by:
   scripts/check-face.py        -- the pin-face gate
   scripts/check-spec-keys.py   -- the spec-key vocabulary gate
+  scripts/check-enum-groups.py -- the enum-group gate
 """
 
 import subprocess
 from pathlib import Path
 
 
-def tracked_mc(root: Path):
-    """Return the sorted `.mc` files of the repository's library face."""
+def tracked_files(root, pattern: str):
+    """Return the sorted files of the repository's library face.
+
+    The pattern is a git pathspec, so one reader serves every gate: a gate
+    that carries its own file list is a second source of truth about what
+    the library face is.
+    """
+    root = Path(root)
     out = subprocess.run(
         ["git", "-C", str(root), "ls-files", "-z",
-         "--cached", "--others", "--exclude-standard", "--", "*.mc"],
+         "--cached", "--others", "--exclude-standard", "--", pattern],
         capture_output=True, check=True, text=True,
     ).stdout
     names = [name for name in out.split("\0") if name]
     return sorted(root / name for name in names)
+
+
+def tracked_mc(root: Path):
+    """Return the sorted `.mc` files of the repository's library face."""
+    return tracked_files(root, "*.mc")

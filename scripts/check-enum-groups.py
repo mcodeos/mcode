@@ -11,7 +11,7 @@ that judgement lives in a comment, no gate can read it -- and a judgement
 no gate can read is a judgement nobody enforces.
 
 So the grouping lives in a machine file next to the enum
-(`mcode/comp/cap.groups.json`, `mcode/conn/conn.groups.json`), and this gate
+(`mcode/tables/cap.groups.json`, `mcode/tables/conn.groups.json`), and this gate
 holds it against the enum and against the assignments the library writes:
 
   G1 membership   every group member is an enum member
@@ -32,6 +32,10 @@ import json
 import os
 import re
 import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from tracked import tracked_files
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COMP = os.path.join(ROOT, "comp")
@@ -39,7 +43,7 @@ COMP = os.path.join(ROOT, "comp")
 DECL_RX = re.compile(r"\benum\s+([A-Z][A-Za-z0-9_]*)\s*\{")
 IDENT_RX = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 SPEC_LINE_RX = re.compile(r"^\s*([a-z_][a-z0-9_]*)\s*=\s*([A-Za-z_][A-Za-z0-9_.]*)")
-GROUP_DIRS = ("comp", "conn")
+GROUP_FILES = "tables/*.groups.json"
 
 
 def enum_members(path, name):
@@ -159,14 +163,7 @@ def check(path, findings):
 
 def main():
     findings = []
-    files = []
-    for d in GROUP_DIRS:
-        base = os.path.join(ROOT, d)
-        if not os.path.isdir(base):
-            continue
-        for name in sorted(os.listdir(base)):
-            if name.endswith(".groups.json"):
-                files.append(os.path.join(base, name))
+    files = list(tracked_files(ROOT, GROUP_FILES))
     if not files:
         print("check-enum-groups: no group files, nothing to check")
         return 0

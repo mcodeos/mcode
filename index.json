@@ -35,6 +35,11 @@
       "name": "conn",
       "path": "conn",
       "version": "0.2.0"
+    },
+    {
+      "name": "tables",
+      "path": "tables",
+      "version": "0.2.0"
     }
   ],
   "version": 1

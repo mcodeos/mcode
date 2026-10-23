@@ -11,3 +11,4 @@ pub use ./conn/conn.mc
 
 // import files
 pub use ./comp/comp.mc
+pub use ./tables/domains.mc
