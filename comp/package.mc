@@ -189,6 +189,11 @@ enum PKG
     POWER_IND_16X16MM,
 
     // ----------------------------------------------------------------
+    // Common-mode chokes (SMD, body L x W, mm)
+    // ----------------------------------------------------------------
+    CMC_18X9MM,
+
+    // ----------------------------------------------------------------
     // Through-hole inductors (axial / radial, body L x D, mm)
     // ----------------------------------------------------------------
     DIP_IND_AXIAL_5X10MM,
@@ -221,6 +226,11 @@ enum PKG
     DO_214AA,   // SMB explicit (DO-214AA)
 
     // ----------------------------------------------------------------
+    // Varistors (SMD disc, body diameter in mm)
+    // ----------------------------------------------------------------
+    MOV_7MM,    // 7 mm disc
+
+    // ----------------------------------------------------------------
     // Through-hole axial-lead diodes
     // ----------------------------------------------------------------
     DO_41,        // DO-41 small-signal rectifier
@@ -251,6 +261,7 @@ enum PKG
     BRIDGE_GBU_4A,
     BRIDGE_GBU_6A,
     BRIDGE_GBU_8A,
+    BRIDGE_GBJ,       // GBJ series SMD bridge (current rating not stated by the part's sheet)
     BRIDGE_DIP_4PIN,
 
     // ----------------------------------------------------------------
@@ -401,6 +412,7 @@ enum PKG
     SOIC40,
 
     // SOP family alias (industry shorthand, identical to SOIC)
+    SOP4,
     SOP8,
     SOP16,
     SOP24,
@@ -480,6 +492,9 @@ enum PKG
     // DFN / SON — Dual / Small Outline No-lead, two-sided
     // -----------------------------------------------------------------
     WSON6_2X2,     // WSON 6-lead 2x2mm no-lead (TI DRV, e.g. TPS25200)
+    DFN3_5X6,      // DFN 3-lead 5x6mm body
+    DFN3_8X8,      // DFN 3-lead 8x8mm body
+    DFN6_5X6,      // DFN 6-lead 5x6mm body
     DFN8_2X2,
     DFN8_3X3,
     DFN10_3X3,
@@ -555,18 +570,23 @@ enum PKG
     // Generic VQFN (pin count only — accept any body size)
     VQFN16,
     VQFN20,
+    VQFN40,
     // Body-size-specific VQFN variants
     VQFN16_3X3,
     VQFN20_4X4,
     VQFN24_5X5,
     VQFN32_6X6,
+    VQFN40_6X6,
     VQFN48_7X7,
 
     // WQFN — Wide-body QFN
     WQFN16,
     WQFN24,
     WQFN32,
+    WQFN40,
     WQFN48,
+    // Body-size-specific WQFN variants
+    WQFN40_6X6,
 
     // UQFN — Ultra-small QFN, 0.4 mm pitch
     // Bare UQFN tokens (pin count only — accept any standard 0.4 mm body)
@@ -774,6 +794,11 @@ enum PKG
     HEADER_20PIN,
     HEADER_24PIN,
     HEADER_40PIN,
+
+    // -----------------------------------------------------------------
+    // Jumpers (SMD wire jumpers, pitch in mm)
+    // -----------------------------------------------------------------
+    JUMPER_2PIN_0_6MM,   // 2-pin SMD jumper, 0.6 mm pitch
 
     // -----------------------------------------------------------------
     // USB connectors
