@@ -12,6 +12,7 @@ pub use ./enc.mc        // ENC incremental quadrature encoder interface (2-phase
 pub use ./onewire.mc    // OneWire interface
 pub use ./xtal.mc       // XTAL interface for crystal oscillators
 pub use ./rst.mc        // RST reset control interface (reset source / reset bodies)
+pub use ./shutdown.mc   // SHUTDOWN shutdown control interface (shutdown request source / governed devices)
 pub use ./isolation.mc  // ISOLATION galvanic-isolation barrier face
 pub use ./dc.mc         // DC power supply interface
 pub use ./vref.mc       // VREF voltage reference interface
