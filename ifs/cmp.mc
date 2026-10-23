@@ -2,20 +2,23 @@
 # Licensed under the Apache License, Version 2.0.
 
 // CMP - Voltage Comparator Input Interface Standard Definition
-// Core Rule: One compare input wire into a comparator body. The input
-//            channel is a muxed analog sense wire (datasheets name the
-//            pin function VCINx; the shorthand VCx on some pin tables is
-//            the same function). The comparator's reference lives inside
-//            the detector (bandgap / AVCC divider), so the face carries
-//            no reference member - the ground reference is shared
-//            through the power supply (DC interface), mirroring
-//            ADC.SINGLE. The comparator's result, where a part routes it
-//            to a pin, is its own one-wire face: CMP.OUT (same family,
-//            datasheet VCx_OUT).
+// Core Rule: One compare input PAIR into a comparator body. A comparator
+//            judges a difference: the positive leg against the negative
+//            leg, never one wire against an internal reference alone -
+//            the reference lives inside the detector (bandgap / AVCC
+//            divider) but the negative leg is still a leg of the part
+//            (LM393 1IN- / 2IN-). A one-wire face cannot say that, so the
+//            face carries the pair as two members, tagged @pair(p) like
+//            every other differential pair in the library (ADC.DIFF is
+//            the sibling). The ground reference is shared through the
+//            power supply (DC interface), mirroring ADC.SINGLE. The
+//            comparator's result, where a part routes it to a pin, is its
+//            own one-wire face: CMP.OUT (same family, datasheet VCx_OUT).
 // Device Definition: SOURCE = the compared signal (sensor output,
 //                    divider tap, external voltage),
 //                    DETECTOR = the comparator host (the body whose
-//                    internal stage judges IN against its reference).
+//                    internal stage judges the pair against its
+//                    reference).
 
 interface CMP(role)
 {
@@ -30,21 +33,24 @@ interface CMP(role)
     // maxdistance tier was folklore, forensics log).
 
     pins = [
-        1 = IN @class(analog)   // Compare input (datasheet VCINx)
+        1 = INP @class(analog) @pair(p), "Positive Compare Input"   // Compare input, positive leg (datasheet IN+ / VCINx)
+        2 = INN @class(analog) @pair(p), "Negative Compare Input"   // Compare input, negative leg (datasheet IN-)
     ]
 
     role SOURCE {
         name = "CMP Source"
         pins = [
-            out 1 = IN @class(analog)   // The compared signal drives the line
+            out 1 = INP @class(analog) @pair(p)   // The compared signal drives the positive leg
+            out 2 = INN @class(analog) @pair(p)   // The compared signal drives the negative leg
         ]
-        peer = DETECTOR
+        peer = DETECTOR(1)
     }
 
     role DETECTOR {
         name = "CMP Detector"
         pins = [
-            in 1 = IN @class(analog)    // The comparator samples the line
+            in 1 = INP @class(analog) @pair(p)    // The comparator samples the positive leg
+            in 2 = INN @class(analog) @pair(p)    // The comparator samples the negative leg
         ]
         peer = SOURCE(1)
     }
@@ -94,8 +100,8 @@ interface CMP.OUT(role)
 }
 
 // Example usage:
-// MCU side (comparator input channel pin):
-//     io 2 = VCIN7::CMP(DETECTOR), ["P01/VCIN7"]
+// MCU side (comparator input channel pin pair):
+//     io [2, 3] = VCIN7{INP, INN}::CMP(DETECTOR), ["P01/VCIN7"]
 // MCU side (comparator result pin):
 //     io 8 = VC0_OUT::CMP.OUT(TRANSMITTER), ["P15/VC0_OUT"]
 // Sensor side (the compared signal):
