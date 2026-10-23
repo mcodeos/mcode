@@ -849,6 +849,7 @@ enum PKG
     // Microphones
     // =================================================================
     MIC_SIP2,          // 2-pin SIP electret mic
+    MIC_SMD_6MM,       // SMD electret capsule, 6.0 mm body, solder pads
     MIC_WM7121P,       // Specific part package reference
 
     // =================================================================
