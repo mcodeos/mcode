@@ -81,3 +81,6 @@ if ! python3 scripts/check-spec-keys.py; then
     echo "pre-commit: spec-key gate failed (see scripts/check-spec-keys.py)"
     exit 1
 fi
+# Version law: a content change raises the version by 0.01 and the bump
+# rides the commit; a version the human edited in the same commit stands.
+"$(dirname "$0")/../bump.sh" --staged
