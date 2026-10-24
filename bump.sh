@@ -8,6 +8,10 @@
 # lands. A version the human edited in the same commit is honored and never
 # touched: the human owns the whole number.
 #
+# One repository carries two version faces (the pack file and the project
+# file). The pack file is the authority: it is bumped, and the project file
+# follows it, so the two faces never drift.
+#
 # Usage:
 #   bump.sh              # worktree mode: bump after any content change
 #   bump.sh --staged     # staged mode: for the pre-commit hook; re-stages
@@ -22,20 +26,30 @@ else
     NAMES="$( (git diff --name-only HEAD; git ls-files --others --exclude-standard) )"
 fi
 
-# The version faces of this repository (root level only).
-VERSION_FILES="pack.toml project.toml Cargo.toml"
-
-export BUMP_MODE="$MODE" BUMP_NAMES="$NAMES" BUMP_FILES="$VERSION_FILES"
+export BUMP_MODE="$MODE" BUMP_NAMES="$NAMES"
 python3 - <<'EOF'
 import os, re, subprocess, sys
 
 mode = os.environ.get("BUMP_MODE", "")
 staged = mode == "--staged"
-files = os.environ["BUMP_FILES"].split()
 names = [n for n in os.environ["BUMP_NAMES"].split("\n") if n]
 
-if not [n for n in names if n not in files]:
-    sys.exit(0)                      # no content change: the version stands
+FACES = ["pack.toml", "project.toml", "Cargo.toml"]
+faces = [f for f in FACES if os.path.isfile(f)]
+if not faces:
+    sys.exit(0)
+authority = faces[0]           # pack.toml > project.toml > Cargo.toml
+
+if not [n for n in names if n not in FACES]:
+    sys.exit(0)                # no content change: the version stands
+
+def read_version(path):
+    s = open(path, encoding="utf-8").read()
+    m = re.search(r'^version = "(\d+)\.(\d+)(?:\.(\d+))?"$', s, re.M)
+    if not m:
+        return None
+    cur = m.group(1) + "." + m.group(2) + ("." + m.group(3) if m.group(3) else "")
+    return s, m, cur
 
 def head_version(path):
     try:
@@ -46,28 +60,43 @@ def head_version(path):
     m = re.search(r'^version = "([^"]+)"$', old, re.M)
     return m.group(1) if m else None
 
-for path in files:
-    if not os.path.isfile(path):
-        continue
+def write_version(path, m, new):
     s = open(path, encoding="utf-8").read()
-    m = re.search(r'^version = "(\d+)\.(\d+)(?:\.(\d+))?"$', s, re.M)
-    if not m:
-        print(f"SKIP {path}: no version line", file=sys.stderr)
-        continue
-    cur = m.group(1) + "." + m.group(2) + ("." + m.group(3) if m.group(3) else "")
-    hv = head_version(path)
-    if hv is not None and cur != hv:
-        print(f"honored manual version {path}: {hv} -> {cur}")
-        if staged:
-            subprocess.run(["git", "add", path], check=True)
-        continue
-    if m.group(3) is None:
-        new = f"{m.group(1)}.{int(m.group(2)) + 1}"
-    else:
-        new = f"{m.group(1)}.{m.group(2)}.{int(m.group(3)) + 1}"
     s = s[:m.start()] + f'version = "{new}"' + s[m.end():]
     open(path, "w", encoding="utf-8").write(s)
-    print(f"bumped {path}: {cur} -> {new}")
     if staged:
         subprocess.run(["git", "add", path], check=True)
+
+parsed = {}
+for f in faces:
+    r = read_version(f)
+    if r:
+        parsed[f] = r
+
+if authority not in parsed:
+    sys.exit(0)
+_, am, acur = parsed[authority]
+
+if head_version(authority) not in (None, acur):
+    print(f"honored manual version {authority}: {head_version(authority)} -> {acur}")
+    new = acur
+else:
+    if am.group(3) is None:
+        new = f"{am.group(1)}.{int(am.group(2)) + 1}"
+    else:
+        new = f"{am.group(1)}.{am.group(2)}.{int(am.group(3)) + 1}"
+    print(f"bumped {authority}: {acur} -> {new}")
+    write_version(authority, am, new)
+
+# The other face follows the authority, unless a human owns its number.
+for f in faces:
+    if f == authority or f not in parsed:
+        continue
+    _, fm, fcur = parsed[f]
+    hv = head_version(f)
+    if hv is not None and fcur != hv:
+        print(f"honored manual version {f}: {hv} -> {fcur}")
+        continue
+    write_version(f, fm, new)
+    print(f"synced {f}: {fcur} -> {new}")
 EOF
