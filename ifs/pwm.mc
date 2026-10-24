@@ -4,7 +4,7 @@
 // PWM - Pulse Width Modulation Interface Standard Definition
 // Core Rule: Single digital channel with adjustable duty cycle; a PWM
 //            output stage is push-pull by default, and a device that
-//            drives the line open-drain states @drive(od) on its own
+//            drives the line open-drain states @sig.drive(od) on its own
 //            adoption row, which overrides this default.
 // Device Definition: TRANSMITTER = PWM source (MCU timer output, driver
 //                    IC),
@@ -26,17 +26,17 @@ interface PWM(role)
     // retired; the 1 MHz tier was peripheral-function text, not a link
     // limit; supply tiers ride the DC faces.
 
-    // @drive(pp): a PWM output stage is push-pull by default, same library
+    // @sig.drive(pp): a PWM output stage is push-pull by default, same library
     // default as GPIO. A device that drives the line open-drain states
-    // `@drive(od)` on its own adoption row, which overrides this default.
+    // `@sig.drive(od)` on its own adoption row, which overrides this default.
     pins = [
-        1 = _ @drive(pp) @class(digital)
+        1 = _ @sig.drive(pp) @id.class(digital)
     ]
 
     role TRANSMITTER {  // PWM source: MCU timer output, driver IC
         name = "PWM Transmitter"
         pins = [
-            out 1 = _ @drive(pp) @class(digital) // The source drives the channel
+            out 1 = _ @sig.drive(pp) @id.class(digital) // The source drives the channel
         ]
         peer = RECEIVER
     }
@@ -44,7 +44,7 @@ interface PWM(role)
     role RECEIVER {  // PWM sink: motor driver input, LED, MOSFET gate
         name = "PWM Receiver"
         pins = [
-            in 1 = _ @drive(pp) @class(digital) // The sink reads it
+            in 1 = _ @sig.drive(pp) @id.class(digital) // The sink reads it
         ]
         peer = TRANSMITTER
     }
@@ -55,7 +55,7 @@ interface PWM(role)
 //            phase-major with the high side first (UH, UL, VH, VL, WH,
 //            WL). UH/UL drive the same half bridge complementary but are
 //            two independent control signals — the deadtime lives in the
-//            driver, not in the lane pair — so the lanes carry no @pair
+//            driver, not in the lane pair — so the lanes carry no @sig.pair
 //            tag (unlike the legs of one differential signal).
 // Device Definition: TRANSMITTER = MCU advanced timer with complementary
 //                    outputs,
@@ -75,23 +75,23 @@ interface PWM.H6(role)
     // Role-less conductor view: 6 anonymous lanes, ordinal = wire identity
     //
     pins = [
-        1 = _ @drive(pp) @class(digital) // UH <-> INHA
-        2 = _ @drive(pp) @class(digital) // UL <-> INLA
-        3 = _ @drive(pp) @class(digital) // VH <-> INHB
-        4 = _ @drive(pp) @class(digital) // VL <-> INLB
-        5 = _ @drive(pp) @class(digital) // WH <-> INHC
-        6 = _ @drive(pp) @class(digital) // WL <-> INLC
+        1 = _ @sig.drive(pp) @id.class(digital) // UH <-> INHA
+        2 = _ @sig.drive(pp) @id.class(digital) // UL <-> INLA
+        3 = _ @sig.drive(pp) @id.class(digital) // VH <-> INHB
+        4 = _ @sig.drive(pp) @id.class(digital) // VL <-> INLB
+        5 = _ @sig.drive(pp) @id.class(digital) // WH <-> INHC
+        6 = _ @sig.drive(pp) @id.class(digital) // WL <-> INLC
     ]
 
     role TRANSMITTER {  // PWM source: MCU advanced timer with complementary outputs
         name = "Three-phase PWM Transmitter"
         pins = [
-            out 1 = UH @drive(pp) @class(digital) @cross(RECEIVER.INHA) // Phase U high-side control
-            out 2 = UL @drive(pp) @class(digital) @cross(RECEIVER.INLA) // Phase U low-side control
-            out 3 = VH @drive(pp) @class(digital) @cross(RECEIVER.INHB) // Phase V high-side control
-            out 4 = VL @drive(pp) @class(digital) @cross(RECEIVER.INLB) // Phase V low-side control
-            out 5 = WH @drive(pp) @class(digital) @cross(RECEIVER.INHC) // Phase W high-side control
-            out 6 = WL @drive(pp) @class(digital) @cross(RECEIVER.INLC) // Phase W low-side control
+            out 1 = UH @sig.drive(pp) @id.class(digital) @id.cross(RECEIVER.INHA) // Phase U high-side control
+            out 2 = UL @sig.drive(pp) @id.class(digital) @id.cross(RECEIVER.INLA) // Phase U low-side control
+            out 3 = VH @sig.drive(pp) @id.class(digital) @id.cross(RECEIVER.INHB) // Phase V high-side control
+            out 4 = VL @sig.drive(pp) @id.class(digital) @id.cross(RECEIVER.INLB) // Phase V low-side control
+            out 5 = WH @sig.drive(pp) @id.class(digital) @id.cross(RECEIVER.INHC) // Phase W high-side control
+            out 6 = WL @sig.drive(pp) @id.class(digital) @id.cross(RECEIVER.INLC) // Phase W low-side control
         ]
         peer = RECEIVER
     }
@@ -99,12 +99,12 @@ interface PWM.H6(role)
     role RECEIVER {  // PWM sink: three-phase gate driver
         name = "Three-phase PWM Receiver"
         pins = [
-            in 1 = INHA @drive(pp) @class(digital) @cross(TRANSMITTER.UH) // Phase U high-side control (driver input)
-            in 2 = INLA @drive(pp) @class(digital) @cross(TRANSMITTER.UL) // Phase U low-side control (driver input)
-            in 3 = INHB @drive(pp) @class(digital) @cross(TRANSMITTER.VH) // Phase V high-side control (driver input)
-            in 4 = INLB @drive(pp) @class(digital) @cross(TRANSMITTER.VL) // Phase V low-side control (driver input)
-            in 5 = INHC @drive(pp) @class(digital) @cross(TRANSMITTER.WH) // Phase W high-side control (driver input)
-            in 6 = INLC @drive(pp) @class(digital) @cross(TRANSMITTER.WL) // Phase W low-side control (driver input)
+            in 1 = INHA @sig.drive(pp) @id.class(digital) @id.cross(TRANSMITTER.UH) // Phase U high-side control (driver input)
+            in 2 = INLA @sig.drive(pp) @id.class(digital) @id.cross(TRANSMITTER.UL) // Phase U low-side control (driver input)
+            in 3 = INHB @sig.drive(pp) @id.class(digital) @id.cross(TRANSMITTER.VH) // Phase V high-side control (driver input)
+            in 4 = INLB @sig.drive(pp) @id.class(digital) @id.cross(TRANSMITTER.VL) // Phase V low-side control (driver input)
+            in 5 = INHC @sig.drive(pp) @id.class(digital) @id.cross(TRANSMITTER.WH) // Phase W high-side control (driver input)
+            in 6 = INLC @sig.drive(pp) @id.class(digital) @id.cross(TRANSMITTER.WL) // Phase W low-side control (driver input)
         ]
         peer = TRANSMITTER
     }

@@ -22,8 +22,8 @@ interface RET
     topology = "point to point"
 
     pins = [
-        1 = I   @class(analog)   // IN - logic drive through internal R1
-        2 = GND @class(analog)   // Common return (internal R2 base-emitter node)
-        3 = O   @class(analog)   // OUT - open collector
+        1 = I   @id.class(analog)   // IN - logic drive through internal R1
+        2 = GND @id.class(analog)   // Common return (internal R2 base-emitter node)
+        3 = O   @id.class(analog)   // OUT - open collector
     ]
 }

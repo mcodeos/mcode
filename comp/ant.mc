@@ -34,7 +34,7 @@ recipe ANCH.ANT {
 // ANT - Generic Antenna Component Definition
 // Core Rule: converts between conducted RF on its port and radiated waves;
 // characterized by frequency, gain, and feed impedance.
-// Note: the antenna port carries @class(radio) as the library-default signal
+// Note: the antenna port carries @id.class(radio) as the library-default signal
 // class (radio is a subtype of analog: an analog-class expectation still
 // accepts a radio-class line, and a radio expectation rejects an analog line).
 

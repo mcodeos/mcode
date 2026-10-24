@@ -56,10 +56,10 @@ abstract component XFR(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: ANCH.XF
     ]
 
     pins = [
-        1 = PRIMARY\+ @barrier(pri)
-        2 = PRIMARY\- @barrier(pri)
-        3 = SECONDARY\+ @barrier(sec)
-        4 = SECONDARY\- @barrier(sec)
+        1 = PRIMARY\+ @id.barrier(pri)
+        2 = PRIMARY\- @id.barrier(pri)
+        3 = SECONDARY\+ @id.barrier(sec)
+        4 = SECONDARY\- @id.barrier(sec)
     ]
 }
 
@@ -78,10 +78,10 @@ abstract component XFR.POWER(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT, freq
     ]
 
     pins = [
-        1 = PRIMARY\+ @barrier(pri)
-        2 = PRIMARY\- @barrier(pri)
-        3 = SECONDARY\+ @barrier(sec)
-        4 = SECONDARY\- @barrier(sec)
+        1 = PRIMARY\+ @id.barrier(pri)
+        2 = PRIMARY\- @id.barrier(pri)
+        3 = SECONDARY\+ @id.barrier(sec)
+        4 = SECONDARY\- @id.barrier(sec)
     ]
 }
 
@@ -100,10 +100,10 @@ abstract component XFR.AUDIO(zpri::UV.OHM, zsec::UV.OHM, prated::UV.WATT, fresp:
     ]
 
     pins = [
-        1 = PRIMARY\+ @barrier(pri)
-        2 = PRIMARY\- @barrier(pri)
-        3 = SECONDARY\+ @barrier(sec)
-        4 = SECONDARY\- @barrier(sec)
+        1 = PRIMARY\+ @id.barrier(pri)
+        2 = PRIMARY\- @id.barrier(pri)
+        3 = SECONDARY\+ @id.barrier(sec)
+        4 = SECONDARY\- @id.barrier(sec)
     ]
 }
 
@@ -121,10 +121,10 @@ abstract component XFR.ISO(vpri::UV.VOLT, vsec::UV.VOLT, viso::UV.VOLT, prated::
     ]
 
     pins = [
-        1 = PRIMARY\+ @barrier(pri)
-        2 = PRIMARY\- @barrier(pri)
-        3 = SECONDARY\+ @barrier(sec)
-        4 = SECONDARY\- @barrier(sec)
+        1 = PRIMARY\+ @id.barrier(pri)
+        2 = PRIMARY\- @id.barrier(pri)
+        3 = SECONDARY\+ @id.barrier(sec)
+        4 = SECONDARY\- @id.barrier(sec)
     ]
 }
 
@@ -141,11 +141,11 @@ abstract component XFR.CT(vpri::UV.VOLT, vsec::UV.VOLT, prated::UV.WATT) :: ANCH
     ]
 
     pins = [
-        1 = PRIMARY\+ @barrier(pri)
-        2 = PRIMARY\- @barrier(pri)
-        3 = SECONDARY\+ @barrier(sec)
-        4 = SECONDARY.CT @barrier(sec)
-        5 = SECONDARY\- @barrier(sec)
+        1 = PRIMARY\+ @id.barrier(pri)
+        2 = PRIMARY\- @id.barrier(pri)
+        3 = SECONDARY\+ @id.barrier(sec)
+        4 = SECONDARY.CT @id.barrier(sec)
+        5 = SECONDARY\- @id.barrier(sec)
     ]
 }
 

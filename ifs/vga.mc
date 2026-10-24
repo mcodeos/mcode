@@ -28,38 +28,38 @@ interface VGA(role)
     mode = ["full duplex"]  // the color and sync lines are one-way; the DDC pair is bidirectional
 
     pins = [
-        1 = RED @class(analog), "Red video"
-        2 = GREEN @class(analog), "Green video"
-        3 = BLUE @class(analog), "Blue video"
-        4 = HSYNC @class(digital), "Horizontal sync"
-        5 = VSYNC @class(digital), "Vertical sync"
-        6 = DDC_SCL @drive(od) @class(digital), "DDC serial clock"
-        7 = DDC_SDA @drive(od) @class(digital), "DDC serial data"
+        1 = RED @id.class(analog), "Red video"
+        2 = GREEN @id.class(analog), "Green video"
+        3 = BLUE @id.class(analog), "Blue video"
+        4 = HSYNC @id.class(digital), "Horizontal sync"
+        5 = VSYNC @id.class(digital), "Vertical sync"
+        6 = DDC_SCL @sig.drive(od) @id.class(digital), "DDC serial clock"
+        7 = DDC_SDA @sig.drive(od) @id.class(digital), "DDC serial data"
     ]
 
     role SOURCE {
         name = "VGA Source"
         pins = [
-            out 1 = RED @class(analog), "Red video"          // The source drives the raster
-            out 2 = GREEN @class(analog), "Green video"
-            out 3 = BLUE @class(analog), "Blue video"
-            out 4 = HSYNC @class(digital), "Horizontal sync"
-            out 5 = VSYNC @class(digital), "Vertical sync"
-            out 6 = DDC_SCL @drive(od) @class(digital), "DDC serial clock"  // The source masters the DDC bus
-            io 7 = DDC_SDA @drive(od) @class(digital), "DDC serial data"    // The source reads the sink EDID
+            out 1 = RED @id.class(analog), "Red video"          // The source drives the raster
+            out 2 = GREEN @id.class(analog), "Green video"
+            out 3 = BLUE @id.class(analog), "Blue video"
+            out 4 = HSYNC @id.class(digital), "Horizontal sync"
+            out 5 = VSYNC @id.class(digital), "Vertical sync"
+            out 6 = DDC_SCL @sig.drive(od) @id.class(digital), "DDC serial clock"  // The source masters the DDC bus
+            io 7 = DDC_SDA @sig.drive(od) @id.class(digital), "DDC serial data"    // The source reads the sink EDID
         ]
         peer = SINK(1)
     }
     role SINK {
         name = "VGA Sink"
         pins = [
-            in 1 = RED @class(analog), "Red video"           // The sink samples the raster
-            in 2 = GREEN @class(analog), "Green video"
-            in 3 = BLUE @class(analog), "Blue video"
-            in 4 = HSYNC @class(digital), "Horizontal sync"
-            in 5 = VSYNC @class(digital), "Vertical sync"
-            in 6 = DDC_SCL @drive(od) @class(digital), "DDC serial clock"
-            io 7 = DDC_SDA @drive(od) @class(digital), "DDC serial data"    // The sink holds the EDID
+            in 1 = RED @id.class(analog), "Red video"           // The sink samples the raster
+            in 2 = GREEN @id.class(analog), "Green video"
+            in 3 = BLUE @id.class(analog), "Blue video"
+            in 4 = HSYNC @id.class(digital), "Horizontal sync"
+            in 5 = VSYNC @id.class(digital), "Vertical sync"
+            in 6 = DDC_SCL @sig.drive(od) @id.class(digital), "DDC serial clock"
+            io 7 = DDC_SDA @sig.drive(od) @id.class(digital), "DDC serial data"    // The sink holds the EDID
         ]
         peer = SOURCE(1)
     }

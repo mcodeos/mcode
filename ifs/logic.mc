@@ -18,9 +18,9 @@
 interface LOGIC.AND
 {
     pins = [
-        in A = A @class(digital), "Logic input A"
-        in B = B @class(digital), "Logic input B"
-        out AB = Y @class(digital), "Logic output"
+        in A = A @id.class(digital), "Logic input A"
+        in B = B @id.class(digital), "Logic input B"
+        out AB = Y @id.class(digital), "Logic output"
     ]
 }
 
@@ -31,9 +31,9 @@ interface LOGIC.AND
 interface LOGIC.OR
 {
     pins = [
-        in A = A @class(digital), "Logic input A"
-        in B = B @class(digital), "Logic input B"
-        out AB = Y @class(digital), "Logic output"
+        in A = A @id.class(digital), "Logic input A"
+        in B = B @id.class(digital), "Logic input B"
+        out AB = Y @id.class(digital), "Logic output"
     ]
 }
 
@@ -44,8 +44,8 @@ interface LOGIC.OR
 interface LOGIC.NOT
 {
     pins = [
-        in A = A @class(digital), "Logic input A"
-        out _A = Y @class(digital), "Logic output (inverting)"
+        in A = A @id.class(digital), "Logic input A"
+        out _A = Y @id.class(digital), "Logic output (inverting)"
     ]
 }
 
@@ -56,9 +56,9 @@ interface LOGIC.NOT
 interface LOGIC.NAND
 {
     pins = [
-        in A = A @class(digital), "Logic input A"
-        in B = B @class(digital), "Logic input B"
-        out _AB = Y @class(digital), "Logic output (inverting)"
+        in A = A @id.class(digital), "Logic input A"
+        in B = B @id.class(digital), "Logic input B"
+        out _AB = Y @id.class(digital), "Logic output (inverting)"
     ]
 }
 
@@ -71,10 +71,10 @@ interface LOGIC.NAND
 interface LOGIC.NAND.3
 {
     pins = [
-        in A = A @class(digital), "Logic input A"
-        in B = B @class(digital), "Logic input B"
-        in C = C @class(digital), "Logic input C"
-        out _AB = Y @class(digital), "Logic output (inverting)"
+        in A = A @id.class(digital), "Logic input A"
+        in B = B @id.class(digital), "Logic input B"
+        in C = C @id.class(digital), "Logic input C"
+        out _AB = Y @id.class(digital), "Logic output (inverting)"
     ]
 }
 
@@ -85,11 +85,11 @@ interface LOGIC.NAND.3
 interface LOGIC.NAND.4
 {
     pins = [
-        in A = A @class(digital), "Logic input A"
-        in B = B @class(digital), "Logic input B"
-        in C = C @class(digital), "Logic input C"
-        in D = D @class(digital), "Logic input D"
-        out _AB = Y @class(digital), "Logic output (inverting)"
+        in A = A @id.class(digital), "Logic input A"
+        in B = B @id.class(digital), "Logic input B"
+        in C = C @id.class(digital), "Logic input C"
+        in D = D @id.class(digital), "Logic input D"
+        out _AB = Y @id.class(digital), "Logic output (inverting)"
     ]
 }
 
@@ -100,15 +100,15 @@ interface LOGIC.NAND.4
 interface LOGIC.NAND.8
 {
     pins = [
-        in A = A @class(digital), "Logic input A"
-        in B = B @class(digital), "Logic input B"
-        in C = C @class(digital), "Logic input C"
-        in D = D @class(digital), "Logic input D"
-        in E = E @class(digital), "Logic input E"
-        in F = F @class(digital), "Logic input F"
-        in G = G @class(digital), "Logic input G"
-        in H = H @class(digital), "Logic input H"
-        out _AB = Y @class(digital), "Logic output (inverting)"
+        in A = A @id.class(digital), "Logic input A"
+        in B = B @id.class(digital), "Logic input B"
+        in C = C @id.class(digital), "Logic input C"
+        in D = D @id.class(digital), "Logic input D"
+        in E = E @id.class(digital), "Logic input E"
+        in F = F @id.class(digital), "Logic input F"
+        in G = G @id.class(digital), "Logic input G"
+        in H = H @id.class(digital), "Logic input H"
+        out _AB = Y @id.class(digital), "Logic output (inverting)"
     ]
 }
 
@@ -119,9 +119,9 @@ interface LOGIC.NAND.8
 interface LOGIC.NOR
 {
     pins = [
-        in A = A @class(digital), "Logic input A"
-        in B = B @class(digital), "Logic input B"
-        out _AB = Y @class(digital), "Logic output (inverting)"
+        in A = A @id.class(digital), "Logic input A"
+        in B = B @id.class(digital), "Logic input B"
+        out _AB = Y @id.class(digital), "Logic output (inverting)"
     ]
 }
 
@@ -132,9 +132,9 @@ interface LOGIC.NOR
 interface LOGIC.XOR
 {
     pins = [
-        in A = A @class(digital), "Logic input A"
-        in B = B @class(digital), "Logic input B"
-        out AB = Y @class(digital), "Logic output"
+        in A = A @id.class(digital), "Logic input A"
+        in B = B @id.class(digital), "Logic input B"
+        out AB = Y @id.class(digital), "Logic output"
     ]
 }
 
@@ -145,8 +145,8 @@ interface LOGIC.XOR
 interface LOGIC.XNOR
 {
     pins = [
-        in A = A @class(digital), "Logic input A"
-        in B = B @class(digital), "Logic input B"
-        out _AB = Y @class(digital), "Logic output (inverting)"
+        in A = A @id.class(digital), "Logic input A"
+        in B = B @id.class(digital), "Logic input B"
+        out _AB = Y @id.class(digital), "Logic output (inverting)"
     ]
 }

@@ -29,53 +29,53 @@ interface HDMI(role)
     mode = ["full duplex"]  // TMDS is one-way; CEC and DDC are bidirectional
 
     pins = [
-        1 = TMDS_D2P @pair(d2) @class(digital), "TMDS data 2 positive"
-        2 = TMDS_D2N @pair(d2) @class(digital), "TMDS data 2 negative"
-        3 = TMDS_D1P @pair(d1) @class(digital), "TMDS data 1 positive"
-        4 = TMDS_D1N @pair(d1) @class(digital), "TMDS data 1 negative"
-        5 = TMDS_D0P @pair(d0) @class(digital), "TMDS data 0 positive"
-        6 = TMDS_D0N @pair(d0) @class(digital), "TMDS data 0 negative"
-        7 = TMDS_CKP @pair(clk) @class(digital), "TMDS clock positive"
-        8 = TMDS_CKN @pair(clk) @class(digital), "TMDS clock negative"
-        9 = CEC @drive(od) @class(digital), "Consumer electronics control"
-        10 = DDC_SCL @drive(od) @class(digital), "DDC serial clock"
-        11 = DDC_SDA @drive(od) @class(digital), "DDC serial data"
-        12 = HPD @class(digital), "Hot plug detect"
+        1 = TMDS_D2P @sig.pair(d2) @id.class(digital), "TMDS data 2 positive"
+        2 = TMDS_D2N @sig.pair(d2) @id.class(digital), "TMDS data 2 negative"
+        3 = TMDS_D1P @sig.pair(d1) @id.class(digital), "TMDS data 1 positive"
+        4 = TMDS_D1N @sig.pair(d1) @id.class(digital), "TMDS data 1 negative"
+        5 = TMDS_D0P @sig.pair(d0) @id.class(digital), "TMDS data 0 positive"
+        6 = TMDS_D0N @sig.pair(d0) @id.class(digital), "TMDS data 0 negative"
+        7 = TMDS_CKP @sig.pair(clk) @id.class(digital), "TMDS clock positive"
+        8 = TMDS_CKN @sig.pair(clk) @id.class(digital), "TMDS clock negative"
+        9 = CEC @sig.drive(od) @id.class(digital), "Consumer electronics control"
+        10 = DDC_SCL @sig.drive(od) @id.class(digital), "DDC serial clock"
+        11 = DDC_SDA @sig.drive(od) @id.class(digital), "DDC serial data"
+        12 = HPD @id.class(digital), "Hot plug detect"
     ]
 
     role SOURCE {
         name = "HDMI Source"
         pins = [
-            out 1 = TMDS_D2P @pair(d2) @class(digital), "TMDS data 2 positive"  // The source drives the stream
-            out 2 = TMDS_D2N @pair(d2) @class(digital), "TMDS data 2 negative"
-            out 3 = TMDS_D1P @pair(d1) @class(digital), "TMDS data 1 positive"
-            out 4 = TMDS_D1N @pair(d1) @class(digital), "TMDS data 1 negative"
-            out 5 = TMDS_D0P @pair(d0) @class(digital), "TMDS data 0 positive"
-            out 6 = TMDS_D0N @pair(d0) @class(digital), "TMDS data 0 negative"
-            out 7 = TMDS_CKP @pair(clk) @class(digital), "TMDS clock positive"
-            out 8 = TMDS_CKN @pair(clk) @class(digital), "TMDS clock negative"
-            io 9 = CEC @drive(od) @class(digital), "Consumer electronics control"  // Either side may initiate
-            out 10 = DDC_SCL @drive(od) @class(digital), "DDC serial clock"  // The source masters the DDC bus
-            io 11 = DDC_SDA @drive(od) @class(digital), "DDC serial data"
-            in 12 = HPD @class(digital), "Hot plug detect"                  // The sink asserts the plug
+            out 1 = TMDS_D2P @sig.pair(d2) @id.class(digital), "TMDS data 2 positive"  // The source drives the stream
+            out 2 = TMDS_D2N @sig.pair(d2) @id.class(digital), "TMDS data 2 negative"
+            out 3 = TMDS_D1P @sig.pair(d1) @id.class(digital), "TMDS data 1 positive"
+            out 4 = TMDS_D1N @sig.pair(d1) @id.class(digital), "TMDS data 1 negative"
+            out 5 = TMDS_D0P @sig.pair(d0) @id.class(digital), "TMDS data 0 positive"
+            out 6 = TMDS_D0N @sig.pair(d0) @id.class(digital), "TMDS data 0 negative"
+            out 7 = TMDS_CKP @sig.pair(clk) @id.class(digital), "TMDS clock positive"
+            out 8 = TMDS_CKN @sig.pair(clk) @id.class(digital), "TMDS clock negative"
+            io 9 = CEC @sig.drive(od) @id.class(digital), "Consumer electronics control"  // Either side may initiate
+            out 10 = DDC_SCL @sig.drive(od) @id.class(digital), "DDC serial clock"  // The source masters the DDC bus
+            io 11 = DDC_SDA @sig.drive(od) @id.class(digital), "DDC serial data"
+            in 12 = HPD @id.class(digital), "Hot plug detect"                  // The sink asserts the plug
         ]
         peer = SINK(1)
     }
     role SINK {
         name = "HDMI Sink"
         pins = [
-            in 1 = TMDS_D2P @pair(d2) @class(digital), "TMDS data 2 positive"   // The sink receives the stream
-            in 2 = TMDS_D2N @pair(d2) @class(digital), "TMDS data 2 negative"
-            in 3 = TMDS_D1P @pair(d1) @class(digital), "TMDS data 1 positive"
-            in 4 = TMDS_D1N @pair(d1) @class(digital), "TMDS data 1 negative"
-            in 5 = TMDS_D0P @pair(d0) @class(digital), "TMDS data 0 positive"
-            in 6 = TMDS_D0N @pair(d0) @class(digital), "TMDS data 0 negative"
-            in 7 = TMDS_CKP @pair(clk) @class(digital), "TMDS clock positive"
-            in 8 = TMDS_CKN @pair(clk) @class(digital), "TMDS clock negative"
-            io 9 = CEC @drive(od) @class(digital), "Consumer electronics control"
-            in 10 = DDC_SCL @drive(od) @class(digital), "DDC serial clock"    // The sink answers on the DDC bus
-            io 11 = DDC_SDA @drive(od) @class(digital), "DDC serial data"
-            out 12 = HPD @class(digital), "Hot plug detect"                  // The sink drives the detect line
+            in 1 = TMDS_D2P @sig.pair(d2) @id.class(digital), "TMDS data 2 positive"   // The sink receives the stream
+            in 2 = TMDS_D2N @sig.pair(d2) @id.class(digital), "TMDS data 2 negative"
+            in 3 = TMDS_D1P @sig.pair(d1) @id.class(digital), "TMDS data 1 positive"
+            in 4 = TMDS_D1N @sig.pair(d1) @id.class(digital), "TMDS data 1 negative"
+            in 5 = TMDS_D0P @sig.pair(d0) @id.class(digital), "TMDS data 0 positive"
+            in 6 = TMDS_D0N @sig.pair(d0) @id.class(digital), "TMDS data 0 negative"
+            in 7 = TMDS_CKP @sig.pair(clk) @id.class(digital), "TMDS clock positive"
+            in 8 = TMDS_CKN @sig.pair(clk) @id.class(digital), "TMDS clock negative"
+            io 9 = CEC @sig.drive(od) @id.class(digital), "Consumer electronics control"
+            in 10 = DDC_SCL @sig.drive(od) @id.class(digital), "DDC serial clock"    // The sink answers on the DDC bus
+            io 11 = DDC_SDA @sig.drive(od) @id.class(digital), "DDC serial data"
+            out 12 = HPD @id.class(digital), "Hot plug detect"                  // The sink drives the detect line
         ]
         peer = SOURCE(1)
     }

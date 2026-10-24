@@ -68,7 +68,7 @@ component CIRC.BNC(impedance::STRING) :: ANCH.CONN.MATE
     
     pins = [
         1 = Center, "Center Conductor"
-        2 = GND @exposed(esd_contact), "Ground Shield"
+        2 = GND @sig.exposed(esd_contact), "Ground Shield"
     ]
 }
 
@@ -93,7 +93,7 @@ component CIRC.SMA(impedance::STRING) :: ANCH.CONN.MATE
     
     pins = [
         1 = Center, "Center Conductor"
-        2 = GND @exposed(esd_contact), "Ground Shield"
+        2 = GND @sig.exposed(esd_contact), "Ground Shield"
     ]
 }
 
@@ -118,7 +118,7 @@ component CIRC.UFL() :: ANCH.CONN.MATE
 
     pins = [
         1 = RF, "Center conductor (RF signal)"
-        2 = GND @exposed(esd_contact), "Ground shell"
+        2 = GND @sig.exposed(esd_contact), "Ground shell"
     ]
 }
 
@@ -143,7 +143,7 @@ component CIRC.MHF4() :: ANCH.CONN.MATE
 
     pins = [
         1 = RF, "Center conductor (RF signal)"
-        2 = GND @exposed(esd_contact), "Ground shell"
+        2 = GND @sig.exposed(esd_contact), "Ground shell"
     ]
 }
 

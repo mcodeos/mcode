@@ -75,8 +75,8 @@ abstract component USB.SOCK_MINIB() :: ANCH.CONN.MATE
     pins = [
         [1:5] = USB::USB.MINIB(DEVICE)   // USB interface: 1=VBUS, 2=D-, 3=D+, 4=ID, 5=GND
         [6,7] = GND                          // USB GND
-        8 = SHIELD3 @exposed(esd_contact)    // USB shield: exposed boundary electrode
-        9 = SHIELD4 @exposed(esd_contact)    // USB shield: exposed boundary electrode
+        8 = SHIELD3 @sig.exposed(esd_contact)    // USB shield: exposed boundary electrode
+        9 = SHIELD4 @sig.exposed(esd_contact)    // USB shield: exposed boundary electrode
     ]
 }
 

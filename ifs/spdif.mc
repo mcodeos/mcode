@@ -31,20 +31,20 @@ interface SPDIF(role)
     // in Vpp windows, the 5 V logic tolerance is a single-part face.
 
     pins = [
-        1 = SIG @class(digital), "Serial digital audio signal"
+        1 = SIG @id.class(digital), "Serial digital audio signal"
     ]
 
     role TRANSMITTER {
         name = "S/PDIF Transmitter"
         pins = [
-            out 1 = SIG @class(digital), "Serial digital audio signal"  // The transmitter drives the link
+            out 1 = SIG @id.class(digital), "Serial digital audio signal"  // The transmitter drives the link
         ]
         peer = RECEIVER(1)
     }
     role RECEIVER {
         name = "S/PDIF Receiver"
         pins = [
-            in 1 = SIG @class(digital), "Serial digital audio signal"   // The receiver decodes it
+            in 1 = SIG @id.class(digital), "Serial digital audio signal"   // The receiver decodes it
         ]
         peer = TRANSMITTER(1)
     }

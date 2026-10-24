@@ -20,8 +20,8 @@ interface FET
     topology = "point to point"
 
     pins = [
-        1 = G @class(analog)   // Gate - control terminal (MOSFET: insulated, JFET: junction)
-        2 = D @class(analog)   // Drain
-        3 = S @class(analog)   // Source (JFET: interchangeable with drain)
+        1 = G @id.class(analog)   // Gate - control terminal (MOSFET: insulated, JFET: junction)
+        2 = D @id.class(analog)   // Drain
+        3 = S @id.class(analog)   // Source (JFET: interchangeable with drain)
     ]
 }

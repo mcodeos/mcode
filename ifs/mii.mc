@@ -27,43 +27,43 @@ interface MII(role)
     // 2-inch matching), not a spec number.
 
     pins = [
-        1 = TX_CLK @class(digital), "Transmit Clock (PHY drives)"      // 25MHz / 2.5MHz continuous
-        2 = TXD0 @class(digital), "Transmit Data Bit 0"                // MAC samples to TX_CLK
-        3 = TXD1 @class(digital), "Transmit Data Bit 1"
-        4 = TXD2 @class(digital), "Transmit Data Bit 2"
-        5 = TXD3 @class(digital), "Transmit Data Bit 3"
-        6 = TX_EN @class(digital), "Transmit Enable"
-        7 = TX_ER @class(digital), "Transmit Error (optional)"         // optional signal
-        8 = RX_CLK @class(digital), "Receive Clock (PHY drives)"       // recovered or reference-derived
-        9 = RXD0 @class(digital), "Receive Data Bit 0"                 // MAC samples to RX_CLK
-        10 = RXD1 @class(digital), "Receive Data Bit 1"
-        11 = RXD2 @class(digital), "Receive Data Bit 2"
-        12 = RXD3 @class(digital), "Receive Data Bit 3"
-        13 = RX_DV @class(digital), "Receive Data Valid"
-        14 = RX_ER @class(digital), "Receive Error"
-        15 = CRS @class(digital), "Carrier Sense (half duplex)"        // asserted on medium non-idle
-        16 = COL @class(digital), "Collision Detect (half duplex)"
+        1 = TX_CLK @id.class(digital), "Transmit Clock (PHY drives)"      // 25MHz / 2.5MHz continuous
+        2 = TXD0 @id.class(digital), "Transmit Data Bit 0"                // MAC samples to TX_CLK
+        3 = TXD1 @id.class(digital), "Transmit Data Bit 1"
+        4 = TXD2 @id.class(digital), "Transmit Data Bit 2"
+        5 = TXD3 @id.class(digital), "Transmit Data Bit 3"
+        6 = TX_EN @id.class(digital), "Transmit Enable"
+        7 = TX_ER @id.class(digital), "Transmit Error (optional)"         // optional signal
+        8 = RX_CLK @id.class(digital), "Receive Clock (PHY drives)"       // recovered or reference-derived
+        9 = RXD0 @id.class(digital), "Receive Data Bit 0"                 // MAC samples to RX_CLK
+        10 = RXD1 @id.class(digital), "Receive Data Bit 1"
+        11 = RXD2 @id.class(digital), "Receive Data Bit 2"
+        12 = RXD3 @id.class(digital), "Receive Data Bit 3"
+        13 = RX_DV @id.class(digital), "Receive Data Valid"
+        14 = RX_ER @id.class(digital), "Receive Error"
+        15 = CRS @id.class(digital), "Carrier Sense (half duplex)"        // asserted on medium non-idle
+        16 = COL @id.class(digital), "Collision Detect (half duplex)"
     ]
 
     role MAC {
         name = "Ethernet MAC"
         pins = [
-            in 1 = TX_CLK @class(digital), "Transmit Clock (PHY drives)"   // The MAC sources no clock; it samples to the PHY's
-            out 2 = TXD0 @class(digital), "Transmit Data Bit 0"
-            out 3 = TXD1 @class(digital), "Transmit Data Bit 1"
-            out 4 = TXD2 @class(digital), "Transmit Data Bit 2"
-            out 5 = TXD3 @class(digital), "Transmit Data Bit 3"
-            out 6 = TX_EN @class(digital), "Transmit Enable"
-            out 7 = TX_ER @class(digital), "Transmit Error (optional)"
-            in 8 = RX_CLK @class(digital), "Receive Clock (PHY drives)"
-            in 9 = RXD0 @class(digital), "Receive Data Bit 0"
-            in 10 = RXD1 @class(digital), "Receive Data Bit 1"
-            in 11 = RXD2 @class(digital), "Receive Data Bit 2"
-            in 12 = RXD3 @class(digital), "Receive Data Bit 3"
-            in 13 = RX_DV @class(digital), "Receive Data Valid"
-            in 14 = RX_ER @class(digital), "Receive Error"
-            in 15 = CRS @class(digital), "Carrier Sense (half duplex)"
-            in 16 = COL @class(digital), "Collision Detect (half duplex)"
+            in 1 = TX_CLK @id.class(digital), "Transmit Clock (PHY drives)"   // The MAC sources no clock; it samples to the PHY's
+            out 2 = TXD0 @id.class(digital), "Transmit Data Bit 0"
+            out 3 = TXD1 @id.class(digital), "Transmit Data Bit 1"
+            out 4 = TXD2 @id.class(digital), "Transmit Data Bit 2"
+            out 5 = TXD3 @id.class(digital), "Transmit Data Bit 3"
+            out 6 = TX_EN @id.class(digital), "Transmit Enable"
+            out 7 = TX_ER @id.class(digital), "Transmit Error (optional)"
+            in 8 = RX_CLK @id.class(digital), "Receive Clock (PHY drives)"
+            in 9 = RXD0 @id.class(digital), "Receive Data Bit 0"
+            in 10 = RXD1 @id.class(digital), "Receive Data Bit 1"
+            in 11 = RXD2 @id.class(digital), "Receive Data Bit 2"
+            in 12 = RXD3 @id.class(digital), "Receive Data Bit 3"
+            in 13 = RX_DV @id.class(digital), "Receive Data Valid"
+            in 14 = RX_ER @id.class(digital), "Receive Error"
+            in 15 = CRS @id.class(digital), "Carrier Sense (half duplex)"
+            in 16 = COL @id.class(digital), "Collision Detect (half duplex)"
         ]
         peer = PHY
     }
@@ -71,22 +71,22 @@ interface MII(role)
     role PHY {
         name = "Ethernet PHY"
         pins = [
-            out 1 = TX_CLK @class(digital), "Transmit Clock (PHY drives)"  // The PHY sources both clocks
-            in 2 = TXD0 @class(digital), "Transmit Data Bit 0"
-            in 3 = TXD1 @class(digital), "Transmit Data Bit 1"
-            in 4 = TXD2 @class(digital), "Transmit Data Bit 2"
-            in 5 = TXD3 @class(digital), "Transmit Data Bit 3"
-            in 6 = TX_EN @class(digital), "Transmit Enable"
-            in 7 = TX_ER @class(digital), "Transmit Error (optional)"
-            out 8 = RX_CLK @class(digital), "Receive Clock (PHY drives)"
-            out 9 = RXD0 @class(digital), "Receive Data Bit 0"
-            out 10 = RXD1 @class(digital), "Receive Data Bit 1"
-            out 11 = RXD2 @class(digital), "Receive Data Bit 2"
-            out 12 = RXD3 @class(digital), "Receive Data Bit 3"
-            out 13 = RX_DV @class(digital), "Receive Data Valid"
-            out 14 = RX_ER @class(digital), "Receive Error"
-            out 15 = CRS @class(digital), "Carrier Sense (half duplex)"
-            out 16 = COL @class(digital), "Collision Detect (half duplex)"
+            out 1 = TX_CLK @id.class(digital), "Transmit Clock (PHY drives)"  // The PHY sources both clocks
+            in 2 = TXD0 @id.class(digital), "Transmit Data Bit 0"
+            in 3 = TXD1 @id.class(digital), "Transmit Data Bit 1"
+            in 4 = TXD2 @id.class(digital), "Transmit Data Bit 2"
+            in 5 = TXD3 @id.class(digital), "Transmit Data Bit 3"
+            in 6 = TX_EN @id.class(digital), "Transmit Enable"
+            in 7 = TX_ER @id.class(digital), "Transmit Error (optional)"
+            out 8 = RX_CLK @id.class(digital), "Receive Clock (PHY drives)"
+            out 9 = RXD0 @id.class(digital), "Receive Data Bit 0"
+            out 10 = RXD1 @id.class(digital), "Receive Data Bit 1"
+            out 11 = RXD2 @id.class(digital), "Receive Data Bit 2"
+            out 12 = RXD3 @id.class(digital), "Receive Data Bit 3"
+            out 13 = RX_DV @id.class(digital), "Receive Data Valid"
+            out 14 = RX_ER @id.class(digital), "Receive Error"
+            out 15 = CRS @id.class(digital), "Carrier Sense (half duplex)"
+            out 16 = COL @id.class(digital), "Collision Detect (half duplex)"
         ]
         peer = MAC
     }
@@ -114,27 +114,27 @@ interface RMII(role)
     // practice with zero spec witnesses.
 
     pins = [
-        1 = REF_CLK @class(digital), "Reference Clock 50MHz (system drives)"  // continuous, shared by both directions
-        2 = TXD0 @class(digital), "Transmit Data Bit 0"                       // MAC samples to REF_CLK
-        3 = TXD1 @class(digital), "Transmit Data Bit 1"
-        4 = TX_EN @class(digital), "Transmit Enable"
-        5 = RXD0 @class(digital), "Receive Data Bit 0"                        // valid on REF_CLK rising edge
-        6 = RXD1 @class(digital), "Receive Data Bit 1"
-        7 = RX_ER @class(digital), "Receive Error (optional at MAC)"
-        8 = CRS_DV @class(digital), "Carrier Sense / Receive Data Valid"
+        1 = REF_CLK @id.class(digital), "Reference Clock 50MHz (system drives)"  // continuous, shared by both directions
+        2 = TXD0 @id.class(digital), "Transmit Data Bit 0"                       // MAC samples to REF_CLK
+        3 = TXD1 @id.class(digital), "Transmit Data Bit 1"
+        4 = TX_EN @id.class(digital), "Transmit Enable"
+        5 = RXD0 @id.class(digital), "Receive Data Bit 0"                        // valid on REF_CLK rising edge
+        6 = RXD1 @id.class(digital), "Receive Data Bit 1"
+        7 = RX_ER @id.class(digital), "Receive Error (optional at MAC)"
+        8 = CRS_DV @id.class(digital), "Carrier Sense / Receive Data Valid"
     ]
 
     role MAC {
         name = "Ethernet MAC"
         pins = [
-            out 1 = REF_CLK @class(digital), "Reference Clock 50MHz (system drives)"  // The system side sources the shared clock
-            out 2 = TXD0 @class(digital), "Transmit Data Bit 0"
-            out 3 = TXD1 @class(digital), "Transmit Data Bit 1"
-            out 4 = TX_EN @class(digital), "Transmit Enable"
-            in 5 = RXD0 @class(digital), "Receive Data Bit 0"
-            in 6 = RXD1 @class(digital), "Receive Data Bit 1"
-            in 7 = RX_ER @class(digital), "Receive Error (optional at MAC)"
-            in 8 = CRS_DV @class(digital), "Carrier Sense / Receive Data Valid"
+            out 1 = REF_CLK @id.class(digital), "Reference Clock 50MHz (system drives)"  // The system side sources the shared clock
+            out 2 = TXD0 @id.class(digital), "Transmit Data Bit 0"
+            out 3 = TXD1 @id.class(digital), "Transmit Data Bit 1"
+            out 4 = TX_EN @id.class(digital), "Transmit Enable"
+            in 5 = RXD0 @id.class(digital), "Receive Data Bit 0"
+            in 6 = RXD1 @id.class(digital), "Receive Data Bit 1"
+            in 7 = RX_ER @id.class(digital), "Receive Error (optional at MAC)"
+            in 8 = CRS_DV @id.class(digital), "Carrier Sense / Receive Data Valid"
         ]
         peer = PHY
     }
@@ -142,14 +142,14 @@ interface RMII(role)
     role PHY {
         name = "Ethernet PHY"
         pins = [
-            in 1 = REF_CLK @class(digital), "Reference Clock 50MHz (system drives)"   // The PHY never drives REF_CLK
-            in 2 = TXD0 @class(digital), "Transmit Data Bit 0"
-            in 3 = TXD1 @class(digital), "Transmit Data Bit 1"
-            in 4 = TX_EN @class(digital), "Transmit Enable"
-            out 5 = RXD0 @class(digital), "Receive Data Bit 0"
-            out 6 = RXD1 @class(digital), "Receive Data Bit 1"
-            out 7 = RX_ER @class(digital), "Receive Error (optional at MAC)"
-            out 8 = CRS_DV @class(digital), "Carrier Sense / Receive Data Valid"
+            in 1 = REF_CLK @id.class(digital), "Reference Clock 50MHz (system drives)"   // The PHY never drives REF_CLK
+            in 2 = TXD0 @id.class(digital), "Transmit Data Bit 0"
+            in 3 = TXD1 @id.class(digital), "Transmit Data Bit 1"
+            in 4 = TX_EN @id.class(digital), "Transmit Enable"
+            out 5 = RXD0 @id.class(digital), "Receive Data Bit 0"
+            out 6 = RXD1 @id.class(digital), "Receive Data Bit 1"
+            out 7 = RX_ER @id.class(digital), "Receive Error (optional at MAC)"
+            out 8 = CRS_DV @id.class(digital), "Carrier Sense / Receive Data Valid"
         ]
         peer = MAC
     }

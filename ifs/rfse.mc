@@ -23,6 +23,6 @@ interface RF_SE // Single-ended RF port (transceiver / front-end / antenna side)
 
     // Role-less conductor view: 1 anonymous lane, ordinal = wire identity
     pins = [
-        1 = _ @class(radio) // the RF conductor
+        1 = _ @id.class(radio) // the RF conductor
     ]
 }

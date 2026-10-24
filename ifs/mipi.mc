@@ -27,29 +27,29 @@ interface MIPI.DPHY(role)
     // (302 3.2); this definition carries structure only.
 
     pins = [
-        1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"
-        2 = CLK_N @pair(clk) @class(digital), "D-PHY clock pair negative"
-        3 = D0_P @pair(d0) @class(digital), "Data lane 0 positive"
-        4 = D0_N @pair(d0) @class(digital), "Data lane 0 negative"
+        1 = CLK_P @sig.pair(clk) @id.class(digital), "D-PHY clock pair positive"
+        2 = CLK_N @sig.pair(clk) @id.class(digital), "D-PHY clock pair negative"
+        3 = D0_P @sig.pair(d0) @id.class(digital), "Data lane 0 positive"
+        4 = D0_N @sig.pair(d0) @id.class(digital), "Data lane 0 negative"
     ]
 
     role HOST {
         name = "D-PHY Host"
         pins = [
-            out 1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"
-            out 2 = CLK_N @pair(clk) @class(digital), "D-PHY clock pair negative"
-            out 3 = D0_P @pair(d0) @class(digital), "Data lane 0 positive"
-            out 4 = D0_N @pair(d0) @class(digital), "Data lane 0 negative"
+            out 1 = CLK_P @sig.pair(clk) @id.class(digital), "D-PHY clock pair positive"
+            out 2 = CLK_N @sig.pair(clk) @id.class(digital), "D-PHY clock pair negative"
+            out 3 = D0_P @sig.pair(d0) @id.class(digital), "Data lane 0 positive"
+            out 4 = D0_N @sig.pair(d0) @id.class(digital), "Data lane 0 negative"
         ]
         peer = DEVICE(1)
     }
     role DEVICE {
         name = "D-PHY Device"
         pins = [
-            in 1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"
-            in 2 = CLK_N @pair(clk) @class(digital), "D-PHY clock pair negative"
-            in 3 = D0_P @pair(d0) @class(digital), "Data lane 0 positive"
-            in 4 = D0_N @pair(d0) @class(digital), "Data lane 0 negative"
+            in 1 = CLK_P @sig.pair(clk) @id.class(digital), "D-PHY clock pair positive"
+            in 2 = CLK_N @sig.pair(clk) @id.class(digital), "D-PHY clock pair negative"
+            in 3 = D0_P @sig.pair(d0) @id.class(digital), "Data lane 0 positive"
+            in 4 = D0_N @sig.pair(d0) @id.class(digital), "Data lane 0 negative"
         ]
         peer = HOST(1)
     }
@@ -76,47 +76,47 @@ interface MIPI.DSI(role)
     // and timing limits only.
 
     pins = [
-        1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"
-        2 = CLK_N @pair(clk) @class(digital), "D-PHY clock pair negative"
-        3 = D0_P @pair(d0) @class(digital), "Data lane 0 positive"
-        4 = D0_N @pair(d0) @class(digital), "Data lane 0 negative"
-        5 = D1_P @pair(d1) @class(digital), "Data lane 1 positive"
-        6 = D1_N @pair(d1) @class(digital), "Data lane 1 negative"
-        7 = D2_P @pair(d2) @class(digital), "Data lane 2 positive"
-        8 = D2_N @pair(d2) @class(digital), "Data lane 2 negative"
-        9 = D3_P @pair(d3) @class(digital), "Data lane 3 positive"
-        10 = D3_N @pair(d3) @class(digital), "Data lane 3 negative"
+        1 = CLK_P @sig.pair(clk) @id.class(digital), "D-PHY clock pair positive"
+        2 = CLK_N @sig.pair(clk) @id.class(digital), "D-PHY clock pair negative"
+        3 = D0_P @sig.pair(d0) @id.class(digital), "Data lane 0 positive"
+        4 = D0_N @sig.pair(d0) @id.class(digital), "Data lane 0 negative"
+        5 = D1_P @sig.pair(d1) @id.class(digital), "Data lane 1 positive"
+        6 = D1_N @sig.pair(d1) @id.class(digital), "Data lane 1 negative"
+        7 = D2_P @sig.pair(d2) @id.class(digital), "Data lane 2 positive"
+        8 = D2_N @sig.pair(d2) @id.class(digital), "Data lane 2 negative"
+        9 = D3_P @sig.pair(d3) @id.class(digital), "Data lane 3 positive"
+        10 = D3_N @sig.pair(d3) @id.class(digital), "Data lane 3 negative"
     ]
 
     role HOST {
         name = "DSI Host (SoC display controller)"
         pins = [
-            out 1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"  // The host drives every lane
-            out 2 = CLK_N @pair(clk) @class(digital), "D-PHY clock pair negative"  // (video mode; command-mode replies
-            out 3 = D0_P @pair(d0) @class(digital), "Data lane 0 positive"        // ride the same lanes inbound)
-            out 4 = D0_N @pair(d0) @class(digital), "Data lane 0 negative"
-            out 5 = D1_P @pair(d1) @class(digital), "Data lane 1 positive"
-            out 6 = D1_N @pair(d1) @class(digital), "Data lane 1 negative"
-            out 7 = D2_P @pair(d2) @class(digital), "Data lane 2 positive"
-            out 8 = D2_N @pair(d2) @class(digital), "Data lane 2 negative"
-            out 9 = D3_P @pair(d3) @class(digital), "Data lane 3 positive"
-            out 10 = D3_N @pair(d3) @class(digital), "Data lane 3 negative"
+            out 1 = CLK_P @sig.pair(clk) @id.class(digital), "D-PHY clock pair positive"  // The host drives every lane
+            out 2 = CLK_N @sig.pair(clk) @id.class(digital), "D-PHY clock pair negative"  // (video mode; command-mode replies
+            out 3 = D0_P @sig.pair(d0) @id.class(digital), "Data lane 0 positive"        // ride the same lanes inbound)
+            out 4 = D0_N @sig.pair(d0) @id.class(digital), "Data lane 0 negative"
+            out 5 = D1_P @sig.pair(d1) @id.class(digital), "Data lane 1 positive"
+            out 6 = D1_N @sig.pair(d1) @id.class(digital), "Data lane 1 negative"
+            out 7 = D2_P @sig.pair(d2) @id.class(digital), "Data lane 2 positive"
+            out 8 = D2_N @sig.pair(d2) @id.class(digital), "Data lane 2 negative"
+            out 9 = D3_P @sig.pair(d3) @id.class(digital), "Data lane 3 positive"
+            out 10 = D3_N @sig.pair(d3) @id.class(digital), "Data lane 3 negative"
         ]
         peer = DISPLAY(1)
     }
     role DISPLAY {
         name = "DSI Peripheral (display panel)"
         pins = [
-            in 1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"   // The panel receives
-            in 2 = CLK_N @pair(clk) @class(digital), "D-PHY clock pair negative"
-            in 3 = D0_P @pair(d0) @class(digital), "Data lane 0 positive"
-            in 4 = D0_N @pair(d0) @class(digital), "Data lane 0 negative"
-            in 5 = D1_P @pair(d1) @class(digital), "Data lane 1 positive"
-            in 6 = D1_N @pair(d1) @class(digital), "Data lane 1 negative"
-            in 7 = D2_P @pair(d2) @class(digital), "Data lane 2 positive"
-            in 8 = D2_N @pair(d2) @class(digital), "Data lane 2 negative"
-            in 9 = D3_P @pair(d3) @class(digital), "Data lane 3 positive"
-            in 10 = D3_N @pair(d3) @class(digital), "Data lane 3 negative"
+            in 1 = CLK_P @sig.pair(clk) @id.class(digital), "D-PHY clock pair positive"   // The panel receives
+            in 2 = CLK_N @sig.pair(clk) @id.class(digital), "D-PHY clock pair negative"
+            in 3 = D0_P @sig.pair(d0) @id.class(digital), "Data lane 0 positive"
+            in 4 = D0_N @sig.pair(d0) @id.class(digital), "Data lane 0 negative"
+            in 5 = D1_P @sig.pair(d1) @id.class(digital), "Data lane 1 positive"
+            in 6 = D1_N @sig.pair(d1) @id.class(digital), "Data lane 1 negative"
+            in 7 = D2_P @sig.pair(d2) @id.class(digital), "Data lane 2 positive"
+            in 8 = D2_N @sig.pair(d2) @id.class(digital), "Data lane 2 negative"
+            in 9 = D3_P @sig.pair(d3) @id.class(digital), "Data lane 3 positive"
+            in 10 = D3_N @sig.pair(d3) @id.class(digital), "Data lane 3 negative"
         ]
         peer = HOST(1)
     }
@@ -137,47 +137,47 @@ interface MIPI.CSI(role)
     // were board practice, the supply domain rides the book's window.
 
     pins = [
-        1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"
-        2 = CLK_N @pair(clk) @class(digital), "D-PHY clock pair negative"
-        3 = D0_P @pair(d0) @class(digital), "Data lane 0 positive"
-        4 = D0_N @pair(d0) @class(digital), "Data lane 0 negative"
-        5 = D1_P @pair(d1) @class(digital), "Data lane 1 positive"
-        6 = D1_N @pair(d1) @class(digital), "Data lane 1 negative"
-        7 = D2_P @pair(d2) @class(digital), "Data lane 2 positive"
-        8 = D2_N @pair(d2) @class(digital), "Data lane 2 negative"
-        9 = D3_P @pair(d3) @class(digital), "Data lane 3 positive"
-        10 = D3_N @pair(d3) @class(digital), "Data lane 3 negative"
+        1 = CLK_P @sig.pair(clk) @id.class(digital), "D-PHY clock pair positive"
+        2 = CLK_N @sig.pair(clk) @id.class(digital), "D-PHY clock pair negative"
+        3 = D0_P @sig.pair(d0) @id.class(digital), "Data lane 0 positive"
+        4 = D0_N @sig.pair(d0) @id.class(digital), "Data lane 0 negative"
+        5 = D1_P @sig.pair(d1) @id.class(digital), "Data lane 1 positive"
+        6 = D1_N @sig.pair(d1) @id.class(digital), "Data lane 1 negative"
+        7 = D2_P @sig.pair(d2) @id.class(digital), "Data lane 2 positive"
+        8 = D2_N @sig.pair(d2) @id.class(digital), "Data lane 2 negative"
+        9 = D3_P @sig.pair(d3) @id.class(digital), "Data lane 3 positive"
+        10 = D3_N @sig.pair(d3) @id.class(digital), "Data lane 3 negative"
     ]
 
     role SENSOR {
         name = "CSI Transmitter (camera sensor)"
         pins = [
-            out 1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"  // The sensor drives every lane
-            out 2 = CLK_N @pair(clk) @class(digital), "D-PHY clock pair negative"
-            out 3 = D0_P @pair(d0) @class(digital), "Data lane 0 positive"
-            out 4 = D0_N @pair(d0) @class(digital), "Data lane 0 negative"
-            out 5 = D1_P @pair(d1) @class(digital), "Data lane 1 positive"
-            out 6 = D1_N @pair(d1) @class(digital), "Data lane 1 negative"
-            out 7 = D2_P @pair(d2) @class(digital), "Data lane 2 positive"
-            out 8 = D2_N @pair(d2) @class(digital), "Data lane 2 negative"
-            out 9 = D3_P @pair(d3) @class(digital), "Data lane 3 positive"
-            out 10 = D3_N @pair(d3) @class(digital), "Data lane 3 negative"
+            out 1 = CLK_P @sig.pair(clk) @id.class(digital), "D-PHY clock pair positive"  // The sensor drives every lane
+            out 2 = CLK_N @sig.pair(clk) @id.class(digital), "D-PHY clock pair negative"
+            out 3 = D0_P @sig.pair(d0) @id.class(digital), "Data lane 0 positive"
+            out 4 = D0_N @sig.pair(d0) @id.class(digital), "Data lane 0 negative"
+            out 5 = D1_P @sig.pair(d1) @id.class(digital), "Data lane 1 positive"
+            out 6 = D1_N @sig.pair(d1) @id.class(digital), "Data lane 1 negative"
+            out 7 = D2_P @sig.pair(d2) @id.class(digital), "Data lane 2 positive"
+            out 8 = D2_N @sig.pair(d2) @id.class(digital), "Data lane 2 negative"
+            out 9 = D3_P @sig.pair(d3) @id.class(digital), "Data lane 3 positive"
+            out 10 = D3_N @sig.pair(d3) @id.class(digital), "Data lane 3 negative"
         ]
         peer = HOST(1)
     }
     role HOST {
         name = "CSI Receiver (SoC ISP)"
         pins = [
-            in 1 = CLK_P @pair(clk) @class(digital), "D-PHY clock pair positive"   // The ISP samples them
-            in 2 = CLK_N @pair(clk) @class(digital), "D-PHY clock pair negative"
-            in 3 = D0_P @pair(d0) @class(digital), "Data lane 0 positive"
-            in 4 = D0_N @pair(d0) @class(digital), "Data lane 0 negative"
-            in 5 = D1_P @pair(d1) @class(digital), "Data lane 1 positive"
-            in 6 = D1_N @pair(d1) @class(digital), "Data lane 1 negative"
-            in 7 = D2_P @pair(d2) @class(digital), "Data lane 2 positive"
-            in 8 = D2_N @pair(d2) @class(digital), "Data lane 2 negative"
-            in 9 = D3_P @pair(d3) @class(digital), "Data lane 3 positive"
-            in 10 = D3_N @pair(d3) @class(digital), "Data lane 3 negative"
+            in 1 = CLK_P @sig.pair(clk) @id.class(digital), "D-PHY clock pair positive"   // The ISP samples them
+            in 2 = CLK_N @sig.pair(clk) @id.class(digital), "D-PHY clock pair negative"
+            in 3 = D0_P @sig.pair(d0) @id.class(digital), "Data lane 0 positive"
+            in 4 = D0_N @sig.pair(d0) @id.class(digital), "Data lane 0 negative"
+            in 5 = D1_P @sig.pair(d1) @id.class(digital), "Data lane 1 positive"
+            in 6 = D1_N @sig.pair(d1) @id.class(digital), "Data lane 1 negative"
+            in 7 = D2_P @sig.pair(d2) @id.class(digital), "Data lane 2 positive"
+            in 8 = D2_N @sig.pair(d2) @id.class(digital), "Data lane 2 negative"
+            in 9 = D3_P @sig.pair(d3) @id.class(digital), "Data lane 3 positive"
+            in 10 = D3_N @sig.pair(d3) @id.class(digital), "Data lane 3 negative"
         ]
         peer = SENSOR(1)
     }

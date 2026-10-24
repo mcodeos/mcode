@@ -25,15 +25,15 @@ interface MOST.OPT(role)
     // test condition); supply windows ride the DC faces.
 
     pins = [
-        1 = TX @class(digital), "Optical transmit"    // fiber out to the downstream node
-        2 = RX @class(digital), "Optical receive"     // fiber in from the upstream node
+        1 = TX @id.class(digital), "Optical transmit"    // fiber out to the downstream node
+        2 = RX @id.class(digital), "Optical receive"     // fiber in from the upstream node
     ]
 
     role MASTER {
         name = "MOST Master"
         pins = [
-            out 1 = TX @class(digital), "Optical transmit"    // relays the circulating frame stream out
-            in 2 = RX @class(digital), "Optical receive"      // and in from the upstream node
+            out 1 = TX @id.class(digital), "Optical transmit"    // relays the circulating frame stream out
+            in 2 = RX @id.class(digital), "Optical receive"      // and in from the upstream node
         ]
         peer = SLAVE
     }
@@ -41,8 +41,8 @@ interface MOST.OPT(role)
     role SLAVE {
         name = "MOST Slave"
         pins = [
-            out 1 = TX @class(digital), "Optical transmit"    // relays the circulating frame stream out
-            in 2 = RX @class(digital), "Optical receive"      // and in from the upstream node
+            out 1 = TX @id.class(digital), "Optical transmit"    // relays the circulating frame stream out
+            in 2 = RX @id.class(digital), "Optical receive"      // and in from the upstream node
         ]
         peer = MASTER
     }
@@ -79,19 +79,19 @@ interface MOST.ELE(role)
     // optical face).
 
     pins = [
-        1 = TX\+ @pair(tx) @class(digital), "Transmit Positive"    // differential pair, fiber-out equivalent
-        2 = TX\- @pair(tx) @class(digital), "Transmit Negative"
-        3 = RX\+ @pair(rx) @class(digital), "Receive Positive"     // differential pair, fiber-in equivalent
-        4 = RX\- @pair(rx) @class(digital), "Receive Negative"
+        1 = TX\+ @sig.pair(tx) @id.class(digital), "Transmit Positive"    // differential pair, fiber-out equivalent
+        2 = TX\- @sig.pair(tx) @id.class(digital), "Transmit Negative"
+        3 = RX\+ @sig.pair(rx) @id.class(digital), "Receive Positive"     // differential pair, fiber-in equivalent
+        4 = RX\- @sig.pair(rx) @id.class(digital), "Receive Negative"
     ]
 
     role MASTER {
         name = "MOST Master"
         pins = [
-            out 1 = TX\+ @pair(tx) @class(digital), "Transmit Positive"    // relays the circulating frame stream out
-            out 2 = TX\- @pair(tx) @class(digital), "Transmit Negative"
-            in 3 = RX\+ @pair(rx) @class(digital), "Receive Positive"      // and in from the upstream node
-            in 4 = RX\- @pair(rx) @class(digital), "Receive Negative"
+            out 1 = TX\+ @sig.pair(tx) @id.class(digital), "Transmit Positive"    // relays the circulating frame stream out
+            out 2 = TX\- @sig.pair(tx) @id.class(digital), "Transmit Negative"
+            in 3 = RX\+ @sig.pair(rx) @id.class(digital), "Receive Positive"      // and in from the upstream node
+            in 4 = RX\- @sig.pair(rx) @id.class(digital), "Receive Negative"
         ]
         peer = SLAVE
     }
@@ -99,10 +99,10 @@ interface MOST.ELE(role)
     role SLAVE {
         name = "MOST Slave"
         pins = [
-            out 1 = TX\+ @pair(tx) @class(digital), "Transmit Positive"    // relays the circulating frame stream out
-            out 2 = TX\- @pair(tx) @class(digital), "Transmit Negative"
-            in 3 = RX\+ @pair(rx) @class(digital), "Receive Positive"      // and in from the upstream node
-            in 4 = RX\- @pair(rx) @class(digital), "Receive Negative"
+            out 1 = TX\+ @sig.pair(tx) @id.class(digital), "Transmit Positive"    // relays the circulating frame stream out
+            out 2 = TX\- @sig.pair(tx) @id.class(digital), "Transmit Negative"
+            in 3 = RX\+ @sig.pair(rx) @id.class(digital), "Receive Positive"      // and in from the upstream node
+            in 4 = RX\- @sig.pair(rx) @id.class(digital), "Receive Negative"
         ]
         peer = MASTER
     }
@@ -138,15 +138,15 @@ interface MOST.COAX(role)
     // witness (same verdict as the optical face).
 
     pins = [
-        1 = TX @class(digital), "Coaxial transmit"    // out to the downstream node
-        2 = RX @class(digital), "Coaxial receive"     // in from the upstream node
+        1 = TX @id.class(digital), "Coaxial transmit"    // out to the downstream node
+        2 = RX @id.class(digital), "Coaxial receive"     // in from the upstream node
     ]
 
     role MASTER {
         name = "MOST Master"
         pins = [
-            out 1 = TX @class(digital), "Coaxial transmit"    // relays the circulating frame stream out
-            in 2 = RX @class(digital), "Coaxial receive"      // and in from the upstream node
+            out 1 = TX @id.class(digital), "Coaxial transmit"    // relays the circulating frame stream out
+            in 2 = RX @id.class(digital), "Coaxial receive"      // and in from the upstream node
         ]
         peer = SLAVE
     }
@@ -154,8 +154,8 @@ interface MOST.COAX(role)
     role SLAVE {
         name = "MOST Slave"
         pins = [
-            out 1 = TX @class(digital), "Coaxial transmit"    // relays the circulating frame stream out
-            in 2 = RX @class(digital), "Coaxial receive"      // and in from the upstream node
+            out 1 = TX @id.class(digital), "Coaxial transmit"    // relays the circulating frame stream out
+            in 2 = RX @id.class(digital), "Coaxial receive"      // and in from the upstream node
         ]
         peer = MASTER
     }
@@ -194,15 +194,15 @@ interface MOST.FOT(role)
     // supply window rides the DC faces.
 
     pins = [
-        1 = _ @class(digital)    // NIC TX <-> FOT RX data
-        2 = _ @class(digital)    // FOT TX data <-> NIC RX
+        1 = _ @id.class(digital)    // NIC TX <-> FOT RX data
+        2 = _ @id.class(digital)    // FOT TX data <-> NIC RX
     ]
 
     role NIC {
         name = "MOST NIC Copper Face"
         pins = [
-            out 1 = TX @class(digital) @cross(FOT.RX), "Transmit - drives the RX-data pin of the FOT"
-            in 2 = RX @class(digital) @cross(FOT.TX), "Receive - reads the TX-data pin of the FOT"
+            out 1 = TX @id.class(digital) @id.cross(FOT.RX), "Transmit - drives the RX-data pin of the FOT"
+            in 2 = RX @id.class(digital) @id.cross(FOT.TX), "Receive - reads the TX-data pin of the FOT"
         ]
         peer = FOT(1)
     }
@@ -210,8 +210,8 @@ interface MOST.FOT(role)
     role FOT {
         name = "MOST Transceiver Copper Face"
         pins = [
-            in 1 = RX @class(digital) @cross(NIC.TX), "RX data - the lane the NIC drives"
-            out 2 = TX @class(digital) @cross(NIC.RX), "TX data - the lane the NIC reads"
+            in 1 = RX @id.class(digital) @id.cross(NIC.TX), "RX data - the lane the NIC drives"
+            out 2 = TX @id.class(digital) @id.cross(NIC.RX), "TX data - the lane the NIC reads"
         ]
         peer = NIC(1)
     }

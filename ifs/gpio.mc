@@ -4,7 +4,7 @@
 // GPIO - General Purpose Input/Output Interface Standard Definition
 // Core Rule: One general-purpose digital line, push-pull by default
 //            (high = VCC, low = GND). A device that drives the line
-//            open-drain states @drive(od) (and @pull where it relies on
+//            open-drain states @sig.drive(od) (and @pull where it relies on
 //            one) on its own adoption row, which overrides this default.
 // Device Definition: PROVIDER = the side that offers the line (MCU/SoC),
 //                    CONSUMER = the side that uses it (any digital
@@ -23,10 +23,10 @@ interface GPIO(role)
 
     // Member row electrical nature: a general-purpose GPIO pin is
     // push-pull by default; a device that drives a GPIO line open-drain
-    // states `@drive(od)` on its own adoption row, which overrides this
+    // states `@sig.drive(od)` on its own adoption row, which overrides this
     // library default per pin.
     pins = [
-        1 = _ @drive(pp) @class(digital)
+        1 = _ @sig.drive(pp) @id.class(digital)
     ]
 
     role PROVIDER {  // offers the line: MCU/SoC GPIO block

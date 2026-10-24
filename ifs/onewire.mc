@@ -4,7 +4,7 @@
 // ONEWIRE - 1-Wire Bus Interface Standard Definition
 // Core Rule: Single-wire half-duplex multi-point bus, open-drain with an
 //            external pullup — every node releases the line by driving
-//            high (a push-pull driver states @drive(pp) on its own
+//            high (a push-pull driver states @sig.drive(pp) on its own
 //            adoption row). The ground reference is shared through the
 //            power supply, so the face has no ground member; parasitic
 //            power over the data line is the family's signature mode.
@@ -32,7 +32,7 @@ interface ONEWIRE(role)
     // retired 100 m row was application folklore.
 
     pins = [
-        1 = _ @drive(od) @class(digital)
+        1 = _ @sig.drive(od) @id.class(digital)
     ]
 
     role MASTER {

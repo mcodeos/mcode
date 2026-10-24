@@ -31,30 +31,30 @@ interface ADC.DIFF(role)
     // v_in require with the value split by that class split - until then
     // the numbers ride the part spec faces and no .ELEC book exists.
 
-    // The two rows tagged @pair(p) are the two legs of one differential
+    // The two rows tagged @sig.pair(p) are the two legs of one differential
     // signal; the P/N spellings are the naming convention, and the first
     // member is leg A.
-    // The @class(analog) row attribute is the library-default signal class,
+    // The @id.class(analog) row attribute is the library-default signal class,
     // same as ADC.SINGLE: adopting components inherit it and may override
     // by ordinal.
     pins = [
-        1 = P @class(analog) @pair(p), "Positive Input"   // Positive differential input
-        2 = N @class(analog) @pair(p), "Negative Input"   // Negative differential input
+        1 = P @id.class(analog) @sig.pair(p), "Positive Input"   // Positive differential input
+        2 = N @id.class(analog) @sig.pair(p), "Negative Input"   // Negative differential input
     ]
     
     role TRANSMITTER {  // ADC.DIFF Transmitter - Sensor or signal source
         name = "ADC.DIFF Transmitter"
         pins = [
-            out 1 = P @class(analog) @pair(p), "Positive Input"   // The source drives the pair
-            out 2 = N @class(analog) @pair(p), "Negative Input"
+            out 1 = P @id.class(analog) @sig.pair(p), "Positive Input"   // The source drives the pair
+            out 2 = N @id.class(analog) @sig.pair(p), "Negative Input"
         ]
         peer = RECEIVER(1)
     }
     role RECEIVER {  // ADC.DIFF Receiver - ADC converter
         name = "ADC.DIFF Receiver"
         pins = [
-            in 1 = P @class(analog) @pair(p), "Positive Input"    // The converter samples the pair
-            in 2 = N @class(analog) @pair(p), "Negative Input"
+            in 1 = P @id.class(analog) @sig.pair(p), "Positive Input"    // The converter samples the pair
+            in 2 = N @id.class(analog) @sig.pair(p), "Negative Input"
         ]
         peer = TRANSMITTER(1)
     }

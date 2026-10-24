@@ -6,7 +6,7 @@
 //            (N). The neutral is nominally at earth potential but is a
 //            current-carrying member; the protective-earth conductor is
 //            never a member — an earthed face binds this interface and
-//            carries PE as its own pin tagged @role(protect.island).
+//            carries PE as its own pin tagged @id.role(protect.island).
 //            Role-less: direction rides the adopting terminal's direction
 //            word (psrc source / psnk sink), and region nominals belong to
 //            the consumer — connector faces bind the empty form
@@ -36,7 +36,7 @@ interface AC.1P(volt::UV.VOLT, freq::UV.HZ) // Single-phase AC mains interface
 //            member order. The neutral is nominally at earth potential but
 //            is a current-carrying member; PE is not — an earthed face
 //            binds this interface and carries PE as its own pin tagged
-//            @role(protect.island). Role-less, same law as AC.1P.
+//            @id.role(protect.island). Role-less, same law as AC.1P.
 
 interface AC.3P(volt::UV.VOLT, freq::UV.HZ) // Three-phase AC mains interface (4-wire Y)
 {
@@ -59,7 +59,7 @@ interface AC.3P(volt::UV.VOLT, freq::UV.HZ) // Three-phase AC mains interface (4
 //            wire count, not the winding — "3W" reads exactly as "no
 //            neutral member". PE is not a member — an earthed face binds
 //            this interface and carries PE as its own pin tagged
-//            @role(protect.island). Role-less, same law as AC.1P.
+//            @id.role(protect.island). Role-less, same law as AC.1P.
 
 interface AC.3P3W(volt::UV.VOLT, freq::UV.HZ) // Three-phase AC mains interface (3-wire delta)
 {

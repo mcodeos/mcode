@@ -31,13 +31,13 @@ interface DAC(role)
     // face would be the double-book the registry bans.
 
     pins = [
-        1 = OUT @class(analog), "Analog Output"    // Analog output voltage
+        1 = OUT @id.class(analog), "Analog Output"    // Analog output voltage
     ]
     
     role TRANSMITTER {  // the DAC analog output stage
         name = "DAC Transmitter"
         pins = [
-            out 1 = OUT @class(analog), "Analog Output"  // The DAC drives the output
+            out 1 = OUT @id.class(analog), "Analog Output"  // The DAC drives the output
         ]
         peer = RECEIVER
     }
@@ -45,7 +45,7 @@ interface DAC(role)
     role RECEIVER {  // the analog input it feeds (amp, ADC, filter)
         name = "DAC Receiver"
         pins = [
-            in 1 = OUT @class(analog), "Analog Output"   // The fed stage samples it
+            in 1 = OUT @id.class(analog), "Analog Output"   // The fed stage samples it
         ]
         peer = TRANSMITTER
     }

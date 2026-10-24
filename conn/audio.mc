@@ -22,25 +22,25 @@ component AUDIO.TRS_35MM(config::STRING) :: ANCH.CONN.MATE
         pins = [
             1 = Tip, "Tip (Left)"
             2 = Ring, "Ring (Right)"
-            3 = Sleeve @exposed(esd_contact), "Sleeve (Ground)"
+            3 = Sleeve @sig.exposed(esd_contact), "Sleeve (Ground)"
         ] 
     else if config == "mono" 
         pins = [
             1 = Tip, "Tip (Signal)"
-            2 = Sleeve @exposed(esd_contact), "Sleeve (Ground)"
+            2 = Sleeve @sig.exposed(esd_contact), "Sleeve (Ground)"
         ] 
     else if config == "headset" 
         pins = [
             1 = Tip, "Tip (Left)"
             2 = Ring1, "Ring 1 (Right)"
             3 = Ring2, "Ring 2 (Microphone)"
-            4 = Sleeve @exposed(esd_contact), "Sleeve (Ground)"
+            4 = Sleeve @sig.exposed(esd_contact), "Sleeve (Ground)"
         ]
     else 
         pins = [
             1 = Tip, "Tip"
             2 = Ring, "Ring"
-            3 = Sleeve @exposed(esd_contact), "Sleeve"
+            3 = Sleeve @sig.exposed(esd_contact), "Sleeve"
         ]
 }
 
@@ -63,7 +63,7 @@ component AUDIO.TRS_25MM() :: ANCH.CONN.MATE
     pins = [
         1 = Tip, "Tip"
         2 = Ring, "Ring"
-        3 = Sleeve @exposed(esd_contact), "Sleeve"
+        3 = Sleeve @sig.exposed(esd_contact), "Sleeve"
     ]
 }
 
@@ -84,7 +84,7 @@ component AUDIO.RCA() :: ANCH.CONN.MATE
     
     pins = [
         1 = Center, "Center Pin"
-        2 = Shield @exposed(esd_contact), "Outer Shield"
+        2 = Shield @sig.exposed(esd_contact), "Outer Shield"
     ]
 }
 
@@ -108,7 +108,7 @@ component AUDIO.XLR(pincnt::INT) :: ANCH.CONN.MATE
     
     if pincnt == 3
         pins = [
-            1 = GND @exposed(esd_contact), "Ground"
+            1 = GND @sig.exposed(esd_contact), "Ground"
             2 = Hot, "Hot"
             3 = Cold, "Cold"
         ]
@@ -121,7 +121,7 @@ component AUDIO.XLR(pincnt::INT) :: ANCH.CONN.MATE
     else if pincnt == 5
         pins = [
             [4,5] = [Power\+,Power\-]::DC(), "Power+ / Power-"
-            1 = GND @exposed(esd_contact), "Ground"
+            1 = GND @sig.exposed(esd_contact), "Ground"
             2 = Hot, "Hot"
             3 = Cold, "Cold"
         ]
@@ -171,7 +171,7 @@ component AUDIO.BANANA_PLUG() :: ANCH.CONN.MATE
     ]
     
     pins = [
-        1 = Conductor @exposed(esd_contact), "Conductor"
+        1 = Conductor @sig.exposed(esd_contact), "Conductor"
     ]
 }
 

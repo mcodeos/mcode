@@ -5,7 +5,7 @@
 // Core Rule: Two independent motion-control lanes: STEP carries the step
 //            pulse train (one rising edge advances the indexer one step),
 //            DIR carries the static direction level, only sampled around
-//            STEP edges. Independent signals, so no @pair tag.
+//            STEP edges. Independent signals, so no @sig.pair tag.
 // Device Definition: TRANSMITTER = pulse source (MCU timer/GPIO),
 //                    RECEIVER = stepper driver indexer input.
 
@@ -28,15 +28,15 @@ interface STEPDIR(role)
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     //
     pins = [
-        1 = _ @drive(pp) @class(digital) // STEP
-        2 = _ @drive(pp) @class(digital) // DIR
+        1 = _ @sig.drive(pp) @id.class(digital) // STEP
+        2 = _ @sig.drive(pp) @id.class(digital) // DIR
     ]
 
     role TRANSMITTER {  // pulse source: MCU timer/GPIO
         name = "STEPDIR Transmitter"
         pins = [
-            out 1 = STEP @drive(pp) @class(digital), "Step pulse train (rising edge advances one step)"
-            out 2 = DIR @drive(pp) @class(digital), "Direction level"
+            out 1 = STEP @sig.drive(pp) @id.class(digital), "Step pulse train (rising edge advances one step)"
+            out 2 = DIR @sig.drive(pp) @id.class(digital), "Direction level"
         ]
         peer = RECEIVER
     }
@@ -44,8 +44,8 @@ interface STEPDIR(role)
     role RECEIVER {  // stepper driver indexer input
         name = "STEPDIR Receiver"
         pins = [
-            in 1 = STEP @drive(pp) @class(digital), "Step pulse train (rising edge advances one step)"
-            in 2 = DIR @drive(pp) @class(digital), "Direction level"
+            in 1 = STEP @sig.drive(pp) @id.class(digital), "Step pulse train (rising edge advances one step)"
+            in 2 = DIR @sig.drive(pp) @id.class(digital), "Direction level"
         ]
         peer = TRANSMITTER
     }

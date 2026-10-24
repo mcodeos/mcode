@@ -5,7 +5,7 @@
 // Core Rule: A quiet analog reference pair — a stable voltage that a
 //            converter's samples are measured against, not a power rail.
 //            The whole reference row carries the quiet expectation
-//            (@role(ref.quiet)); the supply pair stays unmarked. Direction is
+//            (@id.role(ref.quiet)); the supply pair stays unmarked. Direction is
 //            not a parameter: the source/sink rides on the adopting
 //            terminal's direction word (psrc = the reference drives,
 //            psnk = the converter samples).
@@ -27,8 +27,8 @@ interface VREF(volt::UV.VOLT) // Voltage Reference Interface
     mode = ["unidirectional"]
 
     pins = [
-        1 = REF @role(ref.quiet), "Voltage reference"
-        2 = RET @role(ref.quiet), "Reference return"
+        1 = REF @id.role(ref.quiet), "Voltage reference"
+        2 = RET @id.role(ref.quiet), "Reference return"
     ]
 
 }

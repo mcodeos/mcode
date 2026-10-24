@@ -39,21 +39,21 @@ interface DBG.JTAG(role)
     // carry the named views: TDI and TDO are same-wire / role-flipped, and
     // the direction words flip per side.
     pins = [
-        1 = _ @class(digital) // TDI (HOST out -> TAP in)
-        2 = _ @class(digital) // TDO (TAP out -> HOST in)
-        3 = _ @class(digital) // TCK
-        4 = _ @class(digital) // TMS
-        5 = _ @class(digital) // _TRST
+        1 = _ @id.class(digital) // TDI (HOST out -> TAP in)
+        2 = _ @id.class(digital) // TDO (TAP out -> HOST in)
+        3 = _ @id.class(digital) // TCK
+        4 = _ @id.class(digital) // TMS
+        5 = _ @id.class(digital) // _TRST
     ]
 
     role TAP {  // Test Access Port - Target device being tested/debugged
         name = "JTAG TAP"
         pins = [
-            in 1 = TDI @class(digital), "Test Data Input"  // Data input to the device
-            out 2 = TDO @class(digital), "Test Data Output" // Data output from the device
-            3 = TCK @class(digital), "Test Clock"           // Clock signal for synchronization
-            4 = TMS @class(digital), "Test Mode Select"     // Controls the state machine
-            5 = _TRST @class(digital), "Test Reset (datasheet TRST)"          // Optional reset signal
+            in 1 = TDI @id.class(digital), "Test Data Input"  // Data input to the device
+            out 2 = TDO @id.class(digital), "Test Data Output" // Data output from the device
+            3 = TCK @id.class(digital), "Test Clock"           // Clock signal for synchronization
+            4 = TMS @id.class(digital), "Test Mode Select"     // Controls the state machine
+            5 = _TRST @id.class(digital), "Test Reset (datasheet TRST)"          // Optional reset signal
         ]
         peer = HOST
     }
@@ -61,11 +61,11 @@ interface DBG.JTAG(role)
     role HOST {  // JTAG Host - Debugger/programmer (the TAP controller lives in the target)
         name = "JTAG Host"
         pins = [
-            out 1 = TDI @class(digital), "Test Data Input"  // Same wire as the TAP's input
-            in 2 = TDO @class(digital), "Test Data Output"  // Same wire as the TAP's output
-            3 = TCK @class(digital), "Test Clock"           // Clock signal for synchronization
-            4 = TMS @class(digital), "Test Mode Select"     // Controls the state machine
-            5 = _TRST @class(digital), "Test Reset (datasheet TRST)"          // Optional reset signal
+            out 1 = TDI @id.class(digital), "Test Data Input"  // Same wire as the TAP's input
+            in 2 = TDO @id.class(digital), "Test Data Output"  // Same wire as the TAP's output
+            3 = TCK @id.class(digital), "Test Clock"           // Clock signal for synchronization
+            4 = TMS @id.class(digital), "Test Mode Select"     // Controls the state machine
+            5 = _TRST @id.class(digital), "Test Reset (datasheet TRST)"          // Optional reset signal
         ]
         peer = TAP
     }
@@ -83,8 +83,8 @@ interface DBG.JTAG.2(role)
     topology = "point to point"
     mode = ["half duplex"]
     pins = [
-        1 = TCK @class(digital), "Test Clock"  // Clock signal for synchronization
-        2 = TMS @class(digital), "Test Mode Select / Bidirectional Data"  // Mode select + multiplexed TDI/TDO
+        1 = TCK @id.class(digital), "Test Clock"  // Clock signal for synchronization
+        2 = TMS @id.class(digital), "Test Mode Select / Bidirectional Data"  // Mode select + multiplexed TDI/TDO
     ]
 
     role TAP {  // Test Access Port - Target device being tested/debugged
@@ -109,8 +109,8 @@ interface DBG.DAP(role)
     topology = "point to point"
     mode = ["full duplex"]
     pins =[
-        1 = DAP0 @class(digital), "Debug Access Port 0"
-        2 = DAP1 @class(digital), "Debug Access Port 1"
+        1 = DAP0 @id.class(digital), "Debug Access Port 0"
+        2 = DAP1 @id.class(digital), "Debug Access Port 1"
     ]
     
     role HOST {
@@ -136,9 +136,9 @@ interface DBG.DAP.PU(role)
     mode = ["half duplex"]
     // 3 pin unidir
     pins = [
-        1 = DAP0 @class(digital), "Debug Access Port 0"
-        2 = DAP1 @class(digital), "Debug Access Port 1"
-        3 = DAP2 @class(digital), "Debug Access Port 2"
+        1 = DAP0 @id.class(digital), "Debug Access Port 0"
+        2 = DAP1 @id.class(digital), "Debug Access Port 1"
+        3 = DAP2 @id.class(digital), "Debug Access Port 2"
     ]
 
     role HOST {
@@ -164,9 +164,9 @@ interface DBG.DAP.WM(role)
     mode = ["full duplex"]
     // 3 Pin wide mode
     pins = [
-        1 = DAP0 @class(digital), "Debug Access Port 0"
-        2 = DAP1 @class(digital), "Debug Access Port 1"
-        3 = DAP2 @class(digital), "Debug Access Port 2"
+        1 = DAP0 @id.class(digital), "Debug Access Port 0"
+        2 = DAP1 @id.class(digital), "Debug Access Port 1"
+        3 = DAP2 @id.class(digital), "Debug Access Port 2"
     ]
 
     role HOST {
@@ -197,9 +197,9 @@ interface DBG.CMSISDAP(role)
     // SWDIO,SWCLK,_RST; DBG.ICD PGED,PGEC). With no data lane here, the
     // clock precedes the mode select to match.
     pins = [
-        1 = TCK @class(digital), "Test Clock"
-        2 = TMS @class(digital), "Test Mode Select"
-        3 = _RST @class(digital), "Reset (datasheet nRST)"
+        1 = TCK @id.class(digital), "Test Clock"
+        2 = TMS @id.class(digital), "Test Mode Select"
+        3 = _RST @id.class(digital), "Reset (datasheet nRST)"
     ]
     
     role HOST {
@@ -227,10 +227,10 @@ interface DBG.SWD(role)
     topology = "point to point"
     mode = ["full duplex"]
     pins = [
-        1 = SWDIO @class(digital), "Serial Wire Debug Input/Output"
-        2 = SWCLK @class(digital), "Serial Wire Debug Clock"
-        3 = _RST @class(digital), "Reset (datasheet nRST)"
-        4 = VREF @class(digital), "Reference Voltage"
+        1 = SWDIO @id.class(digital), "Serial Wire Debug Input/Output"
+        2 = SWCLK @id.class(digital), "Serial Wire Debug Clock"
+        3 = _RST @id.class(digital), "Reset (datasheet nRST)"
+        4 = VREF @id.class(digital), "Reference Voltage"
     ]
     
     role HOST {
@@ -255,8 +255,8 @@ interface DBG.SWIM(role)
     topology = "point to point"
     mode = ["half duplex"]
     pins = [
-        1 = SWIM @class(digital), "Single Wire Interface Module"
-        2 = _RST @class(digital), "Reset (datasheet NRST)"
+        1 = SWIM @id.class(digital), "Single Wire Interface Module"
+        2 = _RST @id.class(digital), "Reset (datasheet NRST)"
         3 = GND, "Ground"
     ]
 
@@ -283,9 +283,9 @@ interface DBG.ICD(role)
     mode = ["full duplex"]
 
     pins = [
-        1 = PGED @class(digital), "Program/Debug Enable"
-        2 = PGEC @class(digital), "Program/Debug Clock"
-        3 = _MCLR @class(digital), "Master Clear (datasheet MCLR overbar)"
+        1 = PGED @id.class(digital), "Program/Debug Enable"
+        2 = PGEC @id.class(digital), "Program/Debug Clock"
+        3 = _MCLR @id.class(digital), "Master Clear (datasheet MCLR overbar)"
     ]
     
     role HOST {
@@ -315,16 +315,16 @@ interface DBG.UARTBOOT(role)
     // role-less and take their shape from this table; the role tables below
     // carry the named views: the data pair crosses by position (TXD <-> RXD).
     pins = [
-        1 = _ @class(digital) // TXD <-> RXD
-        2 = _ @class(digital) // RXD <-> TXD
+        1 = _ @id.class(digital) // TXD <-> RXD
+        2 = _ @id.class(digital) // RXD <-> TXD
         3 = _ // GND
     ]
 
     role HOST {
         name = "UART Bootloader Host"
         pins = [
-            out 1 = TXD @class(digital), "Transmit Data"
-            in 2 = RXD @class(digital), "Receive Data"
+            out 1 = TXD @id.class(digital), "Transmit Data"
+            in 2 = RXD @id.class(digital), "Receive Data"
             3 = GND, "Ground"
         ]
         peer = TARGET(1)
@@ -333,8 +333,8 @@ interface DBG.UARTBOOT(role)
     role TARGET {
         name = "UART Bootloader Target"
         pins = [
-            in 1 = RXD @class(digital), "Receive Data, from the host TXD"  // Same wire as ordinal 1
-            out 2 = TXD @class(digital), "Transmit Data, to the host RXD"   // Same wire as ordinal 2
+            in 1 = RXD @id.class(digital), "Receive Data, from the host TXD"  // Same wire as ordinal 1
+            out 2 = TXD @id.class(digital), "Transmit Data, to the host RXD"   // Same wire as ordinal 2
             3 = GND, "Ground"
         ]
         peer = HOST(1)

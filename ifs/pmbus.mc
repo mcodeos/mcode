@@ -28,29 +28,29 @@ interface PMBUS(role)
     // convention, not a device EC face.
 
     pins = [
-        1 = SCL @class(digital), "Serial Clock"
-        2 = SDA @class(digital), "Serial Data"
-        3 = ALERT @class(digital), "PMBus Alert (SMBALERT)"
-        4 = CONTROL @class(digital), "Enable / sequencing control line"
+        1 = SCL @id.class(digital), "Serial Clock"
+        2 = SDA @id.class(digital), "Serial Data"
+        3 = ALERT @id.class(digital), "PMBus Alert (SMBALERT)"
+        4 = CONTROL @id.class(digital), "Enable / sequencing control line"
     ]
 
     role HOST {
         name = "PMBus Host (system manager)"
         pins = [
-            out 1 = SCL @class(digital), "Serial Clock"                  // The host sources the clock
-            io 2 = SDA @class(digital), "Serial Data"                    // Either side drives the data line
-            in 3 = ALERT @class(digital), "PMBus Alert (SMBALERT)"       // Slaves assert alert
-            out 4 = CONTROL @class(digital), "Enable / sequencing control line"  // The host sequences converters
+            out 1 = SCL @id.class(digital), "Serial Clock"                  // The host sources the clock
+            io 2 = SDA @id.class(digital), "Serial Data"                    // Either side drives the data line
+            in 3 = ALERT @id.class(digital), "PMBus Alert (SMBALERT)"       // Slaves assert alert
+            out 4 = CONTROL @id.class(digital), "Enable / sequencing control line"  // The host sequences converters
         ]
         peer = SLAVE
     }
     role SLAVE {
         name = "PMBus Slave (power device)"
         pins = [
-            in 1 = SCL @class(digital), "Serial Clock"                   // Clock stretching holds SCL low; the host stays the clock source
-            io 2 = SDA @class(digital), "Serial Data"                    // Either side drives the data line
-            out 3 = ALERT @class(digital), "PMBus Alert (SMBALERT)"      // A slave asks for the bus
-            in 4 = CONTROL @class(digital), "Enable / sequencing control line"   // The slave is enabled by it
+            in 1 = SCL @id.class(digital), "Serial Clock"                   // Clock stretching holds SCL low; the host stays the clock source
+            io 2 = SDA @id.class(digital), "Serial Data"                    // Either side drives the data line
+            out 3 = ALERT @id.class(digital), "PMBus Alert (SMBALERT)"      // A slave asks for the bus
+            in 4 = CONTROL @id.class(digital), "Enable / sequencing control line"   // The slave is enabled by it
         ]
         peer = HOST
     }

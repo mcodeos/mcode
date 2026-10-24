@@ -30,32 +30,32 @@ interface TDM(role) {
     // configuration, not electrical.
 
     pins = [
-        1  = BCLK @class(digital), "Bit Clock"    // Serial bit clock, shared
-        2  = FSYNC @class(digital), "Frame Sync"  // Frame synchronization, shared
-        3  = TX0 @class(digital), "Transmit data lane 0"
-        4  = TX1 @class(digital), "Transmit data lane 1"
-        5  = TX2 @class(digital), "Transmit data lane 2"
-        6  = TX3 @class(digital), "Transmit data lane 3"
-        7  = RX0 @class(digital), "Receive data lane 0"
-        8  = RX1 @class(digital), "Receive data lane 1"
-        9  = RX2 @class(digital), "Receive data lane 2"
-        10 = RX3 @class(digital), "Receive data lane 3"
+        1  = BCLK @id.class(digital), "Bit Clock"    // Serial bit clock, shared
+        2  = FSYNC @id.class(digital), "Frame Sync"  // Frame synchronization, shared
+        3  = TX0 @id.class(digital), "Transmit data lane 0"
+        4  = TX1 @id.class(digital), "Transmit data lane 1"
+        5  = TX2 @id.class(digital), "Transmit data lane 2"
+        6  = TX3 @id.class(digital), "Transmit data lane 3"
+        7  = RX0 @id.class(digital), "Receive data lane 0"
+        8  = RX1 @id.class(digital), "Receive data lane 1"
+        9  = RX2 @id.class(digital), "Receive data lane 2"
+        10 = RX3 @id.class(digital), "Receive data lane 3"
     ]
 
     role TRANSMITTER {  // TDM Transmitter - drives the transmit lanes
         name = "TDM Transmitter"
 
         pins = [
-            1     = BCLK @class(digital), "Bit Clock"            // Controller face — direction follows the controller
-            2     = FSYNC @class(digital), "Frame Sync"          // Controller face — direction follows the controller
-            out 3 = TX0 @class(digital), "Transmit data lane 0"  // My side drives the transmit lanes
-            out 4 = TX1 @class(digital), "Transmit data lane 1"
-            out 5 = TX2 @class(digital), "Transmit data lane 2"
-            out 6 = TX3 @class(digital), "Transmit data lane 3"
-            in 7  = RX0 @class(digital), "Receive data lane 0"   // and listens on the receive lanes
-            in 8  = RX1 @class(digital), "Receive data lane 1"
-            in 9  = RX2 @class(digital), "Receive data lane 2"
-            in 10 = RX3 @class(digital), "Receive data lane 3"
+            1     = BCLK @id.class(digital), "Bit Clock"            // Controller face — direction follows the controller
+            2     = FSYNC @id.class(digital), "Frame Sync"          // Controller face — direction follows the controller
+            out 3 = TX0 @id.class(digital), "Transmit data lane 0"  // My side drives the transmit lanes
+            out 4 = TX1 @id.class(digital), "Transmit data lane 1"
+            out 5 = TX2 @id.class(digital), "Transmit data lane 2"
+            out 6 = TX3 @id.class(digital), "Transmit data lane 3"
+            in 7  = RX0 @id.class(digital), "Receive data lane 0"   // and listens on the receive lanes
+            in 8  = RX1 @id.class(digital), "Receive data lane 1"
+            in 9  = RX2 @id.class(digital), "Receive data lane 2"
+            in 10 = RX3 @id.class(digital), "Receive data lane 3"
         ]
         peer = RECEIVER
     }
@@ -63,16 +63,16 @@ interface TDM(role) {
         name = "TDM Receiver"
 
         pins = [
-            1      = BCLK @class(digital), "Bit Clock"            // Controller face — direction follows the controller
-            2      = FSYNC @class(digital), "Frame Sync"          // Controller face — direction follows the controller
-            in 3   = TX0 @class(digital), "Transmit data lane 0"  // My side listens on the transmit lanes
-            in 4   = TX1 @class(digital), "Transmit data lane 1"
-            in 5   = TX2 @class(digital), "Transmit data lane 2"
-            in 6   = TX3 @class(digital), "Transmit data lane 3"
-            out 7  = RX0 @class(digital), "Receive data lane 0"   // and drives the receive lanes
-            out 8  = RX1 @class(digital), "Receive data lane 1"
-            out 9  = RX2 @class(digital), "Receive data lane 2"
-            out 10 = RX3 @class(digital), "Receive data lane 3"
+            1      = BCLK @id.class(digital), "Bit Clock"            // Controller face — direction follows the controller
+            2      = FSYNC @id.class(digital), "Frame Sync"          // Controller face — direction follows the controller
+            in 3   = TX0 @id.class(digital), "Transmit data lane 0"  // My side listens on the transmit lanes
+            in 4   = TX1 @id.class(digital), "Transmit data lane 1"
+            in 5   = TX2 @id.class(digital), "Transmit data lane 2"
+            in 6   = TX3 @id.class(digital), "Transmit data lane 3"
+            out 7  = RX0 @id.class(digital), "Receive data lane 0"   // and drives the receive lanes
+            out 8  = RX1 @id.class(digital), "Receive data lane 1"
+            out 9  = RX2 @id.class(digital), "Receive data lane 2"
+            out 10 = RX3 @id.class(digital), "Receive data lane 3"
         ]
         peer = TRANSMITTER
     }

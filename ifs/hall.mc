@@ -15,17 +15,17 @@ interface HALL(role)
     topology = "point to point"
 
     pins = [
-        1 = H1 @class(digital), "Position line 1"
-        2 = H2 @class(digital), "Position line 2"
-        3 = H3 @class(digital), "Position line 3"
+        1 = H1 @id.class(digital), "Position line 1"
+        2 = H2 @id.class(digital), "Position line 2"
+        3 = H3 @id.class(digital), "Position line 3"
     ]
 
     role TRANSMITTER {
         name = "HALL Sensor"
         pins = [
-            out 1 = H1 @class(digital), "Position line 1"
-            out 2 = H2 @class(digital), "Position line 2"
-            out 3 = H3 @class(digital), "Position line 3"
+            out 1 = H1 @id.class(digital), "Position line 1"
+            out 2 = H2 @id.class(digital), "Position line 2"
+            out 3 = H3 @id.class(digital), "Position line 3"
         ]
         peer = RECEIVER
     }
@@ -33,9 +33,9 @@ interface HALL(role)
     role RECEIVER {
         name = "HALL Decoder"
         pins = [
-            in 1 = H1 @class(digital), "Position line 1"
-            in 2 = H2 @class(digital), "Position line 2"
-            in 3 = H3 @class(digital), "Position line 3"
+            in 1 = H1 @id.class(digital), "Position line 1"
+            in 2 = H2 @id.class(digital), "Position line 2"
+            in 3 = H3 @id.class(digital), "Position line 3"
         ]
         peer = TRANSMITTER
     }

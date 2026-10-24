@@ -29,13 +29,13 @@ interface LVD(role)
     // supply tiers ride the DC faces.
 
     pins = [
-        1 = IN | LVDIN1 @class(analog)   // Monitored voltage sense input (datasheet LVDINx)
+        1 = IN | LVDIN1 @id.class(analog)   // Monitored voltage sense input (datasheet LVDINx)
     ]
 
     role SOURCE {
         name = "LVD Source"
         pins = [
-            out 1 = IN @class(analog)   // The monitored rail drives the sense wire
+            out 1 = IN @id.class(analog)   // The monitored rail drives the sense wire
         ]
         peer = DETECTOR
     }
@@ -43,7 +43,7 @@ interface LVD(role)
     role DETECTOR {
         name = "LVD Detector"
         pins = [
-            in 1 = IN @class(analog)    // The detector senses the rail
+            in 1 = IN @id.class(analog)    // The detector senses the rail
         ]
         peer = SOURCE(1)
     }
@@ -72,13 +72,13 @@ interface LVD.OUT(role)
     // the DC faces.
 
     pins = [
-        1 = OUT | LVD_OUT @class(digital)   // Detection result (datasheet LVD_OUT)
+        1 = OUT | LVD_OUT @id.class(digital)   // Detection result (datasheet LVD_OUT)
     ]
 
     role TRANSMITTER {
         name = "LVD.OUT Transmitter"
         pins = [
-            out 1 = OUT @class(digital)   // The detector drives the alarm
+            out 1 = OUT @id.class(digital)   // The detector drives the alarm
         ]
         peer = RECEIVER
     }
@@ -86,7 +86,7 @@ interface LVD.OUT(role)
     role RECEIVER {
         name = "LVD.OUT Receiver"
         pins = [
-            in 1 = OUT @class(digital)    // The consumer reads the alarm
+            in 1 = OUT @id.class(digital)    // The consumer reads the alarm
         ]
         peer = TRANSMITTER(1)
     }

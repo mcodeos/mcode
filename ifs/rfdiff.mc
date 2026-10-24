@@ -3,7 +3,7 @@
 
 // RF_DIFF - Differential RF Port Interface Standard Definition
 // Core Rule: One bidirectional RF carrier signal carried as a
-//            differential pair; the two rows tagged @pair(rf) are the
+//            differential pair; the two rows tagged @sig.pair(rf) are the
 //            P/N legs of the pair (P/N naming convention). The port is
 //            role-less: the duplex direction alternates on the same
 //            pair (half duplex) or splits by band (full duplex), so
@@ -23,7 +23,7 @@ interface RF_DIFF // Differential RF port pair (transceiver / front-end / antenn
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     pins = [
-        1 = _ @pair(rf) @class(radio) // positive RF leg
-        2 = _ @pair(rf) @class(radio) // negative RF leg
+        1 = _ @sig.pair(rf) @id.class(radio) // positive RF leg
+        2 = _ @sig.pair(rf) @id.class(radio) // negative RF leg
     ]
 }

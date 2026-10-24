@@ -27,20 +27,20 @@ interface FLEXRAY(role)
     // population is empty (half-device law has nothing to judge).
 
     pins = [
-        1 = CH_A\+ @pair(cha) @class(digital), "Channel A Positive"    // Positive differential signal for channel A
-        2 = CH_A\- @pair(cha) @class(digital), "Channel A Negative"    // Negative differential signal for channel A
-        3 = CH_B\+ @pair(chb) @class(digital), "Channel B Positive"    // Positive differential signal for channel B
-        4 = CH_B\- @pair(chb) @class(digital), "Channel B Negative"    // Negative differential signal for channel B
+        1 = CH_A\+ @sig.pair(cha) @id.class(digital), "Channel A Positive"    // Positive differential signal for channel A
+        2 = CH_A\- @sig.pair(cha) @id.class(digital), "Channel A Negative"    // Negative differential signal for channel A
+        3 = CH_B\+ @sig.pair(chb) @id.class(digital), "Channel B Positive"    // Positive differential signal for channel B
+        4 = CH_B\- @sig.pair(chb) @id.class(digital), "Channel B Negative"    // Negative differential signal for channel B
         5 = GND, "Ground"                  // Signal reference ground
     ]
     
     role NODE {
         name = "FlexRay Node"
         pins = [
-            io 1 = CH_A\+ @pair(cha) @class(digital), "Channel A Positive"  // TDMA time-share: a node drives its own slot
-            io 2 = CH_A\- @pair(cha) @class(digital), "Channel A Negative"  // and listens on every other slot
-            io 3 = CH_B\+ @pair(chb) @class(digital), "Channel B Positive"
-            io 4 = CH_B\- @pair(chb) @class(digital), "Channel B Negative"
+            io 1 = CH_A\+ @sig.pair(cha) @id.class(digital), "Channel A Positive"  // TDMA time-share: a node drives its own slot
+            io 2 = CH_A\- @sig.pair(cha) @id.class(digital), "Channel A Negative"  // and listens on every other slot
+            io 3 = CH_B\+ @sig.pair(chb) @id.class(digital), "Channel B Positive"
+            io 4 = CH_B\- @sig.pair(chb) @id.class(digital), "Channel B Negative"
             5 = GND, "Ground"                    // Signal reference ground
         ]
         peer = NODE
@@ -76,19 +76,19 @@ interface FLEXRAY.TTL(role)
 
     // Role-less conductor view: 4 anonymous lanes, ordinal = wire identity
     pins = [
-        1 = _ @class(digital) // TXD_A <-> TXD_A
-        2 = _ @class(digital) // RXD_A <-> RXD_A
-        3 = _ @class(digital) // TXD_B <-> TXD_B
-        4 = _ @class(digital) // RXD_B <-> RXD_B
+        1 = _ @id.class(digital) // TXD_A <-> TXD_A
+        2 = _ @id.class(digital) // RXD_A <-> RXD_A
+        3 = _ @id.class(digital) // TXD_B <-> TXD_B
+        4 = _ @id.class(digital) // RXD_B <-> RXD_B
     ]
 
     role CTRL {
         name = "FLEXRAY.TTL Controller"
         pins = [
-            out 1 = TXD_A @class(digital), "Channel A transmit bit stream"
-            in 2 = RXD_A @class(digital), "Channel A receive bit stream"
-            out 3 = TXD_B @class(digital), "Channel B transmit bit stream"
-            in 4 = RXD_B @class(digital), "Channel B receive bit stream"
+            out 1 = TXD_A @id.class(digital), "Channel A transmit bit stream"
+            in 2 = RXD_A @id.class(digital), "Channel A receive bit stream"
+            out 3 = TXD_B @id.class(digital), "Channel B transmit bit stream"
+            in 4 = RXD_B @id.class(digital), "Channel B receive bit stream"
         ]
         peer = XCVR
     }
@@ -96,10 +96,10 @@ interface FLEXRAY.TTL(role)
     role XCVR {
         name = "FLEXRAY.TTL Transceiver"
         pins = [
-            in 1 = TXD_A @class(digital), "Channel A transmit bit stream"
-            out 2 = RXD_A @class(digital), "Channel A receive bit stream"
-            in 3 = TXD_B @class(digital), "Channel B transmit bit stream"
-            out 4 = RXD_B @class(digital), "Channel B receive bit stream"
+            in 1 = TXD_A @id.class(digital), "Channel A transmit bit stream"
+            out 2 = RXD_A @id.class(digital), "Channel A receive bit stream"
+            in 3 = TXD_B @id.class(digital), "Channel B transmit bit stream"
+            out 4 = RXD_B @id.class(digital), "Channel B receive bit stream"
         ]
         peer = CTRL
     }

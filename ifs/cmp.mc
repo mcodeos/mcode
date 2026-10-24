@@ -8,7 +8,7 @@
 //            the reference lives inside the detector (bandgap / AVCC
 //            divider) but the negative leg is still a leg of the part
 //            (LM393 1IN- / 2IN-). A one-wire face cannot say that, so the
-//            face carries the pair as two members, tagged @pair(p) like
+//            face carries the pair as two members, tagged @sig.pair(p) like
 //            every other differential pair in the library (ADC.DIFF is
 //            the sibling). The ground reference is shared through the
 //            power supply (DC interface), mirroring ADC.SINGLE. The
@@ -33,15 +33,15 @@ interface CMP(role)
     // maxdistance tier was folklore, forensics log).
 
     pins = [
-        1 = INP @class(analog) @pair(p), "Positive Compare Input"   // Compare input, positive leg (datasheet IN+ / VCINx)
-        2 = INN @class(analog) @pair(p), "Negative Compare Input"   // Compare input, negative leg (datasheet IN-)
+        1 = INP @id.class(analog) @sig.pair(p), "Positive Compare Input"   // Compare input, positive leg (datasheet IN+ / VCINx)
+        2 = INN @id.class(analog) @sig.pair(p), "Negative Compare Input"   // Compare input, negative leg (datasheet IN-)
     ]
 
     role SOURCE {
         name = "CMP Source"
         pins = [
-            out 1 = INP @class(analog) @pair(p)   // The compared signal drives the positive leg
-            out 2 = INN @class(analog) @pair(p)   // The compared signal drives the negative leg
+            out 1 = INP @id.class(analog) @sig.pair(p)   // The compared signal drives the positive leg
+            out 2 = INN @id.class(analog) @sig.pair(p)   // The compared signal drives the negative leg
         ]
         peer = DETECTOR(1)
     }
@@ -49,8 +49,8 @@ interface CMP(role)
     role DETECTOR {
         name = "CMP Detector"
         pins = [
-            in 1 = INP @class(analog) @pair(p)    // The comparator samples the positive leg
-            in 2 = INN @class(analog) @pair(p)    // The comparator samples the negative leg
+            in 1 = INP @id.class(analog) @sig.pair(p)    // The comparator samples the positive leg
+            in 2 = INN @id.class(analog) @sig.pair(p)    // The comparator samples the negative leg
         ]
         peer = SOURCE(1)
     }
@@ -79,13 +79,13 @@ interface CMP.OUT(role)
     // vo_sw / i_out) lives on the recipe output group.
 
     pins = [
-        1 = OUT @class(digital)   // Compare result (datasheet VCx_OUT)
+        1 = OUT @id.class(digital)   // Compare result (datasheet VCx_OUT)
     ]
 
     role TRANSMITTER {
         name = "CMP.OUT Transmitter"
         pins = [
-            out 1 = OUT @class(digital)   // The comparator drives the result
+            out 1 = OUT @id.class(digital)   // The comparator drives the result
         ]
         peer = RECEIVER
     }
@@ -93,7 +93,7 @@ interface CMP.OUT(role)
     role RECEIVER {
         name = "CMP.OUT Receiver"
         pins = [
-            in 1 = OUT @class(digital)    // The consumer reads the result
+            in 1 = OUT @id.class(digital)    // The consumer reads the result
         ]
         peer = TRANSMITTER(1)
     }

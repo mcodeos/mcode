@@ -31,13 +31,13 @@ interface SHUTDOWN(role)
     // connection-time trio reads the exact-one bound on the TARGET side.
 
     pins = [
-        1 = SHUTDOWN | SHDN | SD | SLEEP | STANDBY @class(digital)   // Shutdown request line
+        1 = SHUTDOWN | SHDN | SD | SLEEP | STANDBY @id.class(digital)   // Shutdown request line
     ]
 
     role CONTROLLER {  // drives the request line: logic output, supervisor, RC delay, button
         name = "SHUTDOWN Controller"
         pins = [
-            out 1 = SHUTDOWN @class(digital)   // The controller asserts the shutdown request
+            out 1 = SHUTDOWN @id.class(digital)   // The controller asserts the shutdown request
         ]
         peer = TARGET
     }
@@ -45,7 +45,7 @@ interface SHUTDOWN(role)
     role TARGET {  // the governed device: amplifier shutdown input, regulator enable input
         name = "SHUTDOWN Target"
         pins = [
-            io 1 = SHUTDOWN @class(digital)   // The target may also drive the line (a supervisor output, a latch)
+            io 1 = SHUTDOWN @id.class(digital)   // The target may also drive the line (a supervisor output, a latch)
         ]
         peer = CONTROLLER(1)
     }

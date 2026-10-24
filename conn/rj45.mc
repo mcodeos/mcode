@@ -55,14 +55,14 @@ component RJ45.MAGJACK() :: ANCH.CONN.MATE
     ]
 
     pins = [
-        1 = TD\+ @pair(td), "Transmit pair positive (PHY side)"
-        2 = TD\- @pair(td), "Transmit pair negative (PHY side)"
-        3 = RD\+ @pair(rd), "Receive pair positive (PHY side)"
-        4 = RD\- @pair(rd), "Receive pair negative (PHY side)"
+        1 = TD\+ @sig.pair(td), "Transmit pair positive (PHY side)"
+        2 = TD\- @sig.pair(td), "Transmit pair negative (PHY side)"
+        3 = RD\+ @sig.pair(rd), "Receive pair positive (PHY side)"
+        4 = RD\- @sig.pair(rd), "Receive pair negative (PHY side)"
         5 = TCT, "Transmit center tap"
         6 = RCT, "Receive center tap"
         7 = TERM, "Internal 75 Ohm termination point (internal 75 Ohm termination network)"
-        8 = CHGND @exposed(esd_contact), "Chassis / shield electrode"
+        8 = CHGND @sig.exposed(esd_contact), "Chassis / shield electrode"
     ]
 }
 

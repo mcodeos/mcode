@@ -24,15 +24,15 @@ interface MDIO(role)
     // zero spec witnesses -- same verdict as the MII/RMII bus face.
 
     pins = [
-        1 = MDC @class(digital), "Management Clock (manager drives)"   // non-periodic, data latched to rising edge
-        2 = MDIO @class(digital), "Management Data I/O"                // open-drain at the PHY; pull-up required
+        1 = MDC @id.class(digital), "Management Clock (manager drives)"   // non-periodic, data latched to rising edge
+        2 = MDIO @id.class(digital), "Management Data I/O"                // open-drain at the PHY; pull-up required
     ]
 
     role MANAGER {
         name = "Station Management Entity"
         pins = [
-            out 1 = MDC @class(digital), "Management Clock (manager drives)"  // The manager sources the clock
-            io 2 = MDIO @class(digital), "Management Data I/O"                // issues frames, reads responses
+            out 1 = MDC @id.class(digital), "Management Clock (manager drives)"  // The manager sources the clock
+            io 2 = MDIO @id.class(digital), "Management Data I/O"                // issues frames, reads responses
         ]
         peer = PHY
     }
@@ -40,8 +40,8 @@ interface MDIO(role)
     role PHY {
         name = "Managed PHY"
         pins = [
-            in 1 = MDC @class(digital), "Management Clock (manager drives)"
-            io 2 = MDIO @class(digital), "Management Data I/O"                // open-drain driver; latches to MDC rising edge
+            in 1 = MDC @id.class(digital), "Management Clock (manager drives)"
+            io 2 = MDIO @id.class(digital), "Management Data I/O"                // open-drain driver; latches to MDC rising edge
         ]
         peer = MANAGER
     }

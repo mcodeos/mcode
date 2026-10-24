@@ -26,7 +26,7 @@ interface PCAP
     topology = "point to point"
 
     pins = [
-        1 = \+ @class(analog)   // positive terminal (anode, pad 1)
-        2 = \- @class(analog)   // negative terminal (cathode, pad 2)
+        1 = \+ @id.class(analog)   // positive terminal (anode, pad 1)
+        2 = \- @id.class(analog)   // negative terminal (cathode, pad 2)
     ]
 }

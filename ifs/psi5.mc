@@ -31,15 +31,15 @@ interface PSI5(role)
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     pins = [
-        1 = _ @class(digital) // TX (current modulation drive)
-        2 = _ @class(digital) // RX (voltage modulation sense)
+        1 = _ @id.class(digital) // TX (current modulation drive)
+        2 = _ @id.class(digital) // RX (voltage modulation sense)
     ]
 
     role ECU {
         name = "PSI5 ECU"
         pins = [
-            out 1 = TX @class(digital), "Command/supply modulation drive"
-            in 2 = RX @class(digital), "Sensor answer sense"
+            out 1 = TX @id.class(digital), "Command/supply modulation drive"
+            in 2 = RX @id.class(digital), "Sensor answer sense"
         ]
         peer = SENSOR
     }
@@ -47,8 +47,8 @@ interface PSI5(role)
     role SENSOR {
         name = "PSI5 Sensor"
         pins = [
-            in 1 = TX @class(digital), "Command/supply modulation"
-            out 2 = RX @class(digital), "Answer modulation"
+            in 1 = TX @id.class(digital), "Command/supply modulation"
+            out 2 = RX @id.class(digital), "Answer modulation"
         ]
         peer = ECU
     }
@@ -69,15 +69,15 @@ interface PSI5.S(role)
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     pins = [
-        1 = _ @class(digital) // STX <-> STX
-        2 = _ @class(digital) // SRX <-> SRX
+        1 = _ @id.class(digital) // STX <-> STX
+        2 = _ @id.class(digital) // SRX <-> SRX
     ]
 
     role ECU {
         name = "PSI5.S ECU"
         pins = [
-            out 1 = STX @class(digital), "Serial transmit (clocked)"
-            in 2 = SRX @class(digital), "Serial receive (clocked)"
+            out 1 = STX @id.class(digital), "Serial transmit (clocked)"
+            in 2 = SRX @id.class(digital), "Serial receive (clocked)"
         ]
         peer = SENSOR
     }
@@ -85,8 +85,8 @@ interface PSI5.S(role)
     role SENSOR {
         name = "PSI5.S Sensor"
         pins = [
-            in 1 = STX @class(digital), "Serial transmit (clocked)"
-            out 2 = SRX @class(digital), "Serial receive (clocked)"
+            in 1 = STX @id.class(digital), "Serial transmit (clocked)"
+            out 2 = SRX @id.class(digital), "Serial receive (clocked)"
         ]
         peer = ECU
     }

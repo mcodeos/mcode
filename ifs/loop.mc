@@ -8,7 +8,7 @@
 //            and 5-25mA variants exist), and the receiver drops that
 //            current on its sense resistance and reads a voltage. The
 //            two conductors are supply/return of one circuit, not a
-//            differential pair, so no @pair tag. The live-zero current
+//            differential pair, so no @sig.pair tag. The live-zero current
 //            powers 2-wire loop-powered transmitters (they harvest their
 //            supply from the loop); 3-wire/4-wire variants bind a DC face
 //            for the separate supply and bind this face for the signal.
@@ -33,8 +33,8 @@ interface LOOP(role) // Analog current loop interface (4-20mA class)
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     pins = [
-        1 = _ @class(analog) // loop current conductor
-        2 = _ @class(analog) // loop return conductor
+        1 = _ @id.class(analog) // loop current conductor
+        2 = _ @id.class(analog) // loop return conductor
     ]
 
     role TRANSMITTER {  // the loop current source (series element)

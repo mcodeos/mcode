@@ -47,10 +47,10 @@ abstract component RELAY(icont::UV.AMP, vcoil::UV.VOLT) :: ANCH.RELAY {
     ]
 
     pins = [
-        [1, 2] = COIL{VCC, GND}::DC() @barrier(coil)
-        3      = NO @barrier(contact)
-        4      = COM @barrier(contact)
-        5      = NC @barrier(contact)
+        [1, 2] = COIL{VCC, GND}::DC() @id.barrier(coil)
+        3      = NO @id.barrier(contact)
+        4      = COM @id.barrier(contact)
+        5      = NC @id.barrier(contact)
     ]
 }
 
@@ -66,10 +66,10 @@ abstract component RELAY.EM(vcoil::UV.VOLT, icont::UV.AMP) :: ANCH.RELAY {
     ]
 
     pins = [
-        [1, 2] = COIL{VCC, GND}::DC() @barrier(coil)
-        3      = NO @barrier(contact)
-        4      = COM @barrier(contact)
-        5      = NC @barrier(contact)
+        [1, 2] = COIL{VCC, GND}::DC() @id.barrier(coil)
+        3      = NO @id.barrier(contact)
+        4      = COM @id.barrier(contact)
+        5      = NC @id.barrier(contact)
     ]
 }
 
@@ -86,10 +86,10 @@ abstract component RELAY.SSR(vctrl::UV.VOLT, vload::UV.VOLT, iload::UV.AMP) :: A
     ]
 
     pins = [
-        1 = CTRL.VCC @barrier(ctrl)
-        2 = CTRL.GND @barrier(ctrl)
-        3 = LOAD.VCC @barrier(load)
-        4 = LOAD.GND @barrier(load)
+        1 = CTRL.VCC @id.barrier(ctrl)
+        2 = CTRL.GND @id.barrier(ctrl)
+        3 = LOAD.VCC @id.barrier(load)
+        4 = LOAD.GND @id.barrier(load)
     ]
 }
 
@@ -105,9 +105,9 @@ abstract component RELAY.REED(vcoil::UV.VOLT, icont::UV.AMP) :: ANCH.RELAY {
     ]
 
     pins = [
-        [1, 2] = COIL{VCC, GND}::DC() @barrier(coil)
-        3      = NO @barrier(contact)
-        4      = COM @barrier(contact)
+        [1, 2] = COIL{VCC, GND}::DC() @id.barrier(coil)
+        3      = NO @id.barrier(contact)
+        4      = COM @id.barrier(contact)
     ]
 }
 
@@ -123,13 +123,13 @@ abstract component RELAY.LATCH(vcoil::UV.VOLT, icont::UV.AMP) :: ANCH.RELAY {
     ]
 
     pins = [
-        1 = SET.VCC @barrier(set)
-        2 = SET.GND @barrier(set)
-        3 = RESET.VCC @barrier(reset)
-        4 = RESET.GND @barrier(reset)
-        5 = NO @barrier(contact)
-        6 = COM @barrier(contact)
-        7 = NC @barrier(contact)
+        1 = SET.VCC @id.barrier(set)
+        2 = SET.GND @id.barrier(set)
+        3 = RESET.VCC @id.barrier(reset)
+        4 = RESET.GND @id.barrier(reset)
+        5 = NO @id.barrier(contact)
+        6 = COM @id.barrier(contact)
+        7 = NC @id.barrier(contact)
     ]
 }
 

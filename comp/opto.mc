@@ -95,10 +95,10 @@ abstract component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: ANCH.OPTO {
     ]
 
     pins = [
-        1 = INPUT\+ @barrier(input)
-        2 = INPUT\- @barrier(input)
-        3 = OUTPUT\+ @barrier(output)
-        4 = OUTPUT\- @barrier(output)
+        1 = INPUT\+ @id.barrier(input)
+        2 = INPUT\- @id.barrier(input)
+        3 = OUTPUT\+ @id.barrier(output)
+        4 = OUTPUT\- @id.barrier(output)
     ]
 }
 
@@ -116,10 +116,10 @@ abstract component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.
     ]
 
     pins = [
-        1 = INPUT\+ @barrier(input)
-        2 = INPUT\- @barrier(input)
-        3 = COLLECTOR @barrier(output)
-        4 = EMITTER @barrier(output)
+        1 = INPUT\+ @id.barrier(input)
+        2 = INPUT\- @id.barrier(input)
+        3 = COLLECTOR @id.barrier(output)
+        4 = EMITTER @id.barrier(output)
     ]
 }
 
@@ -137,10 +137,10 @@ abstract component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::
     ]
 
     pins = [
-        1 = INPUT\+ @barrier(input)
-        2 = INPUT\- @barrier(input)
-        3 = MT1 @barrier(output)
-        4 = MT2 @barrier(output)
+        1 = INPUT\+ @id.barrier(input)
+        2 = INPUT\- @id.barrier(input)
+        3 = MT1 @id.barrier(output)
+        4 = MT2 @id.barrier(output)
     ]
 }
 
@@ -157,10 +157,10 @@ abstract component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: ANCH.OP
     ]
 
     pins = [
-        1 = INPUT\+ @barrier(input)
-        2 = INPUT\- @barrier(input)
-        3 = OUTPUT\+ @barrier(output)
-        4 = OUTPUT\- @barrier(output)
+        1 = INPUT\+ @id.barrier(input)
+        2 = INPUT\- @id.barrier(input)
+        3 = OUTPUT\+ @id.barrier(output)
+        4 = OUTPUT\- @id.barrier(output)
     ]
 }
 
@@ -178,10 +178,10 @@ abstract component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay:
     ]
 
     pins = [
-        1 = INPUT\+ @barrier(input)
-        2 = INPUT\- @barrier(input)
-        3 = OUTPUT @barrier(output)
-        4 = GND @barrier(output)
+        1 = INPUT\+ @id.barrier(input)
+        2 = INPUT\- @id.barrier(input)
+        3 = OUTPUT @id.barrier(output)
+        4 = GND @id.barrier(output)
     ]
 }
 

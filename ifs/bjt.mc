@@ -23,8 +23,8 @@ interface BJT
     topology = "point to point"
 
     pins = [
-        1 = B @class(analog)   // Base - control terminal
-        2 = C @class(analog)   // Collector
-        3 = E @class(analog)   // Emitter
+        1 = B @id.class(analog)   // Base - control terminal
+        2 = C @id.class(analog)   // Collector
+        3 = E @id.class(analog)   // Emitter
     ]
 }

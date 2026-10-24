@@ -23,7 +23,7 @@ interface DIO
     topology = "point to point"
 
     pins = [
-        1 = A | ANODE @class(analog)   // anode (pad 1, first-named node)
-        2 = K | CATHODE @class(analog)   // cathode
+        1 = A | ANODE @id.class(analog)   // anode (pad 1, first-named node)
+        2 = K | CATHODE @id.class(analog)   // cathode
     ]
 }

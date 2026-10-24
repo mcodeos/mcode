@@ -28,7 +28,7 @@ component IEC.C14() :: ANCH.CONN.MATE
 
     pins = [
         [1,2] = [L,N]::AC.1P(), "Line / Neutral"
-        3 = PE @role(protect.island), "Protective earth"
+        3 = PE @id.role(protect.island), "Protective earth"
     ]
 }
 

@@ -28,13 +28,13 @@ interface SENT(role)
     // zero all-sample keys exist on this face.
 
     pins = [
-        1 = SIG @class(digital), "Signal line (single-wire)"    // drop-pause nibble encoding
+        1 = SIG @id.class(digital), "Signal line (single-wire)"    // drop-pause nibble encoding
     ]
 
     role TRANSMITTER {
         name = "SENT Sensor"
         pins = [
-            out 1 = SIG @class(digital), "Signal line (single-wire)"
+            out 1 = SIG @id.class(digital), "Signal line (single-wire)"
         ]
         peer = RECEIVER
     }
@@ -42,7 +42,7 @@ interface SENT(role)
     role RECEIVER {
         name = "SENT ECU"
         pins = [
-            in 1 = SIG @class(digital), "Signal line (single-wire)"
+            in 1 = SIG @id.class(digital), "Signal line (single-wire)"
         ]
         peer = TRANSMITTER
     }
@@ -67,15 +67,15 @@ interface SENT.SPC(role)
     // only). No .ELEC book.
 
     pins = [
-        1 = SIG @class(digital), "Signal line (sensor to ECU)"
-        2 = SPC @class(digital), "Short PWM Code trigger (ECU to sensor)"
+        1 = SIG @id.class(digital), "Signal line (sensor to ECU)"
+        2 = SPC @id.class(digital), "Short PWM Code trigger (ECU to sensor)"
     ]
 
     role TRANSMITTER {
         name = "SENT.SPC Sensor"
         pins = [
-            out 1 = SIG @class(digital), "Signal line"
-            in 2 = SPC @class(digital), "Short PWM Code trigger"
+            out 1 = SIG @id.class(digital), "Signal line"
+            in 2 = SPC @id.class(digital), "Short PWM Code trigger"
         ]
         peer = RECEIVER
     }
@@ -83,8 +83,8 @@ interface SENT.SPC(role)
     role RECEIVER {
         name = "SENT.SPC ECU"
         pins = [
-            in 1 = SIG @class(digital), "Signal line"
-            out 2 = SPC @class(digital), "Short PWM Code trigger"
+            in 1 = SIG @id.class(digital), "Signal line"
+            out 2 = SPC @id.class(digital), "Short PWM Code trigger"
         ]
         peer = TRANSMITTER
     }

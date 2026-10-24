@@ -21,21 +21,21 @@ interface CAN(role)
     // ELEC.CAN recipe face (302 3.2); this definition carries structure
     // only.
 
-    // The two rows tagged @pair(can) are the two legs of one differential
+    // The two rows tagged @sig.pair(can) are the two legs of one differential
     // signal; the H/L spellings are the naming convention. The dominant state
     // drives CAN_H above CAN_L — an electrical fact of the family, not a
     // polarity the declaration carries.
     pins = [
-        1 = CAN_H @pair(can) @class(digital), "CAN High"    // High side of differential signal
-        2 = CAN_L @pair(can) @class(digital), "CAN Low"    // Low side of differential signal
+        1 = CAN_H @sig.pair(can) @id.class(digital), "CAN High"    // High side of differential signal
+        2 = CAN_L @sig.pair(can) @id.class(digital), "CAN Low"    // Low side of differential signal
         3 = GND, "Ground"        // Signal reference ground
     ]
     
     role NODE {
         name = "CAN Node"
         pins = [
-            io 1 = CAN_H @pair(can) @class(digital), "CAN High"  // Any node may drive the dominant state
-            io 2 = CAN_L @pair(can) @class(digital), "CAN Low"   // and every node reads the bus back
+            io 1 = CAN_H @sig.pair(can) @id.class(digital), "CAN High"  // Any node may drive the dominant state
+            io 2 = CAN_L @sig.pair(can) @id.class(digital), "CAN Low"   // and every node reads the bus back
             3 = GND, "Ground"                    // Signal reference ground
         ]
         peer = NODE
@@ -64,15 +64,15 @@ interface CAN.TTL(role)
 
     // Role-less conductor view: 2 anonymous lanes, ordinal = wire identity
     pins = [
-        1 = _ @class(digital) // TXD <-> TXD
-        2 = _ @class(digital) // RXD <-> RXD
+        1 = _ @id.class(digital) // TXD <-> TXD
+        2 = _ @id.class(digital) // RXD <-> RXD
     ]
 
     role CTRL {
         name = "CAN.TTL Controller"
         pins = [
-            out 1 = TXD @class(digital), "Transmit bit stream to transceiver"
-            in 2 = RXD @class(digital), "Receive bus bit stream from transceiver"
+            out 1 = TXD @id.class(digital), "Transmit bit stream to transceiver"
+            in 2 = RXD @id.class(digital), "Receive bus bit stream from transceiver"
         ]
         peer = XCVR
     }
@@ -80,8 +80,8 @@ interface CAN.TTL(role)
     role XCVR {
         name = "CAN.TTL Transceiver"
         pins = [
-            in 1 = TXD @class(digital), "Transmit bit stream from controller"
-            out 2 = RXD @class(digital), "Bus bit stream to controller"
+            in 1 = TXD @id.class(digital), "Transmit bit stream from controller"
+            out 2 = RXD @id.class(digital), "Bus bit stream to controller"
         ]
         peer = CTRL
     }

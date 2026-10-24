@@ -32,19 +32,19 @@ interface UART.TTL.HW(role)
     // views: the data pair crosses by position (TX <-> RX) and the
     // handshake pair crosses by position (RTS <-> CTS)).
     pins = [
-        1 = _ @class(digital) // TX <-> RX
-        2 = _ @class(digital) // RX <-> TX
-        3 = _ @class(digital) // CTS <-> RTS
-        4 = _ @class(digital) // RTS <-> CTS
+        1 = _ @id.class(digital) // TX <-> RX
+        2 = _ @id.class(digital) // RX <-> TX
+        3 = _ @id.class(digital) // CTS <-> RTS
+        4 = _ @id.class(digital) // RTS <-> CTS
     ]
 
     role DCE {
         name = "UART.TTL.HW DCE"
         pins = [
-            out 1 = TX  @class(digital) @cross(DTE.RX), "Transmit"          // Cross-connect to DTE RX
-            in  2 = RX  @class(digital) @cross(DTE.TX), "Receive"           // Cross-connect to DTE TX
-            in  3 = CTS @class(digital) @cross(DTE.RTS), "Clear To Send"     // Cross-connect to DTE RTS
-            out 4 = RTS @class(digital) @cross(DTE.CTS), "Request To Send"   // Cross-connect to DTE CTS
+            out 1 = TX  @id.class(digital) @id.cross(DTE.RX), "Transmit"          // Cross-connect to DTE RX
+            in  2 = RX  @id.class(digital) @id.cross(DTE.TX), "Receive"           // Cross-connect to DTE TX
+            in  3 = CTS @id.class(digital) @id.cross(DTE.RTS), "Clear To Send"     // Cross-connect to DTE RTS
+            out 4 = RTS @id.class(digital) @id.cross(DTE.CTS), "Request To Send"   // Cross-connect to DTE CTS
         ]
         peer = DTE(1)
     }
@@ -53,10 +53,10 @@ interface UART.TTL.HW(role)
     role DTE {
         name = "UART.TTL.HW DTE"
         pins = [
-            in  1 = RX  @class(digital) @cross(DCE.TX), "Receive"           // Cross-connect to DCE TX
-            out 2 = TX  @class(digital) @cross(DCE.RX), "Transmit"          // Cross-connect to DCE RX
-            out 3 = RTS @class(digital) @cross(DCE.CTS), "Request To Send"   // Cross-connect to DCE CTS
-            in  4 = CTS @class(digital) @cross(DCE.RTS), "Clear To Send"     // Cross-connect to DCE RTS
+            in  1 = RX  @id.class(digital) @id.cross(DCE.TX), "Receive"           // Cross-connect to DCE TX
+            out 2 = TX  @id.class(digital) @id.cross(DCE.RX), "Transmit"          // Cross-connect to DCE RX
+            out 3 = RTS @id.class(digital) @id.cross(DCE.CTS), "Request To Send"   // Cross-connect to DCE CTS
+            in  4 = CTS @id.class(digital) @id.cross(DCE.RTS), "Clear To Send"     // Cross-connect to DCE RTS
         ]
         peer = DCE(1)
     }

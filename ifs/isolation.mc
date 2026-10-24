@@ -4,8 +4,8 @@
 // ISOLATION - Galvanic Isolation Barrier Interface Standard Definition
 // Core Rule: The physical barrier face (reinforced/basic insulation
 //            barrier between two logic domains) of an isolator body:
-//            logic-side channel legs (@barrier(side1)), field-side
-//            channel legs (@barrier(side2)), the default-output select
+//            logic-side channel legs (@id.barrier(side1)), field-side
+//            channel legs (@id.barrier(side2)), the default-output select
 //            (EN2, field side), and the two side-referenced returns
 //            GND1/GND2 — physical pins of the barrier body, the
 //            exception for bodies whose ground is part of the isolation
@@ -16,11 +16,11 @@
 interface ISOLATION
 {
     pins = [
-        1:4 = IN[A,B,C,D] @barrier(side1)
-        5:8 = OUT[A,B,C,D] @barrier(side2)
+        1:4 = IN[A,B,C,D] @id.barrier(side1)
+        5:8 = OUT[A,B,C,D] @id.barrier(side2)
         9 = EN2
-        10 = GND1 @barrier(side1)
-        11 = GND2 @barrier(side2)
+        10 = GND1 @id.barrier(side1)
+        11 = GND2 @id.barrier(side2)
     ]
 }
 

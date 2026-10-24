@@ -5,7 +5,7 @@
 // Core Rule: One-wire single-ended analog voltage input; the reference is
 //            the analog ground domain, shared through the power supply
 //            (DC interface), so the face has no ground member. The
-//            @class(analog) row attribute is the library-default signal
+//            @id.class(analog) row attribute is the library-default signal
 //            class: adopting components inherit it and may override by
 //            ordinal.
 // Device Definition: TRANSMITTER = sensor or signal source driving the
@@ -34,20 +34,20 @@ interface ADC.SINGLE(role)
     // by the ADC.SINGLE family recipe.
 
     pins = [
-        1 = IN @class(analog)   // Single-ended analog input, referenced to analog ground
+        1 = IN @id.class(analog)   // Single-ended analog input, referenced to analog ground
     ]
 
     role TRANSMITTER {  // ADC.SINGLE Transmitter - Sensor or signal source
         name = "ADC.SINGLE Transmitter"
         pins = [
-            out 1 = IN @class(analog)  // The source drives the line
+            out 1 = IN @id.class(analog)  // The source drives the line
         ]
         peer = RECEIVER
     }
     role RECEIVER {  // ADC.SINGLE Receiver - ADC converter or analog front-end
         name = "ADC.SINGLE Receiver"
         pins = [
-            in 1 = IN @class(analog)   // The converter samples the line
+            in 1 = IN @id.class(analog)   // The converter samples the line
         ]
         peer = TRANSMITTER
     }

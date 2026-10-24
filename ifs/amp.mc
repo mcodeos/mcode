@@ -27,10 +27,10 @@ interface AMP(role)
     // the electrical contract is owned by the AMP family recipe; the
     // AMP interface itself states no per-lane rows beyond the pin map.
     //
-    // @sum_node hook: a summing node is the same physical net as
+    // @id.sum_node hook: a summing node is the same physical net as
     // multiple RECEIVER inputs converging on one TRANSMITTER output
     // (classic op-amp feedback). A consumer component binding the AMP
-    // interface may annotate a pin with @sum_node to mark the explicit
+    // interface may annotate a pin with @id.sum_node to mark the explicit
     // summing point - the mcc net checker then suppresses the
     // multi-drive diagnostic on that net exactly like the live op-amp
     // feedback case.
@@ -42,14 +42,14 @@ interface AMP(role)
     // The two input rows (IN\+/IN\-) are the non-inverting and inverting
     // inputs of one op-amp; they sum at the amplifier's summing node
     // (or, for AMP.BUFFER, only one input is present and the buffer
-    // stage drives OUT). The @class(analog) row attribute is the
+    // stage drives OUT). The @id.class(analog) row attribute is the
     // library-default signal class (same as ADC.SINGLE / ADC.DIFF):
     // an analog signal face even when the amplifier is a precision
     // instrumentation or comparator variant.
     pins = [
-        1 = IN\+ @class(analog), "Non-inverting Input"  // Non-inverting (positive) input
-        2 = IN\- @class(analog), "Inverting Input"       // Inverting (negative) input
-        3 = OUT @class(analog), "Output"                // Amplifier output
+        1 = IN\+ @id.class(analog), "Non-inverting Input"  // Non-inverting (positive) input
+        2 = IN\- @id.class(analog), "Inverting Input"       // Inverting (negative) input
+        3 = OUT @id.class(analog), "Output"                // Amplifier output
     ]
 
     role TRANSMITTER {  // AMP Transmitter - Amplifier output stage (inherits the view's 3 lanes)

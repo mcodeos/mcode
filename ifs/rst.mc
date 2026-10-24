@@ -12,7 +12,7 @@
 //            the adopting pin's description, not the face. Identity comes
 //            from adoption only (no name inference): a `TRST`-style pin
 //            inside a debug port belongs to the debug family, not here,
-//            and the `@barrier(reset)` of a relay coil is a relay-coil
+//            and the `@id.barrier(reset)` of a relay coil is a relay-coil
 //            role, same word different family.
 // Device Definition: SOURCE = reset source (supervisor, RC timer,
 //                    debugger, pushbutton driver),
@@ -35,13 +35,13 @@ interface RST(role)
     // reset network is a legal reset source: its resistor and capacitor
     // terminals are the non-family terminals that count.
     pins = [
-        1 = RST | NRST | RESET | RESETB @class(digital)   // Reset line (datasheet nRST/RESET/NRST)
+        1 = RST | NRST | RESET | RESETB @id.class(digital)   // Reset line (datasheet nRST/RESET/NRST)
     ]
 
     role SOURCE {  // drives the reset line: supervisor, RC, debugger, button
         name = "RST Source"
         pins = [
-            out 1 = RST @class(digital)   // The source pulls/drives the line
+            out 1 = RST @id.class(digital)   // The source pulls/drives the line
         ]
         peer = RECEIVER
     }
@@ -49,7 +49,7 @@ interface RST(role)
     role RECEIVER {  // reset body: MCU NRST, peripheral RESET input
         name = "RST Receiver"
         pins = [
-            io 1 = RST @class(digital)   // Bodies may also drive reset (e.g. MCU NRST is bidirectional)
+            io 1 = RST @id.class(digital)   // Bodies may also drive reset (e.g. MCU NRST is bidirectional)
         ]
         peer = SOURCE(1)
     }

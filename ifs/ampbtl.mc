@@ -30,29 +30,29 @@ interface AMP.BTL(role)
     // family recipe; the BTL pair itself states no per-lane rows beyond
     // that table.
 
-    // The two rows tagged @pair(p) are the two legs of one bridge drive; the
+    // The two rows tagged @sig.pair(p) are the two legs of one bridge drive; the
     // P/N spellings are the naming convention, and the first member is leg A.
-    // The @class(analog) row attribute is the library-default signal class
+    // The @id.class(analog) row attribute is the library-default signal class
     // (same as ADC.SINGLE / ADC.DIFF): a bridge drive is an analog power
     // output face even when the amplifier stage is class D.
     pins = [
-        1 = P @class(analog) @pair(p), "Positive BTL Output"   // Positive-phase bridge leg
-        2 = N @class(analog) @pair(p), "Negative BTL Output"   // Anti-phase bridge leg
+        1 = P @id.class(analog) @sig.pair(p), "Positive BTL Output"   // Positive-phase bridge leg
+        2 = N @id.class(analog) @sig.pair(p), "Negative BTL Output"   // Anti-phase bridge leg
     ]
 
     role TRANSMITTER {  // AMP.BTL Transmitter - Amplifier BTL output stage
         name = "AMP.BTL Transmitter"
         pins = [
-            out 1 = P @class(analog) @pair(p), "Positive BTL Output"  // The amplifier drives both legs
-            out 2 = N @class(analog) @pair(p), "Negative BTL Output"
+            out 1 = P @id.class(analog) @sig.pair(p), "Positive BTL Output"  // The amplifier drives both legs
+            out 2 = N @id.class(analog) @sig.pair(p), "Negative BTL Output"
         ]
         peer = RECEIVER(1)
     }
     role RECEIVER {  // AMP.BTL Receiver - Speaker or other passive load
         name = "AMP.BTL Receiver"
         pins = [
-            in 1 = P @class(analog) @pair(p), "Positive BTL Output"   // The load floats across the pair
-            in 2 = N @class(analog) @pair(p), "Negative BTL Output"
+            in 1 = P @id.class(analog) @sig.pair(p), "Positive BTL Output"   // The load floats across the pair
+            in 2 = N @id.class(analog) @sig.pair(p), "Negative BTL Output"
         ]
         peer = TRANSMITTER(1)
     }
