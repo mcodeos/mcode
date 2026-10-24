@@ -797,6 +797,11 @@ enum PKG
     HEADER_40PIN,
 
     // -----------------------------------------------------------------
+    // Sockets (2.54 mm pitch, vertical through-hole, female receptacle)
+    // -----------------------------------------------------------------
+    SOCKET_4PIN,
+
+    // -----------------------------------------------------------------
     // Jumpers (SMD wire jumpers, pitch in mm)
     // -----------------------------------------------------------------
     JUMPER_2PIN_0_6MM,   // 2-pin SMD jumper, 0.6 mm pitch
@@ -809,6 +814,14 @@ enum PKG
     USB_MINI,      // USB Mini-B receptacle
     USB_MICRO,     // USB Micro-B receptacle
     USB_C,         // USB Type-C receptacle
+
+    // Overmolded cable ends (molded shell over the connector body)
+    USB_A_OVERMOLD,    // USB Type-A overmolded shell, cable end
+
+    // -----------------------------------------------------------------
+    // D-Sub shells (solder-cup termination)
+    // -----------------------------------------------------------------
+    D_SUB15_SOLDER_CUP,    // D-Sub high-density 15-position shell, solder cup
 
     // -----------------------------------------------------------------
     // Other board-level connectors
