@@ -31,6 +31,10 @@ design material: no design documents, no design clauses or rulings
 `U###` witness IDs. Comments state the law itself, never where the law
 came from.
 
+Scope: this law binds **what the repo ships**, not the authoring process —
+reading the canon in a sibling repo while writing is fine; shipping a pointer
+to it is not.
+
 ## Comments are structural only (mandatory)
 
 `.mc` comments carry structure, not explanation: the definition header
