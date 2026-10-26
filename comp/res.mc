@@ -83,6 +83,8 @@ abstract component RES(
         rohs          = _
         derating_note = _
     ]
+
+    model = M.RES(R = resistance)
 }
 
 // RES.SMD - Surface Mount Fixed Resistor Component Definition
@@ -399,3 +401,21 @@ abstract component RES.LDR(
 // vin -> ANCH.FUSE.PTC(500mA, 24V, 100mA) -> load
 // ANCH.RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_SMD")
 // ANCH.RES.ARRAY(220Ω, 50V, 0.1W, 5%, 100ppm/℃, 4, "ARRAY_THT")
+
+// M.RES - the two-terminal resistor's model block. The model body lives
+// with the family that declares it (the model-body single-source law:
+// analytic/300 section 5); the part that adopts it only fills the slot.
+//
+// The current runs into T1 and out of T2, so the resistance reads the
+// voltage across the two terminals. T2 doubles as the reference terminal
+// of the model on its own: when the model stands alone it is measured
+// against T2; in a netlist the reference is the netlist's own.
+
+model M.RES {
+    port cur T1::DC()
+    port cur T2::DC()
+    arg R = Resistance
+    eq i(T1) = (v(T1) - v(T2)) / R
+    eq i(T2) = 0 - i(T1)
+    mat reference = T2
+}
