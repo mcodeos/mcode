@@ -6,7 +6,7 @@
 // the 8-pad map are absent on 6-pad sockets, so pads are numbered
 // sequentially 1..6.
 
-component SIM.SOCKET()
+general component SIM.SOCKET()
 {
     name = "SIM Card Socket"
     description = "SIM card socket, 6-contact ISO 7816 pad map"

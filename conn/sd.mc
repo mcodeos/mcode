@@ -7,7 +7,7 @@
 // position, so a socket wired to an SDIO Host maps 1:1 through the adoption.
 // microSD shares the same pad roles.
 
-component SD.SOCKET()
+general component SD.SOCKET()
 {
     name = "SD Card Socket"
     description = "Full-size SD card socket with card-detect switch"

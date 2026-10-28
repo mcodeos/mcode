@@ -3,7 +3,7 @@
 
 // WTB.BASIC - Generic wire-to-board connector Component Definition
 
-component WTB.BASIC(count::INT) :: ANCH.CONN.MATE
+general component WTB.BASIC(count::INT) :: ANCH.CONN.MATE
 {
     name = "Wire-to-Board Connector"
     description = "Basic wire-to-board connector"
@@ -26,7 +26,7 @@ component WTB.BASIC(count::INT) :: ANCH.CONN.MATE
 
 // WTB.JST_XH - 2.5mm-pitch wire-to-board connector, XH family Component Definition
 
-component WTB.JST_XH(count::INT) :: ANCH.CONN.MATE
+general component WTB.JST_XH(count::INT) :: ANCH.CONN.MATE
 {
     name = "JST XH Connector"
     description = "JST XH series wire-to-board connector"
@@ -50,7 +50,7 @@ component WTB.JST_XH(count::INT) :: ANCH.CONN.MATE
 
 // WTB.MOLEX_KK - 2.54mm-pitch wire-to-board connector, KK family Component Definition
 
-component WTB.MOLEX_KK(count::INT) :: ANCH.CONN.MATE
+general component WTB.MOLEX_KK(count::INT) :: ANCH.CONN.MATE
 {
     name = "Molex KK Connector"
     description = "Molex KK series wire-to-board connector"
@@ -74,7 +74,7 @@ component WTB.MOLEX_KK(count::INT) :: ANCH.CONN.MATE
 
 // WTB.DUPONT - 2.54mm-pitch single-row wire-to-board connector (breadboard compatible) Component Definition
 
-component WTB.DUPONT(count::INT) :: ANCH.CONN.MATE
+general component WTB.DUPONT(count::INT) :: ANCH.CONN.MATE
 {
     name = "Dupont Connector"
     description = "Dupont wire-to-board connector"

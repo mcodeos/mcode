@@ -6,7 +6,7 @@
 // position (pad 1 = TD+, ... pad 8 = BI8), so a jack wired to an ETHERNET
 // Host maps 1:1 through the adoption.
 
-component RJ45.JACK() :: ANCH.CONN.MATE
+general component RJ45.JACK() :: ANCH.CONN.MATE
 {
     name = "RJ45 Jack"
     description = "8P8C RJ45 receptacle, MDI face"
@@ -35,7 +35,7 @@ component RJ45.JACK() :: ANCH.CONN.MATE
 // the chassis/shield electrode. GbE magjacks (4 pairs + 4 taps) are not
 // modeled here.
 
-component RJ45.MAGJACK() :: ANCH.CONN.MATE
+general component RJ45.MAGJACK() :: ANCH.CONN.MATE
 {
     name = "RJ45 Magjack"
     description = "RJ45 jack with integrated 10/100BASE-T magnetics"

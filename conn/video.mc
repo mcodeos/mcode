@@ -8,7 +8,7 @@
 // no far-end counterpart, so they stay bare rows; the +5V feed and its
 // return ride the DC face.
 
-component VIDEO.HDMI() :: ANCH.CONN.MATE
+general component VIDEO.HDMI() :: ANCH.CONN.MATE
 {
     name = "HDMI Connector"
     description = "HDMI connector"
@@ -37,7 +37,7 @@ component VIDEO.HDMI() :: ANCH.CONN.MATE
 // Core Rule: Four main-link differential lanes plus an AUX configuration lane,
 // HPD, and a +3.3V feed.
 
-component VIDEO.DISPLAYPORT() :: ANCH.CONN.MATE
+general component VIDEO.DISPLAYPORT() :: ANCH.CONN.MATE
 {
     name = "DisplayPort Connector"
     description = "DisplayPort connector"
@@ -71,7 +71,7 @@ component VIDEO.DISPLAYPORT() :: ANCH.CONN.MATE
 // fixes the shape but not the shell, so the slot stays open here and the
 // real part fills it in.
 
-component VIDEO.VGA() :: ANCH.CONN.MATE
+general component VIDEO.VGA() :: ANCH.CONN.MATE
 {
     name = "VGA Connector"
     description = "VGA (D-sub 15-pin) connector"
@@ -109,7 +109,7 @@ component VIDEO.VGA() :: ANCH.CONN.MATE
 // female; a library base fixes the shape but not the shell, so the slot
 // stays open here and the real part fills it in.
 
-component VIDEO.DVI_D() :: ANCH.CONN.MATE
+general component VIDEO.DVI_D() :: ANCH.CONN.MATE
 {
     name = "DVI-D Connector"
     description = "DVI-D (digital-only) connector"
@@ -142,7 +142,7 @@ component VIDEO.DVI_D() :: ANCH.CONN.MATE
 // fixes the shape but not the shell, so the slot stays open here and the
 // real part fills it in.
 
-component VIDEO.DVI_A() :: ANCH.CONN.MATE
+general component VIDEO.DVI_A() :: ANCH.CONN.MATE
 {
     name = "DVI-A Connector"
     description = "DVI-A (analog-only) connector"
@@ -172,7 +172,7 @@ component VIDEO.DVI_A() :: ANCH.CONN.MATE
 // not the shell, so the slot stays open here and the real part fills it
 // in.
 
-component VIDEO.DVI_I() :: ANCH.CONN.MATE
+general component VIDEO.DVI_I() :: ANCH.CONN.MATE
 {
     name = "DVI-I Connector"
     description = "DVI-I (integrated) connector"

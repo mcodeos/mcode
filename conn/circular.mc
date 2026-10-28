@@ -3,7 +3,7 @@
 
 // CIRC.BASIC - Generic circular connector Component Definition
 
-component CIRC.BASIC(pin_count::INT) :: ANCH.CONN.MATE
+general component CIRC.BASIC(pin_count::INT) :: ANCH.CONN.MATE
 {
     name = "Circular Connector"
     description = "Basic circular connector with " + pin_count + " pins"
@@ -26,7 +26,7 @@ component CIRC.BASIC(pin_count::INT) :: ANCH.CONN.MATE
 
 // CIRC.MIL_SPEC - Military-specification circular connector Component Definition
 
-component CIRC.MIL_SPEC(pin_count::INT) :: ANCH.CONN.MATE
+general component CIRC.MIL_SPEC(pin_count::INT) :: ANCH.CONN.MATE
 {
     name = "MIL-SPEC Circular Connector"
     description = "MIL-SPEC circular connector, " + pin_count + " pins"
@@ -51,7 +51,7 @@ component CIRC.MIL_SPEC(pin_count::INT) :: ANCH.CONN.MATE
 // Core Rule: Two-contact coaxial face - center conductor carries the RF signal,
 // outer ground shield is the return and exposed electrode.
 
-component CIRC.BNC(impedance::STRING) :: ANCH.CONN.MATE
+general component CIRC.BNC(impedance::STRING) :: ANCH.CONN.MATE
 {
     name = "BNC Connector"
     description = "BNC RF coaxial connector, " + impedance + " impedance"
@@ -76,7 +76,7 @@ component CIRC.BNC(impedance::STRING) :: ANCH.CONN.MATE
 // Core Rule: Two-contact coaxial face - center conductor carries the RF signal,
 // outer ground shield is the return and exposed electrode.
 
-component CIRC.SMA(impedance::STRING) :: ANCH.CONN.MATE
+general component CIRC.SMA(impedance::STRING) :: ANCH.CONN.MATE
 {
     name = "SMA Connector"
     description = "SMA RF coaxial connector, " + impedance + " impedance"
@@ -101,7 +101,7 @@ component CIRC.SMA(impedance::STRING) :: ANCH.CONN.MATE
 // Core Rule: 50-ohm two-contact coaxial face - center conductor (RF) plus
 // ground shell; mates with the matching micro RF plug.
 
-component CIRC.UFL() :: ANCH.CONN.MATE
+general component CIRC.UFL() :: ANCH.CONN.MATE
 {
     name = "U.FL RF Coaxial Connector"
     description = "U.FL micro RF coaxial receptacle"
@@ -126,7 +126,7 @@ component CIRC.UFL() :: ANCH.CONN.MATE
 // Core Rule: 50-ohm two-contact coaxial face - center conductor (RF) plus
 // ground shell; mates with the matching micro RF plug.
 
-component CIRC.MHF4() :: ANCH.CONN.MATE
+general component CIRC.MHF4() :: ANCH.CONN.MATE
 {
     name = "MHF4 RF Coaxial Connector"
     description = "MHF4 micro RF coaxial receptacle"

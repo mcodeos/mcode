@@ -9,7 +9,7 @@
 // interface member: PE carries fault current only, its authority lives in the
 // protective/earth role machinery, so it stays a bare role-marked pin.
 
-component IEC.C14() :: ANCH.CONN.MATE
+general component IEC.C14() :: ANCH.CONN.MATE
 {
     name = "IEC C14 Appliance Inlet"
     description = "IEC 60320 C14 panel inlet, earthed, mates with a C13 cord set"
@@ -36,7 +36,7 @@ component IEC.C14() :: ANCH.CONN.MATE
 // Core Rule: The mains contacts bind the single-phase AC.1P interface with the
 // empty form, same tiering as IEC.C14; no protective-earth contact exists.
 
-component IEC.C8() :: ANCH.CONN.MATE
+general component IEC.C8() :: ANCH.CONN.MATE
 {
     name = "IEC C8 Appliance Inlet"
     description = "IEC 60320 C8 panel inlet, 2-pole without earth, mates with a C7 cord"

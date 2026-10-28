@@ -49,7 +49,7 @@ recipe ANCH.LED.RGB {
 // forward voltage sets the dropper/budget, forward current sets the
 // brightness and must be limited externally.
 
-abstract component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: ANCH.LED {
+general component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: ANCH.LED {
     name = "LED"
     spec += [
         forward_voltage = vfwd        // [1.8V, 2.0V, 2.2V, 3.2V, 3.6V]
@@ -73,7 +73,7 @@ abstract component LED(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: ANCH.
 // common cathode; each channel has its own forward voltage and needs its own
 // current limit.
 
-abstract component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP) :: ANCH.LED.RGB {
+general component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd::UV.AMP) :: ANCH.LED.RGB {
     name = "RGB LED"
     spec += [
         red_forward_voltage   = vred
@@ -102,7 +102,7 @@ abstract component LED.RGB(vred::UV.VOLT, vgreen::UV.VOLT, vblue::UV.VOLT, ifwd:
 // Core Rule: forward-biased junction emits in the infrared band; driven in
 // pulsed or continuous mode by an external current limit.
 
-abstract component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: ANCH.LED {
+general component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: ANCH.LED {
     name = "Infrared LED"
     spec += [
         forward_voltage = vfwd
@@ -125,7 +125,7 @@ abstract component LED.IR(vfwd::UV.VOLT, ifwd::UV.AMP, wavelength::UV.LEN) :: AN
 // Core Rule: high-current emitter rated by dissipated power — thermal
 // management (heatsinking, derating) governs the drive level.
 
-abstract component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT) :: ANCH.LED {
+general component LED.HP(vfwd::UV.VOLT, ifwd::UV.AMP, pmax::UV.WATT) :: ANCH.LED {
     name = "High Power LED"
     spec += [
         forward_voltage = vfwd  // [3.0V, 3.2V, 3.4V, 3.6V]

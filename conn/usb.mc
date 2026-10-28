@@ -10,7 +10,7 @@
 // USB.SOCK_TYPEA - USB 2.0 Type A connector Component Definition
 // Core Rule: Pin map follows the standard USB pin assignment: 1 = VBUS, 2 = D-, 3 = D+, 4 = GND.
 
-component USB.SOCK_TYPEA() :: ANCH.CONN.MATE
+general component USB.SOCK_TYPEA() :: ANCH.CONN.MATE
 {
     name = "USB 2.0 Type A Connector"
     description = "USB 2.0 Type A connector"
@@ -33,7 +33,7 @@ component USB.SOCK_TYPEA() :: ANCH.CONN.MATE
 // USB.SOCK_TYPEB - USB 2.0 Type B connector Component Definition
 // Core Rule: Same 4-pin USB 2.0 map as USB.SOCK_TYPEA (1 = VBUS, 2 = D-, 3 = D+, 4 = GND); no ID pin.
 
-component USB.SOCK_TYPEB() :: ANCH.CONN.MATE
+general component USB.SOCK_TYPEB() :: ANCH.CONN.MATE
 {
     name = "USB 2.0 Type B Connector"
     description = "USB 2.0 Type B connector"
@@ -83,7 +83,7 @@ abstract component USB.SOCK_MINIB() :: ANCH.CONN.MATE
 // USB.SOCK_MICROB - USB 2.0 Micro Type B connector Component Definition
 // Core Rule: 5-pin Micro-B map (VBUS/D-/D+/ID/GND); the ID pin carries OTG role identification.
 
-component USB.SOCK_MICROB() :: ANCH.CONN.MATE
+general component USB.SOCK_MICROB() :: ANCH.CONN.MATE
 {
     name = "USB 2.0 Micro Type B Connector"
     description = "USB 2.0 Micro Type B connector"
@@ -108,7 +108,7 @@ component USB.SOCK_MICROB() :: ANCH.CONN.MATE
 // pairs and a ground drain; a host receptacle receives on SSRX 5/6 and
 // transmits on SSTX 8/9.
 
-component USB3.SOCK_TYPEA() :: ANCH.CONN.MATE
+general component USB3.SOCK_TYPEA() :: ANCH.CONN.MATE
 {
     name = "USB 3.x Type A Connector"
     description = "USB 3.x Type A connector"
@@ -132,7 +132,7 @@ component USB3.SOCK_TYPEA() :: ANCH.CONN.MATE
 // Core Rule: USB 2.0 pins kept for backward compatibility, no ID pin; a device
 // receptacle transmits on SSTX 5/6 and receives on SSRX 8/9.
 
-component USB3.SOCK_TYPEB() :: ANCH.CONN.MATE
+general component USB3.SOCK_TYPEB() :: ANCH.CONN.MATE
 {
     name = "USB 3.x Type B Connector"
     description = "USB 3.x Type B connector"
@@ -157,7 +157,7 @@ component USB3.SOCK_TYPEB() :: ANCH.CONN.MATE
 // pair, and ground drain; a device receptacle transmits on SSTX 6/7 and
 // receives on SSRX 9/10.
 
-component USB3.SOCK_MICROB() :: ANCH.CONN.MATE
+general component USB3.SOCK_MICROB() :: ANCH.CONN.MATE
 {
     name = "USB 3.x Micro B Connector"
     description = "USB 3.x Micro B connector"
@@ -181,7 +181,7 @@ component USB3.SOCK_MICROB() :: ANCH.CONN.MATE
 // Core Rule: Reversible double-row contact face with A1-B12 numbering, the
 // same system as the USB.C interface.
 
-component USB.SOCK_C() :: ANCH.CONN.MATE
+general component USB.SOCK_C() :: ANCH.CONN.MATE
 {
     name = "USB Type C Connector"
     description = "USB Type C connector"

@@ -57,7 +57,7 @@ recipe ANCH.RES {
 // Core Rule: obeys Ohm's law between the terminals; dissipation limited to
 // the rated power, value drift bounded by the temperature coefficient.
 
-abstract component RES(
+general component RES(
     rs::UV.OHM,
     volt::UV.VOLT,
     prated::UV.WATT,
@@ -91,7 +91,7 @@ abstract component RES(
 // Core Rule: standard chip resistor — Ohm's law with SMD-mount construction
 // tag.
 
-abstract component RES.SMD(
+general component RES.SMD(
     rs::UV.OHM,
     volt::UV.VOLT,
     prated::UV.WATT,
@@ -124,7 +124,7 @@ abstract component RES.SMD(
 // than a standard chip resistor; thermal pad/derating governs the usable
 // power.
 
-abstract component RES.SMD_POWER(
+general component RES.SMD_POWER(
     rs::UV.OHM,
     volt::UV.VOLT,
     prated::UV.WATT,
@@ -156,7 +156,7 @@ abstract component RES.SMD_POWER(
 // Core Rule: axial through-hole resistor — Ohm's law with THT-mount
 // construction tag.
 
-abstract component RES.THT(
+general component RES.THT(
     rs::UV.OHM,
     volt::UV.VOLT,
     prated::UV.WATT,
@@ -190,7 +190,7 @@ abstract component RES.THT(
 // end pair rides the RES anchor face; the wiper stays a bare row (the
 // terminal iface is strictly two-pin).
 
-abstract component RES.POT(
+general component RES.POT(
     rs::UV.OHM,
     volt::UV.VOLT,
     prated::UV.WATT,
@@ -248,7 +248,7 @@ recipe ANCH.RES.NTC {
 // Core Rule: resistance falls with temperature following the beta
 // characteristic; used for temperature sensing and inrush limiting.
 
-abstract component RES.NTC(
+general component RES.NTC(
     rs::UV.OHM,
     beta::INT,
     volt::UV.VOLT,
@@ -305,7 +305,7 @@ recipe ANCH.RES.ARRAY {
 // Note: no single-resistor pull-up/pull-down helpers; series placement uses
 // the default 1x2 shape. Channels get two pins each (CH1T1, CH1T2, CH2T1, ...).
 
-abstract component RES.ARRAY(
+general component RES.ARRAY(
     rs::UV.OHM,
     volt::UV.VOLT,
     prated::UV.WATT,
@@ -364,7 +364,7 @@ recipe ANCH.RES.LDR {
 // Core Rule: resistance falls with illuminance, bounded by the dark
 // resistance.
 
-abstract component RES.LDR(
+general component RES.LDR(
     rlight::UV.OHM,
     rdark::UV.OHM,
     volt::UV.VOLT,

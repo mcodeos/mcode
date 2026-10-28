@@ -114,7 +114,7 @@ abstract component SWITCH.BUTTON :: ANCH.SWITCH {
 // Note: physical contact map — switch k joins pin k with pin (pin_count+1-k),
 // i.e. an 8-pin part shorts 1-8, 2-7, 3-6, 4-5 when closed.
 
-abstract component SWITCH.DIP(pincnt::INT) :: ANCH.SWITCH.DIP {
+general component SWITCH.DIP(pincnt::INT) :: ANCH.SWITCH.DIP {
     name        = "DIP Switch"
     description = "DIP switch with independent SPST slides (pin count on the spec face)"
     spec        = [

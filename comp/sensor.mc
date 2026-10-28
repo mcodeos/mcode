@@ -45,7 +45,7 @@ recipe ANCH.SENSOR {
 // Core Rule: measures ambient temperature over the specified range and
 // accuracy; output mode set by interface adoption.
 
-abstract component SENSOR.TEMP(otype::STRING, range::STRING, acc::STRING) :: ANCH.SENSOR {
+general component SENSOR.TEMP(otype::STRING, range::STRING, acc::STRING) :: ANCH.SENSOR {
     name = "Temperature Sensor"
     spec += [
         output_type       = otype  // [analog, i2c, spi]
@@ -76,7 +76,7 @@ abstract component SENSOR.TEMP(otype::STRING, range::STRING, acc::STRING) :: ANC
 // Core Rule: measures relative humidity over the specified range and
 // accuracy; output mode set by interface adoption.
 
-abstract component SENSOR.HUMIDITY(otype::STRING, range::STRING, acc::STRING) :: ANCH.SENSOR {
+general component SENSOR.HUMIDITY(otype::STRING, range::STRING, acc::STRING) :: ANCH.SENSOR {
     name = "Humidity Sensor"
     spec += [
         output_type    = otype  // [analog, i2c, spi]
@@ -107,7 +107,7 @@ abstract component SENSOR.HUMIDITY(otype::STRING, range::STRING, acc::STRING) ::
 // Core Rule: measures absolute or gauge pressure over the specified range
 // and accuracy; output mode set by interface adoption.
 
-abstract component SENSOR.PRESSURE(otype::STRING, range::STRING, acc::STRING) :: ANCH.SENSOR {
+general component SENSOR.PRESSURE(otype::STRING, range::STRING, acc::STRING) :: ANCH.SENSOR {
     name = "Pressure Sensor"
     spec += [
         output_type    = otype  // [analog, i2c, spi]
@@ -138,7 +138,7 @@ abstract component SENSOR.PRESSURE(otype::STRING, range::STRING, acc::STRING) ::
 // Core Rule: measures illuminance over the specified spectral range with the
 // given sensitivity; output mode set by interface adoption.
 
-abstract component SENSOR.LIGHT(otype::STRING, range::STRING, sens::STRING) :: ANCH.SENSOR {
+general component SENSOR.LIGHT(otype::STRING, range::STRING, sens::STRING) :: ANCH.SENSOR {
     name = "Light Sensor"
     spec += [
         output_type    = otype  // [analog, i2c, spi]
@@ -169,7 +169,7 @@ abstract component SENSOR.LIGHT(otype::STRING, range::STRING, sens::STRING) :: A
 // Core Rule: detects target presence within the detection range, with the
 // given response time; output mode set by interface adoption.
 
-abstract component SENSOR.PROX(otype::STRING, range::STRING, rtime::UV.TIME) :: ANCH.SENSOR {
+general component SENSOR.PROX(otype::STRING, range::STRING, rtime::UV.TIME) :: ANCH.SENSOR {
     name = "Proximity Sensor"
     spec += [
         output_type     = otype  // [analog, i2c, spi]
@@ -200,7 +200,7 @@ abstract component SENSOR.PROX(otype::STRING, range::STRING, rtime::UV.TIME) :: 
 // Core Rule: detects movement within the detection range at the given
 // sensitivity; output mode set by interface adoption.
 
-abstract component SENSOR.MOTION(otype::STRING, range::STRING, sens::STRING) :: ANCH.SENSOR {
+general component SENSOR.MOTION(otype::STRING, range::STRING, sens::STRING) :: ANCH.SENSOR {
     name = "Motion Sensor"
     spec += [
         output_type     = otype  // [analog, i2c, spi]
@@ -231,7 +231,7 @@ abstract component SENSOR.MOTION(otype::STRING, range::STRING, sens::STRING) :: 
 // Core Rule: detects the target gas at the given sensitivity; the sensing
 // element needs a heater supply, so a HEATER pin exists in every mode.
 
-abstract component SENSOR.GAS(otype::STRING, gas::STRING, sens::STRING) :: ANCH.SENSOR {
+general component SENSOR.GAS(otype::STRING, gas::STRING, sens::STRING) :: ANCH.SENSOR {
     name = "Gas Sensor"
     spec += [
         output_type = otype  // [analog, i2c, spi]
@@ -265,7 +265,7 @@ abstract component SENSOR.GAS(otype::STRING, gas::STRING, sens::STRING) :: ANCH.
 // Core Rule: measures acceleration over the specified range with the given
 // sensitivity; analog mode exposes X/Y/Z outputs separately.
 
-abstract component SENSOR.ACCEL(otype::STRING, range::STRING, sens::STRING) :: ANCH.SENSOR {
+general component SENSOR.ACCEL(otype::STRING, range::STRING, sens::STRING) :: ANCH.SENSOR {
     name = "Accelerometer"
     spec += [
         output_type       = otype  // [analog, i2c, spi]
@@ -298,7 +298,7 @@ abstract component SENSOR.ACCEL(otype::STRING, range::STRING, sens::STRING) :: A
 // Core Rule: measures angular rate over the specified range with the given
 // sensitivity; analog mode exposes X/Y/Z outputs separately.
 
-abstract component SENSOR.GYRO(otype::STRING, range::STRING, sens::STRING) :: ANCH.SENSOR {
+general component SENSOR.GYRO(otype::STRING, range::STRING, sens::STRING) :: ANCH.SENSOR {
     name = "Gyroscope"
     spec += [
         output_type       = otype  // [analog, i2c, spi]
@@ -331,7 +331,7 @@ abstract component SENSOR.GYRO(otype::STRING, range::STRING, sens::STRING) :: AN
 // Core Rule: measures magnetic field over the specified range with the given
 // sensitivity; analog mode exposes X/Y/Z outputs separately.
 
-abstract component SENSOR.MAG(otype::STRING, range::STRING, sens::STRING) :: ANCH.SENSOR {
+general component SENSOR.MAG(otype::STRING, range::STRING, sens::STRING) :: ANCH.SENSOR {
     name = "Magnetometer"
     spec += [
         output_type       = otype  // [analog, i2c, spi]

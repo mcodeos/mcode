@@ -25,7 +25,7 @@ recipe ANCH.NETTIE {
 // points, controlled net merging). The short is physical, not a connection
 // statement: the two terminals stay separately addressable.
 
-abstract component NETTIE() :: ANCH.NETTIE {
+general component NETTIE() :: ANCH.NETTIE {
     name        = "Net Tie"
     description = "Two-terminal net bridge, pads shorted on the part"
     spec        = [

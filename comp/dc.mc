@@ -31,7 +31,7 @@ recipe ANCH.PWR {
 // Core Rule: ideal source that holds its rated voltage on the VCC/GND pair
 // and supplies up to its rated current.
 
-abstract component DC.SRC(volt::UV.VOLT, curr::UV.AMP) :: ANCH.PWR {
+general component DC.SRC(volt::UV.VOLT, curr::UV.AMP) :: ANCH.PWR {
     name        = "DC Power Source"
     description = "DC power supply source"
     spec        = [
@@ -48,7 +48,7 @@ abstract component DC.SRC(volt::UV.VOLT, curr::UV.AMP) :: ANCH.PWR {
 // Core Rule: bidirectional source on the BAT pair — charge flows in as a
 // sink, discharge flows out as a source; the whole lead pair is addressable.
 
-abstract component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE) :: ANCH.PWR {
+general component DC.BAT(volt::UV.VOLT, charge::UV.CHARGE) :: ANCH.PWR {
     name        = "DC Battery"
     description = "DC battery"
     spec        = [

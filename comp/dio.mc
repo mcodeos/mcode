@@ -147,7 +147,7 @@ recipe ANCH.DIO.ESD.ARRAY {
 
 // General-purpose diode: conducts from anode to cathode above the forward
 // voltage, blocks in reverse up to the reverse voltage rating.
-abstract component DIO(
+general component DIO(
     vfwd::UV.VOLT,
     vrev::UV.VOLT,
     irated::UV.AMP
@@ -169,7 +169,7 @@ abstract component DIO(
 // Schottky diode: metal-semiconductor junction - lower forward drop and
 // faster recovery than a standard PN diode, at a lower reverse voltage
 // rating. Same conduction equation as DIO; only the ratings differ.
-abstract component DIO.SCH(
+general component DIO.SCH(
     vfwd::UV.VOLT,
     vrev::UV.VOLT,
     irated::UV.AMP
@@ -191,7 +191,7 @@ abstract component DIO.SCH(
 // Zener diode: operates in reverse breakdown - clamps at the zener voltage
 // while dissipating up to the rated power; the tolerance grades the clamp
 // accuracy.
-abstract component DIO.ZEN(
+general component DIO.ZEN(
     vz::UV.VOLT,
     prated::UV.WATT,
     tol::UV.PERCENT
@@ -213,7 +213,7 @@ abstract component DIO.ZEN(
 // Transient voltage suppressor: inactive at normal operating voltage,
 // breaks down at the breakdown voltage, absorbs the surge energy at the
 // clamping voltage up to the peak power rating.
-abstract component DIO.TVS(
+general component DIO.TVS(
     vbr::UV.VOLT,
     vclamp::UV.VOLT,
     ppeak::UV.WATT
@@ -235,7 +235,7 @@ abstract component DIO.TVS(
 // ESD protection diode: steers a protected line to the clamp reference -
 // junction conduction on the steering side, breakdown standoff on the
 // working face; rated by the working standoff / ESD withstand voltage.
-abstract component DIO.ESD(
+general component DIO.ESD(
     rating::UV.VOLT
 ) :: ANCH.DIO.CLAMP {
     name = "ESD Diode"
@@ -254,7 +254,7 @@ abstract component DIO.ESD(
 // ESD protection diode array: two protected signal lines steering to a
 // common clamp reference; same clamp law as DIO.ESD in a multi-line
 // topology.
-abstract component DIO.ESD_ARRAY(
+general component DIO.ESD_ARRAY(
     rating::UV.VOLT
 ) :: ANCH.DIO.ESD.ARRAY {
     name = "ESD Protection Diode Array"
@@ -273,7 +273,7 @@ abstract component DIO.ESD_ARRAY(
 // Photodiode: a reverse-biased junction generating a photocurrent
 // proportional to incident light (responsivity) plus a leakage dark
 // current, over the specified spectral range.
-abstract component DIO.PHOTO(
+general component DIO.PHOTO(
     resp::UV.RESPONSIVITY,
     idark::UV.AMP,
     srange::UV.LEN
@@ -294,7 +294,7 @@ abstract component DIO.PHOTO(
 
 // Bridge rectifier: four diodes in one package full-wave rectify an AC
 // input into DC outputs; the two AC terminals are interchangeable.
-abstract component DIO.BR(
+general component DIO.BR(
     iavg::UV.AMP,
     vrrm::UV.VOLT,
     vfwd::UV.VOLT

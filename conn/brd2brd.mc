@@ -3,7 +3,7 @@
 
 // CONN.B2B - Generic board-to-board connector Component Definition
 
-component CONN.B2B(pincnt::INT) :: ANCH.CONN.MATE
+general component CONN.B2B(pincnt::INT) :: ANCH.CONN.MATE
 {
     name = "Board-to-Board Connector"
     description = "Board-to-board connector"
@@ -26,7 +26,7 @@ component CONN.B2B(pincnt::INT) :: ANCH.CONN.MATE
 
 // CONN.MEZZANINE - High-density mezzanine (stacked-board) connector Component Definition
 
-component CONN.MEZZANINE(pincnt::INT) :: ANCH.CONN.MATE
+general component CONN.MEZZANINE(pincnt::INT) :: ANCH.CONN.MATE
 {
     name = "Mezzanine Connector"
     description = "High-density mezzanine connector"
@@ -50,7 +50,7 @@ component CONN.MEZZANINE(pincnt::INT) :: ANCH.CONN.MATE
 // CONN.DIN41612 - DIN 41612 rectangular board-to-board connector Component Definition
 // Note: form factor C = 96-pin, B = 64-pin, A = 32-pin.
 
-component CONN.DIN41612(pincnt::INT) :: ANCH.CONN.MATE
+general component CONN.DIN41612(pincnt::INT) :: ANCH.CONN.MATE
 {
     name = "DIN 41612 Connector"
     description = "DIN 41612 board-to-board connector, " + pincnt + " pins"

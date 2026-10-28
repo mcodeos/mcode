@@ -6,7 +6,7 @@
 // contact is a physical socket, not an electrical signal face. Positions are
 // numbered left to right as seen from the wire side.
 
-component TERM.BLOCK(positions::INT)
+general component TERM.BLOCK(positions::INT)
 {
     name = "Screw Terminal Block"
     description = "Barrier screw terminal block, one pole per position"

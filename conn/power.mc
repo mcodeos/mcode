@@ -5,7 +5,7 @@
 // Core Rule: Two-contact DC face - center pin positive or negative per the
 // polarity parameter, outer sleeve the opposite rail.
 
-component POWER.DC_JACK(polarity::STRING) :: ANCH.CONN.MATE
+general component POWER.DC_JACK(polarity::STRING) :: ANCH.CONN.MATE
 {
     name = "DC Power Jack"
     description = "DC power barrel jack, " + polarity + " polarity"
@@ -27,7 +27,7 @@ component POWER.DC_JACK(polarity::STRING) :: ANCH.CONN.MATE
 
 // POWER.XT60 - 60 A two-pole DC power connector (RC models) Component Definition
 
-component POWER.XT60() :: ANCH.CONN.MATE
+general component POWER.XT60() :: ANCH.CONN.MATE
 {
     name = "XT60 Connector"
     description = "XT60 power connector"
@@ -49,7 +49,7 @@ component POWER.XT60() :: ANCH.CONN.MATE
 
 // POWER.XT30 - 30 A two-pole DC power connector, smaller sibling of POWER.XT60 (RC models) Component Definition
 
-component POWER.XT30() :: ANCH.CONN.MATE
+general component POWER.XT30() :: ANCH.CONN.MATE
 {
     name = "XT30 Connector"
     description = "XT30 power connector"
@@ -71,7 +71,7 @@ component POWER.XT30() :: ANCH.CONN.MATE
 
 // POWER.DEANS_T - 40 A two-pole T-form DC power connector (RC models) Component Definition
 
-component POWER.DEANS_T() :: ANCH.CONN.MATE
+general component POWER.DEANS_T() :: ANCH.CONN.MATE
 {
     name = "Deans T Connector"
     description = "Deans T power connector"
@@ -93,7 +93,7 @@ component POWER.DEANS_T() :: ANCH.CONN.MATE
 
 // POWER.ANDERSON - Modular multi-pole DC power connector, quantity pole pairs Component Definition
 
-component POWER.ANDERSON(quantity::INT = 1) :: ANCH.CONN.MATE
+general component POWER.ANDERSON(quantity::INT = 1) :: ANCH.CONN.MATE
 {
     name = "Anderson Powerpole Connector"
     description = "Anderson Powerpole connector, " + quantity + " pole(s)"
@@ -116,7 +116,7 @@ component POWER.ANDERSON(quantity::INT = 1) :: ANCH.CONN.MATE
 // POWER.ATX - Computer power supply connector, type-parameterized Component Definition
 // Note: type selects the pin map - main (24-pin), cpu, pcie, sata, or molex.
 
-component POWER.ATX(type::STRING) :: ANCH.CONN.MATE
+general component POWER.ATX(type::STRING) :: ANCH.CONN.MATE
 {
     name = "ATX Power Connector"
     description = "ATX " + type + " power connector"

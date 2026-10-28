@@ -4,7 +4,7 @@
 // AUDIO.TRS_35MM - 3.5mm TRS audio jack (headphone jack), configuration-parameterized Component Definition
 // Note: pin layout varies by configuration - stereo, mono, or headset.
 
-component AUDIO.TRS_35MM(config::STRING) :: ANCH.CONN.MATE
+general component AUDIO.TRS_35MM(config::STRING) :: ANCH.CONN.MATE
 {
     name = "3.5mm TRS Connector"
     description = "3.5mm TRS audio connector, " + config + " configuration"
@@ -46,7 +46,7 @@ component AUDIO.TRS_35MM(config::STRING) :: ANCH.CONN.MATE
 
 // AUDIO.TRS_25MM - 2.5mm TRS audio jack, 3-conductor (tip/ring/sleeve) Component Definition
 
-component AUDIO.TRS_25MM() :: ANCH.CONN.MATE
+general component AUDIO.TRS_25MM() :: ANCH.CONN.MATE
 {
     name = "2.5mm TRS Connector"
     description = "2.5mm TRS audio connector"
@@ -69,7 +69,7 @@ component AUDIO.TRS_25MM() :: ANCH.CONN.MATE
 
 // AUDIO.RCA - Single-channel phono audio connector (center pin + shield) Component Definition
 
-component AUDIO.RCA() :: ANCH.CONN.MATE
+general component AUDIO.RCA() :: ANCH.CONN.MATE
 {
     name = "RCA Connector"
     description = "RCA audio connector"
@@ -92,7 +92,7 @@ component AUDIO.RCA() :: ANCH.CONN.MATE
 // Note: pin_count selects the layout: 3 = audio only, 4 = audio + DC power,
 // 5 = audio + bipolar DC power.
 
-component AUDIO.XLR(pincnt::INT) :: ANCH.CONN.MATE
+general component AUDIO.XLR(pincnt::INT) :: ANCH.CONN.MATE
 {
     name = "XLR Connector"
     description = "XLR audio connector, " + string(pincnt) + " pins"
@@ -131,7 +131,7 @@ component AUDIO.XLR(pincnt::INT) :: ANCH.CONN.MATE
 
 // AUDIO.SPEAKON - Professional loudspeaker connector, 4- or 8-pole Component Definition
 
-component AUDIO.SPEAKON(pincnt::INT) :: ANCH.CONN.MATE
+general component AUDIO.SPEAKON(pincnt::INT) :: ANCH.CONN.MATE
 {
     name = "Speakon Connector"
     description = "Speakon professional audio connector"
@@ -156,7 +156,7 @@ component AUDIO.SPEAKON(pincnt::INT) :: ANCH.CONN.MATE
 
 // AUDIO.BANANA_PLUG - Single-conductor banana plug for speaker terminals Component Definition
 
-component AUDIO.BANANA_PLUG() :: ANCH.CONN.MATE
+general component AUDIO.BANANA_PLUG() :: ANCH.CONN.MATE
 {
     name = "Banana Plug Connector"
     description = "Banana plug speaker connector"

@@ -7,7 +7,7 @@
 // numbering follows the ribbon: odd row 1..n, even row n+1..2n as printed on
 // standard ribbon shrouds.
 
-component IDC(pincnt::INT) :: ANCH.CONN.MATE
+general component IDC(pincnt::INT) :: ANCH.CONN.MATE
 {
     name = "IDC Ribbon Cable Socket"
     description = "Two-row insulation-displacement ribbon cable socket"

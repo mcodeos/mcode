@@ -5,7 +5,7 @@
 // Core Rule: Mechanical contact face only; the cell itself is a DC.BAT source.
 // Pins bind the DC interface: pin 1 positive contact, pin 2 negative contact.
 
-component BAT.HOLDER()
+general component BAT.HOLDER()
 {
     name = "Battery Holder"
     description = "Coin-cell battery holder, contact face only (cell is a DC.BAT source)"

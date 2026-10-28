@@ -5,7 +5,7 @@
 // Core Rule: The cap closes pins (2k-1, 2k); an odd trailing pin (e.g.
 // JUMPER(3)) stays open as the standard "2 closed + 1 spare" form.
 
-component JUMPER(n::INT) :: ANCH.CONN.MATE
+general component JUMPER(n::INT) :: ANCH.CONN.MATE
 {
     name = "Jumper Header"
     description = "Jumper header with " + n + " pins, closed pairwise by a cap"
@@ -29,7 +29,7 @@ component JUMPER(n::INT) :: ANCH.CONN.MATE
 
 // JUMPER.BRIDGE - Two-pad solder bridge for board-level configuration Component Definition
 
-component JUMPER.BRIDGE()
+general component JUMPER.BRIDGE()
 {
     name = "Solder Bridge"
     description = "Two-pad solder bridge for board-level configuration"

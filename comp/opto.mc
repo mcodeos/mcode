@@ -86,7 +86,7 @@ recipe ANCH.OPTO.LOGIC {
 // Core Rule: signal crosses the isolation barrier optically — input LED and
 // output photodetector share no galvanic path up to the isolation voltage.
 
-abstract component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: ANCH.OPTO {
+general component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: ANCH.OPTO {
     name = "Optocoupler"
     spec += [
         input_current     = iin
@@ -106,7 +106,7 @@ abstract component OPTO(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT) :: ANCH.OPTO {
 // Core Rule: phototransistor output; the current transfer ratio (CTR) sets
 // how much output current a given input LED current can sustain.
 
-abstract component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT) :: ANCH.OPTO {
+general component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.PERCENT) :: ANCH.OPTO {
     name = "Transistor Output Optocoupler"
     spec += [
         input_current          = iin
@@ -127,7 +127,7 @@ abstract component OPTO.TRANS(iin::UV.AMP, iout::UV.AMP, viso::UV.VOLT, ctr::UV.
 // Core Rule: photosensitive triac output drives AC loads; holding current
 // keeps the output on until the load current crosses zero.
 
-abstract component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP) :: ANCH.OPTO.TRIAC {
+general component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::UV.AMP) :: ANCH.OPTO.TRIAC {
     name = "Triac Output Optocoupler"
     spec += [
         input_current     = iin
@@ -148,7 +148,7 @@ abstract component OPTO.TRIAC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, ihold::
 // Core Rule: the output side is a photovoltaic generator — LED input light
 // produces an isolated floating voltage source rather than a switched current.
 
-abstract component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: ANCH.OPTO.PV {
+general component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: ANCH.OPTO.PV {
     name = "Photovoltaic Optocoupler"
     spec += [
         input_current     = iin
@@ -168,7 +168,7 @@ abstract component OPTO.PV(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT) :: ANCH.OP
 // Core Rule: integrated receiver restores the signal to a logic level on the
 // output side; the propagation delay bounds the achievable signalling rate.
 
-abstract component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME) :: ANCH.OPTO.LOGIC {
+general component OPTO.LOGIC(iin::UV.AMP, vout::UV.VOLT, viso::UV.VOLT, tdelay::UV.TIME) :: ANCH.OPTO.LOGIC {
     name = "Logic Output Optocoupler"
     spec += [
         input_current     = iin
