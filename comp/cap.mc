@@ -528,15 +528,14 @@ general component CAP.TRIM(
 
 // M.CAP - the two-terminal capacitor's model block.
 // The charge on the dielectric is C times the voltage across the two
-// terminals; the current runs into T1 and out of T2. T2 doubles as the
-// reference terminal of the model on its own.
+// terminals; the current runs into T1 and out of T2. That relation is the
+// equation face the solver host carries; what this block declares is the
+// shape: the two terminals, the capacitance slot, the charge state, and the
+// reference. T2 doubles as the reference terminal of the model on its own.
 model M.CAP {
     port cur T1::DC()
     port cur T2::DC()
     arg C = Capacitance
     state vc = Voltage = 0V
-    eq i(T1) = C * deriv(vc)
-    eq i(T2) = 0 - i(T1)
-    eq v(T1) - v(T2) = vc
     mat reference = T2
 }

@@ -416,15 +416,15 @@ general component RES.LDR(
 // analytic/300 section 5); the part that adopts it only fills the slot.
 //
 // The current runs into T1 and out of T2, so the resistance reads the
-// voltage across the two terminals. T2 doubles as the reference terminal
-// of the model on its own: when the model stands alone it is measured
-// against T2; in a netlist the reference is the netlist's own.
+// voltage across the two terminals -- that relation is the equation face,
+// which the solver host carries. What this block declares is the shape: the
+// two terminals, the resistance slot, and the reference. T2 doubles as the
+// reference terminal of the model on its own: when the model stands alone it
+// is measured against T2; in a netlist the reference is the netlist's own.
 
 model M.RES {
     port cur T1::DC()
     port cur T2::DC()
     arg R = Resistance
-    eq i(T1) = (v(T1) - v(T2)) / R
-    eq i(T2) = 0 - i(T1)
     mat reference = T2
 }
