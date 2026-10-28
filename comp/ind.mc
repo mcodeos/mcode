@@ -97,9 +97,18 @@ general component IND(
     name        = "Inductor"
     description = "Generic two-terminal inductor"
 
+    // The chip body rides the general part: a part pack derives this class
+    // and inherits the outline, the partno text and the two stubs.
+    symbol = {
+        rect [-60, -30, 120, 60]
+        text @partno at [0, 0], size 60
+        pin 1 = T1, len 40
+        pin 2 = T2, len 40
+    }
+
     pins = [
-        1 = 1, "Term 1"
-        2 = 2, "Term 2"
+        1 = T1, "Term 1"
+        2 = T2, "Term 2"
     ]
 
     spec += [
@@ -255,9 +264,18 @@ general component IND.FB(
     name        = "Ferrite Bead"
     description = "Ferrite bead for high-frequency noise suppression"
 
+    // The chip body rides the general part: a part pack derives this class
+    // and inherits the outline, the partno text and the two stubs.
+    symbol = {
+        rect [-60, -30, 120, 60]
+        text @partno at [0, 0], size 60
+        pin 1 = T1, len 40
+        pin 2 = T2, len 40
+    }
+
     pins = [
-        1 = 1, "Term 1"
-        2 = 2, "Term 2"
+        1 = T1, "Term 1"
+        2 = T2, "Term 2"
     ]
 
     spec += [

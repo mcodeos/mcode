@@ -58,7 +58,7 @@ recipe ANCH.RES {
 // the rated power, value drift bounded by the temperature coefficient.
 
 general component RES(
-    rs::UV.OHM,
+    rs::UV.OHM = 10kOhm,
     volt::UV.VOLT,
     prated::UV.WATT,
     tol::UV.PERCENT,
@@ -66,6 +66,15 @@ general component RES(
 ) :: ANCH.RES, ANCH.PULL {
     name        = "Resistor"
     description = "Generic resistor"
+
+    // The chip body rides the general part: a part pack derives this class
+    // and inherits the outline, the partno text and the two stubs.
+    symbol = {
+        rect [-60, -30, 120, 60]
+        text @partno at [0, 0], size 60
+        pin 1 = T1, len 40
+        pin 2 = T2, len 40
+    }
 
     pins = [
         io [1, 2] = [T1, T2]::TERM()  // interchangeable terminals, positional binding

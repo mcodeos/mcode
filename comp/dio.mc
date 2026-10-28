@@ -240,8 +240,18 @@ general component DIO.ESD(
 ) :: ANCH.DIO.CLAMP {
     name = "ESD Diode"
 
+    // The chip body rides the general part: a part pack derives this class
+    // and inherits the outline, the partno text and the two stubs.
+    symbol = {
+        rect [-60, -30, 120, 60]
+        text @partno at [0, 0], size 60
+        pin 1 = A, len 40
+        pin 2 = K, len 40
+    }
+
     pins = [
-        io [1, 2] = [A, K]::DIO()  // A = anode (pad 1), K = cathode
+        io 1 = A  // anode (pad 1)
+        io 2 = K  // cathode
     ]
 
     spec += [

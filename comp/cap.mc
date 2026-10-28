@@ -183,7 +183,7 @@ recipe ANCH.CAP.POL {
 // be cross-assigned).
 
 general component CAP(
-    cap::UV.CAP,
+    cap::UV.CAP = 100nF,
     volt::UV.VOLT,
     tol::UV.PERCENT,
     diel = CAP.X7R,
@@ -192,8 +192,17 @@ general component CAP(
     name        = "Capacitor"
     description = "General Capacitor"
 
+    // The chip body rides the general part: a part pack derives this class
+    // and inherits the outline, the partno text and the two stubs.
+    symbol = {
+        rect [-60, -30, 120, 60]
+        text @partno at [0, 0], size 60
+        pin 1 = T1, len 40
+        pin 2 = T2, len 40
+    }
+
     pins = [
-        io [1, 2] = [1, 2]::TERM()
+        io [1, 2] = [T1, T2]::TERM()
     ]
 
     spec += [

@@ -505,6 +505,30 @@ readable while the instance is still created when formals are omitted.
 
 ### Decision Record 3: Constructor Parameter Defaults
 
+**Scope.** This record governs the concrete parts - the classes a device
+pack derives for an orderable device. A `general` class is the exception
+family: a general class is an ideal model (the generic answer sheet), so its
+formals are optional and carry the ideal default - the value the ideal model
+itself states. The four tests below therefore govern a general class only
+where it speaks about a value the designer would have to choose.
+
+#### The general-part exception (the ideal default)
+
+1. **The ideal default is the model's own value, not a chosen value.** The
+   unit layer's canonical representative point, the family's textbook
+   default (unity gain), or the family's analysis-held default. The values
+   the designer picks for circuit reasons stay undefaulted here as well:
+   safety and certification choices, connector impedance / polarity, and
+   physical / mechanical characteristics.
+2. **The truth lives on the answer sheet, not on the formal.** A general
+   class's `spec` rows are the formal bindings (the generic answer sheet);
+   a concrete part states its facts in the answer-sheet groups, and the
+   derivation projects those facts down into the general class's rows. The
+   read order is: the explicit binding, then the answer sheet's truth, then
+   the ideal default.
+3. **A default is never used to mean "unassigned."** `_` is the only
+   unassigned marker.
+
 A constructor formal may carry a default value **only when omitting it yields
 the value the part should genuinely carry**. A default must never substitute
 for a decision the designer has to make.
@@ -546,7 +570,9 @@ What is never defaulted:
 
 - the core functional quantities (resistance, capacitance, inductance,
   frequency, rated output voltage / current, power rating) - these define the
-  part's function and are always required at the call site;
+  part's function and are always required at the call site; on a `general`
+  class the ideal model's own value is the ideal default (see the
+  general-part exception above);
 - tolerance, dielectric, and crystal load capacitance - real engineering
   choices (precision / cost, temperature stability, oscillator loading) made
   at design time; the common value is not a default, it is the value the

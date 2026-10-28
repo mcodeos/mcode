@@ -34,6 +34,15 @@ general component NETTIE() :: ANCH.NETTIE {
         mount   = _  // [surface-mount]
     ]
 
+    // The chip body rides the general part: a part pack derives this class
+    // and inherits the outline, the partno text and the two stubs.
+    symbol = {
+        rect [-60, -30, 120, 60]
+        text @partno at [0, 0], size 60
+        pin 1 = A, len 40
+        pin 2 = B, len 40
+    }
+
     pins = [
         1 = A, "Net A side"
         2 = B, "Net B side"
