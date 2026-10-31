@@ -109,6 +109,11 @@ enum PKG
     R4532,
     R5040,
 
+    // Four-terminal Kelvin current-sense chip resistor (size code 3637 —
+    // 0.370 x 0.360 in body), four pads: two element terminals and two
+    // sense taps.
+    R3637_4PIN,
+
     // ----------------------------------------------------------------
     // Axial-lead through-hole resistors (rated power)
     // ----------------------------------------------------------------
